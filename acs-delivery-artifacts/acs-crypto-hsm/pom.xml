@@ -40,6 +40,7 @@
                         <configuration>
                             <items>
                                 <item>u5g-prd</item>
+                                <item>u5g-rct</item>
                                 <item>docker</item>
                             </items>
                             <pluginExecutors>
