@@ -19,30 +19,14 @@ build:
   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
   stage: build
   script:
-  - mvn -f pom.xml clean package -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+  - mvn -f pom.xml clean package deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
   when: manual
   tags:
     - kazan-M
     - docker-M
 
 
-snapshot_deploy_after_build:
-  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
-  stage: build
-  script:
-    - mvn -f pom.xml clean deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
-  tags:
-    - docker
-  when: on_success
-  only:
-    - /^snapshots/.+$/
-    - /^issue/.+$/
-    - /^feature/.+$/
-    - /^request/.+$/
-    - specific_artifacts
-    - master
-
-prepare_acs_release: 
+prepare_acs_release:
   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
   stage: release
   before_script:
