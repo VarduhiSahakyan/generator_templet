@@ -39,8 +39,7 @@
                         </goals>
                         <configuration>
                             <items>
-                                <item>default-1-con</item>
-
+                                <item>u5g-prd</item>
                                 <item>docker</item>
                             </items>
                             <pluginExecutors>
