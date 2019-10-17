@@ -15,7 +15,7 @@
     <version>19R3-0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>RBU3 Delivery configuration</name>
+    <name>RBU2 Delivery configuration</name>
 
     <modules>
         <module>acs-delivery-artifacts</module>

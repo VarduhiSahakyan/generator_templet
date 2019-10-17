@@ -9,7 +9,7 @@ variables:
   MM_MSG_USER: "GitLab Tech User"
   MAJOR: "19"
   MINOR: "R3"
-  GIT_REPO_URL: https://acs-dlfr-gitlab-tech-user:ZgAYCOVw1oOcjdxu@gitlab.kazan.priv.atos.fr/A513048/acs-dlge-gitlab-1.git
+  GIT_REPO_URL: https://acs-dlge-gitlab-tech-user:8XcLn7eDtl6zGhs1@gitlab.kazan.priv.atos.fr/acs-dlge/acs-dlge-gitlab-1.git
   # MM_MSG_ICON: "https://gitlab.kazan.priv.atos.fr/uploads/-/system/user/avatar/13412/avatar.png"
   # MM_MSG_TEXT: "###  **New release ` $MAVEN_RELEASE ` available on Nexus for *$CI_PROJECT_NAME* project [ branch `$CI_COMMIT_REF_NAME` ].**\n_The new snapshot version : `$MAVEN_SNAPSHOT`. :triumph:_\nHappy coding @channel"
   # MM_MSG_WEBHOOK: "https://mattermost.kazan.priv.atos.fr/hooks/1645okpkr3gdpgghshmb799cxw"
@@ -26,7 +26,7 @@ build:
     - docker-M
 
 
-snapshot_deploy:
+snapshot_deploy_after_build:
   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
   stage: build
   script:
