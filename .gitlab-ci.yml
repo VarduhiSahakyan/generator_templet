@@ -1,6 +1,6 @@
 stages:
 - build
-# - deploy
+- deploy
 - release
 # - notify
 
@@ -19,7 +19,7 @@ build:
   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
   stage: build
   script:
-  - mvn -f pom.xml clean package deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+  - mvn -f pom.xml clean package -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
   when: always
   tags:
     - kazan-M
@@ -50,22 +50,22 @@ prepare_acs_release:
     - kazan-M
     - docker-M
 
-# snapshot_deploy:
-#   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
-#   stage: deploy
-#   script:
-#     - mvn -f pom.xml clean deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
-#   tags:
-#     - kazan-M
-#     - docker-M
-#   when: manual
-#   only:
-#     - /^snapshots/.+$/
-#     - /^issue/.+$/
-#     - /^feature/.+$/
-#     - /^request/.+$/
-#     - specific_artifacts
-#     - master
+snapshot_deploy:
+  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
+  stage: deploy
+  script:
+    - mvn -f pom.xml clean deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+  tags:
+    - kazan-M
+    - docker-M
+  when: manual
+  only:
+    - /^snapshots/.+$/
+    - /^issue/.+$/
+    - /^feature/.+$/
+    - /^request/.+$/
+    - specific_artifacts
+    - master
 
 release_deploy:
   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
