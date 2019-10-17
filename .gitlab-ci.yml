@@ -20,7 +20,7 @@ build:
   stage: build
   script:
   - mvn -f pom.xml clean package deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
-  when: manual
+  when: always
   tags:
     - kazan-M
     - docker-M
