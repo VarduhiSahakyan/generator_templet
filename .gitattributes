@@ -1,0 +1,2 @@
+# Force LF for SH files
+*.sh eol=lf

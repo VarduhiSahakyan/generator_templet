@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+	<id>default</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<fileSets>
+		<fileSet>
+			<directory>src/main/resources/crypto-hsm-default</directory>
+			<excludes>
+				<exclude>**/META-INF/</exclude>
+			</excludes>
+			<filtered>false</filtered>
+			<outputDirectory>./</outputDirectory>
+		</fileSet>
+	</fileSets>
+</assembly>

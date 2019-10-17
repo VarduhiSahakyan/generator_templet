@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<C2PConfig>
+
+    <!-- key to make tests for HMAC with SHA256 algorithm -->
+    <KEYFile>src/test/resources/cles_test_KTOG_14052019.ksk</KEYFile>
+    <KEYFile>src/test/resources/cles_applicatives_BCMC_U5B_ACS3_RCE_06072018.rsa</KEYFile>
+    <KEYFile>src/test/resources/cles_applicatives_BNPPF_RCE_21012019.ksk</KEYFile>
+
+    <TraceLevel>trace debug info</TraceLevel>
+    <TraceFile>+target/c2pLog.txt</TraceFile>
+    <TraceLibrary>slf4j</TraceLibrary>
+    <MaxFileSize>200MB</MaxFileSize>
+    <MaxBackupIndex>10</MaxBackupIndex>
+
+    <SSLDefinition>
+        <TrustStoreType>JKS</TrustStoreType>
+        <TrustStore>src/test/resources/keystore_server.jks</TrustStore>
+        <!-- Keystore to make tests with cles_test_KTOG_14052019.ksk file -->
+        <!--<TrustStore>src/test/resources/JKS_certificats_serveurs_acs3_recette.jks</TrustStore>-->
+        <TrustStorePassword>azerty</TrustStorePassword>
+        <KeyStoreType>JKS</KeyStoreType>
+        <KeyStore>src/test/resources/User_ACS_RCI_RCE.jks</KeyStore>
+        <KeyStorePassword>azerty</KeyStorePassword>
+        <KeyStoreAlias>1</KeyStoreAlias>
+        <SSLProtocol>TLSv1.2</SSLProtocol>
+    </SSLDefinition>
+
+    <WatchDog>10</WatchDog>
+    <KeepAlive>60</KeepAlive>
+    <RetryToProcess>2</RetryToProcess>
+    <Timeout>5</Timeout>
+
+    <C2PBox Id="101" SSL="on" Status="A">
+        <!-- Vendôme, crypto box 1 -->
+        <IP>10.8.230.116</IP>
+        <!-- Vendôme, crypto box 2 -->
+        <!--<IP>10.17.254.96</IP>-->
+        <!-- Seclin -->
+        <!--<IP>10.24.230.247</IP>-->
+        <ConnectionNumber>1</ConnectionNumber>
+        <!-- KDK file to make tests for HMAC with SHA256 algorithm -->
+        <KDKFile>src/test/resources/KDK_DEK_ACS3_RCE_18092018.kdk</KDKFile>
+        <KDKFile>src/test/resources/KDK_BCMC_U5B_ACS3_RCE_06072018.kdk</KDKFile>
+        <KDKFile>src/test/resources/KDK_HSITAC01V_03042018.kdk</KDKFile>
+        <KDKFile>src/test/resources/KDK_BNPPF_RCE_21012019.kdk</KDKFile>
+    </C2PBox>
+</C2PConfig>

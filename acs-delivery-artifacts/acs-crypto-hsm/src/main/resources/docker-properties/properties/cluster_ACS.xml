@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<C2PConfig>
+    <KEYFile>/usr/share/jbossas/modules/acs3/com/worldline/acs/configuration/crypto/main/properties/cles_applicatives_RCI_29-06-2016.rsa</KEYFile>
+    <KEYFile>/usr/share/jbossas/modules/acs3/com/worldline/acs/configuration/crypto/main/properties/KTOK_test_AES256.ksk</KEYFile>
+    <KEYFile>/usr/share/jbossas/modules/acs3/com/worldline/acs/configuration/crypto/main/properties/cles_applicatives_RCI_29-06-2016.ksk</KEYFile>
+    <KEYFile>/usr/share/jbossas/modules/acs3/com/worldline/acs/configuration/crypto/main/properties/Cles_applicatives_MUTU_ACS_12052017.ksk</KEYFile>
+
+    <TraceLevel>trace debug info</TraceLevel>
+    <TraceFile>+target/c2pLog.txt</TraceFile>
+    <MaxFileSize>200MB</MaxFileSize>
+    <MaxBackupIndex>10</MaxBackupIndex>
+
+    <SSLDefinition>
+        <TrustStoreType>JKS</TrustStoreType>
+        <TrustStore>/usr/share/jbossas/modules/acs3/com/worldline/acs/configuration/crypto/main/properties/keystore_server.jks</TrustStore>
+        <TrustStorePassword>azerty</TrustStorePassword>
+        <KeyStoreType>JKS</KeyStoreType>
+        <KeyStore>/usr/share/jbossas/modules/acs3/com/worldline/acs/configuration/crypto/main/properties/User_ACS_RCI_RCE.jks</KeyStore>
+        <KeyStorePassword>azerty</KeyStorePassword>
+        <KeyStoreAlias>1</KeyStoreAlias>
+        <SSLProtocol>TLSv1.2</SSLProtocol>
+    </SSLDefinition>
+
+    <WatchDog>10</WatchDog>
+    <KeepAlive>60</KeepAlive>
+    <RetryToProcess>2</RetryToProcess>
+    <Timeout>5</Timeout>
+
+    <C2PBox Id="101" SSL="on" Status="A">
+        <IP>10.8.230.116</IP>
+        <ConnectionNumber>1</ConnectionNumber>
+        <KDKFile>/usr/share/jbossas/modules/acs3/com/worldline/acs/configuration/crypto/main/properties/KDK_GROUPE_CASA_RCE.kdk</KDKFile>
+        <KDKFile>/usr/share/jbossas/modules/acs3/com/worldline/acs/configuration/crypto/main/properties/KDK_GROUPE_CASA_RCI.kdk</KDKFile>
+        <KDKFile>/usr/share/jbossas/modules/acs3/com/worldline/acs/configuration/crypto/main/properties/KDK_cles_test_ACSv3.kdk</KDKFile>
+        <KDKFile>/usr/share/jbossas/modules/acs3/com/worldline/acs/configuration/crypto/main/properties/KDK_MUTU_ACS_HSITAC01V_12052017.kdk</KDKFile>
+    </C2PBox>
+</C2PConfig>

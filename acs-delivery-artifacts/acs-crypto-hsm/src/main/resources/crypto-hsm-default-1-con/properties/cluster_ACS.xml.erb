@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<C2PConfig>
+    <KEYFile><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/Cles_applicatives_MUTU_ACS_TEMPLATES_03-04-2018.ksk</KEYFile>
+    <KEYFile><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/Cles_applicatives_MUTU_ACS_TEMPLATES_19-03-2019.rsa</KEYFile>
+    <KEYFile><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/Cles_applicatives_MUTU_ACS_12052017.ksk</KEYFile>
+
+    <TraceLevel>trace debug info</TraceLevel>
+    <TraceFile>+<%= @context['softman_global']['CRYPTO_LOG_PATH'] %>/c2pLog.txt</TraceFile>
+    <MaxFileSize>200MB</MaxFileSize>
+    <MaxBackupIndex>10</MaxBackupIndex>
+
+    <SSLDefinition>
+        <TrustStoreType>JKS</TrustStoreType>
+        <TrustStore><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/keystore_server.jks</TrustStore>
+        <TrustStorePassword><%= @context['softman_global']['TRUST_STORE_PASSWORD'] %></TrustStorePassword>
+        <KeyStoreType>JKS</KeyStoreType>
+        <KeyStore><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/User_ACS_RCI_RCE.jks</KeyStore>
+        <KeyStorePassword><%= @context['softman_global']['KEY_STORE_PASSWORD'] %></KeyStorePassword>
+        <!--<KeyStoreAlias>user1</KeyStoreAlias>-->
+        <KeyStoreAlias>1</KeyStoreAlias>
+        <SSLProtocol>TLSv1.2</SSLProtocol>
+    </SSLDefinition>
+
+    <WatchDog>10</WatchDog>
+    <KeepAlive>60</KeepAlive>
+    <RetryToProcess>2</RetryToProcess>
+    <Timeout>5</Timeout>
+
+    <C2PBox Id="101" SSL="on" Status="A">
+        <IP><%= @context['softman_global']['IP_C2PBOX_1'] %></IP>
+        <ConnectionNumber><%= @context['softman_global']['CRYPTO_CONNECTION_NUMBER'] %></ConnectionNumber>
+        <KDKFile><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/KDK_<%= @context['softman_global']['NAME_C2PBOX_1'] %>_03042018.kdk</KDKFile>
+        <KDKFile><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/KDK_MUTU_ACS_HSITAC01S_12052017.kdk</KDKFile>
+    </C2PBox>
+
+</C2PConfig>
