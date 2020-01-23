@@ -25,6 +25,7 @@
         <module>acs-protocol-2-commons</module>
         <module>acs-authentication-service</module>
         <module>bo-certificates</module>
+        <module>app-based-images</module>
     </modules>
 
     <properties>
