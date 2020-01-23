@@ -7,13 +7,13 @@
     <parent>
         <groupId>com.worldline.acs.rbu2.delivery</groupId>
         <artifactId>acs-delivery-configuration</artifactId>
-        <version>19R3-1.22-SNAPSHOT</version>
+        <version>20R1-0.7-SNAPSHOT</version>
     </parent>
 
 
     <groupId>com.worldline.acs.rbu2.delivery</groupId>
     <artifactId>acs-delivery-artifacts</artifactId>
-    <version>19R3-1.22-SNAPSHOT</version>
+    <version>20R1-0.7-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Build Artifacts</name>
@@ -25,6 +25,8 @@
         <module>acs-protocol-2-commons</module>
         <module>acs-authentication-service</module>
         <module>bo-certificates</module> -->
+        <module>app-based-images</module>
+
     </modules>
 
     <properties>

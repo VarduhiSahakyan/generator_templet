@@ -4,25 +4,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.worldline.acs.rbu2.delivery</groupId>
+        <groupId>com.worldline.acs.rbu3.delivery</groupId>
         <artifactId>acs-delivery-artifacts</artifactId>
         <version>20R1-0.7-SNAPSHOT</version>
     </parent>
 
-    <artifactId>acs-crypto-hsm</artifactId>
-    <name>acs-crypto-hsm</name>
+    <artifactId>app-based-images</artifactId>
+    <name>app-based-images</name>
     <packaging>pom</packaging>
-    
+
     <dependencies>
         <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>LATEST</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>LATEST</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.0</version>
         </dependency>
     </dependencies>
 
@@ -39,9 +34,9 @@
                         </goals>
                         <configuration>
                             <items>
-                                <item>u5g-prd</item>
-                                <item>u5g-rct</item>
-                                <item>docker</item>
+                                <!--item>model</item-->
+                                <item>u2f</item>
+                                <item>u4f</item>
                             </items>
                             <pluginExecutors>
                                 <pluginExecutor>
@@ -53,7 +48,9 @@
                                     <goal>single</goal>
                                     <configuration>
                                         <descriptors>
-                                            <descriptor>${project.basedir}/src/main/descriptors/crypto-hsm-@item@-assembly.xml</descriptor>
+                                            <descriptor>
+                                                ${project.basedir}/src/main/descriptors/@item@-assembly.xml
+                                            </descriptor>
                                         </descriptors>
                                     </configuration>
                                 </pluginExecutor>
