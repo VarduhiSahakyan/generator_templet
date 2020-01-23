@@ -1,0 +1,3 @@
+[% host= ADS.SERVER_NAME -%]
+
+ssl.keystore.pass=[% TT2.$host.SSL_KEYSTORE_PASS %]
