@@ -1,32 +1,18 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
+	<parent>
         <groupId>com.worldline.acs.rbu2.delivery</groupId>
         <artifactId>acs-delivery-artifacts</artifactId>
         <version>20R1-0.7-SNAPSHOT</version>
     </parent>
 
-    <artifactId>acs-crypto-hsm</artifactId>
-    <name>acs-crypto-hsm</name>
-    <packaging>pom</packaging>
-    
-    <dependencies>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>LATEST</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>LATEST</version>
-        </dependency>
-    </dependencies>
-
-    <build>
+    <artifactId>acs-authentication-service</artifactId>
+    <name>acs-authentication-service</name>
+	<packaging>pom</packaging>
+	
+	<build>
         <plugins>
             <plugin>
                 <groupId>com.soebes.maven.plugins</groupId>
@@ -39,8 +25,8 @@
                         </goals>
                         <configuration>
                             <items>
-                                <item>u5g-prd</item>
-                                <item>u5g-rct</item>
+                                <item>certificates</item>
+                                <item>config</item>
                                 <item>docker</item>
                             </items>
                             <pluginExecutors>
@@ -53,7 +39,9 @@
                                     <goal>single</goal>
                                     <configuration>
                                         <descriptors>
-                                            <descriptor>${project.basedir}/src/main/descriptors/crypto-hsm-@item@-assembly.xml</descriptor>
+                                            <descriptor>
+                                                ${project.basedir}/src/main/descriptors/@item@-assembly.xml
+                                            </descriptor>
                                         </descriptors>
                                     </configuration>
                                 </pluginExecutor>

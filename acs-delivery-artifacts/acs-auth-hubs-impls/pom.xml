@@ -9,22 +9,15 @@
         <version>20R1-0.7-SNAPSHOT</version>
     </parent>
 
-    <artifactId>acs-crypto-hsm</artifactId>
-    <name>acs-crypto-hsm</name>
+    <artifactId>acs-auth-hubs-impls</artifactId>
+    <name>acs-auth-hubs-impls</name>
     <packaging>pom</packaging>
-    
-    <dependencies>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>LATEST</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>LATEST</version>
-        </dependency>
-    </dependencies>
+
+    <properties>
+        <config.fileList>
+            hub-config-rci,hub-config-rce,docker,hub-config-u5g-prd
+        </config.fileList>
+    </properties>
 
     <build>
         <plugins>
@@ -39,9 +32,10 @@
                         </goals>
                         <configuration>
                             <items>
-                                <item>u5g-prd</item>
-                                <item>u5g-rct</item>
                                 <item>docker</item>
+                                <item>hub-config-rci</item>
+                                <item>hub-config-rce</item>
+                                <item>hub-config-u5g-prd</item>
                             </items>
                             <pluginExecutors>
                                 <pluginExecutor>
@@ -53,7 +47,7 @@
                                     <goal>single</goal>
                                     <configuration>
                                         <descriptors>
-                                            <descriptor>${project.basedir}/src/main/descriptors/crypto-hsm-@item@-assembly.xml</descriptor>
+                                            <descriptor>${project.basedir}/src/main/descriptors/@item@-assembly.xml</descriptor>
                                         </descriptors>
                                     </configuration>
                                 </pluginExecutor>
@@ -64,4 +58,8 @@
             </plugin>
         </plugins>
     </build>
+
+    <scm>
+        <tag>HEAD</tag>
+    </scm>
 </project>

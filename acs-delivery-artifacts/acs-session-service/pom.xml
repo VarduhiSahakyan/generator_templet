@@ -9,20 +9,15 @@
         <version>20R1-0.7-SNAPSHOT</version>
     </parent>
 
-    <artifactId>acs-crypto-hsm</artifactId>
-    <name>acs-crypto-hsm</name>
+    <artifactId>acs-session-service</artifactId>
+    <name>acs-session-service</name>
     <packaging>pom</packaging>
-    
+
     <dependencies>
         <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>LATEST</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>LATEST</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.0</version>
         </dependency>
     </dependencies>
 
@@ -39,9 +34,10 @@
                         </goals>
                         <configuration>
                             <items>
-                                <item>u5g-prd</item>
-                                <item>u5g-rct</item>
+                                <item>config-rci</item>
+                                <item>config-rce</item>
                                 <item>docker</item>
+                                <item>config-u5g-prd</item>
                             </items>
                             <pluginExecutors>
                                 <pluginExecutor>
@@ -53,7 +49,9 @@
                                     <goal>single</goal>
                                     <configuration>
                                         <descriptors>
-                                            <descriptor>${project.basedir}/src/main/descriptors/crypto-hsm-@item@-assembly.xml</descriptor>
+                                            <descriptor>
+                                                ${project.basedir}/src/main/descriptors/@item@-assembly.xml
+                                            </descriptor>
                                         </descriptors>
                                     </configuration>
                                 </pluginExecutor>
