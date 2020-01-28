@@ -1,8 +1,8 @@
 USE U5G_ACS_BO;
 
--- Paybox
+-- Reisebank
 
-SET @subIssuerCode = '18951';
+SET @subIssuerCode = '12000';
 
 SET @subIssuerId = (SELECT id FROM U5G_ACS_BO.SubIssuer where code = @subIssuerCode);
 

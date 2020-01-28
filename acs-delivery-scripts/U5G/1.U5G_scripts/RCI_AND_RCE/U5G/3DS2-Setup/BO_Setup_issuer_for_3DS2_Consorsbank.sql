@@ -1,8 +1,8 @@
 USE U5G_ACS_BO;
 
--- Paybox
+-- Consorsbank
 
-SET @subIssuerCode = '18951';
+SET @subIssuerCode = '16900';
 
 SET @subIssuerId = (SELECT id FROM U5G_ACS_BO.SubIssuer where code = @subIssuerCode);
 

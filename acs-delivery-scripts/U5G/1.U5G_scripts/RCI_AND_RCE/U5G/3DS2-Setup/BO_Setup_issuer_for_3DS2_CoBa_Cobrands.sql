@@ -1,8 +1,8 @@
 USE U5G_ACS_BO;
 
--- Paybox
+-- CoBa Cobrands
 
-SET @subIssuerCode = '18951';
+SET @subIssuerCode = '19450';
 
 SET @subIssuerId = (SELECT id FROM U5G_ACS_BO.SubIssuer where code = @subIssuerCode);
 
