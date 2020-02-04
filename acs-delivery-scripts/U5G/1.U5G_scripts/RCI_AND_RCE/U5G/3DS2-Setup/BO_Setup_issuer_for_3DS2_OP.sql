@@ -1,8 +1,8 @@
 USE U5G_ACS_BO;
 
--- OP
+-- Paybox
 
-SET @subIssuerCode = '16600';
+SET @subIssuerCode = '20000';
 
 SET @subIssuerId = (SELECT id FROM U5G_ACS_BO.SubIssuer where code = @subIssuerCode);
 
