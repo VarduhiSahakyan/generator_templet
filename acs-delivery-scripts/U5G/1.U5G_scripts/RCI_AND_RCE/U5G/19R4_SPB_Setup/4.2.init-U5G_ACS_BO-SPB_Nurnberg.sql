@@ -31,17 +31,38 @@ SET @issuerCountryCode = '250';
 SET @maskParam = '*,6,4';
 SET @dateFormat = 'DD.MM.YYYY HH:mm';
 
+SET @activatedAuthMeans = '[ {
+  "authentMeans" : "REFUSAL",
+  "validate" : true
+}, {
+  "authentMeans" : "EXT_PASSWORD",
+  "validate" : true
+}, {
+  "authentMeans" : "UNDEFINED",
+  "validate" : true
+}, {
+  "authentMeans" : "OTP_SMS_EXT_MESSAGE",
+  "validate" : true
+}, {
+  "authentMeans" : "CHIP_TAN",
+  "validate" : true
+}, {
+  "authentMeans" : "MOBILE_APP_EXT",
+  "validate" : true
+} ]';
+
 INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `code`, `codeSvi`, `currencyCode`,
                          `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`,
                          `defaultLanguage`, `freshnessPeriod`, `label`, `manageBackupsCombinedAmounts`, `manageChoicesCombinedAmounts`,
                          `personnalDataStorage`, `resetBackupsIfSuccess`, `resetChoicesIfSuccess`,
                          `transactionTimeOut`, `acs_URL1_VE_MC`, `acs_URL2_VE_MC`, `acs_URL1_VE_VISA`, `acs_URL2_VE_VISA`,
                          `automaticDeviceSelection`, `userChoiceAllowed`, `backupAllowed`, `defaultDeviceChoice`, `preferredAuthentMeans`,
-                         `issuerCountry`, `hubCallMode`, `fk_id_issuer`, `maskParams`, `dateFormat`, `resendSameOTP`,`combinedAuthenticationAllowed`) VALUES
+                         `issuerCountry`, `hubCallMode`, `fk_id_issuer`, `maskParams`, `dateFormat`, `resendSameOTP`,`combinedAuthenticationAllowed`,
+                         authentMeans) VALUES
   ('ACS_U5G', 120, @backUpLanguages, @subIssuerCode, @subIssuerCode, '978', @createdBy, NOW(), NULL, NULL, NULL, @subIssuerNameAndLabel,
    'PUSHED_TO_CONFIG', @defaultLanguage, 600, @subIssuerNameAndLabel, TRUE, TRUE, NULL, TRUE, TRUE, 300,
    @acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,
-   @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE);
+   @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE, @activatedAuthMeans);
 /*!40000 ALTER TABLE `SubIssuer` ENABLE KEYS */;
 
 SET @subIssuerID = (SELECT id FROM `SubIssuer` WHERE `code` = @subIssuerCode AND `name` = @subIssuerNameAndLabel);
@@ -673,8 +694,8 @@ INSERT INTO `ProfileSet_Rule` (`id_profileSet`, `id_rule`)
 
 /* MerchantPivotList */
 /*!40000 ALTER TABLE `MerchantPivotList` DISABLE KEYS */;
-INSERT INTO `MerchantPivotList` (`level`, `keyword`, `type`, `amount`, `display`, `fk_id_issuer`, `fk_id_subIssuer`)
-VALUES ('ISSUER', 'TestMerchant', 'NAME', 0, 0, @issuerId, @subIssuerID);
+INSERT INTO `MerchantPivotList` (`level`, `keyword`, `type`, `amount`, `display`, forceAuthent, expertMode, `fk_id_issuer`, `fk_id_subIssuer`)
+VALUES ('ISSUER', 'TestMerchant', 'NAME', 0, 0, 0, 0, @issuerId, @subIssuerID);
 /*!40000 ALTER TABLE `MerchantPivotList` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE = IFNULL(@OLD_SQL_MODE, '') */;

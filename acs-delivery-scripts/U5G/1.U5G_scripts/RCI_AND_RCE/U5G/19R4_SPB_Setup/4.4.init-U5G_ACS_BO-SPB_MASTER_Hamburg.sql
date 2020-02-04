@@ -681,7 +681,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@NetworkName,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
          'de', 40, @currentPageType, 'Schließen', @NetworkID, NULL, @customItemSetMobileApp);
 
-SET @Imageid = (SELECT `id` FROM `Image` im WHERE im.name  0 'MOBILE_APP_Logo');
+SET @Imageid = (SELECT `id` FROM `Image` im WHERE im.name  = 'MOBILE_APP_Logo');
 SET @currentPageType = 'MEANS_PAGE';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,

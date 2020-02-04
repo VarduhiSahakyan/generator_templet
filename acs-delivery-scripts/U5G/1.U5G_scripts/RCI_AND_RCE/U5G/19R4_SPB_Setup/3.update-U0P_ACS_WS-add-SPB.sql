@@ -11,7 +11,7 @@ SET @Issuer_06 = 'SBK_Baden-Württemberg';
 SET @Issuer_07 = 'SBK_Nürnberg';
 SET @Issuer_08 = 'SBK_Südwest ';
 SET @Issuer_09 = 'SBK_Hannover';
-SET @Issuer_10 = 'SBK_West';
+
 
 SET @IssuerCode = '16950';
 SET @SharedIssuerCode = '99999';
@@ -24,7 +24,6 @@ SET @SubIssuerCode_06 = '16009';
 SET @SubIssuerCode_07 = '17609';
 SET @SubIssuerCode_08 = '15519';
 SET @SubIssuerCode_09 = '12509';
-SET @SubIssuerCode_10 = '13606';
 
 SET @Role1 = 'SUPER_ADMIN_Sparda';
 SET @Role2 = 'ADMIN_Sparda';
@@ -33,10 +32,11 @@ SET @Role3 = 'AGENT_Sparda';
 SET FOREIGN_KEY_CHECKS = 0;
 -- 1. Customer
 INSERT INTO `Customer` (`code`, `customerType`, `name`, `parent_id`)
-  SELECT NULL, 'ENTITY', @BankB, c.id FROM `Customer` c WHERE c.name = 'Worldline' AND c.customerType = 'ENTITY';
-/*sssss*/
+  SELECT NULL, 'ENTITY', 'Sparda-Bank', c.id FROM `Customer` c WHERE c.name = 'Worldline' AND c.customerType = 'ENTITY';
+
 INSERT INTO `Customer` (`code`, `customerType`, `name`, `parent_id`)
-  SELECT @IssuerCode, 'ISSUER', @BankB,   c.id FROM `Customer` c WHERE c.name = @BankB AND c.customerType = 'ENTITY';
+  SELECT '16950', 'ISSUER', 'Sparda-Bank',   c.id FROM `Customer` c WHERE c.name = 'Sparda-Bank' AND c.customerType = 'ENTITY';
+
 /* This next command should be executed only if there is no migration process (ACS1 > ACS3) */
 
 INSERT INTO `Customer` (`code`, `customerType`, `name`, `parent_id`)
@@ -68,10 +68,6 @@ INSERT INTO `Customer` (`code`, `customerType`, `name`, `parent_id`)
 
 INSERT INTO `Customer` (`code`, `customerType`, `name`, `parent_id`)
   SELECT @SubIssuerCode_09, 'SUB_ISSUER', @Issuer_09,  c.id FROM `Customer` c WHERE c.name = @BankB AND c.customerType = 'ISSUER';
-
-INSERT INTO `Customer` (`code`, `customerType`, `name`, `parent_id`)
-  SELECT @SubIssuerCode_10, 'SUB_ISSUER', @Issuer_10,  c.id FROM `Customer` c WHERE c.name = @BankB AND c.customerType = 'ISSUER';
-
 
 -- 2. Add Role
 INSERT INTO `Role` (`name`) VALUES
@@ -136,10 +132,6 @@ INSERT INTO `Role_Customer` (`id_customer`, `id_role`)
   FROM `Customer` c, `Role` r
   WHERE c.customerType = 'SUB_ISSUER' AND c.name = @Issuer_09 AND r.name IN (@Role1, @Role2, @Role3);
 
-INSERT INTO `Role_Customer` (`id_customer`, `id_role`)
-  SELECT c.id, r.id
-  FROM `Customer` c, `Role` r
-  WHERE c.customerType = 'SUB_ISSUER' AND c.name = @Issuer_10 AND r.name IN (@Role1, @Role2, @Role3);
 
 -- 4. Add Role-Permission
 INSERT INTO `Role_Permission` (`id_role`, `id_permission`)

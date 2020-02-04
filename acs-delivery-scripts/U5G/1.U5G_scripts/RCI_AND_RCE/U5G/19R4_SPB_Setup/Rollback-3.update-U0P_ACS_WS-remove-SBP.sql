@@ -11,7 +11,7 @@ SET @Issuer_06 = 'SBK_Baden-Württemberg';
 SET @Issuer_07 = 'SBK_Nürnberg';
 SET @Issuer_08 = 'SBK_Südwest ';
 SET @Issuer_09 = 'SBK_Hannover';
-SET @Issuer_10 = 'SBK_West';
+-- SET @Issuer_10 = 'SBK_West';
 
 SET @IssuerCode = '16950';
 SET @SharedIssuerCode = '99999';
@@ -24,7 +24,7 @@ SET @SubIssuerCode_06 = '16009';
 SET @SubIssuerCode_07 = '17609';
 SET @SubIssuerCode_08 = '15519';
 SET @SubIssuerCode_09 = '12509';
-SET @SubIssuerCode_10 = '13606';
+-- SET @SubIssuerCode_10 = '13606';
 
 SET @Role1 = 'SUPER_ADMIN_Sparda';
 SET @Role2 = 'ADMIN_Sparda';
@@ -57,6 +57,5 @@ FROM Customer
 WHERE find_in_set(parent_id, @parent_ids)
   AND `code` IN
       (@IssuerCode, @SharedIssuerCode, @SubIssuerCode_01, @SubIssuerCode_02, @SubIssuerCode_03, @SubIssuerCode_04,
-       @SubIssuerCode_05, @SubIssuerCode_06, @SubIssuerCode_07, @SubIssuerCode_08, @SubIssuerCode_09,
-       @SubIssuerCode_10);
+       @SubIssuerCode_05, @SubIssuerCode_06, @SubIssuerCode_07, @SubIssuerCode_08, @SubIssuerCode_09);
 SET FOREIGN_KEY_CHECKS = 1;

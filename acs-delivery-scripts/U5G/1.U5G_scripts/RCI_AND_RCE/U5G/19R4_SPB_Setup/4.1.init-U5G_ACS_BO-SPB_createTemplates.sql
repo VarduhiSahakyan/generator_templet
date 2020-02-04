@@ -12,7 +12,7 @@ VALUES (NULL,'MESSAGE_BANNER', CONCAT('Message Banner (', @bankName, ')')),
        (NULL,'POLLING_PAGE', CONCAT('Polling Page (', @bankName, ')')),
        (NULL,'MOBILE_APP_EXT_CHOICE_PAGE', CONCAT('APP Choice Page (', @bankName, ')')),
        (NULL,'EXT_PASSWORD_OTP_FORM_PAGE', CONCAT('Password OTP Form Page (', @bankName, ')')),
-       (NULL,'I_TAN_OTP_FORM_PAGE', CONCAT('ITAN OTP Form Page (', @bankName, ')'));
+       (NULL,'CHIPTAN_OTP_FORM_PAGE', CONCAT('Chiptan OTP Form Page (', @bankName, ')'));
 
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Message Banner (', @bankName, ')%'));
 
@@ -1555,364 +1555,199 @@ SET @layoutId=(SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 VALUES( 'div', '<style>
-
-	div#optGblPage {
-		font-family: Arial,bold;
-		color: #333333;
-		font-size:14px;
-	}
-	#validateButton button {
-		font: 300 16px/20px Arial,bold;
-		color: #333333;
-		display:inline-block;
-		white-space: nowrap;
-		text-align: center;
-		height: 40px;
-		background-color: #FF8C00;
-		border-color: #FFCC33;
-		border: 1px solid rgba(0,0,0,.25);
-		min-width: 15rem;
-		border-radius: 4px;
-		font-size: 16px;
-		padding-left: 0px !important;
-	}
-	#validateButton button:disabled {
-		font: 300 16px/20px Arial,bold;
-		color: #858585;
-		display:inline-block;
-		white-space: nowrap;
-		text-align: center;
-		height: 40px;
-		background: #FFFFFF;
-		border-color: #858585;
-		border: 1px solid rgba(0,0,0,.25);
-		min-width: 15rem;
-		border-radius: 4px;
-		font-size: 16px;
-		padding-left: 0px !important;
-	}
-	#cancelButton button {
-		font: 300 16px/20px Arial,bold;
-		color: #333333;
-		display:inline-block;
-		white-space: nowrap;
-		text-align: center;
-		height: 40px;
-	    background-color: #FF8C00;
-		border-color: #333333;
-		color: #323232;
-		border: 1px solid rgba(0,0,0,.25);
-		min-width: 15rem;
-		border-radius: 4px;
-		font-size: 16px;
-		padding-left: 0px !important;
-	}
-	#cancelButton button:disabled {
-		font: 300 16px/20px Arial,bold;
-		color: #858585;
-		display:inline-block;
-		white-space: nowrap;
-		text-align: center;
-		height: 40px;
-		background: #FFFFFF;
-		border-color: #858585;
-		border: 1px solid rgba(0,0,0,.25);
-		min-width: 15rem;
-		border-radius: 4px;
-		font-size: 16px;
-		padding-left: 0px !important;
-	}
-	#cancelButton button:hover:enabled {
-		border-color: #000000;
-		background: #FFFFFF;
-	}
-	#cancelButton button:active {
-		background-image: linear-gradient(rgba(0,0,0,.05),rgba(0,0,0,.05));
-		border-color: #333333;
-		box-shadow: none;
-		outline: 0px;
-	}
-	#cancelButton button custom-text {
-		vertical-align:7px;
-	}
-	#validateButton button:hover:enabled {
-		border-color: #000000;
-        background: #FFFFFF;
-	}
-	#validateButton button:active {
-		background-image: linear-gradient(rgba(0,0,0,.05),rgba(0,0,0,.05));
-		border-color: #333333;
-		box-shadow: none;
-		outline: 0px;
-	}
-	#validateButton button custom-text {
-		vertical-align:2px;
-	}
-	#footer #validateButton button span:before {
-		content:\'\';
-	}
-	#footer #cancelButton button span:before {
-		content:\'\';
-	}
-	#footer #cancelButton button span.fa {
-		background-image:url(data:image/png;base64,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);
-		width:24px;
-		height:26px;
-		background-position-y:1px;
-		background-position-x:2px;
-		background-size:contain;
-		display:inline-block;
-		margin-right: 3px;
-	}
-	#footer #validateButton > button > span.fa-check-square {
-		display:none;
-	}
-    div#footerDiv {
-		height: 40px !important;
-		width: 50%;
-		padding-top: 0px;
-        padding-bottom: 0px;
-        clear: both;
-        display: inline-block;
-        text-align: end;
-        margin-left: 25%;
-	}
-	div#footerButtonDiv {
-        width: 100%;
-	    display: inline-block;
-        vertical-align: middle;
-	}
-	#i18n-container {
-		width:100%;
-		clear:both;
-	}
-	#i18n-inner {
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-		clear:both;
-	}
-	#i18n > button {
-		background: transparent;
-		color: #557a8e;
-		border: none;
-		box-shadow: none;
-	}
-	#i18n > button.active {
-		background: #06446c !important;
-		color:#FFFFFF!important;
-		border-radius: 5px !important;
-	}
-	#issuerLogo {
-		max-height: 64px;
-		max-width:100%;
-		padding-left: 0px;
-		padding-right: 0px;
-        padding-top: 16px;
-	}
-	#networkLogo {
-		max-height: 80px;
-		max-width:100%;
-		padding-top: 16px;
-		padding-right: 16px;
-	}
-	#pageHeader {
-		width: 100%;
-		height: 96px;
-		border-bottom: 1px solid #DCDCDC;
-	}
-	#pageHeaderLeft {
-		width: 20%;
-		float: left;
-		padding-left: 16px;
-		padding-top: 16px;
-	    margin-left: 25%;
-	}
-	#pageHeaderCenter {
-		width: 60%;
-		float: left;
-		text-align: center;
-		line-height: 70px;
-		padding-top: 16px;
-	}
-	#pageHeaderRight {
-		width: 20%;
-		float: right;
-		text-align: right;
-	    padding-left: 16px;
-		margin-right: 25%;
-	}
-     #paragraph1 {
-    font-size: 18px;
-    }
-    #paragraph2, #paragraph3 {
+div#optGblPage {
+    font-family: Arial, bold;
+    color: #333333;
     font-size: 14px;
-    }
-	.paragraph {
-		text-align: left;
-		margin-top: -2px;
-		margin-bottom : 5px;
-	}
-	.topColumn {
-		width:50%;
-		display:inline-block;
-	}
-	.bottomColumn {
-		width:50%;
-		display:inline-block;
-		text-align:left;
-		padding-left: 1em;
-	}
-	.contentRow {
-		width:100%;
-		padding:1em;
-		padding:0px;
-		padding-top:1em;
-		padding-bottom: 5em;
-		clear:both;
-	    text-align: center;
-	}
-    .tanContainer {
-      margin-left: 18%;
-      display:flex;
-      justify-content: center;
-    }
-    .tanContainer > #tanLabel {
-      margin-right: 1%;
-    }
+}
 
-    .tanContainer > #otpForm {
-      margin-right: 4%;
-    }
-	side-menu .text-left {
-		padding-right: 5px;
-		padding-left: 5px;
-		text-align: start;
-	}
-	side-menu .text-right {
-		padding-right: 5px;
-		padding-left: 5px;
-	}
-	side-menu div.text-center {
-		text-align:left;
-	}
-	div.side-menu div.menu-title::before {
-		display:inline;
-	}
-	div.side-menu div.menu-title::after {
-		display:inline;
-	}
-	div.side-menu div.menu-title {
-		display:flex;
-		padding-left:9%;
-		text-align:left;
-		font-size: 16px;
-	}
-	div.side-menu div.menu-elements {
-		margin-top:5px;
-	}
-	#otp-form {
-		display:inline-block;
-		padding-top:0px;
-		padding-bottom: 10px;
-	}
-	#otp-form input {
-		box-sizing:content-box;
-		padding: 0px 0px 0px;
-		background-color: #FFFFFF;
-		border: 1px solid rgba(0,0,0,.2);
-		border-radius: 2px;
-		box-shadow: inset 1px 1px 0 0 rgba(0,0,0,.1);
-		font-family: Arial,bold;
-		color: #333333;
-		font-size: 1.8rem;
-		line-height: 25px;
-		min-height: 25px;
-		width: 220px;
-	}
-	#otp-form input:disabled {
-		color: #bebebe!important;
-		background-color: #dcdcdc!important;
-		border-color: rgba(0,0,0,.05)!important;
-		box-shadow: none!important;
-	}
-	#otp-form input:focus {
-		border-color:#FF6A10 !important;
-		outline-color: #FF6A10;
-	}
-	div#otp-fields-container {
-		width:70%;
-		text-align:center;
-		margin-top:10px;
-		margin-bottom:10px;
-	}
-	div#otp-fields {
-		display:inline-block;
-	}
-	div#otp-form div.tooltips {
-		background: #545454;
-	}
-	div#otp-form div.tooltips span {
-		background: #545454;
-	}
-	div#otp-form div.tooltips span:after {
-		border-top: 8px solid #545454;
-	}
-     @media all and (max-width: 1610px) {
-		.topColumn { display:block; float:none; width:100%; margin-left:0px; }
-		.paragraph{ text-align: left;}
-	}
-	@media all and (max-width: 1278px) and (min-width: 764px) {
-		.topColumn { display:block; float:none; width:100%; margin-left:0px; }
-		.paragraph{ text-align: left;}
-	}
-	@media all and (max-width: 1199px) and (min-width: 701px) {
-		h1 { font-size:24px; }
-		#issuerLogo {max-height : 64px;  max-width:140%; padding-top: 5px;}
-		#networkLogo {max-height : 72px;px;  max-width:100%; }
-		#optGblPage {     font-size : 14px; }
-		.paragraph { text-align: center; margin-top: 60px;}
-		.bottomColumn { display:block; float:none; width:100%; }
-		.topColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 150px;}
-		div.side-menu div.menu-title { padding-left: 9.2%; display: flex; }
-		side-menu div.text-center { text-align:center; }
-		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
-		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: start;}
-	}
+/* Start Bootstrap reset */
+.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7 {
+    margin:0;
+    width:auto;
+    float:none;
+    position:static;
+}
 
-	@media all and (max-width: 700px) and (min-width: 481px) {
-		h1 { font-size:18px; }
-		#optGblPage { font-size : 14px;}
-		#issuerLogo {max-height : 54px;  max-width:200%; padding-top: 10px;}
-		#networkLogo {max-height : 67px;  max-width:100%; padding-top: 25px;}
-		.paragraph { text-align: center; margin-top: 60px;}
-		.bottomColumn { display:block; float:none; width:100%; }
-		.topColumn { margin-left:0px; margin-top: 150px; display:block; float:none; width:100%;}
-		div.side-menu div.menu-title { padding-left: 1%; display: flex; }
-		side-menu div.text-center { text-align:center; }
-		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
-		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: start;}
-	}
+.col-sm-offset-1, .col-sm-offset-2, .col-xs-offset-1, .col-xs-offset-2  {
+    margin:0;
+    float:none;
+    position:static;
+}
 
-	@media all and (max-width: 480px) {
-		h1 { font-size:16px; }
-		div.side-menu div.menu-title { display:inline; }
-		#optGblPage {   font-size : 14px;}
-		#issuerLogo { max-height : 42px;  max-width:250%; padding-top: 10px;}
-		#networkLogo {max-height : 62px;  max-width:100%; padding-top: 25px; }
-		.paragraph { text-align: center; margin-top: 60px;}
-		.bottomColumn { display:block; float:none; width:100%; }
-		.topColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 200px;}
-		div.side-menu div.menu-title { padding-left: 1%; display: flex; }
-		side-menu div.text-center { text-align:center; }
-		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
-		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: start;}
-		#footer { margin-top: 7px; margin-bottom : 10px; padding-top: 6px; padding-bottom: 6px; }
-		#pageHeader { height: 75px; }
-	}
-    @media all and (max-width: 347px) {
-		.paragraph { text-align: center; margin-top: 60px;}
-	}
+.text-right, .text-center, .text-left {
+    text-align: unset;
+}
+/* End Bootstrap reset */
+
+#cancelButton {
+    flex: 1 1 50%;
+    text-align:right;
+    padding-right:0.5em;
+}
+#cancelButton button {
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #FF8C00;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px #999;
+}
+
+#cancelButton button:hover {
+    background-color: #FFA500
+}
+
+#cancelButton button:active {
+    background-color: #FF8C00;
+    box-shadow: 0 3px #666;
+    transform: translateY(2px);
+}
+
+/* reset for default styles */
+#valButton button.btn.disabled {
+    opacity:1;
+}
+
+#valButton {
+    flex: 1 1 50%;
+    padding-left:0.5em;
+}
+
+#valButton button.btn[disabled] {
+    opacity:1;
+}
+
+#valButton button div {
+    display:inline;
+}
+
+#valButton button {
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #FF8C00;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px #999;
+}
+
+#valButton button:hover {
+    background-color: #FFA500
+}
+
+#valButton button:active {
+    background-color: #FF8C00;
+    box-shadow: 0 3px #666;
+    transform: translateY(2px);
+}
+
+#i18n-container {
+    width: 100%;
+    clear: both;
+}
+
+#issuerLogo {
+    max-height: 64px;
+    max-width: 100%;}
+
+#networkLogo {
+    max-height: 64px;
+    max-width: 100%;
+}
+
+#pageHeader {
+    width: 100%;
+    height: 96px;
+    border-bottom: 1px solid #DCDCDC;
+    display: flex;
+    justify-content: space-between;
+}
+
+#pageHeaderLeft {
+
+    padding-left: 0.5em;
+    padding-top: 0.5em;
+}
+
+#pageHeaderRight {
+    padding-right: 0.5em;
+    padding-top: 0.5em;
+}
+
+.paragraph {
+    text-align: left;
+    margin-top: -2px;
+    margin-bottom: 5px;
+}
+
+.topColumn {
+    padding:0.5em;
+}
+
+.bottomColumn {
+    display:block;
+    text-align: left;
+    padding-left: 1em;
+}
+
+.contentRow {
+    width: 100%;
+    padding: 0;
+    clear: both;
+    text-align: center;
+}
+
+side-menu .menu-elements div div div {
+    display:flex;
+    flex-direction:row;
+    width:max-context;
+}
+
+side-menu .menu-elements div div div span {
+    flex: 1 1 50%;
+    text-align:right;
+}
+
+side-menu .menu-elements div div div span + span {
+    flex: 1 1 50%;
+    text-align:left;
+}
+
+.tanContainer {
+    width:100%;
+    display:flex;
+    justify-content:space-evenly;
+}
+
+#tanLabel {
+    text-align:right;
+    flex: 1 1 50%;
+}
+
+#otpForm {
+    flex: 1 1 50%;
+    text-align:left;
+    padding-left: 5px;
+}
+
+#footerDiv {
+    height: 40px;
+    background-color: #F7F8F8;
+    width:100%;
+    margin-top:1em;
+    padding-top:0.5em;
+    padding-bottom:0.5em;
+    display:flex;
+}
+
 </style>
 <div id="optGblPage">
 	<div id="pageHeader" ng-style="style" class="ng-scope">
@@ -1956,7 +1791,7 @@ VALUES( 'div', '<style>
 		</div>
          <div class="tanContainer">
 				<div id = "tanLabel">
-					<custom-text custom-text-key="''network_means_pageType_3''"></custom-text>
+					<chiptan></chiptan>
 				</div>
 				<div id = "otpForm" >
 					<otp-form></otp-form>
@@ -1964,12 +1799,9 @@ VALUES( 'div', '<style>
 		</div>
 	</div>
 	<div  id="footerDiv" class="cn">
-		<div ng-style="style" class="style inner" id="footerButtonDiv">
 			<cancel-button cn-label="''network_means_pageType_40''" id="cancelButton" ></cancel-button>
 			<val-button val-label="''network_means_pageType_42''" id="validateButton" ></val-button>
-		</div>
-	</div>
-</div>', @layoutId);
+	</div>', @layoutId);
 
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('ITAN OTP Form Page (',@bankName, ')%') );
 
