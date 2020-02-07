@@ -1,0 +1,4 @@
+ALTER TABLE `Font` DROP PRIMARY KEY, ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `Font`
+	ADD UNIQUE INDEX `name` (`name`);

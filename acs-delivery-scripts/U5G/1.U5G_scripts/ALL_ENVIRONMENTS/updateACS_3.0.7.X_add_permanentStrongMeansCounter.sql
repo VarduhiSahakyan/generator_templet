@@ -1,0 +1,1 @@
+ALTER TABLE `SubIssuer` ADD `permanentStrongMeansCounter` BOOLEAN NOT NULL DEFAULT FALSE;
