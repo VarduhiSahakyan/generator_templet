@@ -12,7 +12,7 @@ VALUES (NULL,'MESSAGE_BANNER', CONCAT('Message Banner (', @bankName, ')')),
        (NULL,'POLLING_PAGE', CONCAT('Polling Page (', @bankName, ')')),
        (NULL,'MOBILE_APP_EXT_CHOICE_PAGE', CONCAT('APP Choice Page (', @bankName, ')')),
        (NULL,'EXT_PASSWORD_OTP_FORM_PAGE', CONCAT('Password OTP Form Page (', @bankName, ')')),
-       (NULL,'CHIPTAN_OTP_FORM_PAGE', CONCAT('Chiptan OTP Form Page (', @bankName, ')'));
+       (NULL,'CHIP_TAN_OTP_FORM_PAGE', CONCAT('Chiptan OTP Form Page (', @bankName, ')'));
 
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Message Banner (', @bankName, ')%'));
 
@@ -1551,7 +1551,7 @@ VALUES( 'div', '<style>
 	</div>
 </div>', @layoutId);
 
-SET @layoutId=(SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('CHIPTAN OTP Form Page (',@bankName, ')%') );
+SET @layoutId=(SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Chiptan OTP Form Page (',@bankName, ')%') );
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 VALUES( 'div', '<style>
