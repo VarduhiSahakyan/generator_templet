@@ -1,7 +1,6 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 USE `U5G_ACS_BO`;
@@ -1047,5 +1046,3 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'de', 40, @currentPageType, 'Abbrechen', @NetworkID, NULL, @customItemSetCHIPTAN),
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@NetworkName,'_',@currentAuthentMean,'_',@currentPageType,'_42'), 'PUSHED_TO_CONFIG',
          'de', 42, @currentPageType, 'Senden', @NetworkID, NULL, @customItemSetCHIPTAN);
-
-/*!40000 ALTER TABLE `CustomItem` ENABLE KEYS */;

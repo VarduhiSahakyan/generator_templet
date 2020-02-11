@@ -1,7 +1,7 @@
 USE `U0P_ACS_WS`;
 
 SET @BankB = 'Sparda-Bank';
-SET @SharedIssuer = 'sharedBIN';
+SET @SharedIssuer = 'SPK_sharedBIN';
 SET @Issuer_01 = 'SBK_Hessen';
 SET @Issuer_02 = 'SBK_Hamburg';
 SET @Issuer_03 = 'SBK_Ostbayern';
@@ -14,7 +14,7 @@ SET @Issuer_09 = 'SBK_Hannover';
 
 
 SET @IssuerCode = '16950';
-SET @SharedIssuerCode = '99999';
+SET @SharedIssuerCode = '16950';
 SET @SubIssuerCode_01 = '15009';
 SET @SubIssuerCode_02 = '12069';
 SET @SubIssuerCode_03 = '17509';

@@ -1,10 +1,10 @@
 USE `U5G_ACS_BO`;
 
 START TRANSACTION;
-SET FOREIGN_KEY_CHECKS = 0;
+-- SET FOREIGN_KEY_CHECKS = 0;
 -- 1. delete from
 SET @issuerCode = '16950';
-SET @sharedSubIssuerCode = '99999';
+SET @sharedSubIssuerCode = '16950';
 SET @subIssuerCode_01 = '15009';
 SET @subIssuerCode_02 = '12069';
 SET @subIssuerCode_03 = '17509';
@@ -42,6 +42,9 @@ SET @BankUB_10 = 'SBK_West';
 
 
 set @id_issuer = (SELECT ID from Issuer where CODE = @issuerCode);
+
+SELECT @id_issuer;
+
 set @id_sharedSubIssuer = (SELECT ID from SubIssuer where FK_ID_ISSUER = @id_issuer and code = @sharedSubIssuerCode);
 set @id_subIssuer_1 = (SELECT ID from SubIssuer where FK_ID_ISSUER = @id_issuer and code = @subIssuerCode_01);
 set @id_subIssuer_2 = (SELECT ID from SubIssuer where FK_ID_ISSUER = @id_issuer and code = @subIssuerCode_02);
@@ -66,47 +69,22 @@ set @id_profile_set_8 = (SELECT ID from ProfileSet where FK_ID_SUBISSUER = @id_s
 set @id_profile_set_9 = (SELECT ID from ProfileSet where FK_ID_SUBISSUER = @id_subIssuer_9);
 set @id_profile_set_10 = (SELECT ID from ProfileSet where FK_ID_SUBISSUER = @id_subIssuer_10);
 
--- delete all the custom components
-delete from CustomComponent
-where ID in (select id
-             from (select CC.ID
-                   from CustomComponent CC,
-                        CustomPageLayout CP
-                   where CC.FK_ID_LAYOUT = CP.ID
-                     and (
-                           CP.DESCRIPTION like CONCAT('%(', @BankB_Shared, ')%') or
-                           CP.DESCRIPTION like CONCAT('%(', @BankB_01, ')%') or
-                           CP.DESCRIPTION like CONCAT('%(', @BankB_02, ')%') or
-                           CP.DESCRIPTION like CONCAT('%(', @BankB_03, ')%') or
-                           CP.DESCRIPTION like CONCAT('%(', @BankB_04, ')%') or
-                           CP.DESCRIPTION like CONCAT('%(', @BankB_05, ')%') or
-                           CP.DESCRIPTION like CONCAT('%(', @BankB_06, ')%') or
-                           CP.DESCRIPTION like CONCAT('%(', @BankB_07, ')%') or
-                           CP.DESCRIPTION like CONCAT('%(', @BankB_08, ')%') or
-                           CP.DESCRIPTION like CONCAT('%(', @BankB_09, ')%') or
-                           CP.DESCRIPTION like CONCAT('%(', @BankB_10, ')%')
-                       )
-                  ) as temp);
+SELECT @id_sharedSubIssuer, @id_sharedProfile_set;
 
 -- delete the profile set / custompage layout mapping
-
 delete from CustomPageLayout_ProfileSet where PROFILESET_ID in
                                               (@id_sharedProfile_set, @id_profile_set_1,
                                                @id_profile_set_2, @id_profile_set_3, @id_profile_set_4,
                                                @id_profile_set_5, @id_profile_set_6, @id_profile_set_7,
                                                @id_profile_set_8, @id_profile_set_9, @id_profile_set_10);
 
-delete from CustomPageLayout where DESCRIPTION like CONCAT('%(', @BankB_Shared, ')%')
-                                or DESCRIPTION like CONCAT('%(', @BankB_01, ')%')
-                                or DESCRIPTION like CONCAT('%(', @BankB_02, ')%')
-                                or DESCRIPTION like CONCAT('%(', @BankB_03, ')%')
-                                or DESCRIPTION like CONCAT('%(', @BankB_04, ')%')
-                                or DESCRIPTION like CONCAT('%(', @BankB_05, ')%')
-                                or DESCRIPTION like CONCAT('%(', @BankB_06, ')%')
-                                or DESCRIPTION like CONCAT('%(', @BankB_07, ')%')
-                                or DESCRIPTION like CONCAT('%(', @BankB_08, ')%')
-                                or DESCRIPTION like CONCAT('%(', @BankB_09, ')%')
-                                or DESCRIPTION like CONCAT('%(', @BankB_10, ')%');
+-- delete all the custom components
+DELETE FROM CustomComponent WHERE fk_id_layout IN (SELECT id FROM CustomPageLayout WHERE description LIKE '%Spardabank%');
+DELETE FROM CustomPageLayout WHERE description LIKE '%Spardabank%';
+
+
+
+
 
 -- delete profiles for sub issuer
 set @id_customitemsets = (select group_concat(cis.id) from CustomItemSet cis,
@@ -228,6 +206,10 @@ delete from ProfileSet where id in (@id_sharedProfile_set, @id_profile_set_1, @i
 delete from MerchantPivotList where FK_ID_ISSUER = @id_issuer;
 
 -- delete subissuer and issuer
+DELETE FROM CryptoConfig WHERE id in (SELECT fk_id_cryptoConfig FROM SubIssuer si WHERE code = @sharedSubIssuerCode)
+OR description like 'Sparda';
+
+
 delete from SubIssuerCrypto where FK_ID_SUBISSUER in
                                   (@id_sharedSubIssuer, @id_subIssuer_1, @id_subIssuer_2,
                                    @id_subIssuer_3, @id_subIssuer_4, @id_subIssuer_5, @id_subIssuer_6, @id_subIssuer_7,
@@ -241,5 +223,5 @@ delete from Issuer where ID = @id_issuer;
 delete from Image where name in
                         (@BankB_Shared, @BankB_01, @BankB_02, @BankB_03, @BankB_04, @BankB_05, @BankB_06,
                          @BankB_07, @BankB_08, @BankB_09, @BankB_10);
-SET FOREIGN_KEY_CHECKS = 1;
+-- SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;
