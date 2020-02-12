@@ -278,8 +278,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_1'), 'PUSHED_TO_CONFIG',
          'de', 1, @helpPage, '', @MaestroVID, NULL, @customItemSetREFUSAL),
 
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_41'), 'PUSHED_TO_CONFIG',
-         'de', 41, @helpPage, 'Hilfe', @MaestroVID, NULL, @customItemSetREFUSAL);
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_43'), 'PUSHED_TO_CONFIG',
+         'de', 43, @helpPage, 'Schließen', @MaestroVID, NULL, @customItemSetREFUSAL);
 
 /********* EN_START *********/
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
@@ -288,8 +288,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_1'), 'PUSHED_TO_CONFIG',
          'en', 1, @helpPage, '', @MaestroVID, NULL, @customItemSetREFUSAL),
 
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_41'), 'PUSHED_TO_CONFIG',
-         'en', 41, @helpPage, 'Help', @MaestroVID, NULL, @customItemSetREFUSAL);
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_43'), 'PUSHED_TO_CONFIG',
+         'en', 43, @helpPage, 'Close', @MaestroVID, NULL, @customItemSetREFUSAL);
 /********* EN_END *********/
 
 /********* FR_START *********/
@@ -299,8 +299,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_1'), 'PUSHED_TO_CONFIG',
          'fr', 1, @helpPage, '', @MaestroVID, NULL, @customItemSetREFUSAL),
 
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_41'), 'PUSHED_TO_CONFIG',
-         'fr', 41, @helpPage, 'Aide', @MaestroVID, NULL, @customItemSetREFUSAL);
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_43'), 'PUSHED_TO_CONFIG',
+         'fr', 43, @helpPage, 'Proche', @MaestroVID, NULL, @customItemSetREFUSAL);
 /********* FR_END *********/
 
 /********* IT_START *********/
@@ -310,8 +310,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_1'), 'PUSHED_TO_CONFIG',
          'it', 1, @helpPage, '', @MaestroVID, NULL, @customItemSetREFUSAL),
 
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_41'), 'PUSHED_TO_CONFIG',
-         'it', 41, @helpPage, 'Aiuto', @MaestroVID, NULL, @customItemSetREFUSAL);
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_43'), 'PUSHED_TO_CONFIG',
+         'it', 43, @helpPage, 'Vicino', @MaestroVID, NULL, @customItemSetREFUSAL);
 /********* IT_END *********/
 
 /* Elements for the profile SMS : */
@@ -686,8 +686,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_1'), 'PUSHED_TO_CONFIG',
          'de', 1, @helpPage, '', @MaestroVID, NULL, @customItemSetSMS),
 
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_41'), 'PUSHED_TO_CONFIG',
-         'de', 41, @helpPage, 'Hilfe', @MaestroVID, NULL, @customItemSetSMS);
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_43'), 'PUSHED_TO_CONFIG',
+         'de', 43, @helpPage, 'Schließen', @MaestroVID, NULL, @customItemSetSMS);
 
 /********* EN_START *********/
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
@@ -696,8 +696,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_1'), 'PUSHED_TO_CONFIG',
          'en', 1, @helpPage, '', @MaestroVID, NULL, @customItemSetSMS),
 
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_41'), 'PUSHED_TO_CONFIG',
-         'en', 41, @helpPage, 'Help', @MaestroVID, NULL, @customItemSetSMS);
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_43'), 'PUSHED_TO_CONFIG',
+         'en', 43, @helpPage, 'Close', @MaestroVID, NULL, @customItemSetSMS);
 /********* EN_END *********/
 
 /********* FR_START *********/
@@ -707,8 +707,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_1'), 'PUSHED_TO_CONFIG',
          'fr', 1, @helpPage, '', @MaestroVID, NULL, @customItemSetSMS),
 
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_41'), 'PUSHED_TO_CONFIG',
-         'fr', 41, @helpPage, 'Aide', @MaestroVID, NULL, @customItemSetSMS);
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_43'), 'PUSHED_TO_CONFIG',
+         'fr', 43, @helpPage, 'Proche', @MaestroVID, NULL, @customItemSetSMS);
 /********* FR_END *********/
 
 /********* IT_START *********/
@@ -718,8 +718,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_1'), 'PUSHED_TO_CONFIG',
          'it', 1, @helpPage, '', @MaestroVID, NULL, @customItemSetSMS),
 
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_41'), 'PUSHED_TO_CONFIG',
-         'it', 41, @helpPage, 'Aiuto', @MaestroVID, NULL, @customItemSetSMS);
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_43'), 'PUSHED_TO_CONFIG',
+         'it', 43, @helpPage, 'Vicino', @MaestroVID, NULL, @customItemSetSMS);
 /********* IT_END *********/
 
 /* Elements for the FAILURE page, for SMS Profile */
@@ -1159,8 +1159,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_1'), 'PUSHED_TO_CONFIG',
          'de', 1, @helpPage, '', @MaestroVID, NULL, @customItemSetMobile),
 
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_41'), 'PUSHED_TO_CONFIG',
-         'de', 41, @helpPage, 'Hilfe', @MaestroVID, NULL, @customItemSetMobile);
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_43'), 'PUSHED_TO_CONFIG',
+         'de', 43, @helpPage, 'Schließen', @MaestroVID, NULL, @customItemSetMobile);
 
 /********* EN_START *********/
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
@@ -1169,8 +1169,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_1'), 'PUSHED_TO_CONFIG',
          'en', 1, @helpPage, '', @MaestroVID, NULL, @customItemSetMobile),
 
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_41'), 'PUSHED_TO_CONFIG',
-         'en', 41, @helpPage, 'Help', @MaestroVID, NULL, @customItemSetMobile);
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_43'), 'PUSHED_TO_CONFIG',
+         'en', 43, @helpPage, 'Close', @MaestroVID, NULL, @customItemSetMobile);
 /********* EN_END *********/
 
 /********* FR_START *********/
@@ -1180,8 +1180,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_1'), 'PUSHED_TO_CONFIG',
          'fr', 1, @helpPage, '', @MaestroVID, NULL, @customItemSetMobile),
 
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_41'), 'PUSHED_TO_CONFIG',
-         'fr', 41, @helpPage, 'Aide', @MaestroVID, NULL, @customItemSetMobile);
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_43'), 'PUSHED_TO_CONFIG',
+         'fr', 43, @helpPage, 'Proche', @MaestroVID, NULL, @customItemSetMobile);
 /********* FR_END *********/
 
 /********* IT_START *********/
@@ -1191,8 +1191,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_1'), 'PUSHED_TO_CONFIG',
          'it', 1, @helpPage, '', @MaestroVID, NULL, @customItemSetMobile),
 
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_41'), 'PUSHED_TO_CONFIG',
-         'it', 41, @helpPage, 'Aiuto', @MaestroVID, NULL, @customItemSetMobile);
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_43'), 'PUSHED_TO_CONFIG',
+         'it', 43, @helpPage, 'Vicino', @MaestroVID, NULL, @customItemSetMobile);
 /********* IT_END *********/
 
 /*!40000 ALTER TABLE `CustomItem` ENABLE KEYS */;
