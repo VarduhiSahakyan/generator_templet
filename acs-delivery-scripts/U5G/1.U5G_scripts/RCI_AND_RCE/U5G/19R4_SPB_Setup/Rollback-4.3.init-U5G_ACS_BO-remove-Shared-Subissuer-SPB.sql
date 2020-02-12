@@ -122,6 +122,7 @@ delete from SubIssuer where ID in (@idSharedSubIssuer);
 delete from SubIssuer where find_in_set(id, @idsOtherSubissuers);
 
 DELETE FROM CryptoConfig WHERE find_in_set(id, @idCryptoConfigs);
+DELETE FROM CryptoConfig WHERE description = 'Sparda CryptoConfig';
 
 delete from Issuer where ID = @idIssuer;
 

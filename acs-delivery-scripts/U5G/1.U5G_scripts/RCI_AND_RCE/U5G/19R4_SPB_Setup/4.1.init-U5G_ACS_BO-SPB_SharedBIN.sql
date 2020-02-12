@@ -6,7 +6,7 @@
 USE `U5G_ACS_BO`;
 
 SET @issuerCode = '16950';
-SET @BankUB = 'SPB_sharedBIN';
+SET @bankName = 'SPB_sharedBIN';
 SET @createdBy = 'A707825';
 
 /* SubIssuer */
@@ -63,58 +63,58 @@ SET @subIssuerID = (SELECT id FROM `SubIssuer` WHERE `code` = @subIssuerCode);
 INSERT INTO `CustomItemSet` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
                              `updateState`, `status`, `versionNumber`, `validationDate`, `deploymentDate`, `fk_id_subIssuer`)
 VALUES
-(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_DEFAULT_REFUSAL_Current'), NULL, NULL,
- CONCAT('customitemset_', @BankUB, '_DEFAULT_REFUSAL'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_TE_REFUSAL_Current'), NULL, NULL,
- CONCAT('customitemset_', @BankUB, '_TE_REFUSAL'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_FE_REFUSAL_Current'), NULL, NULL,
- CONCAT('customitemset_', @BankUB, '_FE_REFUSAL'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_RBADECLINE_Current'), NULL, NULL,
- CONCAT('customitemset_', @BankUB, '_RBADECLINE'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_RBAACCEPT_Current'), NULL, NULL,
- CONCAT('customitemset_', @BankUB, '_RBAACCEPT'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_PASSWORD_Current'), NULL, NULL,
- CONCAT('customitemset_', @BankUB, '_PASSWORD'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_UNDEFINED_Current'), NULL, NULL,
- CONCAT('customitemset_', @BankUB, '_UNDEFINED'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_CHOICE_ALL_Current'), NULL, NULL,
- CONCAT('customitemset_', @BankUB, '_CHOICE_ALL'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_SMS_CHIP_Current'), NULL, NULL,
- CONCAT('customitemset_', @BankUB, '_SMS_CHIP'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_CHIP_APP_Current'), NULL, NULL,
- CONCAT('customitemset_', @BankUB, '_CHIP_APP'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_SMS_APP_Current'), NULL, NULL,
- CONCAT('customitemset_', @BankUB, '_SMS_APP'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_SMS_Current'), NULL, NULL,
- CONCAT('customitemset_', @BankUB, '_SMS'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_CHIP_TAN'), NULL, NULL,
- CONCAT('customitemset_', @BankUB, '_CHIP_TAN'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_MOBILE_APP_EXT_Current'), NULL, NULL,
- CONCAT('customitemset_', @BankUB, '_MOBILE_APP_EXT'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID);
+(@createdBy, NOW(), CONCAT('customitemset_', @bankName, '_DEFAULT_REFUSAL_Current'), NULL, NULL,
+ CONCAT('customitemset_', @bankName, '_DEFAULT_REFUSAL'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), CONCAT('customitemset_', @bankName, '_TE_REFUSAL_Current'), NULL, NULL,
+ CONCAT('customitemset_', @bankName, '_TE_REFUSAL'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), CONCAT('customitemset_', @bankName, '_FE_REFUSAL_Current'), NULL, NULL,
+ CONCAT('customitemset_', @bankName, '_FE_REFUSAL'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), CONCAT('customitemset_', @bankName, '_RBADECLINE_Current'), NULL, NULL,
+ CONCAT('customitemset_', @bankName, '_RBADECLINE'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), CONCAT('customitemset_', @bankName, '_RBAACCEPT_Current'), NULL, NULL,
+ CONCAT('customitemset_', @bankName, '_RBAACCEPT'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), CONCAT('customitemset_', @bankName, '_PASSWORD_Current'), NULL, NULL,
+ CONCAT('customitemset_', @bankName, '_PASSWORD'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), CONCAT('customitemset_', @bankName, '_UNDEFINED_Current'), NULL, NULL,
+ CONCAT('customitemset_', @bankName, '_UNDEFINED'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), CONCAT('customitemset_', @bankName, '_CHOICE_ALL_Current'), NULL, NULL,
+ CONCAT('customitemset_', @bankName, '_CHOICE_ALL'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), CONCAT('customitemset_', @bankName, '_SMS_CHIP_Current'), NULL, NULL,
+ CONCAT('customitemset_', @bankName, '_SMS_CHIP'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), CONCAT('customitemset_', @bankName, '_CHIP_APP_Current'), NULL, NULL,
+ CONCAT('customitemset_', @bankName, '_CHIP_APP'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), CONCAT('customitemset_', @bankName, '_SMS_APP_Current'), NULL, NULL,
+ CONCAT('customitemset_', @bankName, '_SMS_APP'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), CONCAT('customitemset_', @bankName, '_SMS_Current'), NULL, NULL,
+ CONCAT('customitemset_', @bankName, '_SMS'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), CONCAT('customitemset_', @bankName, '_CHIP_TAN'), NULL, NULL,
+ CONCAT('customitemset_', @bankName, '_CHIP_TAN'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), CONCAT('customitemset_', @bankName, '_MOBILE_APP_EXT_Current'), NULL, NULL,
+ CONCAT('customitemset_', @bankName, '_MOBILE_APP_EXT'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID);
 
-SET @customItemSetDefaultRefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_DEFAULT_REFUSAL'));
-SET @customItemSetTERefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_TE_REFUSAL'));
-SET @customItemSetFERefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_FE_REFUSAL'));
-SET @customItemSetRBADECLINE = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_RBADECLINE'));
-SET @customItemSetRBAACCEPT = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_RBAACCEPT'));
-SET @customItemSetPassword = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_PASSWORD'));
-SET @customItemSetUndefined = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_UNDEFINED'));
-SET @customItemSetChoiceAll = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_CHOICE_ALL'));
-SET @customItemSetChoiceSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_SMS_CHIP'));
-SET @customItemSetChoiceChipApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_CHIP_APP'));
-SET @customItemSetChoiceSMSApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_SMS_APP'));
-SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_SMS'));
-SET @customItemSetCHIPTAN = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_CHIP_TAN'));
-SET @customItemSetMobileApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_MOBILE_APP_EXT'));
+SET @customItemSetDefaultRefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@bankName,'_DEFAULT_REFUSAL'));
+SET @customItemSetTERefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@bankName,'_TE_REFUSAL'));
+SET @customItemSetFERefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@bankName,'_FE_REFUSAL'));
+SET @customItemSetRBADECLINE = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@bankName,'_RBADECLINE'));
+SET @customItemSetRBAACCEPT = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@bankName,'_RBAACCEPT'));
+SET @customItemSetPassword = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@bankName,'_PASSWORD'));
+SET @customItemSetUndefined = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@bankName,'_UNDEFINED'));
+SET @customItemSetChoiceAll = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@bankName,'_CHOICE_ALL'));
+SET @customItemSetChoiceSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@bankName,'_SMS_CHIP'));
+SET @customItemSetChoiceChipApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@bankName,'_CHIP_APP'));
+SET @customItemSetChoiceSMSApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@bankName,'_SMS_APP'));
+SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@bankName,'_SMS'));
+SET @customItemSetCHIPTAN = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @bankName, '_CHIP_TAN'));
+SET @customItemSetMobileApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @bankName, '_MOBILE_APP_EXT'));
 
 
 SET @currentAuthentMean = 'REFUSAL';
 
 INSERT INTO `Image` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, relativePath, `binaryData`)
-VALUES (@createdBy, NOW(), CONCAT(@BankB,' Logo'), NULL, NULL, @BankB, 'PUSHED_TO_CONFIG', '<placeholder>' ,'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');
+VALUES (@createdBy, NOW(), CONCAT(@bankName,' Logo'), NULL, NULL, @bankName, 'PUSHED_TO_CONFIG', '<placeholder>' ,'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');
 
 -- Image ids
-SET @idBankLogo = (SELECT id FROM Image where name LIKE CONCAT('%',@BankB,'%'));
+SET @idBankLogo = (SELECT id FROM Image where name LIKE CONCAT('%',@bankName,'%'));
 SET @idVisaLogo = (SELECT id FROM Image where name = 'VISA_LOGO');
 SET @idMastercardLogo = (SELECT id FROM Image where name = 'MC_LOGO');
 
@@ -134,8 +134,8 @@ SET @currentCustomItemSet = @customItemSetDefaultRefusal;
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-VALUES  ('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, @currentPageType, 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-       ('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, @currentPageType,'VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+VALUES  ('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+       ('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
     ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA, @currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG', 'de', 1, @currentPageType, '<b>Eine Freigabe der Zahlung ist nicht möglich</b>',  @idNetworkVISA, NULL,  @currentCustomItemSet),
     ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA, @currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG', 'de', 2, @currentPageType, 'Eine Freigabe der Zahlung durch das Online-Banking ist nicht möglich.',  @idNetworkVISA, NULL,  @currentCustomItemSet),
     ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA, @currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG', 'de', 3, @currentPageType, 'Über den Button gelangen Sie zurück zum Shop.',  @idNetworkVISA, NULL,  @currentCustomItemSet),
@@ -152,8 +152,8 @@ SET @currentCustomItemSet = @customItemSetTERefusal;
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, @currentPageType, 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, @currentPageType,'VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Eine Freigabe der Zahlung ist nicht möglich</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
 
@@ -182,8 +182,8 @@ SET @currentAuthentMean = 'REFUSAL';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, @currentPageType, 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, @currentPageType,'VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Eine Freigabe der Zahlung ist nicht möglich</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
@@ -214,8 +214,8 @@ SET @currentPageType = 'OTP_FORM_PAGE';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, @currentPageType, 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, @currentPageType,'VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, 'OTP_SMS_MESSAGE_BODY', 'PUSHED_TO_CONFIG', 'de', 0, 'MESSAGE_BODY', 'Die mobileTAN für Ihren Einkauf mit Kreditkarte @maskedPan am @formattedDate bei @merchant über @amount lautet: @otp Ihre Sparda Bank', @idNetworkVISA, NULL, @currentCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Schritt 2: Eingabe mobileTAN</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
@@ -371,8 +371,8 @@ SET @currentPageType = 'OTP_FORM_PAGE';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, @currentPageType, 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, @currentPageType,'VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Schritt 1: Eingabe Online-Banking-PIN</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
 
@@ -497,8 +497,8 @@ SET @currentCustomItemSet = @customItemSetMobileApp;
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, @currentPageType, 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, @currentPageType,'VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Schritt 2: Freigabe per SpardaSecureApp</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
@@ -661,8 +661,8 @@ SET @currentAuthentMean = 'UNDEFINED';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, @currentPageType, 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, @currentPageType,'VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Schritt 2: Auswahl TAN-Verfahren</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
@@ -688,8 +688,8 @@ SET @currentAuthentMean = 'UNDEFINED';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, @currentPageType, 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, @currentPageType,'VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Schritt 2: Auswahl TAN-Verfahren</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
@@ -715,8 +715,8 @@ SET @currentAuthentMean = 'UNDEFINED';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, @currentPageType, 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, @currentPageType,'VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Schritt 2: Auswahl TAN-Verfahren</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
@@ -743,8 +743,8 @@ SET @currentAuthentMean = 'UNDEFINED';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, @currentPageType, 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, @currentPageType,'VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Schritt 2: Auswahl TAN-Verfahren</b>', @idNetworkVISA, NULL, @customItemSetCHOICE_SMS_APP),
@@ -771,8 +771,8 @@ SET @currentAuthentMean = 'UNDEFINED';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, @currentPageType, 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, @currentPageType,'VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Schritt 2: Auswahl TAN-Verfahren</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
@@ -821,8 +821,8 @@ SET @currentPageType = 'OTP_FORM_PAGE';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, @currentPageType, 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, @currentPageType,'VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Schritt 2: Eingabe chipTAN</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
 
@@ -955,13 +955,19 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 /* ProfileSet */
 
-SET @BankB = 'SPB_sharedBIN';
+SET @bankName = 'SPB_sharedBIN';
 
 
 INSERT INTO `ProfileSet` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `fk_id_subIssuer`)
-    SELECT @createdBy, NOW(), CONCAT(@BankB, ' profile set'), NULL, NULL, CONCAT('PS_', @BankUB, '_01'), 'PUSHED_TO_CONFIG', si.id
+    SELECT @createdBy, NOW(), CONCAT(@bankName, ' profile set'), NULL, NULL, CONCAT('PS_', @bankName, '_01'), 'PUSHED_TO_CONFIG', si.id
     FROM `SubIssuer` si
     WHERE si.fk_id_issuer = @issuerId and si.id = @subIssuerID;
+
+-- link templates and profile set
+
+INSERT INTO CustomPageLayout_ProfileSet
+SELECT cpl.id, ps.id FROM (SELECT id FROM ProfileSet where name = CONCAT('PS_', @bankName, '_01')) as ps
+                        , (SELECT id FROM CustomPageLayout where description like CONCAT('%', @bankName, '%')) as cpl;
 
 /* Profile */
 SET @authMeanRefusal = (SELECT id FROM `AuthentMeans` WHERE `name` = 'REFUSAL');
@@ -975,37 +981,37 @@ INSERT INTO `Profile` (`createdBy`, `creationDate`, `description`, `lastUpdateBy
                        `updateState`, `maxAttempts`, dataEntryFormat, dataEntryAllowedPattern, `fk_id_authentMeans`,
                        `fk_id_customItemSetCurrent`, `fk_id_customItemSetOld`, `fk_id_customItemSetNew`,
                        `fk_id_subIssuer`) VALUES
-(@createdBy, NOW(), 'TECHNICAL ERROR', NULL, NULL, CONCAT(@BankUB,'_DEFAULT_REFUSAL_TE'), 'PUSHED_TO_CONFIG', -1,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanRefusal,  @customItemSetTERefusal, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'FUNCTIONAL ERROR', NULL, NULL, CONCAT(@BankUB,'_DEFAULT_REFUSAL_FE'), 'PUSHED_TO_CONFIG', -1,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanRefusal,  @customItemSetFERefusal, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'RBA_DECLINE', NULL, NULL, CONCAT(@BankUB,'_DECLINE'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanACCEPT,  @customItemSetRBADECLINE, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'RBA_ACCEPT', NULL, NULL, CONCAT(@BankUB,'_ACCEPT'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanACCEPT, @customItemSetRBAACCEPT, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'EXT PASSWORD (NORMAL)', NULL, NULL, CONCAT(@BankUB,'_PASSWORD_01'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanPassword, @customItemSetPassword, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'UNDEFINED', NULL, NULL, CONCAT(@BankUB,'_UNDEFINED_01'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanUndefined, @customItemSetUndefined, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'CHOICE_ALL', NULL, NULL, CONCAT(@BankUB,'_AUTHENT_MEANS_CHOICE_ALL'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanUndefined, @customItemSetChoiceAll, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'CHOICE_SMS_CHIP', NULL, NULL, CONCAT(@BankUB,'_AUTHENT_MEANS_CHOICE_SMS_CHIP'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanUndefined,  @customItemSetChoiceSMS, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'CHOICE_CHIP_APP', NULL, NULL, CONCAT(@BankUB,'_AUTHENT_MEANS_CHOICE_CHIP_APP'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanUndefined,  @customItemSetChoiceChipApp, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'CHOICE_SMS_APP', NULL, NULL, CONCAT(@BankUB,'_AUTHENT_MEANS_CHOICE_SMS_APP'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanUndefined,  @customItemSetChoiceSMSApp, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'OTP_SMS', NULL, NULL, CONCAT(@BankUB,'_SMS_01'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanOTPsms,  @customItemSetSMS, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'CHIPTAN', NULL, NULL, CONCAT(@BankUB,'_CHIPTAN_01'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanOTPchiptan,  @customItemSetCHIPTAN, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'MOBILE_APP', NULL, NULL, CONCAT(@BankUB,'_APP_01'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authentMeansMobileApp,  @customItemSetMOBILEAPP, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'REFUSAL (DEFAULT)', NULL, NULL, CONCAT(@BankUB,'_DEFAULT_REFUSAL'), 'PUSHED_TO_CONFIG', -1,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanRefusal, @customItemSetDefaultRefusal, NULL, NULL, @subIssuerID);
+(@createdBy, NOW(), 'TECHNICAL ERROR', NULL, NULL, CONCAT(@bankName,'_DEFAULT_REFUSAL_TE'), 'PUSHED_TO_CONFIG', -1,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanRefusal,  @customItemSetTERefusal, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'FUNCTIONAL ERROR', NULL, NULL, CONCAT(@bankName,'_DEFAULT_REFUSAL_FE'), 'PUSHED_TO_CONFIG', -1,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanRefusal,  @customItemSetFERefusal, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'RBA_DECLINE', NULL, NULL, CONCAT(@bankName,'_DECLINE'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanACCEPT,  @customItemSetRBADECLINE, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'RBA_ACCEPT', NULL, NULL, CONCAT(@bankName,'_ACCEPT'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanACCEPT, @customItemSetRBAACCEPT, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'EXT PASSWORD (NORMAL)', NULL, NULL, CONCAT(@bankName,'_PASSWORD_01'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanPassword, @customItemSetPassword, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'UNDEFINED', NULL, NULL, CONCAT(@bankName,'_UNDEFINED_01'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanUndefined, @customItemSetUndefined, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'CHOICE_ALL', NULL, NULL, CONCAT(@bankName,'_AUTHENT_MEANS_CHOICE_ALL'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanUndefined, @customItemSetChoiceAll, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'CHOICE_SMS_CHIP', NULL, NULL, CONCAT(@bankName,'_AUTHENT_MEANS_CHOICE_SMS_CHIP'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanUndefined,  @customItemSetChoiceSMS, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'CHOICE_CHIP_APP', NULL, NULL, CONCAT(@bankName,'_AUTHENT_MEANS_CHOICE_CHIP_APP'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanUndefined,  @customItemSetChoiceChipApp, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'CHOICE_SMS_APP', NULL, NULL, CONCAT(@bankName,'_AUTHENT_MEANS_CHOICE_SMS_APP'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanUndefined,  @customItemSetChoiceSMSApp, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'OTP_SMS', NULL, NULL, CONCAT(@bankName,'_SMS_01'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanOTPsms,  @customItemSetSMS, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'CHIPTAN', NULL, NULL, CONCAT(@bankName,'_CHIPTAN_01'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanOTPchiptan,  @customItemSetCHIPTAN, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'MOBILE_APP', NULL, NULL, CONCAT(@bankName,'_APP_01'), 'PUSHED_TO_CONFIG', 3,  '^[^OIi]*$', '7:(:DIGIT:1)',@authentMeansMobileApp,  @customItemSetMOBILEAPP, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'REFUSAL (DEFAULT)', NULL, NULL, CONCAT(@bankName,'_DEFAULT_REFUSAL'), 'PUSHED_TO_CONFIG', -1,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanRefusal, @customItemSetDefaultRefusal, NULL, NULL, @subIssuerID);
 
 /* Rule */
 
-SET @profileRefusal = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB, '_DEFAULT_REFUSAL'));
-SET @profileRefusalTE = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB, '_DEFAULT_REFUSAL_TE'));
-SET @profileRefusalFE = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB, '_DEFAULT_REFUSAL_FE'));
-SET @profileRBADECLINE = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_DECLINE'));
-SET @profileRBAACCEPT = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_ACCEPT'));
-SET @profilePassword = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_PASSWORD_01'));
-SET @profileUndefined = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_UNDEFINED_01'));
-SET @profileCHOICE_ALL = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB, '_AUTHENT_MEANS_CHOICE_ALL'));
-SET @profileSMS_CHIP = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB, '_AUTHENT_MEANS_CHOICE_SMS_CHIP'));
-SET @profileCHIP_APP = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB, '_AUTHENT_MEANS_CHOICE_CHIP_APP'));
-SET @profileSMS_APP = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB, '_AUTHENT_MEANS_CHOICE_SMS_APP'));
-SET @profileSMS = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_SMS_01'));
-SET @profileCHIPTAN = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_CHIPTAN_01'));
-SET @profileMOBILEAPP = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_APP_01'));
+SET @profileRefusal = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@bankName, '_DEFAULT_REFUSAL'));
+SET @profileRefusalTE = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@bankName, '_DEFAULT_REFUSAL_TE'));
+SET @profileRefusalFE = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@bankName, '_DEFAULT_REFUSAL_FE'));
+SET @profileRBADECLINE = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@bankName,'_DECLINE'));
+SET @profileRBAACCEPT = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@bankName,'_ACCEPT'));
+SET @profilePassword = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@bankName,'_PASSWORD_01'));
+SET @profileUndefined = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@bankName,'_UNDEFINED_01'));
+SET @profileCHOICE_ALL = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@bankName, '_AUTHENT_MEANS_CHOICE_ALL'));
+SET @profileSMS_CHIP = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@bankName, '_AUTHENT_MEANS_CHOICE_SMS_CHIP'));
+SET @profileCHIP_APP = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@bankName, '_AUTHENT_MEANS_CHOICE_CHIP_APP'));
+SET @profileSMS_APP = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@bankName, '_AUTHENT_MEANS_CHOICE_SMS_APP'));
+SET @profileSMS = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@bankName,'_SMS_01'));
+SET @profileCHIPTAN = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@bankName,'_CHIPTAN_01'));
+SET @profileMOBILEAPP = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@bankName,'_APP_01'));
 
 INSERT INTO `Rule` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
                     `updateState`, `orderRule`, `fk_id_profile`) VALUES
@@ -1044,24 +1050,24 @@ SET @ruleRefusalDefault = (SELECT id FROM `Rule` WHERE `description` = 'REFUSAL_
 
 INSERT INTO `RuleCondition` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
                              `updateState`, `fk_id_rule`) VALUES
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_TECHNICAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalTE),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_02_TECHNICAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalTE),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_03_TECHNICAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalTE),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_04_TECHNICAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalTE),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_FUNCTIONAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalFE),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_02_FUNCTIONAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalFE),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_RBA_DECLINE'), 'PUSHED_TO_CONFIG', @ruleRBADecline),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_RBA_ACCEPT'), 'PUSHED_TO_CONFIG', @ruleRBAAccept),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_PASSWORD_NORMAL'), 'PUSHED_TO_CONFIG', @rulePasswordnormal),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_UNDEFINED_NORMAL'), 'PUSHED_TO_CONFIG', @ruleUndefinednormal),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_CHOICE_ALL'), 'PUSHED_TO_CONFIG', @ruleCHOICE_ALL),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_CHIP'), 'PUSHED_TO_CONFIG', @ruleSMS_CHIP),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_CHOICE_CHIP_APP'), 'PUSHED_TO_CONFIG', @ruleCHIP_APP),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_APP'), 'PUSHED_TO_CONFIG', @ruleSMS_APP),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_OTP_SMS_NORMAL'), 'PUSHED_TO_CONFIG', @ruleSMSnormal),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_CHIP_TAN_NORMAL'), 'PUSHED_TO_CONFIG', @ruleChipTannormal),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_OTP_APP_NORMAL'), 'PUSHED_TO_CONFIG', @ruleMobileAppnormal),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_DEFAULT'), 'PUSHED_TO_CONFIG', @ruleRefusalDefault);
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_01_TECHNICAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalTE),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_02_TECHNICAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalTE),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_03_TECHNICAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalTE),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_04_TECHNICAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalTE),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_01_FUNCTIONAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalFE),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_02_FUNCTIONAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalFE),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_01_RBA_DECLINE'), 'PUSHED_TO_CONFIG', @ruleRBADecline),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_01_RBA_ACCEPT'), 'PUSHED_TO_CONFIG', @ruleRBAAccept),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_01_PASSWORD_NORMAL'), 'PUSHED_TO_CONFIG', @rulePasswordnormal),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_01_UNDEFINED_NORMAL'), 'PUSHED_TO_CONFIG', @ruleUndefinednormal),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_01_CHOICE_ALL'), 'PUSHED_TO_CONFIG', @ruleCHOICE_ALL),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_CHIP'), 'PUSHED_TO_CONFIG', @ruleSMS_CHIP),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_01_CHOICE_CHIP_APP'), 'PUSHED_TO_CONFIG', @ruleCHIP_APP),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_APP'), 'PUSHED_TO_CONFIG', @ruleSMS_APP),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_01_OTP_SMS_NORMAL'), 'PUSHED_TO_CONFIG', @ruleSMSnormal),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_01_CHIP_TAN_NORMAL'), 'PUSHED_TO_CONFIG', @ruleChipTannormal),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_01_OTP_APP_NORMAL'), 'PUSHED_TO_CONFIG', @ruleMobileAppnormal),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @bankName, '_01_DEFAULT'), 'PUSHED_TO_CONFIG', @ruleRefusalDefault);
 
 -- the ids of the authent means
 
@@ -1072,158 +1078,158 @@ SET @authMeanOTPchiptan = (SELECT id FROM `AuthentMeans`  WHERE `name` = 'CHIP_T
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_TECHNICAL_ERROR')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_TECHNICAL_ERROR')
   AND (ts.`transactionStatusType` = 'PAYMENT_MEANS_IN_NEGATIVE_LIST' AND ts.`reversed` = FALSE);
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_02_TECHNICAL_ERROR')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_02_TECHNICAL_ERROR')
   AND (ts.`transactionStatusType` = 'CARD_HOLDER_IP_IN_NEGATIVE_LIST' AND ts.`reversed` = FALSE);
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_03_TECHNICAL_ERROR')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_03_TECHNICAL_ERROR')
   AND (ts.`transactionStatusType` = 'CARD_HOLDER_COUNTRY_IN_NEGATIVE_LIST' AND ts.`reversed` = FALSE);
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_04_TECHNICAL_ERROR')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_04_TECHNICAL_ERROR')
   AND (ts.`transactionStatusType` = 'MERCHANT_URL_IN_NEGATIVE_LIST' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_FUNCTIONAL_ERROR')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_FUNCTIONAL_ERROR')
   AND (ts.`transactionStatusType` = 'CARD_HOLDER_BLOCKED' AND ts.`reversed` = FALSE);
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_02_FUNCTIONAL_ERROR')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_02_FUNCTIONAL_ERROR')
   AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_RBA_DECLINE')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_RBA_DECLINE')
   AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_RBA_DECLINE')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_RBA_DECLINE')
   AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_RBA_ACCEPT')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_RBA_ACCEPT')
   AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_RBA_ACCEPT')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_RBA_ACCEPT')
   AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_PASSWORD_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_PASSWORD_NORMAL')
   AND (ts.`transactionStatusType` = 'COMBINED_AUTHENTICATION_ALLOWED' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_PASSWORD_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_PASSWORD_NORMAL')
   AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_PASSWORD_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_PASSWORD_NORMAL')
   AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_UNDEFINED_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_UNDEFINED_NORMAL')
   AND (ts.`transactionStatusType` = 'COMBINED_AUTHENTICATION_ALLOWED' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_ALL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_ALL')
   AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_ALL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_ALL')
   AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_CHIP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_CHIP')
   AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_CHIP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_CHIP')
   AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_CHIP_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_CHIP_APP')
   AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_CHIP_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_CHIP_APP')
   AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_APP')
   AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_APP')
   AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_SMS_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_OTP_SMS_NORMAL')
   AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_SMS_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_OTP_SMS_NORMAL')
   AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_SMS_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_OTP_SMS_NORMAL')
   AND (ts.`transactionStatusType` = 'COMBINED_AUTHENTICATION_ALLOWED' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHIP_TAN_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHIP_TAN_NORMAL')
   AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHIP_TAN_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHIP_TAN_NORMAL')
   AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHIP_TAN_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHIP_TAN_NORMAL')
   AND (ts.`transactionStatusType` = 'COMBINED_AUTHENTICATION_ALLOWED ' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_APP_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_OTP_APP_NORMAL')
   AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_APP_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_OTP_APP_NORMAL')
   AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_APP_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_OTP_APP_NORMAL')
   AND (ts.`transactionStatusType` = 'COMBINED_AUTHENTICATION_ALLOWED ' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_DEFAULT')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_DEFAULT')
   AND (ts.`transactionStatusType` = 'DEFAULT' AND ts.`reversed` = FALSE);
 
 
@@ -1238,296 +1244,296 @@ WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_DEFAULT')
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_PASSWORD_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_PASSWORD_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanPassword
   AND (mps.`meansProcessStatusType` IN ('COMBINED_MEANS_REQUIRED') AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_PASSWORD_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_PASSWORD_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanPassword
   AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_PASSWORD_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_PASSWORD_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanPassword
   AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_PASSWORD_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_PASSWORD_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanPassword
   AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_UNDEFINED_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_UNDEFINED_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanUndefined
   AND (mps.`meansProcessStatusType` = 'FORCED_MEANS_USAGE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_UNDEFINED_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_UNDEFINED_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanPassword
   AND (mps.`meansProcessStatusType` IN ('COMBINED_MEANS_REQUIRED') AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_UNDEFINED_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_UNDEFINED_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
   AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_UNDEFINED_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_UNDEFINED_NORMAL')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
   AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_UNDEFINED_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_UNDEFINED_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
   AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_ALL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_ALL')
   AND mps.`fk_id_authentMean` = @authMeanUndefined
   AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_ALL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_ALL')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
   AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_ALL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_ALL')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
   AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_ALL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_ALL')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
   AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_ALL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_ALL')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
   AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_ALL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_ALL')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
   AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_ALL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_ALL')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
   AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_ALL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_ALL')
   AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
   AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_ALL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_ALL')
   AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
   AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_ALL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_ALL')
   AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
   AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_CHIP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_CHIP')
   AND mps.`fk_id_authentMean` = @authMeanUndefined
   AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_CHIP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_CHIP')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
   AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_CHIP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_CHIP')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
   AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_CHIP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_CHIP')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
   AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_CHIP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_CHIP')
   AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
   AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_CHIP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_CHIP')
   AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
   AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_CHIP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_CHIP')
   AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
   AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_CHIP_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_CHIP_APP')
   AND mps.`fk_id_authentMean` = @authMeanUndefined
   AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_CHIP_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_CHIP_APP')
   AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
   AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_CHIP_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_CHIP_APP')
   AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
   AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_CHIP_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_CHIP_APP')
   AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
   AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_CHIP_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_CHIP_APP')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
   AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_CHIP_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_CHIP_APP')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
   AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_CHIP_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_CHIP_APP')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
   AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_APP')
   AND mps.`fk_id_authentMean` = @authMeanUndefined
   AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_APP')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
   AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_APP')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
   AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_APP')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
   AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_APP')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
   AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_APP')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
   AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHOICE_SMS_APP')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHOICE_SMS_APP')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
   AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_SMS_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_OTP_SMS_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
   AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_SMS_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_OTP_SMS_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
   AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_SMS_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_OTP_SMS_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
   AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = FALSE);
 
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHIP_TAN_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHIP_TAN_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
   AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHIP_TAN_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHIP_TAN_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
   AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_CHIP_TAN_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_CHIP_TAN_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
   AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_APP_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_OTP_APP_NORMAL')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
   AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_APP_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_OTP_APP_NORMAL')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
   AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_APP_NORMAL')
+WHERE c.`name` = CONCAT('C1_P_', @bankName, '_01_OTP_APP_NORMAL')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
   AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = FALSE);
 
@@ -1535,7 +1541,7 @@ WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_APP_NORMAL')
 
 INSERT INTO `ProfileSet_Rule` (`id_profileSet`, `id_rule`)
 SELECT ps.`id`, r.`id` FROM `ProfileSet` ps, `Rule` r
-WHERE ps.`name` = CONCAT('PS_', @BankUB, '_01') AND r.`id` IN (@ruleRefusalTE, @ruleRefusalFE, @ruleRBADecline, @ruleRBAAccept, @rulePasswordnormal, @ruleUndefinednormal,
+WHERE ps.`name` = CONCAT('PS_', @bankName, '_01') AND r.`id` IN (@ruleRefusalTE, @ruleRefusalFE, @ruleRBADecline, @ruleRBAAccept, @rulePasswordnormal, @ruleUndefinednormal,
                                                                @ruleSMSnormal, @ruleMobileAppnormal, @ruleChipTannormal, @ruleSMS_APP, @ruleCHIP_APP, @ruleSMS_CHIP, @ruleCHOICE_ALL, @ruleRefusalDefault);
 
 
