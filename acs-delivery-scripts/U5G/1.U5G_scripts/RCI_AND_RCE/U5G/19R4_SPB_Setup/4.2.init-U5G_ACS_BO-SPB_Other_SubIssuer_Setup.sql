@@ -111,9 +111,13 @@ set @idProfileSets = ( SELECT group_concat(ps.id) FROM SubIssuer si INNER JOIN P
 
 INSERT INTO `CustomItemSet` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
                              `updateState`, `status`, `versionNumber`, `validationDate`, `deploymentDate`, `fk_id_subIssuer`)
-SELECT @createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_DEFAULT_REFUSAL_Current'), NULL, NULL,
+SELECT @createdBy, NOW(), CONCAT('customitemset_', si.name, '_DEFAULT_REFUSAL_Current'), NULL, NULL,
        CONCAT('customitemset_', si.name, '_DEFAULT_REFUSAL'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, si.id
 FROM SubIssuer si WHERE si.fk_id_issuer = @issuerId and find_in_set(si.code, @subIssuerCodes);
+
+INSERT INTO CustomPageLayout_ProfileSet (customPageLayout_id, profileSet_id)
+SELECT cpl.id, ps.id FROM CustomPageLayout cpl, ProfileSet ps WHERE cpl.description = 'Refusal Page (Spardabank)' AND cpl.pageType = 'REFUSAL_PAGE'
+AND ps.name  like 'PS\_SBK%';
 
 -- CustomItems
 -- SET @idCustomItemSets = (SELECT group_concat(cis.id) FROM SubIssuer si INNER JOIN CustomItemSet cis on si.id = cis.fk_id_subIssuer
@@ -187,6 +191,7 @@ SELECT @idProfileSets, @idRules;
 INSERT INTO ProfileSet_Rule (id_profileSet, id_rule)
 SELECT ps.id, r.id FROM ProfileSet ps INNER JOIN SubIssuer si ON ps.fk_id_subIssuer = si.id INNER JOIN Profile p ON si.id = p.fk_id_subIssuer
 INNER JOIN Rule r on p.id = r.fk_id_profile WHERE find_in_set(si.code, @subIssuerCodes);
+
 
 /* MerchantPivotList */
 
