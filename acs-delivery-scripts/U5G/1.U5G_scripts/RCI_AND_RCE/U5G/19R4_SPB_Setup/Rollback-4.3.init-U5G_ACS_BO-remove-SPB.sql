@@ -82,22 +82,32 @@ delete from CustomPageLayout_ProfileSet where PROFILESET_ID in
 DELETE FROM CustomComponent WHERE fk_id_layout IN (SELECT id FROM CustomPageLayout WHERE description LIKE '%Spardabank%');
 DELETE FROM CustomPageLayout WHERE description LIKE '%Spardabank%';
 
-
-
-
-
--- delete profiles for sub issuer
 set @id_customitemsets = (select group_concat(cis.id) from CustomItemSet cis,
                                                            Profile p,
                                                            Rule r ,
                                                            ProfileSet_Rule pr
                           where  p.FK_ID_CUSTOMITEMSETCURRENT = cis.id
-                                 and r.FK_ID_PROFILE = p.ID
-                                 and pr.ID_RULE = r.ID
-                                 and pr.ID_PROFILESET in
-                                     (@id_sharedProfile_set, @id_profile_set_1, @id_profile_set_2,
-                                      @id_profile_set_3, @id_profile_set_4, @id_profile_set_5, @id_profile_set_6,
-                                      @id_profile_set_7, @id_profile_set_8, @id_profile_set_9, @id_profile_set_10));
+                            and r.FK_ID_PROFILE = p.ID
+                            and pr.ID_RULE = r.ID
+                            and pr.ID_PROFILESET in
+                                (@id_sharedProfile_set, @id_profile_set_1, @id_profile_set_2,
+                                 @id_profile_set_3, @id_profile_set_4, @id_profile_set_5, @id_profile_set_6,
+                                 @id_profile_set_7, @id_profile_set_8, @id_profile_set_9, @id_profile_set_10));
+
+DELETE FROM CustomItem WHERE find_in_set(fk_id_customItemSet, @id_customitemsets);
+DELETE FROM CustomItem WHERE fk_id_customItemSet IN (SELECT id FROM CustomItemSet WHERE name like CONCAT('customitemset_', @BankUB_Shared, '%')
+                             or name like CONCAT('customitemset_', @BankUB_01, '%')
+                             or name like CONCAT('customitemset_', @BankUB_02, '%')
+                             or name like CONCAT('customitemset_', @BankUB_03, '%')
+                             or name like CONCAT('customitemset_', @BankUB_04, '%')
+                             or name like CONCAT('customitemset_', @BankUB_05, '%')
+                             or name like CONCAT('customitemset_', @BankUB_06, '%')
+                             or name like CONCAT('customitemset_', @BankUB_07, '%')
+                             or name like CONCAT('customitemset_', @BankUB_08, '%')
+                             or name like CONCAT('customitemset_', @BankUB_09, '%')
+                             or name like CONCAT('customitemset_', @BankUB_10, '%'));
+
+-- delete profiles for sub issuer
 
 update Profile p set p.FK_ID_CUSTOMITEMSETCURRENT = null where find_in_set(FK_ID_CUSTOMITEMSETCURRENT, @id_customitemsets);
 delete from CustomItemSet where find_in_set(id, @id_customitemsets);
@@ -180,9 +190,7 @@ delete from RuleCondition where ID in (SELECT id from (SELECT rc.id from RuleCon
                                                                              @id_profile_set_10)) as temp);
 
 
--- update Rule set FK_ID_PROFILE = NULL where find_in_set(FK_ID_PROFILE, @id_profile);
 
-delete from Profile where find_in_set(id, @id_profile);
 
 set @id_rule = (select group_concat(r.id) from Rule r , ProfileSet_Rule pr
                           where  pr.ID_RULE = r.ID
@@ -199,10 +207,22 @@ delete from ProfileSet_Rule where ID_PROFILESET in
                                    @id_profile_set_7, @id_profile_set_8, @id_profile_set_9, @id_profile_set_10);
 delete from Rule where find_in_set(id, @id_rule);
 
+delete from Profile where name like 'SBK_%';
+delete from Profile where find_in_set(id, @id_profile);
+
+SET @idsBinRange = (SELECT GROUP_CONCAT(id) FROM BinRange WHERE fk_id_profileSet in (SELECT id FROM ProfileSet where id in (@id_sharedProfile_set, @id_profile_set_1, @id_profile_set_2,
+                                                                                         @id_profile_set_3, @id_profile_set_4, @id_profile_set_5, @id_profile_set_6,
+                                                                                         @id_profile_set_7, @id_profile_set_8, @id_profile_set_9, @id_profile_set_10)));
+
+DELETE FROM BinRange_SubIssuer WHERE find_in_set(id_binRange, @idsBinRange);
+
+DELETE FROM BinRange WHERE find_in_set(id, @idsBinRange);
 
 delete from ProfileSet where id in (@id_sharedProfile_set, @id_profile_set_1, @id_profile_set_2,
                                     @id_profile_set_3, @id_profile_set_4, @id_profile_set_5, @id_profile_set_6,
                                     @id_profile_set_7, @id_profile_set_8, @id_profile_set_9, @id_profile_set_10);
+
+
 delete from MerchantPivotList where FK_ID_ISSUER = @id_issuer;
 
 -- delete subissuer and issuer
@@ -214,6 +234,16 @@ delete from SubIssuerCrypto where FK_ID_SUBISSUER in
                                   (@id_sharedSubIssuer, @id_subIssuer_1, @id_subIssuer_2,
                                    @id_subIssuer_3, @id_subIssuer_4, @id_subIssuer_5, @id_subIssuer_6, @id_subIssuer_7,
                                    @id_subIssuer_8, @id_subIssuer_9, @id_subIssuer_10);
+delete from SubIssuerNetworkCrypto where FK_ID_SUBISSUER in
+                                  (@id_sharedSubIssuer, @id_subIssuer_1, @id_subIssuer_2,
+                                   @id_subIssuer_3, @id_subIssuer_4, @id_subIssuer_5, @id_subIssuer_6, @id_subIssuer_7,
+                                   @id_subIssuer_8, @id_subIssuer_9, @id_subIssuer_10);
+
+DELETE FROM Network_SubIssuer WHERE id_subIssuer IN (SELECT id FROM SubIssuer where ID in
+                                                                                    (@id_sharedSubIssuer, @id_subIssuer_1, @id_subIssuer_2, @id_subIssuer_3,
+                                                                                     @id_subIssuer_4, @id_subIssuer_5, @id_subIssuer_6, @id_subIssuer_7, @id_subIssuer_8,
+                                                                                     @id_subIssuer_9, @id_subIssuer_10));
+
 delete from SubIssuer where ID in
                             (@id_sharedSubIssuer, @id_subIssuer_1, @id_subIssuer_2, @id_subIssuer_3,
                              @id_subIssuer_4, @id_subIssuer_5, @id_subIssuer_6, @id_subIssuer_7, @id_subIssuer_8,
