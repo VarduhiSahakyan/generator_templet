@@ -7,13 +7,10 @@
     <parent>
         <groupId>com.worldline.acs.rbu2.delivery</groupId>
         <artifactId>acs-delivery-configuration</artifactId>
-        <version>19R3-1.22-SNAPSHOT</version>
+        <version>20R1-0.9-SNAPSHOT</version>
     </parent>
 
-
-    <groupId>com.worldline.acs.rbu2.delivery</groupId>
     <artifactId>acs-delivery-artifacts</artifactId>
-    <version>19R3-1.22-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Build Artifacts</name>
