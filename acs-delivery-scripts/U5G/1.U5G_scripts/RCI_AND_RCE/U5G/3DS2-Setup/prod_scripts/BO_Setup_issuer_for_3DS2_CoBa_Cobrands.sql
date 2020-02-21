@@ -14,7 +14,7 @@ UPDATE SubIssuer SET protocol2FlowMode = 'AUTHENT_AND_CHALLENGE_MODE' where id =
 
 UPDATE CryptoConfig SET protocolTwo = '{
   "acsIdForCrypto": "09",
-  "binKeyIdentifier": "1"
+  "binKeyIdentifier": "1",
   "cavvKeyIndicator": "02",
   "cipherKeyIdentifier": "EC09250002314145535F434F4D4D45525A5F00",
   "hubAESKey": "01",
