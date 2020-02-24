@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <property name="LOGS_FOLDER" value="<%= @context['softman_global']['LOG_DIR'] %>"/>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_FOLDER}/session.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_FOLDER}/session.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>[%d{dd-MM-yyyy HH:mm:ss.SSS}] %X{idTrans} %-5level [%logger{35}] %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.worldline.acs" additivity="false" level="INFO">
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <appender name="INFO-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOGS_FOLDER}/sessionErrorDetails.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOGS_FOLDER}/sessionErrorDetails.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>[%d{dd-MM-yyyy HH:mm:ss.SSS}] %X{idTrans} %-5level
+				[%logger{35}] %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	<logger name="com.worldline.acs.utils.logs.error.details" additivity="false" level="INFO">
+		<appender-ref ref="INFO-FILE" />
+	</logger>
+	
+	 <appender name="SPLUNK-INFO-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOGS_FOLDER}/splunk.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOGS_FOLDER}/splunk.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+	<logger name="com.worldline.acs.session.splunk" additivity="false" level="INFO">
+		<appender-ref ref="SPLUNK-INFO-FILE" />
+	</logger>
+
+</configuration>

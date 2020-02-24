@@ -1,0 +1,17 @@
+<assembly>
+    <id>services-U0P-RCE</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>src/config/U0P/services/</directory>
+            <outputDirectory>.</outputDirectory>
+            <filtered>true</filtered>
+            <includes>
+                <include>*</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>

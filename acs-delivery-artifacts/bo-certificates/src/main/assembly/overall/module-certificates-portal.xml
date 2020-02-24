@@ -1,0 +1,26 @@
+<assembly>
+	<id>jboss-certificates-portal</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<fileSets>
+		<fileSet>
+			<directory>src/main/certificates/portal/</directory>
+			<outputDirectory>.</outputDirectory>
+			<filtered>false</filtered>
+			<includes>
+				<include>*</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+
+    <files>
+        <file>
+            <source>src/config/common/module-certificates.xml</source>
+            <filtered>false</filtered>
+            <destName>module.xml</destName>
+            <outputDirectory>./</outputDirectory>
+        </file>
+    </files>
+</assembly>

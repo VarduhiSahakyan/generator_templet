@@ -1,0 +1,2 @@
+INSERT INTO TransactionStatuses (`reversed`, `transactionStatusType`) VALUES (0, 'MERCHANT_THRESHOLD_AMOUNT_REACHED');
+INSERT INTO TransactionStatuses (`reversed`, `transactionStatusType`) VALUES (1, 'MERCHANT_THRESHOLD_AMOUNT_REACHED');

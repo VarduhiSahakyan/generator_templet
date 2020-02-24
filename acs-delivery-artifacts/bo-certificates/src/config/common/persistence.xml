@@ -1,0 +1,67 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd" version="2.0">
+	<persistence-unit name="mystique" transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:jboss/datasources/mystique</jta-data-source>
+
+		<class>com.worldline.acs.bo.model.migration.MigrationConfigEntity</class>
+		<class>com.worldline.acs.bo.model.migration.MigrationConditionConfigEntity</class>
+		<class>com.worldline.acs.bo.model.migration.MigrationCustomItemsConfigEntity</class>
+		<class>com.worldline.acs.bo.model.migration.MigrationMeansProcessStatusesConfigEntity</class>
+		<class>com.worldline.acs.bo.model.migration.MigrationRuleConfigEntity</class>
+		<class>com.worldline.acs.bo.model.migration.MigrationThresholdsConfigEntity</class>
+		<class>com.worldline.acs.bo.model.migration.MigrationTransactionStatusesConfigEntity</class>
+
+		<class>com.worldline.acs.bo.model.EntityData</class>
+		<class>com.worldline.acs.bo.model.EntityHistory</class>
+        <class>com.worldline.acs.bo.model.merchants.MerchantPivotListEntity</class>
+
+		<class>com.worldline.acs.bo.model.commons.FontEntity</class>
+		<class>com.worldline.acs.bo.model.commons.ImageEntity</class>
+
+		<class>com.worldline.acs.bo.model.config.InstanceConfigurationEntity</class>
+		<class>com.worldline.acs.bo.model.issuers.IssuerEntity</class>
+		<class>com.worldline.acs.bo.model.issuers.SubIssuerEntity</class>
+		<class>com.worldline.acs.bo.model.issuers.NetworkEntity</class>
+
+		<class>com.worldline.acs.bo.model.issuers.SubIssuerNetworkCryptoEntity</class>
+		<class>com.worldline.acs.bo.model.issuers.SubIssuerCryptoEntity</class>
+
+		<class>com.worldline.acs.bo.model.bins.BinRangeEntity</class>
+
+		<class>com.worldline.acs.bo.model.profiles.ProfileSetEntity</class>
+		<class>com.worldline.acs.bo.model.profiles.RuleEntity</class>
+		<class>com.worldline.acs.bo.model.profiles.ConditionEntity</class>
+		<class>com.worldline.acs.bo.model.profiles.ProfileEntity</class>
+		<class>com.worldline.acs.bo.model.profiles.AuthentMeansEntity</class>
+		<class>com.worldline.acs.bo.model.profiles.ThresholdsEntity</class>
+		<class>com.worldline.acs.bo.model.profiles.TransactionStatusesEntity</class>
+		<class>com.worldline.acs.bo.model.profiles.TransactionValueEntity</class>
+		<class>com.worldline.acs.bo.model.profiles.MeansProcessStatusesEntity</class>
+
+		<class>com.worldline.acs.bo.model.profiles.customitems.CustomFontEntity</class>
+		<class>com.worldline.acs.bo.model.profiles.customitems.CustomImageEntity</class>
+		<class>com.worldline.acs.bo.model.profiles.customitems.CustomTextEntity</class>
+		<class>com.worldline.acs.bo.model.profiles.customitems.CustomItemSetEntity</class>
+		<class>com.worldline.acs.bo.model.profiles.customitems.AbstractCustomItem</class>
+
+        <class>com.worldline.acs.bo.model.profiles.customlayouts.CustomComponentEntity</class>
+        <class>com.worldline.acs.bo.model.profiles.customlayouts.CustomComponentParamsEntity</class>
+        <class>com.worldline.acs.bo.model.profiles.customlayouts.CustomPageLayoutEntity</class>
+        <class>com.worldline.acs.bo.model.profiles.customlayouts.CustomStyleEntity</class>
+        <class>com.worldline.acs.bo.model.profiles.customlayouts.CustomStyleParamsEntity</class>
+
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<shared-cache-mode>NONE</shared-cache-mode>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			<property name="hibernate.connection.characterEncoding" value="utf8" />
+			<property name="hibernate.hbm2ddl.useUnicode" value="true" />
+			<property name="hibernate.connection.charSet" value="UTF-8" />
+		</properties>
+	</persistence-unit>
+
+</persistence>

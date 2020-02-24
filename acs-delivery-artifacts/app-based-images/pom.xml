@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.worldline.acs.rbu3.delivery</groupId>
+        <groupId>com.worldline.acs.rbu2.delivery</groupId>
         <artifactId>acs-delivery-artifacts</artifactId>
-        <version>20R1-0.7-SNAPSHOT</version>
+        <version>20R1-0.8</version>
     </parent>
 
     <artifactId>app-based-images</artifactId>
@@ -35,8 +35,8 @@
                         <configuration>
                             <items>
                                 <!--item>model</item-->
-                                <item>u2f</item>
-                                <item>u4f</item>
+                                <item>u5g</item>
+                                <item>u7g</item>
                             </items>
                             <pluginExecutors>
                                 <pluginExecutor>
