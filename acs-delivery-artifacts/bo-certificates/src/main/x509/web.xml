@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+
+	<display-name>ACS 3 Back Office</display-name>
+	<listener>
+		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>shiroConfigLocations</param-name>
+		<param-value>/WEB-INF/shiro.ini</param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>javax.ws.rs.core.Application</servlet-name>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>javax.ws.rs.core.Application</servlet-name>
+		<url-pattern>/api/*</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>LogOutFilter</filter-name>
+		<filter-class>net.awl.bfi.ump.portal.umpfilter.UmpLogOutFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>LogOutFilter</filter-name>
+		<url-pattern>/UmpLogOut</url-pattern>
+	</filter-mapping>
+
+
+	<filter>
+		<filter-name>CAS Authentication Filter</filter-name>
+		<filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>
+
+	</filter>
+
+	<filter>
+		<filter-name>CAS Authentication Filter</filter-name>
+		<filter-class>dt.web.WrappedFilter</filter-class>
+		<init-param>
+			<param-name>key</param-name>
+			<param-value>wrappedcasaf</param-value>
+		</init-param>
+		<init-param>
+			<param-name>class</param-name>
+			<param-value>org.jasig.cas.client.authentication.AuthenticationFilter</param-value>
+		</init-param>
+	</filter>
+
+
+	<filter>
+		<filter-name>CAS Validation Filter</filter-name>
+		<filter-class>dt.web.WrappedFilter</filter-class>
+		<init-param>
+			<param-name>key</param-name>
+			<param-value>wrappedcasvf</param-value>
+		</init-param>
+		<init-param>
+			<param-name>class</param-name>
+			<param-value>org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter</param-value>
+		</init-param>
+	</filter>
+
+	<filter>
+		<filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
+		<filter-class>org.jasig.cas.client.util.HttpServletRequestWrapperFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>CAS Assertion Thread Local Filter</filter-name>
+		<filter-class>org.jasig.cas.client.util.AssertionThreadLocalFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>ShiroFilter</filter-name>
+		<filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>UMP Filter</filter-name>
+		<filter-class>dt.web.WrappedFilter</filter-class>
+		<init-param>
+			<param-name>key</param-name>
+			<param-value>wrappedumpf</param-value>
+		</init-param>
+		<init-param>
+			<param-name>class</param-name>
+			<param-value>net.awl.bfi.ump.portal.umpfilter.UmpFilter</param-value>
+		</init-param>
+	</filter>
+
+
+	<filter>
+		<filter-name>RMFilter</filter-name>
+		<filter-class>dt.web.WrappedFilter</filter-class>
+		<init-param>
+			<param-name>key</param-name>
+			<param-value>wrappedrmf</param-value>
+		</init-param>
+		<init-param>
+			<param-name>class</param-name>
+			<param-value>com.worldline.acs.bo.rm.ACSShiroRmFilter</param-value>
+		</init-param>
+	</filter>
+	
+	<!-- Get X509 Filter -->
+	
+	<filter>
+		<filter-name>Get X509 Certificate Filter</filter-name>
+		<filter-class>dt.web.WrappedFilter</filter-class>
+		<init-param>
+			<param-name>key</param-name>
+			<param-value>wrappedx509</param-value>
+		</init-param>
+		<init-param>
+			<param-name>class</param-name>
+			<param-value>net.awl.bfi.ump.portal.x509filter.GetX509Data</param-value>
+		</init-param>
+	</filter>
+
+	<filter>
+		<filter-name>Check X509 Certificate Filter</filter-name>
+		<filter-class>dt.web.WrappedFilter</filter-class>
+		<init-param>
+			<param-name>key</param-name>
+			<param-value>wrappedcheckx509</param-value>
+		</init-param>
+		<init-param>
+			<param-name>class</param-name>
+			<param-value>net.awl.bfi.ump.portal.x509filter.CheckX509Data</param-value>
+		</init-param>
+	</filter>
+	
+
+	<filter-mapping>
+		<filter-name>CAS Authentication Filter</filter-name>
+		<url-pattern>/acs/*</url-pattern>
+		<url-pattern>/api/acs/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>CAS Validation Filter</filter-name>
+		<url-pattern>/acs/*</url-pattern>
+		<url-pattern>/api/acs/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
+		<url-pattern>/acs/*</url-pattern>
+		<url-pattern>/api/acs/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>CAS Assertion Thread Local Filter</filter-name>
+		<url-pattern>/acs/*</url-pattern>
+		<url-pattern>/api/acs/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>ShiroFilter</filter-name>
+		<url-pattern>/acs/*</url-pattern>
+		<url-pattern>/api/acs/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+
+
+	<filter-mapping>
+		<filter-name>UMP Filter</filter-name>
+		<url-pattern>/acs/*</url-pattern>
+		<url-pattern>/api/acs/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>RMFilter</filter-name>
+		<url-pattern>/acs/*</url-pattern>
+		<url-pattern>/api/acs/*</url-pattern>
+	</filter-mapping>
+	
+    <filter-mapping>
+      <filter-name>Get X509 Certificate Filter</filter-name>
+		<url-pattern>/acs/*</url-pattern>
+		<url-pattern>/api/acs/*</url-pattern>
+   </filter-mapping>
+
+	<filter-mapping>
+      <filter-name>Check X509 Certificate Filter</filter-name>
+		<url-pattern>/acs/*</url-pattern>
+		<url-pattern>/api/acs/*</url-pattern>
+   </filter-mapping>
+ 
+	<session-config>
+		<session-timeout>15</session-timeout>
+		<tracking-mode>COOKIE</tracking-mode>
+	</session-config>
+
+	<!-- Filter for AngularJS routing to handle HTML5 mode -->
+	<filter>
+		<filter-name>AngularFilter</filter-name>
+		<filter-class>com.worldline.acs.bo.AngularFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AngularFilter</filter-name>
+		<url-pattern>/acs/*</url-pattern>
+		<url-pattern>/acs-monitor-gui</url-pattern>
+	</filter-mapping>
+	
+	 <error-page>  
+		 <error-code>404</error-code>  
+		 <location>/app/templates/views/Errors/serverPages/404.html</location>  
+	 </error-page>  
+	 
+	 <error-page>  
+		 <error-code>500</error-code>  
+		 <location>/app/templates/views/Errors/serverPages/500.html</location>  
+	 </error-page> 
+</web-app>

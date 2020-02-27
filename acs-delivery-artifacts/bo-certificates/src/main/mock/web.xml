@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+
+	<display-name>ACS 3 Back Office</display-name>
+	<listener>
+		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>shiroConfigLocations</param-name>
+		<param-value>/WEB-INF/shiro-mock.ini</param-value>
+	</context-param>
+
+
+	<servlet>
+		<servlet-name>javax.ws.rs.core.Application</servlet-name>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>javax.ws.rs.core.Application</servlet-name>
+		<url-pattern>/api/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- prevent conficts between Repo exception mapper and BO exception mapper 
+		on RepositoryException -->
+	<context-param>
+		<param-name>resteasy.providers</param-name>
+		<param-value>com.worldline.acs.bo.mappers.AuthenticationHUBExceptionMapper</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>ShiroFilter</filter-name>
+		<filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+	</filter>
+
+
+	<filter>
+		<filter-name>RMFilter</filter-name>
+		<filter-class>com.worldline.acs.bo.rm.mock.ACSShiroRmFilterMock</filter-class>
+		<init-param>
+			<param-name>portalRoleChoiceUrl</param-name>
+			<param-value>http://localhost:8080
+            </param-value>
+		</init-param>
+		<init-param>
+			<param-name>serviceErrorUrl</param-name>
+			<param-value>http://localhost:8080</param-value>
+		</init-param>
+		<init-param>
+			<param-name>excludePatterns</param-name>
+			<param-value>img pdf js css ExceptionReport</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>ShiroFilter</filter-name>
+		<url-pattern>/acs/*</url-pattern>
+		<url-pattern>/api/acs/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>RMFilter</filter-name>
+		<url-pattern>/acs/*</url-pattern>
+		<url-pattern>/api/acs/*</url-pattern>
+	</filter-mapping>
+
+	<session-config>
+		<session-timeout>15</session-timeout>
+		<tracking-mode>COOKIE</tracking-mode>
+	</session-config>
+
+	<!-- Filter for AngularJS routing to handle HTML5 mode -->
+	<filter>
+		<filter-name>AngularFilter</filter-name>
+		<filter-class>com.worldline.acs.bo.AngularFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AngularFilter</filter-name>
+		<url-pattern>/acs/*</url-pattern>
+		<url-pattern>/acs-monitor-gui</url-pattern>
+	</filter-mapping>
+	
+	 <error-page>  
+		 <error-code>404</error-code>  
+		 <location>/app/templates/views/Errors/serverPages/404.html</location>  
+	 </error-page>  
+	 
+	 <error-page>  
+		 <error-code>500</error-code>  
+		 <location>/app/templates/views/Errors/serverPages/500.html</location>  
+	 </error-page>  
+</web-app>

@@ -10,6 +10,7 @@
         <version>20R1-0.15</version>
     </parent>
 
+
     <artifactId>acs-delivery-artifacts</artifactId>
     <packaging>pom</packaging>
 
@@ -17,11 +18,12 @@
 
     <modules>
         <module>acs-crypto-hsm</module>
-<!--        <module>acs-auth-hubs-impls</module>
+        <module>acs-auth-hubs-impls</module>
         <module>acs-session-service</module>
         <module>acs-protocol-2-commons</module>
         <module>acs-authentication-service</module>
-        <module>bo-certificates</module> -->
+        <module>bo-certificates</module>
+        <module>app-based-images</module>
     </modules>
 
     <properties>

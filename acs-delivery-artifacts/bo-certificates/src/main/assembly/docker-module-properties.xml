@@ -1,0 +1,25 @@
+<assembly>
+	<id>docker-properties</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<fileSets>
+		<fileSet>
+			<directory>src/main/template/</directory>
+			<filtered>true</filtered>
+			<outputDirectory>properties</outputDirectory>
+			<includes>
+				<include>*</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+	<files>
+		<file>
+			<source>src/config/common/module-bo.xml</source>
+			<filtered>false</filtered>
+			<destName>module.xml</destName>
+			<outputDirectory>./</outputDirectory>
+		</file>
+	</files>
+</assembly>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration>
+	<property name="LOGS_FOLDER" value="${log_dir}"/>
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOGS_FOLDER}/acs3-bo.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOGS_FOLDER}/acs3-bo.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>[%d{dd-MM-yyyy HH:mm:ss.SSS}] %X{idTrans} %-5level [%logger{35}] %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="NOTIF_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOGS_FOLDER}/binrange-activation.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOGS_FOLDER}/binrange-activation.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>[%d{dd-MM-yyyy HH:mm:ss.SSS}] %X{idTrans} %-5level [%logger{35}] %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} [ %X{login} ] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.worldline.acs" additivity="false" level="INFO">
+		<appender-ref ref="FILE" />
+    </logger>
+
+	<logger name="com.worldline.acs.bo.notification" additivity="false" level="INFO">
+		<appender-ref ref="NOTIF_FILE" />
+	</logger>
+
+	<logger name="net.awl.bfi.ump.portal" level="INFO">
+		<appender-ref ref="FILE" />
+	</logger>
+
+	<root level="INFO">
+		<appender-ref ref="FILE" />
+	</root>
+	
+</configuration>
