@@ -23,8 +23,7 @@
         <KeyStoreType>JKS</KeyStoreType>
         <KeyStore><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/User_ACS_RCI_RCE.jks</KeyStore>
         <KeyStorePassword><%= @context['softman_global']['KEY_STORE_PASSWORD'] %></KeyStorePassword>
-        <!--<KeyStoreAlias>user1</KeyStoreAlias>-->
-        <KeyStoreAlias>1</KeyStoreAlias>
+        <KeyStoreAlias><%= @context['softman_global']['KEY_STORE_ALIAS'] %> </KeyStoreAlias>
         <SSLProtocol>TLSv1.2</SSLProtocol>
     </SSLDefinition>
 
