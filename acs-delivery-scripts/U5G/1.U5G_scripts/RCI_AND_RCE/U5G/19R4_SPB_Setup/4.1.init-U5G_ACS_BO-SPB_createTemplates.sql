@@ -1330,11 +1330,14 @@ side-menu .menu-elements div div div span + span {
 			<side-menu></side-menu>
 		</div>
         <div class="display-challenge">
-            <chiptan></chiptan>
+            <chiptan speed-label="''network_means_pageType_4''"
+                     zoom-label="''network_means_pageType_5''"
+                     manual-link-label="''network_means_pageType_7''"
+                     manual-text="''network_means_pageType_6''"></chiptan>
         </div>
         <div class="tanContainer">
 				<div id = "tanLabel">
-					<custom-text custom-text-key="''network_means_pageType_4''"></custom-text>
+					<custom-text custom-text-key="''network_means_pageType_3''"></custom-text>
 				</div>
 
 				<div id = "otpForm" >

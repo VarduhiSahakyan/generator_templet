@@ -1003,6 +1003,18 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
  'de', 3, @currentPageType, '<b>TAN* :</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
 
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_4'), 'PUSHED_TO_CONFIG',
+ 'de', 4, 'OTP_FORM_PAGE', 'Geschwindigkeit', @idNetworkVISA, null,  @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_5'), 'PUSHED_TO_CONFIG',
+ 'de', 5, 'OTP_FORM_PAGE', 'Zoom', @idNetworkVISA, null,  @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_6'), 'PUSHED_TO_CONFIG',
+ 'de', 6, 'OTP_FORM_PAGE', 'Beschreibung für manuelle Challenge', @idNetworkVISA, null,  @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_7'), 'PUSHED_TO_CONFIG',
+ 'de', 7, 'OTP_FORM_PAGE', 'Umschalten auf manuelle Challenge', @idNetworkVISA, null,  @currentCustomItemSet),
+
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_12'), 'PUSHED_TO_CONFIG',
  'de', 12, @currentPageType, 'Authentifizierung läuft.', @idNetworkVISA, NULL, @currentCustomItemSet),
 
