@@ -15,7 +15,7 @@
 
     <properties>
         <config.fileList>
-            hub-config-rci,hub-config-rce,docker,hub-config-u5g-prd
+            hub-config-rci,hub-config-rce,docker,hub-config-u5g-prd,hub-config-u7g-prd
         </config.fileList>
     </properties>
 
