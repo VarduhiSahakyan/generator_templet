@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.worldline.acs.rbu2.delivery</groupId>
         <artifactId>acs-delivery-artifacts</artifactId>
-        <version>20R1-0.18</version>
+        <version>20R1-0.19</version>
     </parent>
 
     <artifactId>acs-session-service</artifactId>
@@ -34,10 +34,10 @@
                         </goals>
                         <configuration>
                             <items>
-                               <!-- <item>config-rci</item>
+                                <item>config-rci</item>
                                 <item>config-rce</item>
                                 <item>docker</item>
-                                <item>config-u5g-prd</item>-->
+                                <item>config-u5g-prd</item>
                                 <item>config-u7g-prd</item>
                             </items>
                             <pluginExecutors>
