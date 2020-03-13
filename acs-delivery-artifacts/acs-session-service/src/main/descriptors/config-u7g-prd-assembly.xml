@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <assembly>
-	<id>config-u5g-prd</id>
+	<id>config-u7g-prd</id>
 	<formats>
 		<format>zip</format>
 	</formats>
 	<includeBaseDirectory>false</includeBaseDirectory>
 	<fileSets>
 		<fileSet>
-			<directory>src/main/resources/config-u5g-prd</directory>
+			<directory>src/main/resources/config-u7g-prd</directory>
 			<excludes>
 				<exclude>**/META-INF/</exclude>
 			</excludes>

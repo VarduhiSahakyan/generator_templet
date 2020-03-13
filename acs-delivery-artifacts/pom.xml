@@ -17,8 +17,8 @@
     <name>Build Artifacts</name>
 
     <modules>
-        <module>acs-crypto-hsm</module>
-        <module>acs-auth-hubs-impls</module>
+        <!--<module>acs-crypto-hsm</module>
+        <module>acs-auth-hubs-impls</module>-->
         <module>acs-session-service</module>
         <module>acs-protocol-2-commons</module>
         <module>acs-authentication-service</module>
