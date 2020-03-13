@@ -1,0 +1,17 @@
+ds.clients.max.connections=5
+ds.clients.max.routes=3
+ds.clients.proxy.host=<%= @context['softman_global']['SERVICE_PUBLIC_PROXY_HOST'] %>
+ds.clients.proxy.port=<%= @context['softman_global']['SERVICE_PUBLIC_PROXY_PORT'] %>
+ds.request.timeout.milli=300000
+ds.read.timeout.milli=5200
+ds.disable.hostname.verif=<%= @context['softman_global']['DISABLE_HOSTNAME_VERIF'] %>
+#Visa config
+ds.ssl.trust.store.file.visa=certificates/TLSClientTrustStoreVISA.jks
+ds.ssl.trust.store.password.visa=<%= @context['softman_global']['VISA_DS_TRUSTSTORE_PASSWORD'] %>
+ds.ssl.key.store.file.visa=certificates/prx.pci.vdm.as8677.net_VISA.p12
+ds.ssl.key.store.password.visa=<%= @context['softman_global']['VISA_DS_KEYSTORE_PASSWORD'] %>
+#Mastercard config
+ds.ssl.trust.store.file.mastercard=certificates/TLSClientTrustStoreMC.jks
+ds.ssl.trust.store.password.mastercard=<%= @context['softman_global']['MASTERCARD_DS_TRUSTSTORE_PASSWORD'] %>
+ds.ssl.key.store.file.mastercard=certificates/prx.pci.vdm.as8677.net_MC.p12
+ds.ssl.key.store.password.mastercard=<%= @context['softman_global']['MASTERCARD_DS_KEYSTORE_PASSWORD'] %>

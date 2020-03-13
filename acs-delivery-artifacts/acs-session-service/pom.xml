@@ -38,6 +38,7 @@
                                 <item>config-rce</item>
                                 <item>docker</item>
                                 <item>config-u5g-prd</item>
+                                <item>config-u7g-prd</item>
                             </items>
                             <pluginExecutors>
                                 <pluginExecutor>

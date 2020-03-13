@@ -15,7 +15,7 @@
 
     <properties>
         <config.fileList>
-            config-rci,config-rce,docker,config-u5g-prd
+            config-rci,config-rce,docker,config-u5g-prd,config-u7g-prd
         </config.fileList>
     </properties>
 
