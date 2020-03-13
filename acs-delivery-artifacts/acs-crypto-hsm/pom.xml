@@ -42,6 +42,7 @@
                                 <item>u5g-prd</item>
                                 <item>u5g-rct</item>
                                 <item>u7g-rct</item>
+                                <item>u7g-prd</item>
                                 <item>docker</item>
                             </items>
                             <pluginExecutors>
