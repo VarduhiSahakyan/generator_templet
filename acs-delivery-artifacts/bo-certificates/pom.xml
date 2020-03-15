@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.worldline.acs.rbu2.delivery</groupId>
         <artifactId>acs-delivery-artifacts</artifactId>
-        <version>20R1-0.20</version>
+        <version>20R1-0.21</version>
     </parent>
 
     <artifactId>bo-certificates</artifactId>
@@ -38,6 +38,7 @@
                                 <descriptor>src/main/assembly/rci/module-certificates-bo-mutu.xml</descriptor>
                                 <descriptor>src/main/assembly/rce/module-certificates-bo-mutu.xml</descriptor>
                                 <descriptor>src/main/assembly/prd/module-certificates-bo-u5g.xml</descriptor>
+                                <descriptor>src/main/assembly/prd/module-certificates-bo-u7g.xml</descriptor>
                             </descriptors>
                         </configuration>
                     </execution>
