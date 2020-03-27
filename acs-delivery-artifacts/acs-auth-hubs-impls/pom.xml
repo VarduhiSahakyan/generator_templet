@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.worldline.acs.rbu2.delivery</groupId>
         <artifactId>acs-delivery-artifacts</artifactId>
-        <version>20R1-0.7-SNAPSHOT</version>
+        <version>20R1-0.24-SNAPSHOT</version>
     </parent>
 
     <artifactId>acs-auth-hubs-impls</artifactId>
@@ -15,7 +15,7 @@
 
     <properties>
         <config.fileList>
-            hub-config-rci,hub-config-rce,docker,hub-config-u5g-prd
+            hub-config-rci,hub-config-rce,docker,hub-config-u5g-prd,hub-config-u7g-prd
         </config.fileList>
     </properties>
 
@@ -36,6 +36,7 @@
                                 <item>hub-config-rci</item>
                                 <item>hub-config-rce</item>
                                 <item>hub-config-u5g-prd</item>
+                                <item>hub-config-u7g-prd</item>
                             </items>
                             <pluginExecutors>
                                 <pluginExecutor>
