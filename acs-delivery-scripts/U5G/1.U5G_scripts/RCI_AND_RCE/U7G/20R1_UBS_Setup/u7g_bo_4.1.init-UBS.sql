@@ -118,7 +118,7 @@ SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONC
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
   VALUES( 'div','
-<style>
+<style> 
         #message-container {
                 position:relative;
         }

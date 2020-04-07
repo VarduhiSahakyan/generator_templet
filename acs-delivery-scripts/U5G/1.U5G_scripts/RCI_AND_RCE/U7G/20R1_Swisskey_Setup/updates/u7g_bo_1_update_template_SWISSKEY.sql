@@ -5,7 +5,7 @@ SET @BankB = 'SWISSKEY';
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('SMS OTP Form Page (', @BankB, ')%') );
 
 UPDATE CustomComponent SET value = '
-<style>
+<style> 
         div#optGblPage {
                 font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
                 font-size:14px;

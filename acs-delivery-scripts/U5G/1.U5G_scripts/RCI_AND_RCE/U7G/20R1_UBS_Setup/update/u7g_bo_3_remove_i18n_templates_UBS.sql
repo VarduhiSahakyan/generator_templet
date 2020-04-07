@@ -5,7 +5,7 @@ SET @BankB = 'UBS';
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('SMS OTP Form Page (', @BankB, ')%') );
 
 UPDATE CustomComponent SET value = '
-<style>
+<style> 
         #main-container {
                 font-family: FrutigerforUBSWeb;
                 max-width: 600px;
