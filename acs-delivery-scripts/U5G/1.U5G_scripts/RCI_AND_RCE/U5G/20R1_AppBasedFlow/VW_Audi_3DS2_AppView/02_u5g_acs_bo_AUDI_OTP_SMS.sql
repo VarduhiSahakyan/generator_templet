@@ -66,7 +66,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3DS MAIN CONTENT TEXT
 SET @ordinal = 152;
-SET @text = 'Händler: @merchantName \nBetrag: @amount \nDatum: @formattedDate \nKreditkartennummer: @maskedPan \nMobilfunknummer: @device \n\nBestätigen Sie Ihre Visa Secure Zahlung, indem Sie die per SMS empfangene 6-stellige SMS-TAN in das Feld eingeben und auf „Senden“ klicken';
+SET @text = 'Händler: @merchant \nBetrag: @amount \nDatum: @formattedDate \nKreditkartennummer: @maskedPan \nMobilfunknummer: @device \n\nBestätigen Sie Ihre Visa Secure Zahlung, indem Sie die per SMS empfangene 6-stellige SMS-TAN in das Feld eingeben und auf „Senden“ klicken';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA, @networkMC);
 
@@ -96,7 +96,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3DS WHY INFO_TEXT (Kind of help text but shorter)
 SET @ordinal = 157;
-SET @text = 'Keine SMS erhalten?\nMöglicherweise kann Ihr Mobiltelefon aus technischen Gründen keine SMS empfangen. Ihre hinterlegte Mobilfunknummer hat sich geändert.\nBitte wenden Sie sich an die Audi Bank unter +49 531 212-859 591 (Mo – Fr 8:00 – 19:00 Uhr).';
+SET @text = 'Keine SMS erhalten? \nMöglicherweise kann Ihr Mobiltelefon aus technischen Gründen keine SMS empfangen. Ihre hinterlegte Mobilfunknummer hat sich geändert. \nBitte wenden Sie sich an die Audi Bank unter +49 531 212-859 591 (Mo – Fr 8:00 – 19:00 Uhr).';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA, @networkMC);
 	

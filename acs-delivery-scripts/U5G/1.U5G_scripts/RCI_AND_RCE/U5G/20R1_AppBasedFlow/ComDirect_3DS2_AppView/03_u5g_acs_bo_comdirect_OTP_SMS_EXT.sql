@@ -67,7 +67,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3DS MAIN CONTENT TEXT
 SET @ordinal = 152;
-SET @text = 'Händler: @merchant\n Betrag: @amount\n Datum: @formattedDate\n Kartennummer: @maskedPan';
+SET @text = 'Händler: @merchant \nBetrag: @amount \nDatum: @formattedDate \nKartennummer: @maskedPan';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA, @networkMC);
 
@@ -97,7 +97,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3DS WHY INFO_TEXT (Kind of help text but shorter)
 SET @ordinal = 157;
-SET @text = 'SMS gesendet an Mobilnummer: <masked mobile phone number>';
+SET @text = 'SMS gesendet an Mobilnummer: @device';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA, @networkMC);
 	
@@ -116,7 +116,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 	
 -- 3DS BAD_OTP_TEXT (Similar to regular one)
 SET @ordinal = 160;
-SET @text = 'Sie haben eine ungültige mobileTAN eingegeben.Nach der dritten falschen TAN-Eingabe in Folge wird Ihr Konto aus Sicherheitsgründen gesperrt. Bitte geben Sie die Ihnen zugesandte mobileTAN erneut ein.';
+SET @text = 'Sie haben eine ungültige mobileTAN eingegeben. Nach der dritten falschen TAN-Eingabe in Folge wird Ihr Konto aus Sicherheitsgründen gesperrt. Bitte geben Sie die Ihnen zugesandte mobileTAN erneut ein.';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA, @networkMC);
 

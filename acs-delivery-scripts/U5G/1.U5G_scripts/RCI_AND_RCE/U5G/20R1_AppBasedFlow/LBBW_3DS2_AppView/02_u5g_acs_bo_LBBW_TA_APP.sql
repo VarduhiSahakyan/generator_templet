@@ -79,7 +79,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3DS WHY INFO_TEXT (Kind of help text but shorter)
 SET @ordinal = 157;
-SET @text = 'Ihre Kreditkartenzahlung muss in der BW-Secure App mit 3D-Secure bestätigt werden.\n \n Nähere Informationen finden Sie im BW-Secure Portal. Hier können Sie auch Geräte hinzufügen oder registrierte Geräte entfernen: https://sicheres-bezahlen.bw-bank.de/';
+SET @text = 'Ihre Kreditkartenzahlung muss in der BW-Secure App mit 3D-Secure bestätigt werden. \n\nNähere Informationen finden Sie im BW-Secure Portal. Hier können Sie auch Geräte hinzufügen oder registrierte Geräte entfernen: https://sicheres-bezahlen.bw-bank.de/';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA, @networkMC);
 	

@@ -66,7 +66,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3DS MAIN CONTENT TEXT
 SET @ordinal = 152;
-SET @text = 'Damit Sie noch sicherer mit Ihrer Kreditkarte zahlen, haben wir eine zusätzliche Abfrage eingefügt. Bitte geben Sie das Passwort zu Ihrer Postbank-ID ein.\n\n Abrechnungskonto : @pam\n Händler : @merchant\n Betrag : @amount\n Datum : @formattedDate\n Kartennummer : @maskedPan';
+SET @text = 'Damit Sie noch sicherer mit Ihrer Kreditkarte zahlen, haben wir eine zusätzliche Abfrage eingefügt. Bitte geben Sie das Passwort zu Ihrer Postbank-ID ein. \n\nAbrechnungskonto : @pam \nHändler : @merchant \nBetrag : @amount \nDatum : @formattedDate \nKartennummer : @maskedPan';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA, @networkMC);
 
@@ -115,7 +115,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 	
 -- 3DS BAD_OTP_TEXT (Similar to regular one)
 SET @ordinal = 160;
-SET @text = 'Ihre Eingabe war nicht korrekt.\n\n Geben Sie bitte erneut das Passwort zu Ihrer Postbank-ID ein.\n\n Nach 3 Fehleingaben wird Ihre Postbank-ID vorläufig gesperrt. Nutzen Sie in diesem Fall die Funktion "Zugangsdaten vergessen?" auf der Startseite des Online-Bankings und wählen Sie auf der Folgeseite aus, dass Sie Ihr Passwort vergessen haben.';
+SET @text = 'Ihre Eingabe war nicht korrekt. \n\nGeben Sie bitte erneut das Passwort zu Ihrer Postbank-ID ein. \n\nNach 3 Fehleingaben wird Ihre Postbank-ID vorläufig gesperrt. Nutzen Sie in diesem Fall die Funktion "Zugangsdaten vergessen?" auf der Startseite des Online-Bankings und wählen Sie auf der Folgeseite aus, dass Sie Ihr Passwort vergessen haben.';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA, @networkMC);
 
