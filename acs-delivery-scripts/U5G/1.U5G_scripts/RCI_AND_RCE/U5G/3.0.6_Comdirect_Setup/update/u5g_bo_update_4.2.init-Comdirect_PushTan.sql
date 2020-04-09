@@ -397,7 +397,7 @@ INSERT INTO `Profile` (`createdBy`, `creationDate`, `description`, `lastUpdateBy
 	(@createdBy, NOW(), 'Authentication APP 01', NULL, NULL, @profileNameApp, @updateState, 3, @authentMeansMobileApp, @customItemSetMobileApp, NULL, NULL, @subIssuerID);
 
 SET @profileAPP1 = (SELECT id FROM `Profile` WHERE `name` = @profileNameApp);
-SET @customer_ids = (SELECT group_concat(id)
+SET @profileIDs = (SELECT group_concat(id)
 					 FROM `Profile`
 					 WHERE name in ('16600_COMDIRECT_FRAUD_REFUSAL', '16600_COMDIRECT_RBA_ACCEPT',
 									'16600_COMDIRECT_RBA_REFUSAL', '16600_COMDIRECT_PHOTOTAN_01',
@@ -407,7 +407,7 @@ SET @customer_ids = (SELECT group_concat(id)
 									'16600_COMDIRECT_DEFAULT_REFUSAL'));
 SET @shiftOrder = 6;
 UPDATE Rule set orderRule = orderRule + 1
-	WHERE orderRule >= @shiftOrder and find_in_set(fk_id_profile, @customer_ids) order by orderRule;
+	WHERE orderRule >= @shiftOrder and find_in_set(fk_id_profile, @profileIDs) order by orderRule;
 
 INSERT INTO `Rule` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
 					`updateState`, `orderRule`, `fk_id_profile`) VALUES
