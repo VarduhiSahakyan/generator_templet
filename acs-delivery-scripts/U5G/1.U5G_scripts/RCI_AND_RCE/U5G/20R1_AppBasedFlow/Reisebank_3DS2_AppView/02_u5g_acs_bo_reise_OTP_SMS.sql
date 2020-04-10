@@ -52,13 +52,13 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3DS MAIN CONTENT TEXT
 SET @ordinal = 152;
-SET @text ='Händler: @merchant\n Betrag: @amount\n Datum: @formattedDate\n Kreditkartennummer: @maskedPan\n Telefonnummer: @device\n Bestätigen Sie Ihre Mastercard Identity CheckTM Zahlung, indem Sie die per SMS empfangene 6-stellige mobile TAN in das folgende Feld eingeben.';
+SET @text ='Händler: @merchant \nBetrag: @amount \nDatum: @formattedDate \nKreditkartennummer: @maskedPan \nTelefonnummer: @device \n\nBitte bestätigen Sie Ihre Zahlung, indem Sie die per SMS empfangene 6-stellige mobile TAN in das folgende Feld eingeben.';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkMC);
 
 -- 3DS INPUT LABEL
 SET @ordinal = 153;
-SET @text = 'Mit dem Senden der mobilen TAN identifizieren Sie sich als Karteninhaber und geben so Ihre Zahlung frei.';
+SET @text = 'mobile TAN:';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkMC);
 
@@ -70,7 +70,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3DS RESEND BUTTON LABEL 
 SET @ordinal = 155;
-SET @text = 'Mobile TAN erneuert anfordern';
+SET @text = 'Mobile TAN erneut anfordern';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkMC);
 
@@ -82,7 +82,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3DS WHY INFO_TEXT (Kind of help text but shorter)
 SET @ordinal = 157;
-SET @text = 'Die TAN wird Ihnen per SMS an die hinterlegte Telefonnummer geschickt.\n Falls Ihre Telefonnummer falsch ist oder Sie keine TAN erhalten, kontaktieren Sie bitte unseren Kundenservice unter 0721 47666 3580.';
+SET @text = 'Die mobile TAN wird Ihnen per SMS an die hinterlegte Telefonnummer geschickt. \nFalls Ihre Telefonnummer falsch ist oder Sie keine mobile TAN erhalten, kontaktieren Sie bitte unseren Kundenservice unter 0721 47666 3580.';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkMC);
 	
@@ -101,7 +101,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 	
 -- 3DS BAD_OTP_TEXT (Similar to regular one)
 SET @ordinal = 160;
-SET @text = 'Die eingegebene mobile TAN ist ungültig. Bitte wiederholen Sie Ihre Eingabe. Achtung, Sie haben insgesamt nur 3 Versuche';
+SET @text = 'Händler: @merchant \nBetrag: @amount \nDatum: @formattedDate \nKreditkartennummer: @maskedPan \nTelefonnummer: @device \n\nDie eingegebene mobile TAN ist ungültig. Bitte wiederholen Sie Ihre Eingabe. Sie haben insgesamt 3 Versuche.';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkMC);
 
@@ -167,13 +167,13 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3DS MAIN CONTENT TEXT
 SET @ordinal = 152;
-SET @text ='Merchant: @merchant\n Amount: @amount\n Date: @formattedDate\n Card number: @maskedPan\n Phone number: @device\n Please enter the six characters long one-time password you received via SMS in the following field.';
+SET @text ='Merchant: @merchant \nAmount: @amount \nDate: @formattedDate \nCard number: @maskedPan \nPhone number: @device \n\nPlease enter the six characters long code you received via SMS in the following field.';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkMC);
 
 -- 3DS INPUT LABEL
 SET @ordinal = 153;
-SET @text = 'By submitting the password you identify yourself as the cardholder and approve the transaction.';
+SET @text = 'Code:';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkMC);
 
@@ -185,7 +185,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3DS RESEND BUTTON LABEL 
 SET @ordinal = 155;
-SET @text = 'resend mobileTAN';
+SET @text = 'Resend code';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkMC);
 
@@ -197,7 +197,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3DS WHY INFO_TEXT (Kind of help text but shorter)
 SET @ordinal = 157;
-SET @text = 'You will receive an one-time password via SMS, which is sent to your registered and valid phone number.\nIf your phone number is incorrect or if you dont receive the SMS, please contact customer service under 0721 4766 3580.';
+SET @text = 'You will receive the code via SMS, which is sent to your registered phone number. \nIf your phone number is incorrect or if you dont receive the SMS, please contact customer service under 0721 4766 3580.';
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkMC);
@@ -217,7 +217,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3DS BAD_OTP_TEXT (Similar to regular one)
 SET @ordinal = 160;
-SET @text = '';
+SET @text = 'Merchant: @merchant \nAmount: @amount \nDate: @formattedDate \nCard number: @maskedPan \nPhone number: @device \n\nThe code you entered is incorrect. Please try again. You have three attempts in total.';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkMC);
 
