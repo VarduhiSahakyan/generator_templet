@@ -4,7 +4,7 @@ UPDATE SERVICE_INFO SET ADDITIONAL_INFO = '
 { "machineInfo": {
         "tpacsk01b": {
                 "additionalInfo": {
-                        "flash.server.url": "https://ssl-prd-flash.as8677.net/flash",
+                        "flash.server.url": "https://ssl-prd-flash2-scl.as8677.net/flash",
                         "flash.proxy.host": "proxy.brs.pci.eqwl.svc.meshcore.net",
                         "flash.proxy.port": "3128",
                         "flash.connect.timeout": "3000",
@@ -21,11 +21,11 @@ UPDATE SERVICE_INFO SET ADDITIONAL_INFO = '
                         "flash.collection.id.pages": "acs-ux-swisskey-u7g",
                         "flash.collection.id.session": "acs-authentication-swisskey-u7g"
                 },
-                "serviceUrl": "https://ssl-prd-flash.as8677.net/flash",
+                "serviceUrl": "https://ssl-prd-flash2-scl.as8677.net/flash",
                 "servicePort": null,
                 "proxyHost": "proxy.brs.pci.eqwl.svc.meshcore.net",
                 "proxyPort": "3128",
-                "serverUrl": "https://ssl-prd-flash.as8677.net",
+                "serverUrl": "https://ssl-prd-flash2-scl.as8677.net",
                 "serviceStatus": "OK",
                 "version": "2.5.1",
                 "serviceStatusInfo": null,
@@ -33,7 +33,7 @@ UPDATE SERVICE_INFO SET ADDITIONAL_INFO = '
         },
         "tpacsk02b": {
                 "additionalInfo": {
-                        "flash.server.url": "https://ssl-prd-flash.as8677.net/flash",
+                        "flash.server.url": "https://ssl-prd-flash2-scl.as8677.net/flash",
                         "flash.proxy.host": "proxy.brs.pci.eqwl.svc.meshcore.net",
                         "flash.proxy.port": "3128",
                         "flash.connect.timeout": "3000",
@@ -50,11 +50,11 @@ UPDATE SERVICE_INFO SET ADDITIONAL_INFO = '
                         "flash.collection.id.pages": "acs-ux-swisskey-u7g",
                         "flash.collection.id.session": "acs-authentication-swisskey-u7g"
                 },
-                "serviceUrl": "https://ssl-prd-flash.as8677.net/flash",
+                "serviceUrl": "https://ssl-prd-flash2-scl.as8677.net/flash",
                 "servicePort": null,
                 "proxyHost": "proxy.brs.pci.eqwl.svc.meshcore.net",
                 "proxyPort": "3128",
-                "serverUrl": "https://ssl-prd-flash.as8677.net",
+                "serverUrl": "https://ssl-prd-flash2-scl.as8677.net",
                 "serviceStatus": "OK",
                 "version": "2.5.1",
                 "serviceStatusInfo": null,
@@ -62,7 +62,7 @@ UPDATE SERVICE_INFO SET ADDITIONAL_INFO = '
         },
         "tpacsk03b": {
                 "additionalInfo": {
-                        "flash.server.url": "https://ssl-prd-flash.as8677.net/flash",
+                        "flash.server.url": "https://ssl-prd-flash2-scl.as8677.net/flash",
                         "flash.proxy.host": "proxy.brs.pci.eqwl.svc.meshcore.net",
                         "flash.proxy.port": "3128",
                         "flash.connect.timeout": "3000",
@@ -79,11 +79,11 @@ UPDATE SERVICE_INFO SET ADDITIONAL_INFO = '
                         "flash.collection.id.pages": "acs-ux-swisskey-u7g",
                         "flash.collection.id.session": "acs-authentication-swisskey-u7g"
                 },
-                "serviceUrl": "https://ssl-prd-flash.as8677.net/flash",
+                "serviceUrl": "https://ssl-prd-flash2-scl.as8677.net/flash",
                 "servicePort": null,
                 "proxyHost": "proxy.brs.pci.eqwl.svc.meshcore.net",
                 "proxyPort": "3128",
-                "serverUrl": "https://ssl-prd-flash.as8677.net",
+                "serverUrl": "https://ssl-prd-flash2-scl.as8677.net",
                 "serviceStatus": "OK",
                 "version": "2.5.1",
                 "serviceStatusInfo": null,
@@ -91,7 +91,7 @@ UPDATE SERVICE_INFO SET ADDITIONAL_INFO = '
         },
         "tpacsk04b": {
                 "additionalInfo": {
-                        "flash.server.url": "https://ssl-prd-flash.as8677.net/flash",
+                        "flash.server.url": "https://ssl-prd-flash2-scl.as8677.net/flash",
                         "flash.proxy.host": "proxy.brs.pci.eqwl.svc.meshcore.net",
                         "flash.proxy.port": "3128",
                         "flash.connect.timeout": "3000",
@@ -108,11 +108,11 @@ UPDATE SERVICE_INFO SET ADDITIONAL_INFO = '
                         "flash.collection.id.pages": "acs-ux-swisskey-u7g",
                         "flash.collection.id.session": "acs-authentication-swisskey-u7g"
                 },
-                "serviceUrl": "https://ssl-prd-flash.as8677.net/flash",
+                "serviceUrl": "https://ssl-prd-flash2-scl.as8677.net/flash",
                 "servicePort": null,
                 "proxyHost": "proxy.brs.pci.eqwl.svc.meshcore.net",
                 "proxyPort": "3128",
-                "serverUrl": "https://ssl-prd-flash.as8677.net",
+                "serverUrl": "https://ssl-prd-flash2-scl.as8677.net",
                 "serviceStatus": "OK",
                 "version": "2.5.1",
                 "serviceStatusInfo": null,
@@ -126,7 +126,7 @@ UPDATE SERVICE_INFO SET ADDITIONAL_INFO = '{
         "machineInfo": {
                 "tpacsk01v": {
                         "additionalInfo": {
-                                "flash.server.url": "https://ssl-prd-flash.as8677.net/flash",
+                                "flash.server.url": "https://ssl-prd-flash2-vmd.as8677.net/flash",
                                 "flash.proxy.host": "proxy.vdm.pci.priv.atos.fr",
                                 "flash.proxy.port": "3128",
                                 "flash.connect.timeout": "3000",
@@ -143,11 +143,11 @@ UPDATE SERVICE_INFO SET ADDITIONAL_INFO = '{
                                 "flash.collection.id.pages": "acs-ux-swisskey-u7g",
                                 "flash.collection.id.session": "acs-authentication-swisskey-u7g"
                         },
-                        "serviceUrl": "https://ssl-prd-flash.as8677.net/flash",
+                        "serviceUrl": "https://ssl-prd-flash2-vmd.as8677.net/flash",
                         "servicePort": null,
                         "proxyHost": "proxy.vdm.pci.priv.atos.fr",
                         "proxyPort": "3128",
-                        "serverUrl": "https://ssl-prd-flash.as8677.net",
+                        "serverUrl": "https://ssl-prd-flash2-vmd.as8677.net",
                         "serviceStatus": "OK",
                         "version": "2.5.1",
                         "serviceStatusInfo": null,
@@ -155,7 +155,7 @@ UPDATE SERVICE_INFO SET ADDITIONAL_INFO = '{
                 },
                 "tpacsk02v": {
                         "additionalInfo": {
-                                "flash.server.url": "https://ssl-prd-flash.as8677.net/flash",
+                                "flash.server.url": "https://ssl-prd-flash2-vmd.as8677.net/flash",
                                 "flash.proxy.host": "proxy.vdm.pci.priv.atos.fr",
                                 "flash.proxy.port": "3128",
                                 "flash.connect.timeout": "3000",
@@ -172,11 +172,11 @@ UPDATE SERVICE_INFO SET ADDITIONAL_INFO = '{
                                 "flash.collection.id.pages": "acs-ux-swisskey-u7g",
                                 "flash.collection.id.session": "acs-authentication-swisskey-u7g"
                         },
-                        "serviceUrl": "https://ssl-prd-flash.as8677.net/flash",
+                        "serviceUrl": "https://ssl-prd-flash2-vmd.as8677.net/flash",
                         "servicePort": null,
                         "proxyHost": "proxy.vdm.pci.priv.atos.fr",
                         "proxyPort": "3128",
-                        "serverUrl": "https://ssl-prd-flash.as8677.net",
+                        "serverUrl": "https://ssl-prd-flash2-vmd.as8677.net",
                         "serviceStatus": "OK",
                         "version": "2.5.1",
                         "serviceStatusInfo": null,
@@ -184,7 +184,7 @@ UPDATE SERVICE_INFO SET ADDITIONAL_INFO = '{
                 },
                 "tpacsk03v": {
                         "additionalInfo": {
-                                "flash.server.url": "https://ssl-prd-flash.as8677.net/flash",
+                                "flash.server.url": "https://ssl-prd-flash2-vmd.as8677.net/flash",
                                 "flash.proxy.host": "proxy.vdm.pci.priv.atos.fr",
                                 "flash.proxy.port": "3128",
                                 "flash.connect.timeout": "3000",
@@ -201,11 +201,11 @@ UPDATE SERVICE_INFO SET ADDITIONAL_INFO = '{
                                 "flash.collection.id.pages": "acs-ux-swisskey-u7g",
                                 "flash.collection.id.session": "acs-authentication-swisskey-u7g"
                         },
-                        "serviceUrl": "https://ssl-prd-flash.as8677.net/flash",
+                        "serviceUrl": "https://ssl-prd-flash2-vmd.as8677.net/flash",
                         "servicePort": null,
                         "proxyHost": "proxy.vdm.pci.priv.atos.fr",
                         "proxyPort": "3128",
-                        "serverUrl": "https://ssl-prd-flash.as8677.net",
+                        "serverUrl": "https://ssl-prd-flash2-vmd.as8677.net",
                         "serviceStatus": "OK",
                         "version": "2.5.1",
                         "serviceStatusInfo": null,
@@ -213,7 +213,7 @@ UPDATE SERVICE_INFO SET ADDITIONAL_INFO = '{
                 },
                 "tpacsk04v": {
                         "additionalInfo": {
-                                "flash.server.url": "https://ssl-prd-flash.as8677.net/flash",
+                                "flash.server.url": "https://ssl-prd-flash2-vmd.as8677.net/flash",
                                 "flash.proxy.host": "proxy.vdm.pci.priv.atos.fr",
                                 "flash.proxy.port": "3128",
                                 "flash.connect.timeout": "3000",
@@ -230,11 +230,11 @@ UPDATE SERVICE_INFO SET ADDITIONAL_INFO = '{
                                 "flash.collection.id.pages": "acs-ux-swisskey-u7g",
                                 "flash.collection.id.session": "acs-authentication-swisskey-u7g"
                         },
-                        "serviceUrl": "https://ssl-prd-flash.as8677.net/flash",
+                        "serviceUrl": "https://ssl-prd-flash2-vmd.as8677.net/flash",
                         "servicePort": null,
                         "proxyHost": "proxy.vdm.pci.priv.atos.fr",
                         "proxyPort": "3128",
-                        "serverUrl": "https://ssl-prd-flash.as8677.net",
+                        "serverUrl": "https://ssl-prd-flash2-vmd.as8677.net",
                         "serviceStatus": "OK",
                         "version": "2.5.1",
                         "serviceStatusInfo": null,
