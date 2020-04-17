@@ -19,34 +19,36 @@ UPDATE CustomComponent SET value = '
 		border-bottom: 1px solid #DCDCDC;
 	}
 	#pageHeaderLeft {
-		width: 20%;
-		float: left;
-		padding-left: 16px;
-		padding-top: 16px;
+        width: 40%;
+        float: left;
+        padding-left: 16px;
+        height: 100%;
+        display: flex;
+        align-items: center;
 	}
 	#pageHeaderCenter {
-		width: 60%;
+		width: 30%;
 		float: left;
 		text-align: center;
 		line-height: 70px;
 		padding-top: 16px;
 	}
 	#pageHeaderRight {
-		width: 20%;
-		float: right;
-		text-align: right;
+        width: 30%;
+        float: right;
+        padding-right: 16px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
 	}
 	#issuerLogo {
 		max-height: 64px;
 		max-width:100%;
-		padding-left: 0px;
-		padding-right: 0px;
 	}
 	#networkLogo {
-		max-height: 80px;
+		max-height: 65px;
 		max-width:100%;
-		padding-top: 16px;
-		padding-right: 16px;
 	}
 	#i18n > button:focus {outline:0;border-color: #ff6a10;outline: #6e6e6e 1px dotted;}
 
@@ -342,8 +344,8 @@ UPDATE CustomComponent SET value = '
 	}
 	@media all and (max-width: 1278px) and (min-width: 764px) {
 		#pageHeader {height: 96px;}
-		#pageHeaderLeft { padding-top:0px; }
-		#issuerLogo {max-height : 64px;  max-width:200%;  padding-top: 10px;}
+		#issuerLogo {max-height : 55px; }
+		#networkLogo {max-height : 55px; }
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; }
 		.paragraph{ text-align: left;}
 		.paragraphDescription {text-align: left;}
@@ -351,9 +353,8 @@ UPDATE CustomComponent SET value = '
 	@media all and (max-width: 1199px) and (min-width: 701px) {
 		h1 { font-size:24px; }
 		#pageHeader {height: 90px;}
-		#pageHeaderRight {width: 25%;}
-		#issuerLogo {max-height : 64px;  max-width:200%; }
-		#networkLogo {max-height : 72px;px;  max-width:100%; padding-top: 5px;}
+		#issuerLogo {max-height : 50px; }
+		#networkLogo {max-height : 50px; }
 		#optGblPage {     font-size : 14px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
@@ -370,10 +371,8 @@ UPDATE CustomComponent SET value = '
 		h1 { font-size:18px; }
 		#optGblPage { font-size : 14px;}
 		#pageHeader {height: 70px;}
-		#pageHeaderRight {width: 25%;}
-		#pageHeaderLeft { padding-top:10px; }
-		#issuerLogo {max-height : 54px;  max-width:200%; }
-		#networkLogo {max-height : 67px;  max-width:100%; padding-top: 10px;}
+		#issuerLogo {max-height : 45px; }
+		#networkLogo {max-height : 45px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; padding-bottom:0em; }
@@ -388,10 +387,9 @@ UPDATE CustomComponent SET value = '
 		h1 { font-size:16px; }
 		div.side-menu div.menu-title { display:inline; }
 		#optGblPage {   font-size : 14px;}
-		#pageHeaderRight {width: 25%;}
 		#pageHeader {height: 65px;}
-		#issuerLogo { max-height : 42px;  max-width:200%; }
-		#networkLogo {max-height : 62px;  max-width:100%; padding-top: 0px;}
+		#issuerLogo {max-height : 35px; }
+		#networkLogo {max-height : 30px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; padding-bottom:0em; }
@@ -492,34 +490,36 @@ UPDATE CustomComponent SET value = '
 		border-bottom: 1px solid #DCDCDC;
 	}
 	#pageHeaderLeft {
-		width: 20%;
-		float: left;
-		padding-left: 16px;
-		padding-top: 16px;
+        width: 40%;
+        float: left;
+        padding-left: 16px;
+        height: 100%;
+        display: flex;
+        align-items: center;
 	}
 	#pageHeaderCenter {
-		width: 60%;
+		width: 30%;
 		float: left;
 		text-align: center;
 		line-height: 70px;
 		padding-top: 16px;
 	}
 	#pageHeaderRight {
-		width: 20%;
-		float: right;
-		text-align: right;
+        width: 30%;
+        float: right;
+        padding-right: 16px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
 	}
 	#issuerLogo {
 		max-height: 64px;
 		max-width:100%;
-		padding-left: 0px;
-		padding-right: 0px;
 	}
 	#networkLogo {
-		max-height: 80px;
+		max-height: 65px;
 		max-width:100%;
-		padding-top: 16px;
-		padding-right: 16px;
 	}
 	#i18n > button:focus {outline:0;border-color: #ff6a10;outline: #6e6e6e 1px dotted;}
 	#i18n-container {
@@ -715,8 +715,8 @@ UPDATE CustomComponent SET value = '
 	}
 	@media all and (max-width: 1278px) and (min-width: 764px) {
 		#pageHeader {height: 96px;}
-		#pageHeaderLeft { padding-top:0px; }
-		#issuerLogo {max-height : 64px;  max-width:200%;  padding-top: 10px;}
+		#issuerLogo {max-height : 55px; }
+		#networkLogo {max-height : 55px; }
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; }
 		.paragraph{ text-align: left;}
 		.paragraphDescription {text-align: left;}
@@ -724,9 +724,8 @@ UPDATE CustomComponent SET value = '
 	@media all and (max-width: 1199px) and (min-width: 701px) {
 		h1 { font-size:24px; }
 		#pageHeader {height: 90px;}
-		#pageHeaderRight {width: 25%;}
-		#issuerLogo {max-height : 64px;  max-width:200%; }
-		#networkLogo {max-height : 72px;px;  max-width:100%; padding-top: 5px;}
+		#issuerLogo {max-height : 50px; }
+		#networkLogo {max-height : 50px; }
 		#optGblPage {     font-size : 14px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
@@ -737,10 +736,8 @@ UPDATE CustomComponent SET value = '
 		h1 { font-size:18px; }
 		#optGblPage { font-size : 14px;}
 		#pageHeader {height: 70px;}
-		#pageHeaderRight {width: 25%;}
-		#pageHeaderLeft { padding-top:10px; }
-		#issuerLogo {max-height : 54px;  max-width:200%; }
-		#networkLogo {max-height : 67px;  max-width:100%; padding-top: 10px;}
+		#issuerLogo {max-height : 45px; }
+		#networkLogo {max-height : 45px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; }
@@ -750,10 +747,9 @@ UPDATE CustomComponent SET value = '
 		h1 { font-size:16px; }
 		div.side-menu div.menu-title { display:inline; }
 		#optGblPage {   font-size : 14px;}
-		#pageHeaderRight {width: 25%;}
 		#pageHeader {height: 65px;}
-		#issuerLogo { max-height : 42px;  max-width:200%; }
-		#networkLogo {max-height : 62px;  max-width:100%; padding-top: 0px;}
+		#issuerLogo {max-height : 35px; }
+		#networkLogo {max-height : 30px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; }
@@ -836,34 +832,36 @@ UPDATE CustomComponent SET value = '
 		border-bottom: 1px solid #DCDCDC;
 	}
 	#pageHeaderLeft {
-		width: 20%;
-		float: left;
-		padding-left: 16px;
-		padding-top: 16px;
+        width: 40%;
+        float: left;
+        padding-left: 16px;
+        height: 100%;
+        display: flex;
+        align-items: center;
 	}
 	#pageHeaderCenter {
-		width: 60%;
+		width: 30%;
 		float: left;
 		text-align: center;
 		line-height: 70px;
 		padding-top: 16px;
 	}
 	#pageHeaderRight {
-		width: 20%;
-		float: right;
-		text-align: right;
+        width: 30%;
+        float: right;
+        padding-right: 16px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
 	}
 	#issuerLogo {
 		max-height: 64px;
 		max-width:100%;
-		padding-left: 0px;
-		padding-right: 0px;
 	}
 	#networkLogo {
-		max-height: 80px;
+		max-height: 65px;
 		max-width:100%;
-		padding-top: 16px;
-		padding-right: 16px;
 	}
 
 	#i18n > button:focus {outline:0;border-color: #ff6a10;outline: #6e6e6e 1px dotted;}
@@ -1053,8 +1051,8 @@ UPDATE CustomComponent SET value = '
 	}
 	@media all and (max-width: 1278px) and (min-width: 764px) {
 		#pageHeader {height: 96px;}
-		#pageHeaderLeft { padding-top:0px; }
-		#issuerLogo {max-height : 64px;  max-width:200%;  padding-top: 10px;}
+		#issuerLogo {max-height : 55px; }
+		#networkLogo {max-height : 55px; }
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; }
 		.paragraph{ text-align: left;}
 		.paragraphDescription {text-align: left;}
@@ -1062,9 +1060,8 @@ UPDATE CustomComponent SET value = '
 	@media all and (max-width: 1199px) and (min-width: 701px) {
 		h1 {font-size:24px;}
 		#pageHeader {height: 90px;}
-		#pageHeaderRight {width: 25%;}
-		#issuerLogo {max-height : 64px;  max-width:200%; }
-		#networkLogo {max-height : 72px;px;  max-width:100%; padding-top: 5px;}
+		#issuerLogo {max-height : 50px; }
+		#networkLogo {max-height : 50px; }
 		#optGblPage {     font-size : 14px; }
 		.leftColumn {display:block;float:none;width:100%;}
 		.rightColumn {display:block;float:none;width:100%;margin-left:0px;  margin-top: 60px; }
@@ -1075,10 +1072,8 @@ UPDATE CustomComponent SET value = '
 		h1 { font-size:18px; }
 		#optGblPage {font-size : 14px;}
 		#pageHeader {height: 70px;}
-		#pageHeaderRight {width: 25%;}
-		#pageHeaderLeft { padding-top:10px; }
-		#issuerLogo {max-height : 54px;  max-width:200%; }
-		#networkLogo {max-height : 67px;  max-width:100%; padding-top: 10px;}
+		#issuerLogo {max-height : 45px; }
+		#networkLogo {max-height : 45px; }
 		.leftColumn {display:block;float:none;width:100%;}
 		.rightColumn {margin-left:0px;display:block;float:none;width:100%;  margin-top: 65px; }
 		.paragraph {margin: 0px 0px 10px;text-align: center;}
@@ -1088,10 +1083,9 @@ UPDATE CustomComponent SET value = '
 		h1 {font-size:16px;}
 		div.side-menu div.menu-title {display:inline;}
 		#optGblPage {   font-size : 14px;}
-		#pageHeaderRight {width: 25%;}
 		#pageHeader {height: 65px;}
-		#issuerLogo { max-height : 42px;  max-width:200%; }
-		#networkLogo {max-height : 62px;  max-width:100%; padding-top: 0px;}
+		#issuerLogo {max-height : 35px; }
+		#networkLogo {max-height : 30px; }
 		.leftColumn {display:block;float:none;width:100%;}
 		.rightColumn {display:block;float:none;width:100%;margin-left:0px;  margin-top: 75px; }
 		.paragraph {text-align: center;}
@@ -1175,34 +1169,36 @@ UPDATE CustomComponent SET value = '
 		border-bottom: 1px solid #DCDCDC;
 	}
 	#pageHeaderLeft {
-		width: 20%;
-		float: left;
-		padding-left: 16px;
-		padding-top: 16px;
+        width: 40%;
+        float: left;
+        padding-left: 16px;
+        height: 100%;
+        display: flex;
+        align-items: center;
 	}
 	#pageHeaderCenter {
-		width: 60%;
+		width: 30%;
 		float: left;
 		text-align: center;
 		line-height: 70px;
 		padding-top: 16px;
 	}
 	#pageHeaderRight {
-		width: 20%;
-		float: right;
-		text-align: right;
+        width: 30%;
+        float: right;
+        padding-right: 16px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
 	}
 	#issuerLogo {
 		max-height: 64px;
 		max-width:100%;
-		padding-left: 0px;
-		padding-right: 0px;
 	}
 	#networkLogo {
-		max-height: 80px;
+		max-height: 65px;
 		max-width:100%;
-		padding-top: 16px;
-		padding-right: 16px;
 	}
 
 	#i18n > button:focus {outline:0;border-color: #ff6a10;outline: #6e6e6e 1px dotted;}
@@ -1392,8 +1388,8 @@ UPDATE CustomComponent SET value = '
 	}
 	@media all and (max-width: 1278px) and (min-width: 764px) {
 		#pageHeader {height: 96px;}
-		#pageHeaderLeft { padding-top:0px; }
-		#issuerLogo {max-height : 64px;  max-width:200%;  padding-top: 10px;}
+		#issuerLogo {max-height : 55px; }
+		#networkLogo {max-height : 55px; }
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; }
 		.paragraph{ text-align: left;}
 		.paragraphDescription {text-align: left;}
@@ -1401,9 +1397,8 @@ UPDATE CustomComponent SET value = '
 	@media all and (max-width: 1199px) and (min-width: 701px) {
 		h1 { font-size:24px; }
 		#pageHeader {height: 90px;}
-		#pageHeaderRight {width: 25%;}
-		#issuerLogo {max-height : 64px;  max-width:200%; }
-		#networkLogo {max-height : 72px;px;  max-width:100%; padding-top: 5px;}
+		#issuerLogo {max-height : 50px; }
+		#networkLogo {max-height : 50px; }
 		#optGblPage {     font-size : 14px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
@@ -1414,10 +1409,8 @@ UPDATE CustomComponent SET value = '
 		h1 { font-size:18px; }
 		#optGblPage { font-size : 14px;}
 		#pageHeader {height: 70px;}
-		#pageHeaderRight {width: 25%;}
-		#pageHeaderLeft { padding-top:10px; }
-		#issuerLogo {max-height : 54px;  max-width:200%; }
-		#networkLogo {max-height : 67px;  max-width:100%; padding-top: 10px;}
+		#issuerLogo {max-height : 45px; }
+		#networkLogo {max-height : 45px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; }
@@ -1427,10 +1420,9 @@ UPDATE CustomComponent SET value = '
 		h1 { font-size:16px; }
 		div.side-menu div.menu-title { display:inline; }
 		#optGblPage {   font-size : 14px;}
-		#pageHeaderRight {width: 25%;}
 		#pageHeader {height: 65px;}
-		#issuerLogo { max-height : 42px;  max-width:200%; }
-		#networkLogo {max-height : 62px;  max-width:100%; padding-top: 0px;}
+		#issuerLogo {max-height : 35px; }
+		#networkLogo {max-height : 30px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; }
@@ -1507,34 +1499,36 @@ UPDATE CustomComponent SET value = '<style>
 		border-bottom: 1px solid #DCDCDC;
 	}
 	#pageHeaderLeft {
-		width: 20%;
-		float: left;
-		padding-left: 16px;
-		padding-top: 16px;
+        width: 40%;
+        float: left;
+        padding-left: 16px;
+        height: 100%;
+        display: flex;
+        align-items: center;
 	}
 	#pageHeaderCenter {
-		width: 60%;
+		width: 30%;
 		float: left;
 		text-align: center;
 		line-height: 70px;
 		padding-top: 16px;
 	}
 	#pageHeaderRight {
-		width: 20%;
-		float: right;
-		text-align: right;
+        width: 30%;
+        float: right;
+        padding-right: 16px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
 	}
 	#issuerLogo {
 		max-height: 64px;
 		max-width:100%;
-		padding-left: 0px;
-		padding-right: 0px;
 	}
 	#networkLogo {
-		max-height: 80px;
+		max-height: 65px;
 		max-width:100%;
-		padding-top: 16px;
-		padding-right: 16px;
 	}
 	#i18n > button:focus {outline:0;border-color: #ff6a10;outline: #6e6e6e 1px dotted;}
 	#i18n-container {
@@ -1735,8 +1729,8 @@ UPDATE CustomComponent SET value = '<style>
 	}
 	@media all and (max-width: 1278px) and (min-width: 764px) {
 		#pageHeader {height: 96px;}
-		#pageHeaderLeft { padding-top:0px; }
-		#issuerLogo {max-height : 64px;  max-width:200%;  padding-top: 10px;}
+		#issuerLogo {max-height : 55px; }
+		#networkLogo {max-height : 55px; }
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; }
 		.paragraph{ text-align: left;}
 		.paragraphDescription {text-align: left;}
@@ -1744,11 +1738,8 @@ UPDATE CustomComponent SET value = '<style>
 	@media all and (max-width: 1199px) and (min-width: 701px) {
 		h1 { font-size:24px; }
 		#pageHeader {height: 90px;}
-		#pageHeaderRight {width: 25%;}
-		#issuerLogo {max-height : 64px;  max-width:200%; }
-		#networkLogo {max-height : 72px;px;  max-width:100%; padding-top: 5px;}
-		#issuerLogo {max-height : 64px;  max-width:200%; }
-		#networkLogo {max-height : 72px;px;  max-width:100%; }
+		#issuerLogo {max-height : 50px; }
+		#networkLogo {max-height : 50px; }
 		#optGblPage {     font-size : 14px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
@@ -1759,10 +1750,8 @@ UPDATE CustomComponent SET value = '<style>
 		h1 { font-size:18px; }
 		#optGblPage { font-size : 14px;}
 		#pageHeader {height: 70px;}
-		#pageHeaderRight {width: 25%;}
-		#pageHeaderLeft { padding-top:10px; }
-		#issuerLogo {max-height : 54px;  max-width:200%; }
-		#networkLogo {max-height : 67px;  max-width:100%; padding-top: 10px;}
+		#issuerLogo {max-height : 45px; }
+		#networkLogo {max-height : 45px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; }
@@ -1772,10 +1761,9 @@ UPDATE CustomComponent SET value = '<style>
 		h1 { font-size:16px; }
 		div.side-menu div.menu-title { display:inline; }
 		#optGblPage {   font-size : 14px;}
-		#pageHeaderRight {width: 25%;}
 		#pageHeader {height: 65px;}
-		#issuerLogo { max-height : 42px;  max-width:200%; }
-		#networkLogo {max-height : 62px;  max-width:100%; padding-top: 0px;}
+		#issuerLogo {max-height : 35px; }
+		#networkLogo {max-height : 30px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; }
