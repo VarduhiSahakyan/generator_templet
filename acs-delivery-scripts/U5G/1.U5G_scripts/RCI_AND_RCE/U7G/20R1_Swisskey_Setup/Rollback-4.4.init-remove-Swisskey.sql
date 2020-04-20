@@ -3,23 +3,27 @@ USE `U7G_ACS_BO`;
 SET @BankB = 'SWISSKEY';
 
 SET @BankUB_04 = 'SOBA';
+SET @BankUB_05 = 'LUKB';
 
 SET @IssuerCode = '41001';
 SET @SubIssuerCodeD = '83340';
+SET @SubIssuerCodeE = '77800';
 
 START TRANSACTION;
 
 set @id_issuer = (SELECT ID from Issuer where CODE = @issuerCode);
 set @id_subIssuer_4 = (SELECT ID from SubIssuer where FK_ID_ISSUER = @id_issuer and code = @SubIssuerCodeD);
+set @id_subIssuer_5 = (SELECT ID from SubIssuer where FK_ID_ISSUER = @id_issuer and code = @SubIssuerCodeE);
 
 set @id_profile_set_4 = (SELECT ID from ProfileSet where FK_ID_SUBISSUER = @id_subIssuer_4);
+set @id_profile_set_5 = (SELECT ID from ProfileSet where FK_ID_SUBISSUER = @id_subIssuer_5);
 
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- delete the profile set / custompage layout mapping
 
 delete from CustomPageLayout_ProfileSet where PROFILESET_ID in
-                                              (@id_profile_set_4);
+                                              (@id_profile_set_4, @id_profile_set_5);
 
 -- delete profiles for sub issuer
 set @id_customitemsets = (select group_concat(cis.id) from CustomItemSet cis,
@@ -30,11 +34,11 @@ set @id_customitemsets = (select group_concat(cis.id) from CustomItemSet cis,
                                  and r.FK_ID_PROFILE = p.ID
                                  and pr.ID_RULE = r.ID
                                  and pr.ID_PROFILESET in
-                                     (@id_profile_set_4));
+                                     (@id_profile_set_4, @id_profile_set_5));
 
 update Profile p set p.FK_ID_CUSTOMITEMSETCURRENT = null where find_in_set(FK_ID_CUSTOMITEMSETCURRENT, @id_customitemsets);
 delete from CustomItemSet where find_in_set(id, @id_customitemsets);
-delete from CustomItemSet where name like CONCAT('customitemset_', @BankUB_04, '%');
+delete from CustomItemSet where name like CONCAT('customitemset_', @BankUB_04, '%') or CONCAT('customitemset_', @BankUB_05, '%');
 
 set @id_profile = (select group_concat(p.id) from Profile p,
                                                   Rule r ,
@@ -42,37 +46,37 @@ set @id_profile = (select group_concat(p.id) from Profile p,
                           where  r.FK_ID_PROFILE = p.ID
                                  and pr.ID_RULE = r.ID
                                  and pr.ID_PROFILESET in
-                                     (@id_profile_set_4));
+                                     (@id_profile_set_4, @id_profile_set_5));
 
 set @id_rule = (select group_concat(r.id) from Rule r ,
                                                ProfileSet_Rule pr
                           where  pr.ID_RULE = r.ID
                                  and pr.ID_PROFILESET in
-                                     (@id_profile_set_4));
+                                     (@id_profile_set_4, @id_profile_set_5));
 
 -- delete conditions
 SELECT r.id from Rule r, ProfileSet_Rule pr
                        where pr.ID_RULE = r.id and pr.ID_PROFILESET in
-                                                   (@id_profile_set_4);
+                                                   (@id_profile_set_4, @id_profile_set_5);
 
 
 SELECT rc.id from RuleCondition rc, Rule r, ProfileSet_Rule pr
                        where rc.FK_ID_RULE = r.id and pr.ID_RULE = r.id and pr.ID_PROFILESET in
-                                                                            (@id_profile_set_4);
+                                                                            (@id_profile_set_4, @id_profile_set_5);
 
 delete from Condition_TransactionStatuses
 where ID_CONDITION in (SELECT rc.id from RuleCondition rc, Rule r, ProfileSet_Rule pr
                        where rc.FK_ID_RULE = r.id and pr.ID_RULE = r.id and pr.ID_PROFILESET in
-                                                                            (@id_profile_set_4));
+                                                                            (@id_profile_set_4, @id_profile_set_5));
 
 delete from Condition_MeansProcessStatuses
 where ID_CONDITION in (SELECT rc.id from RuleCondition rc, Rule r, ProfileSet_Rule pr
                        where rc.FK_ID_RULE = r.id and pr.ID_RULE = r.id and pr.ID_PROFILESET in
-                                                                            (@id_profile_set_4));
+                                                                            (@id_profile_set_4, @id_profile_set_5));
 
 delete from RuleCondition where ID in (SELECT id from (SELECT rc.id from RuleCondition rc, Rule r, ProfileSet_Rule pr
                        where rc.FK_ID_RULE = r.id and pr.ID_RULE = r.id and pr.ID_PROFILESET in
-                                                                            (@id_profile_set_4)) as temp);
+                                                                            (@id_profile_set_4, @id_profile_set_5)) as temp);
 
 
 -- update Rule set FK_ID_PROFILE = NULL where find_in_set(FK_ID_PROFILE, @id_profile);
@@ -82,24 +86,24 @@ delete from Profile where find_in_set(id, @id_profile);
 set @id_rule = (select group_concat(r.id) from Rule r , ProfileSet_Rule pr
                           where  pr.ID_RULE = r.ID
                                  and pr.ID_PROFILESET in
-                                     (@id_profile_set_4));
+                                     (@id_profile_set_4, @id_profile_set_5));
 
 -- update Profileset_Rule set ID_RULE = null where find_in_set(ID_RULE, @id_rule);
 
 delete from ProfileSet_Rule where ID_PROFILESET in
-                                  (@id_profile_set_4);
+                                  (@id_profile_set_4, @id_profile_set_5);
 delete from Rule where find_in_set(id, @id_rule);
 
 
-delete from ProfileSet where id in (@id_profile_set_4);
+delete from ProfileSet where id in (@id_profile_set_4, @id_profile_set_5);
 
 -- delete subissuer and issuer
 delete from SubIssuerCrypto where FK_ID_SUBISSUER in
-                                  (@id_subIssuer_4);
+                                  (@id_subIssuer_4, @id_profile_set_5);
 delete from SubIssuer where ID in
-                            (@id_subIssuer_4);
+                            (@id_subIssuer_4, @id_profile_set_5);
 
 delete from Image where name in
-                        (@BankUB_04);
+                        (@BankUB_04, @BankUB_05);
 SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;

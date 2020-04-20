@@ -7,12 +7,14 @@ SET @subIssuerCS = 'Crédit Suisse AG';
 SET @subIssuerNAB = 'Neue Aargauer Bank';
 SET @subIssuerSGKB = 'St. Galler Kantonalbank AG';
 SET @subIssuerSOBA = 'Baloise Bank SoBa AG';
+SET @subIssuerLUKB = 'Luzerner KB AG';
 
 SET @IssuerCode = '41001';
 SET @SubIssuerCodeCS = '48350';
 SET @SubIssuerCodeNAB = '58810';
 SET @SubIssuerCodeSGKB = '78100';
 SET @SubIssuerCodeSOBA = '83340';
+SET @SubIssuerCodeLUKB = '77800';
 
 SET @Role1 = 'Swisskey Admin';
 SET @Role2 = 'Swisskey Reporting';
@@ -22,12 +24,17 @@ SET @RoleCS = 'Credit Suisse Admin';
 SET @RoleNAB = 'Neue Aargauer Bank Admin';
 SET @RoleSGKB = 'St Galler Kantonalbank Admin';
 SET @RoleSOBA = 'Baloise Bank SoBa AG Admin';
+SET @RoleLUKB = 'Luzerner KB AG Admin';
 
 SET FOREIGN_KEY_CHECKS = 0;
 
 SET @role_ids = (SELECT group_concat(id)
                  FROM `Role`
-                 WHERE name in (@Role2, @Role3, @RoleCS, @RoleNAB, @RoleSGKB, @RoleSOBA));
+                 WHERE name in (@Role2, @Role3, @RoleCS, @RoleNAB, @RoleSGKB, @RoleSOBA, @RoleLUKB));
+
+SET @customer_ids = (SELECT group_concat(id)
+                     FROM `Customer`
+                     WHERE name in (@subIssuerSOBA, @subIssuerLUKB));
 
 -- 1. Remove Role-Permission
 DELETE
@@ -39,6 +46,10 @@ DELETE
 FROM `Role_Customer`
 WHERE find_in_set(id_role, @role_ids);
 
+DELETE
+FROM `Role_Customer`
+WHERE find_in_set(id_customer, @customer_ids);
+
 
 -- 3. Remove Role
 DELETE
@@ -46,9 +57,6 @@ FROM `Role`
 WHERE find_in_set(id, @role_ids);
 
 -- 4. Remove Customer
-SET @customer_ids = (SELECT group_concat(id)
-                     FROM `Customer`
-                     WHERE name in (@subIssuerSOBA));
 DELETE
 FROM Customer
 WHERE find_in_set(id, @customer_ids);

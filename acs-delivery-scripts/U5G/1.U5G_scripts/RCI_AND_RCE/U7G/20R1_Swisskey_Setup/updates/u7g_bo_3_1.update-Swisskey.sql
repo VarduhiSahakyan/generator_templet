@@ -7,12 +7,14 @@ SET @subIssuerCS = 'Crédit Suisse AG';
 SET @subIssuerNAB = 'Neue Aargauer Bank';
 SET @subIssuerSGKB = 'St. Galler Kantonalbank AG';
 SET @subIssuerSOBA = 'Baloise Bank SoBa AG';
+SET @subIssuerLUKB = 'Luzerner KB AG';
 
 SET @IssuerCode = '41001';
 SET @SubIssuerCodeCS = '48350';
 SET @SubIssuerCodeNAB = '58810';
 SET @SubIssuerCodeSGKB = '78100';
 SET @SubIssuerCodeSOBA = '83340';
+SET @SubIssuerCodeLUKB = '77800';
 
 SET @Role1 = 'Swisskey Admin';
 SET @Role2 = 'Swisskey Reporting';
@@ -22,12 +24,16 @@ SET @RoleCS = 'Credit Suisse Admin';
 SET @RoleNAB = 'Neue Aargauer Bank Admin';
 SET @RoleSGKB = 'St Galler Kantonalbank Admin';
 SET @RoleSOBA = 'Baloise Bank SoBa AG Admin';
+SET @RoleLUKB = 'Luzerner KB AG Admin';
 
 SET FOREIGN_KEY_CHECKS = 0;
 
 
 INSERT INTO `Customer` (`code`, `customerType`, `name`, `parent_id`)
     SELECT @SubIssuerCodeSOBA, 'SUB_ISSUER', @subIssuerSOBA,  c.id FROM `Customer` c WHERE c.name = @BankB AND c.customerType = 'ISSUER';
+
+INSERT INTO `Customer` (`code`, `customerType`, `name`, `parent_id`)
+    SELECT @SubIssuerCodeLUKB, 'SUB_ISSUER', @subIssuerLUKB,  c.id FROM `Customer` c WHERE c.name = @BankB AND c.customerType = 'ISSUER';
 
 
 -- 2. Add Role
@@ -37,7 +43,8 @@ INSERT INTO `Role` (`name`) VALUES
     (@RoleCS),
     (@RoleNAB),
     (@RoleSGKB),
-    (@RoleSOBA);
+    (@RoleSOBA),
+    (@RoleLUKB);
 
 -- 3. Add Role-Customer
 INSERT INTO `Role_Customer` (`id_customer`, `id_role`)
@@ -70,6 +77,11 @@ INSERT INTO `Role_Customer` (`id_customer`, `id_role`)
     FROM `Customer` c, `Role` r
     WHERE c.customerType = 'SUB_ISSUER' AND c.name = @subIssuerSOBA AND r.name IN (@Role1, @Role2, @Role3, @RoleSOBA);
 
+INSERT INTO `Role_Customer` (`id_customer`, `id_role`)
+    SELECT c.id, r.id
+    FROM `Customer` c, `Role` r
+    WHERE c.customerType = 'SUB_ISSUER' AND c.name = @subIssuerLUKB AND r.name IN (@Role1, @Role2, @Role3, @RoleLUKB);
+
 INSERT INTO `Role_Permission` (`id_role`, `id_permission`)
     SELECT  r.id, p.id
     FROM `Role` r , `Permission` p
@@ -95,7 +107,7 @@ INSERT INTO `Role_Permission` (`id_role`, `id_permission`)
 INSERT INTO `Role_Permission` (`id_role`, `id_permission`)
     SELECT  r.id, p.id
     FROM `Role` r , `Permission` p
-    WHERE r.name IN (@RoleCS, @RoleNAB, @RoleSGKB, @RoleSOBA)
+    WHERE r.name IN (@RoleCS, @RoleNAB, @RoleSGKB, @RoleSOBA, @RoleLUKB)
         AND  p.name IN (
                       'Consult_events',
                       'Consult_reporting',
