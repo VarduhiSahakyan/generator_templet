@@ -19,12 +19,12 @@ UPDATE CustomComponent SET value = '
 		border-bottom: 1px solid #DCDCDC;
 	}
 	#pageHeaderLeft {
-        width: 40%;
-        float: left;
-        padding-left: 16px;
-        height: 100%;
-        display: flex;
-        align-items: center;
+		width: 40%;
+		float: left;
+		padding-left: 16px;
+		height: 100%;
+		display: flex;
+		align-items: center;
 	}
 	#pageHeaderCenter {
 		width: 30%;
@@ -34,13 +34,13 @@ UPDATE CustomComponent SET value = '
 		padding-top: 16px;
 	}
 	#pageHeaderRight {
-        width: 30%;
-        float: right;
-        padding-right: 16px;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
+		width: 30%;
+		float: right;
+		padding-right: 16px;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
 	}
 	#issuerLogo {
 		max-height: 64px;
@@ -307,10 +307,10 @@ UPDATE CustomComponent SET value = '
 		margin-left: 3px;
 	}
 	#footer #helpButton button span:before {
-		content:\'\';
+		content:'''';
 	}
 	#footer #cancelButton button span:before {
-		content:\'\';
+		content:'''';
 	}
 	#footer #helpButton button span.fa {
 		background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAppJREFUeAHtmr9Kw1AUxptEjASxtA/g4iBU0E0cnRwVxDrpom6CHXyBvkBpCY5uImJXVx2Egj6FxV2aFBVba1u/W5twucR2qDkXzAmk91/a75zfPTn3JjSV4oMJMAEmwASYABNgAkyACSSSgKHL62KxONVoNA6gv2wYxmOlUrlE2ae2Z4paMNCD81eo74h2v98/LhQKq6ieiDbloSUC4Ow8nH6WHcXsf5mmOVculz/k/rjrZtwCUb8PR6Miz0yn01bU9XH2aQGAWX6CU7eyY4iIS+SFN7mPoh41ExS6qWw2u4U8cIrQX4HgQy6Xc0mEWYQJMAEmwASYABNgAkMCZM8C2OVNN5vNdez4nF6vh/2PYYoPtA1sjT+xDb771ztB7PouAH03CD04Lp4CB81ut5vC+D0a68E4VUn5LLA4xqm1MeOxDJM9C1iWdYTQP4UXMzjF1PdwiltgG6U4KCfjRxGfZDkgVJQq1WrVqtVqX8Ouruu6ZBMSmKGFeiCez+dFFASHFlu0iAYei0UgqKPUEo1aAQjnASGMAiyD5PaQC0ozPqgiCYZRgJci5FGgHQAohBHgeR65PeSCagTIANrtNrk95IIqADkH1Ot1cnvIBVUAcgRgs0RuD7mgCkBOgngoIreHXFAFIEeA4zjJWwXkHOD7PvmEkAuOigDAILeHXHAUgMTngKRGQLgV7nQ6yUuC8iqgIwJiJ44/QyzDyT04Nx1x/4v3goc4Z8UYcsA5infpOh+bo7NSqfQi9f1pleINzA0cFP8IGWs4XpkdqRfhewvo21f7/6pNsQq8TmjspN8fKR97BNi2vdFqtTZhhf2LJTZujyXMdB3jnnKNn8lkrpU+bjIBJsAEmAATYAJMgAkwASbABJgAE5iQwDdkTa4cGFRLBAAAAABJRU5ErkJggg==);
@@ -413,62 +413,62 @@ UPDATE CustomComponent SET value = '
 	}
 </style>
 <div id="optGblPage">
-        <div id="pageHeader" ng-style="style" class="ng-scope">
-            <div id="pageHeaderLeft" ng-style="style" class="ng-scope">
-                <custom-image alt-key="\'network_means_pageType_1_IMAGE_ALT\'" image-key="\'network_means_pageType_1_IMAGE_DATA\'" id="issuerLogo" straight-mode="false"></custom-image>
-            </div>
+		<div id="pageHeader" ng-style="style" class="ng-scope">
+			<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
+				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+			</div>
 
-            <div id="pageHeaderCenter" ng-style="style" class="ng-scope"></div>
+			<div id="pageHeaderCenter" ng-style="style" class="ng-scope"></div>
 
-            <div id="pageHeaderRight" ng-style="style" class="ng-scope" >
-                <custom-image alt-key="\'network_means_pageType_2_IMAGE_ALT\'"  image-key="\'network_means_pageType_2_IMAGE_DATA\'" id="networkLogo" straight-mode="false"></custom-image>
-            </div>
-        </div>
+			<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
+				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"  image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+			</div>
+		</div>
 
-        <message-banner close-button="\'network_means_pageType_174\'" back-button="\'network_means_pageType_175\'"></message-banner>
+		<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
 
-        <div id="i18n-container" class="text-center">
-            <div id="i18n-inner">
-                <i18n></i18n>
-            </div>
-        </div>
-        <div id="displayLayout" class="row">
-            <div id="green-banner"></div>
-        </div>
-        <div class="contentRow">
-            <div x-ms-format-detection="none" class="leftColumn">
-                <side-menu menu-title="\'network_means_pageType_11\'"></side-menu>
-            </div>
-            <div class="rightColumn">
-                <div class="paragraph">
-                    <custom-text custom-text-key="\'network_means_pageType_1\'"></custom-text>
-                </div>
-                <div class="paragraphDescription">
-                    <custom-text custom-text-key="\'network_means_pageType_2\'"></custom-text>
-                </div>
-                <div class="paragraphDescription">
-                    <custom-text custom-text-key="\'network_means_pageType_3\'"></custom-text>
-                </div>
-                <div id="otp-fields-container">
-                    <div x-ms-format-detection="none" id="otp-fields">
-                        <otp-form></otp-form>
-                    </div>
-                </div>
-                <div class="paragraph">
-                    <div class="refreshDiv">
-                        <span class="fa fa-life-ring" aria-hidden="true"></span>
-                        <re-Send-Otp id="reSendOtp" rso-Label="\'network_means_pageType_19\'"></re-Send-Otp>
-                    </div>
-                    <val-button val-label="\'network_means_pageType_42\'" id="validateButton" ></val-button>
-                </div>
-            </div>
-        </div>
-        <div id="footer">
-            <div ng-style="style" class="style">
-                <cancel-button cn-label="\'network_means_pageType_40\'" id="cancelButton"></cancel-button>
-                <help help-label="\'network_means_pageType_41\'" id="helpButton"></help>
-            </div>
-        </div>
+		<div id="i18n-container" class="text-center">
+			<div id="i18n-inner">
+				<i18n></i18n>
+			</div>
+		</div>
+		<div id="displayLayout" class="row">
+			<div id="green-banner"></div>
+		</div>
+		<div class="contentRow">
+			<div x-ms-format-detection="none" class="leftColumn">
+				<side-menu menu-title="''network_means_pageType_11''"></side-menu>
+			</div>
+			<div class="rightColumn">
+				<div class="paragraph">
+					<custom-text custom-text-key="''network_means_pageType_1''"></custom-text>
+				</div>
+				<div class="paragraphDescription">
+					<custom-text custom-text-key="''network_means_pageType_2''"></custom-text>
+				</div>
+				<div class="paragraphDescription">
+					<custom-text custom-text-key="''network_means_pageType_3''"></custom-text>
+				</div>
+				<div id="otp-fields-container">
+					<div x-ms-format-detection="none" id="otp-fields">
+						<otp-form></otp-form>
+					</div>
+				</div>
+				<div class="paragraph">
+					<div class="refreshDiv">
+						<span class="fa fa-life-ring" aria-hidden="true"></span>
+						<re-Send-Otp id="reSendOtp" rso-Label="''network_means_pageType_19''"></re-Send-Otp>
+					</div>
+					<val-button val-label="''network_means_pageType_42''" id="validateButton" ></val-button>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<div ng-style="style" class="style">
+				<cancel-button cn-label="''network_means_pageType_40''" id="cancelButton"></cancel-button>
+				<help help-label="''network_means_pageType_41''" id="helpButton"></help>
+			</div>
+		</div>
 </div>
 ' WHERE `fk_id_layout` = @layoutId;
 
@@ -490,12 +490,12 @@ UPDATE CustomComponent SET value = '
 		border-bottom: 1px solid #DCDCDC;
 	}
 	#pageHeaderLeft {
-        width: 40%;
-        float: left;
-        padding-left: 16px;
-        height: 100%;
-        display: flex;
-        align-items: center;
+		width: 40%;
+		float: left;
+		padding-left: 16px;
+		height: 100%;
+		display: flex;
+		align-items: center;
 	}
 	#pageHeaderCenter {
 		width: 30%;
@@ -505,13 +505,13 @@ UPDATE CustomComponent SET value = '
 		padding-top: 16px;
 	}
 	#pageHeaderRight {
-        width: 30%;
-        float: right;
-        padding-right: 16px;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
+		width: 30%;
+		float: right;
+		padding-right: 16px;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
 	}
 	#issuerLogo {
 		max-height: 64px;
@@ -608,10 +608,10 @@ UPDATE CustomComponent SET value = '
 		margin-bottom : 15px;
 	}
 	div#footer #helpButton button span:before {
-		content:\'\';
+		content:'''';
 	}
 	div#footer #cancelButton button span:before {
-		content:\'\';
+		content:'''';
 	}
 	div#footer #helpButton button span.fa {
 		background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAppJREFUeAHtmr9Kw1AUxptEjASxtA/g4iBU0E0cnRwVxDrpom6CHXyBvkBpCY5uImJXVx2Egj6FxV2aFBVba1u/W5twucR2qDkXzAmk91/a75zfPTn3JjSV4oMJMAEmwASYABNgAkyACSSSgKHL62KxONVoNA6gv2wYxmOlUrlE2ae2Z4paMNCD81eo74h2v98/LhQKq6ieiDbloSUC4Ow8nH6WHcXsf5mmOVculz/k/rjrZtwCUb8PR6Miz0yn01bU9XH2aQGAWX6CU7eyY4iIS+SFN7mPoh41ExS6qWw2u4U8cIrQX4HgQy6Xc0mEWYQJMAEmwASYABNgAkMCZM8C2OVNN5vNdez4nF6vh/2PYYoPtA1sjT+xDb771ztB7PouAH03CD04Lp4CB81ut5vC+D0a68E4VUn5LLA4xqm1MeOxDJM9C1iWdYTQP4UXMzjF1PdwiltgG6U4KCfjRxGfZDkgVJQq1WrVqtVqX8Ouruu6ZBMSmKGFeiCez+dFFASHFlu0iAYei0UgqKPUEo1aAQjnASGMAiyD5PaQC0ozPqgiCYZRgJci5FGgHQAohBHgeR65PeSCagTIANrtNrk95IIqADkH1Ot1cnvIBVUAcgRgs0RuD7mgCkBOgngoIreHXFAFIEeA4zjJWwXkHOD7PvmEkAuOigDAILeHXHAUgMTngKRGQLgV7nQ6yUuC8iqgIwJiJ44/QyzDyT04Nx1x/4v3goc4Z8UYcsA5infpOh+bo7NSqfQi9f1pleINzA0cFP8IGWs4XpkdqRfhewvo21f7/6pNsQq8TmjspN8fKR97BNi2vdFqtTZhhf2LJTZujyXMdB3jnnKNn8lkrpU+bjIBJsAEmAATYAJMgAkwASbABJgAE5iQwDdkTa4cGFRLBAAAAABJRU5ErkJggg==);
@@ -770,17 +770,17 @@ UPDATE CustomComponent SET value = '
 <div id="optGblPage">
 	<div id="pageHeader" ng-style="style" class="ng-scope">
 		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
-			<custom-image alt-key="\'network_means_pageType_1_IMAGE_ALT\'" image-key="\'network_means_pageType_1_IMAGE_DATA\'" id="issuerLogo" straight-mode="false"></custom-image>
+			<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
 		</div>
 		<div id="pageHeaderCenter" ng-style="style" class="ng-scope">
 
 		</div>
 		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
-			<custom-image alt-key="\'network_means_pageType_2_IMAGE_ALT\'"  image-key="\'network_means_pageType_2_IMAGE_DATA\'" id="networkLogo" straight-mode="false"></custom-image>
+			<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"  image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
 		</div>
 	</div>
 
-	<message-banner close-button="\'network_means_pageType_174\'" back-button="\'network_means_pageType_175\'"></message-banner>
+	<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
 
 	<div id="i18n-container" class="text-center">
 		<div id="i18n-inner">
@@ -792,23 +792,23 @@ UPDATE CustomComponent SET value = '
 	</div>
 	<div class="contentRow">
 		<div class="leftColumn">
-			<side-menu menu-title="\'network_means_pageType_11\'"></side-menu>
+			<side-menu menu-title="''network_means_pageType_11''"></side-menu>
 		</div>
 		<div class="rightColumn">
 			<div class="paragraph">
-                <custom-text custom-text-key="\'network_means_pageType_1\'"></custom-text>
+				<custom-text custom-text-key="''network_means_pageType_1''"></custom-text>
 			</div>
 			<div class="paragraphDescription">
-                <custom-text custom-text-key="\'network_means_pageType_2\'"></custom-text>
+				<custom-text custom-text-key="''network_means_pageType_2''"></custom-text>
 			</div>
 			<div class="paragraphDescription">
-                <custom-text custom-text-key="\'network_means_pageType_3\'"></custom-text>
+				<custom-text custom-text-key="''network_means_pageType_3''"></custom-text>
 			</div>
 		</div>
 	</div>
 	<div id="footer">
 		<div ng-style="style" class="style">
-			<help help-label="\'network_means_pageType_41\'" id="helpButton"></help>
+			<help help-label="''network_means_pageType_41''" id="helpButton"></help>
 		</div>
 	</div>
 </div>
@@ -832,12 +832,12 @@ UPDATE CustomComponent SET value = '
 		border-bottom: 1px solid #DCDCDC;
 	}
 	#pageHeaderLeft {
-        width: 40%;
-        float: left;
-        padding-left: 16px;
-        height: 100%;
-        display: flex;
-        align-items: center;
+		width: 40%;
+		float: left;
+		padding-left: 16px;
+		height: 100%;
+		display: flex;
+		align-items: center;
 	}
 	#pageHeaderCenter {
 		width: 30%;
@@ -847,13 +847,13 @@ UPDATE CustomComponent SET value = '
 		padding-top: 16px;
 	}
 	#pageHeaderRight {
-        width: 30%;
-        float: right;
-        padding-right: 16px;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
+		width: 30%;
+		float: right;
+		padding-right: 16px;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
 	}
 	#issuerLogo {
 		max-height: 64px;
@@ -1116,7 +1116,7 @@ UPDATE CustomComponent SET value = '
 		</div>
 	</div>
 
-	<message-banner close-button="\'network_means_pageType_174\'" back-button="\'network_means_pageType_175\'"></message-banner>
+	<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
 
 	<div id="i18n-container" class="text-center">
 		<div id="i18n-inner">
@@ -1169,12 +1169,12 @@ UPDATE CustomComponent SET value = '
 		border-bottom: 1px solid #DCDCDC;
 	}
 	#pageHeaderLeft {
-        width: 40%;
-        float: left;
-        padding-left: 16px;
-        height: 100%;
-        display: flex;
-        align-items: center;
+		width: 40%;
+		float: left;
+		padding-left: 16px;
+		height: 100%;
+		display: flex;
+		align-items: center;
 	}
 	#pageHeaderCenter {
 		width: 30%;
@@ -1184,13 +1184,13 @@ UPDATE CustomComponent SET value = '
 		padding-top: 16px;
 	}
 	#pageHeaderRight {
-        width: 30%;
-        float: right;
-        padding-right: 16px;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
+		width: 30%;
+		float: right;
+		padding-right: 16px;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
 	}
 	#issuerLogo {
 		max-height: 64px;
@@ -1299,10 +1299,10 @@ UPDATE CustomComponent SET value = '
 		margin-left: 3px;
 	}
 	div#footer #helpButton button span:before {
-		content:\'\';
+		content:'''';
 	}
 	div#footer #cancelButton button span:before {
-		content:\'\';
+		content:'''';
 	}
 	div#footer #helpButton button span.fa {
 		background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAppJREFUeAHtmr9Kw1AUxptEjASxtA/g4iBU0E0cnRwVxDrpom6CHXyBvkBpCY5uImJXVx2Egj6FxV2aFBVba1u/W5twucR2qDkXzAmk91/a75zfPTn3JjSV4oMJMAEmwASYABNgAkyACSSSgKHL62KxONVoNA6gv2wYxmOlUrlE2ae2Z4paMNCD81eo74h2v98/LhQKq6ieiDbloSUC4Ow8nH6WHcXsf5mmOVculz/k/rjrZtwCUb8PR6Miz0yn01bU9XH2aQGAWX6CU7eyY4iIS+SFN7mPoh41ExS6qWw2u4U8cIrQX4HgQy6Xc0mEWYQJMAEmwASYABNgAkMCZM8C2OVNN5vNdez4nF6vh/2PYYoPtA1sjT+xDb771ztB7PouAH03CD04Lp4CB81ut5vC+D0a68E4VUn5LLA4xqm1MeOxDJM9C1iWdYTQP4UXMzjF1PdwiltgG6U4KCfjRxGfZDkgVJQq1WrVqtVqX8Ouruu6ZBMSmKGFeiCez+dFFASHFlu0iAYei0UgqKPUEo1aAQjnASGMAiyD5PaQC0ozPqgiCYZRgJci5FGgHQAohBHgeR65PeSCagTIANrtNrk95IIqADkH1Ot1cnvIBVUAcgRgs0RuD7mgCkBOgngoIreHXFAFIEeA4zjJWwXkHOD7PvmEkAuOigDAILeHXHAUgMTngKRGQLgV7nQ6yUuC8iqgIwJiJ44/QyzDyT04Nx1x/4v3goc4Z8UYcsA5infpOh+bo7NSqfQi9f1pleINzA0cFP8IGWs4XpkdqRfhewvo21f7/6pNsQq8TmjspN8fKR97BNi2vdFqtTZhhf2LJTZujyXMdB3jnnKNn8lkrpU+bjIBJsAEmAATYAJMgAkwASbABJgAE5iQwDdkTa4cGFRLBAAAAABJRU5ErkJggg==);
@@ -1443,15 +1443,15 @@ UPDATE CustomComponent SET value = '
 <div id="optGblPage">
 	<div id="pageHeader" ng-style="style" class="ng-scope">
 		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
-			<custom-image alt-key="\'network_means_pageType_1_IMAGE_ALT\'" image-key="\'network_means_pageType_1_IMAGE_DATA\'" id="issuerLogo" straight-mode="false"></custom-image>
+			<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
 		</div>
 		<div id="pageHeaderCenter" ng-style="style" class="ng-scope">
 		</div>
 		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
-			<custom-image alt-key="\'network_means_pageType_2_IMAGE_ALT\'"  image-key="\'network_means_pageType_2_IMAGE_DATA\'" id="networkLogo" straight-mode="false"></custom-image>
+			<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"  image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
 		</div>
 	</div>
-	<message-banner close-button="\'network_means_pageType_174\'" back-button="\'network_means_pageType_175\'"></message-banner>
+	<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
 
 	<div id="i18n-container" class="text-center">
 		<div id="i18n-inner">
@@ -1463,7 +1463,7 @@ UPDATE CustomComponent SET value = '
 	</div>
 	<div class="contentRow">
 		<div class="leftColumn">
-			<side-menu menu-title="\'network_means_pageType_11\'"></side-menu>
+			<side-menu menu-title="''network_means_pageType_11''"></side-menu>
 		</div>
 
 		<div class="rightColumn">
@@ -1477,7 +1477,7 @@ UPDATE CustomComponent SET value = '
 	</div>
 	<div id="footer">
 		<div ng-style="style" class="style">
-			<help help-label="\'network_means_pageType_41\'" id="helpButton"></help>
+			<help help-label="''network_means_pageType_41''" id="helpButton"></help>
 		</div>
 	</div>
 </div>' WHERE `fk_id_layout` = @layoutId;
@@ -1499,12 +1499,12 @@ UPDATE CustomComponent SET value = '<style>
 		border-bottom: 1px solid #DCDCDC;
 	}
 	#pageHeaderLeft {
-        width: 40%;
-        float: left;
-        padding-left: 16px;
-        height: 100%;
-        display: flex;
-        align-items: center;
+		width: 40%;
+		float: left;
+		padding-left: 16px;
+		height: 100%;
+		display: flex;
+		align-items: center;
 	}
 	#pageHeaderCenter {
 		width: 30%;
@@ -1514,13 +1514,13 @@ UPDATE CustomComponent SET value = '<style>
 		padding-top: 16px;
 	}
 	#pageHeaderRight {
-        width: 30%;
-        float: right;
-        padding-right: 16px;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
+		width: 30%;
+		float: right;
+		padding-right: 16px;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
 	}
 	#issuerLogo {
 		max-height: 64px;
@@ -1622,10 +1622,10 @@ UPDATE CustomComponent SET value = '<style>
 		margin-bottom : 15px;
 	}
 	div#footer #helpButton button span:before {
-		content:'';
+		content:'''';
 	}
 	div#footer #cancelButton button span:before {
-		content:'';
+		content:'''';
 	}
 	div#footer #helpButton button span.fa {
 		background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAppJREFUeAHtmr9Kw1AUxptEjASxtA/g4iBU0E0cnRwVxDrpom6CHXyBvkBpCY5uImJXVx2Egj6FxV2aFBVba1u/W5twucR2qDkXzAmk91/a75zfPTn3JjSV4oMJMAEmwASYABNgAkyACSSSgKHL62KxONVoNA6gv2wYxmOlUrlE2ae2Z4paMNCD81eo74h2v98/LhQKq6ieiDbloSUC4Ow8nH6WHcXsf5mmOVculz/k/rjrZtwCUb8PR6Miz0yn01bU9XH2aQGAWX6CU7eyY4iIS+SFN7mPoh41ExS6qWw2u4U8cIrQX4HgQy6Xc0mEWYQJMAEmwASYABNgAkMCZM8C2OVNN5vNdez4nF6vh/2PYYoPtA1sjT+xDb771ztB7PouAH03CD04Lp4CB81ut5vC+D0a68E4VUn5LLA4xqm1MeOxDJM9C1iWdYTQP4UXMzjF1PdwiltgG6U4KCfjRxGfZDkgVJQq1WrVqtVqX8Ouruu6ZBMSmKGFeiCez+dFFASHFlu0iAYei0UgqKPUEo1aAQjnASGMAiyD5PaQC0ozPqgiCYZRgJci5FGgHQAohBHgeR65PeSCagTIANrtNrk95IIqADkH1Ot1cnvIBVUAcgRgs0RuD7mgCkBOgngoIreHXFAFIEeA4zjJWwXkHOD7PvmEkAuOigDAILeHXHAUgMTngKRGQLgV7nQ6yUuC8iqgIwJiJ44/QyzDyT04Nx1x/4v3goc4Z8UYcsA5infpOh+bo7NSqfQi9f1pleINzA0cFP8IGWs4XpkdqRfhewvo21f7/6pNsQq8TmjspN8fKR97BNi2vdFqtTZhhf2LJTZujyXMdB3jnnKNn8lkrpU+bjIBJsAEmAATYAJMgAkwASbABJgAE5iQwDdkTa4cGFRLBAAAAABJRU5ErkJggg==);
@@ -1784,14 +1784,14 @@ UPDATE CustomComponent SET value = '<style>
 <div id="optGblPage">
 	<div id="pageHeader" ng-style="style" class="ng-scope">
 		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
-			<custom-image alt-key="\'network_means_pageType_1_IMAGE_ALT\'" image-key="\'network_means_pageType_1_IMAGE_DATA\'" id="issuerLogo" straight-mode="false"></custom-image>
+			<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
 		</div>
 		<div id="pageHeaderCenter" ng-style="style" class="ng-scope"></div>
 		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
-			<custom-image alt-key="\'network_means_pageType_2_IMAGE_ALT\'"  image-key="\'network_means_pageType_2_IMAGE_DATA\'" id="networkLogo" straight-mode="false"></custom-image>
+			<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"  image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
 		</div>
 	</div>
-	<message-banner display-type="\'1\'" heading-attr="\'network_means_pageType_22\'" message-attr="\'network_means_pageType_23\'" close-button="\'network_means_pageType_174\'" back-button="\'network_means_pageType_175\'" show=true ></message-banner>
+	<message-banner display-type="''1''" heading-attr="''network_means_pageType_22''" message-attr="''network_means_pageType_23''" close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''" show=true ></message-banner>
 
 	<div id="i18n-container" class="text-center">
 		<div id="i18n-inner">
@@ -1803,23 +1803,23 @@ UPDATE CustomComponent SET value = '<style>
 	</div>
 	<div class="contentRow">
 		<div class="leftColumn">
-			<side-menu menu-title="\'network_means_pageType_11\'"></side-menu>
+			<side-menu menu-title="''network_means_pageType_11''"></side-menu>
 		</div>
 		<div class="rightColumn">
 			<div class="paragraph">
-				<custom-text custom-text-key="\'network_means_pageType_1\'"></custom-text>
+				<custom-text custom-text-key="''network_means_pageType_1''"></custom-text>
 			</div>
 			<div class="paragraphDescription">
-				<custom-text custom-text-key="\'network_means_pageType_2\'"></custom-text>
+				<custom-text custom-text-key="''network_means_pageType_2''"></custom-text>
 			</div>
 			<div class="paragraphDescription">
-				<custom-text custom-text-key="\'network_means_pageType_3\'"></custom-text>
+				<custom-text custom-text-key="''network_means_pageType_3''"></custom-text>
 			</div>
 		</div>
 	</div>
 	<div id="footer">
 		<div ng-style="style" class="style">
-			<help help-label="\'network_means_pageType_41\'" id="helpButton"></help>
+			<help help-label="''network_means_pageType_41''" id="helpButton"></help>
 		</div>
 	</div>
 </div>' WHERE `fk_id_layout` = @layoutId;
