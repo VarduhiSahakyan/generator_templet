@@ -5,7 +5,7 @@
 	<parent>
         <groupId>com.worldline.acs.rbu2.delivery</groupId>
         <artifactId>acs-delivery-artifacts</artifactId>
-        <version>20R1-0.7-SNAPSHOT</version>
+        <version>20R1-0.27-SNAPSHOT</version>
     </parent>
 
     <artifactId>acs-protocol-2-commons</artifactId>
@@ -31,6 +31,9 @@
                                 <item>ds-config-u5g-brx-newproxy</item>
                                 <item>ds-config-u5g-brx-oldproxy</item>
                                 <item>ds-config-u5g-vdm</item>
+                                <item>ds-config-u7g-rce</item>
+                                <item>ds-config-u7g-prd-vdm</item>
+                                <item>ds-config-u7g-prd-brx</item>
                             </items>
                             <pluginExecutors>
                                 <pluginExecutor>
