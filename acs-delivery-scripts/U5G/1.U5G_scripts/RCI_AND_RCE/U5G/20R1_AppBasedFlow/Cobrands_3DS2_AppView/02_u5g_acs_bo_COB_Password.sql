@@ -115,7 +115,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 	
 -- 3DS BAD_OTP_TEXT (Similar to regular one)
 SET @ordinal = 160;
-SET @text = 'Ungültige Eingabe \n\nSie haben ein ungültiges 3-D Secure Passwort eingegeben.Bitte versuchen Sie es erneut. Anzahl verbleibender Versuche: @trialsLeft';
+SET @text = 'Ungültige Eingabe \n\nSie haben ein ungültiges 3-D Secure Passwort oder eine ungültige mobileTAN eingegeben.Bitte versuchen Sie es erneut. Anzahl verbleibender Versuche: @trialsLeft';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA, @networkMC);
 

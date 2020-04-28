@@ -5,6 +5,7 @@ SET @locale = 'de';
 SET @amName = 'OTP_SMS_EXT_MESSAGE';
 SET @username = 'InitPhase';
 SET @customItemSetId = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_16500_ING_SMS');
+SET @networkMC = (SELECT id FROM `Network` WHERE `code` = 'MASTERCARD');
 
 /* 3DS2 */
 /* IMAGES */
