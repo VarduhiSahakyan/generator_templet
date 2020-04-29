@@ -5,6 +5,7 @@ SET @locale = 'de';
 SET @amName = 'EXT_PASSWORD';
 SET @username = 'InitPhase';
 SET @customItemSetId = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_16500_PASSWORD');
+SET @networkMC = (SELECT id FROM `Network` WHERE `code` = 'MASTERCARD');
 
 /* 3DS2 implem */
 /* IMAGES */
