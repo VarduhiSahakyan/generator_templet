@@ -5,9 +5,9 @@ USE `U7G_ACS_BO`;
 SET @createdBy ='A757435';
 SET @BankB = 'SOBA';
 SET @Banklb = LOWER(@BankB);
-
+SET @IssuerCode = '41001';
 SET @SubIssuerCode = '83340';
-SET @RelativePathPrefix = CONCAT('/Issuers/', @SubIssuerCode, '-', @BankB, '/', @Banklb);
+SET @RelativePathPrefix = CONCAT('/Issuers/', @IssuerCode , '/' ,@SubIssuerCode, '-', @BankB, '/', @Banklb);
 
 INSERT IGNORE INTO `Image` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `binaryData`,relativepath)
 VALUES (@createdBy, NOW(), CONCAT(@BankB,'_LARGE_LOGO'), NULL, NULL, CONCAT(@Banklb,'_large.png'), 'PUSHED_TO_CONFIG', '', CONCAT(@RelativePathPrefix,'_large.png'));
