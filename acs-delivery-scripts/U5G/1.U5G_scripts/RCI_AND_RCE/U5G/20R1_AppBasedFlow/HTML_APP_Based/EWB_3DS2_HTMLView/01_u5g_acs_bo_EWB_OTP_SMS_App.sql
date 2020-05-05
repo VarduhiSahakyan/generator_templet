@@ -211,10 +211,6 @@ VALUES( 'div','
                 </a>
             </div>
         </div>
-        <div id="select-whitelisting-checkbox">
-            <input id="select-whitelisting-submit" type="checkbox" value="\'Y\'" name="whitelisting">
-            <label for="select-whitelisting-submit">network_means_pageType_161</label>
-         </div>
     </div>
 </div>
 ', @idAppViewPage);
