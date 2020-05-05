@@ -1450,42 +1450,6 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
 						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 
-	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanMobile, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
-	 'de', 175, @pageTypeALL, @txt_back_to_shop_DE, @MaestroVID, NULL, @customItemSetMOBILEAPP),
-	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanMobile, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
-	 'en', 175, @pageTypeALL, @txt_back_to_shop_EN, @MaestroVID, NULL, @customItemSetMOBILEAPP),
-	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanMobile, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
-	 'fr', 175, @pageTypeALL, @txt_back_to_shop_FR, @MaestroVID, NULL, @customItemSetMOBILEAPP),
-	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanMobile, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
-	 'it', 175, @pageTypeALL, @txt_back_to_shop_IT, @MaestroVID, NULL, @customItemSetMOBILEAPP),
-
-	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanSMS, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
-	 'de', 175, @pageTypeALL, @txt_back_to_shop_DE, @MaestroVID, NULL, @customItemSetSMS),
-	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanSMS, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
-	 'en', 175, @pageTypeALL, @txt_back_to_shop_EN, @MaestroVID, NULL, @customItemSetSMS),
-	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanSMS, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
-	 'fr', 175, @pageTypeALL, @txt_back_to_shop_FR, @MaestroVID, NULL, @customItemSetSMS),
-	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanSMS, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
-	 'it', 175, @pageTypeALL, @txt_back_to_shop_IT, @MaestroVID, NULL, @customItemSetSMS),
-
-	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
-	 'de', 175, @pageTypeALL, @txt_back_to_shop_DE, @MaestroVID, NULL, @customItemSetRefusal),
-	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
-	 'en', 175, @pageTypeALL, @txt_back_to_shop_EN, @MaestroVID, NULL, @customItemSetRefusal),
-	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
-	 'fr', 175, @pageTypeALL, @txt_back_to_shop_FR, @MaestroVID, NULL, @customItemSetRefusal),
-	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
-	 'it', 175, @pageTypeALL, @txt_back_to_shop_IT, @MaestroVID, NULL, @customItemSetRefusal),
-
-	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
-	 'de', 175, @pageTypeALL, @txt_back_to_shop_DE, @MaestroVID, NULL, @customItemSetINFORefusal),
-	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
-	 'en', 175, @pageTypeALL, @txt_back_to_shop_EN, @MaestroVID, NULL, @customItemSetINFORefusal),
-	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
-	 'fr', 175, @pageTypeALL, @txt_back_to_shop_FR, @MaestroVID, NULL, @customItemSetINFORefusal),
-	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
-	 'it', 175, @pageTypeALL, @txt_back_to_shop_IT, @MaestroVID, NULL, @customItemSetINFORefusal),
-
 	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanMobile, '_', @pageTypeALL, '_174'), 'PUSHED_TO_CONFIG',
 	 'de', 174, @pageTypeALL, @txt_close_DE, @MaestroVID, NULL, @customItemSetMOBILEAPP),
 	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanMobile, '_', @pageTypeALL, '_174'), 'PUSHED_TO_CONFIG',
@@ -1520,7 +1484,43 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_174'), 'PUSHED_TO_CONFIG',
 	 'fr', 174, @pageTypeALL, @txt_close_FR, @MaestroVID, NULL, @customItemSetINFORefusal),
 	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_174'), 'PUSHED_TO_CONFIG',
-	 'it', 174, @pageTypeALL, @txt_close_IT, @MaestroVID, NULL, @customItemSetINFORefusal);
+	 'it', 174, @pageTypeALL, @txt_close_IT, @MaestroVID, NULL, @customItemSetINFORefusal),
+
+	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanMobile, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
+	 'de', 175, @pageTypeALL, @txt_back_to_shop_DE, @MaestroVID, NULL, @customItemSetMOBILEAPP),
+	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanMobile, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
+	 'en', 175, @pageTypeALL, @txt_back_to_shop_EN, @MaestroVID, NULL, @customItemSetMOBILEAPP),
+	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanMobile, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
+	 'fr', 175, @pageTypeALL, @txt_back_to_shop_FR, @MaestroVID, NULL, @customItemSetMOBILEAPP),
+	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanMobile, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
+	 'it', 175, @pageTypeALL, @txt_back_to_shop_IT, @MaestroVID, NULL, @customItemSetMOBILEAPP),
+
+	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanSMS, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
+	 'de', 175, @pageTypeALL, @txt_back_to_shop_DE, @MaestroVID, NULL, @customItemSetSMS),
+	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanSMS, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
+	 'en', 175, @pageTypeALL, @txt_back_to_shop_EN, @MaestroVID, NULL, @customItemSetSMS),
+	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanSMS, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
+	 'fr', 175, @pageTypeALL, @txt_back_to_shop_FR, @MaestroVID, NULL, @customItemSetSMS),
+	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanSMS, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
+	 'it', 175, @pageTypeALL, @txt_back_to_shop_IT, @MaestroVID, NULL, @customItemSetSMS),
+
+	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
+	 'de', 175, @pageTypeALL, @txt_back_to_shop_DE, @MaestroVID, NULL, @customItemSetRefusal),
+	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
+	 'en', 175, @pageTypeALL, @txt_back_to_shop_EN, @MaestroVID, NULL, @customItemSetRefusal),
+	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
+	 'fr', 175, @pageTypeALL, @txt_back_to_shop_FR, @MaestroVID, NULL, @customItemSetRefusal),
+	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
+	 'it', 175, @pageTypeALL, @txt_back_to_shop_IT, @MaestroVID, NULL, @customItemSetRefusal),
+
+	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
+	 'de', 175, @pageTypeALL, @txt_back_to_shop_DE, @MaestroVID, NULL, @customItemSetINFORefusal),
+	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
+	 'en', 175, @pageTypeALL, @txt_back_to_shop_EN, @MaestroVID, NULL, @customItemSetINFORefusal),
+	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
+	 'fr', 175, @pageTypeALL, @txt_back_to_shop_FR, @MaestroVID, NULL, @customItemSetINFORefusal),
+	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName, '_', @authentMeanRefusal, '_', @pageTypeALL, '_175'), 'PUSHED_TO_CONFIG',
+	 'it', 175, @pageTypeALL, @txt_back_to_shop_IT, @MaestroVID, NULL, @customItemSetINFORefusal);
 
 
 
