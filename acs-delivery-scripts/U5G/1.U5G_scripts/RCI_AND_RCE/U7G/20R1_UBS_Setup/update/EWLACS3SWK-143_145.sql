@@ -3,7 +3,7 @@
 
 USE U7G_ACS_BO;
 SET @BankB = 'UBS';
-
+/*Templates are common for EWLACS3SWK-143, EWLACS3SWK-145;*/
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Message Banner (', @BankB, ')%') );
 start transaction;
 
@@ -153,7 +153,7 @@ UPDATE CustomComponent SET value = '<style>
 		line-height: 24px;
 	}
 	div#leftMenuLayout span.custom-text.ng-binding {
-		font-family: Frutiger55Roman;
+		font-family: Frutiger55Roman, sans-serif;
 		font-weight: normal;
 		font-size: 16px;
 		color: #646464;
@@ -186,7 +186,7 @@ UPDATE CustomComponent SET value = '<style>
 	#main-container .mtan-label {
 		text-align: left;
 		flex: 0 0 180px;
-		font-family: Frutiger55Roman;
+		font-family: Frutiger55Roman, sans-serif;
 		font-size: 12px;
 		color: #646464;
 		letter-spacing: 0;
@@ -489,7 +489,7 @@ UPDATE CustomComponent SET value = '<style>
 		line-height: 24px;
 	}
 	div#leftMenuLayout span.custom-text.ng-binding {
-		font-family: Frutiger55Roman;
+		font-family: Frutiger55Roman, sans-serif;
 		font-weight: normal;
 		font-size: 16px;
 		color: #646464;
@@ -697,7 +697,7 @@ UPDATE CustomComponent SET value = '<style>
 		line-height: 24px;
 	}
 	div#leftMenuLayout span.custom-text.ng-binding {
-		font-family: Frutiger55Roman;
+		font-family: Frutiger55Roman, sans-serif;
 		font-weight: normal;
 		font-size: 16px;
 		color: #646464;
@@ -935,7 +935,7 @@ UPDATE CustomComponent SET value = '<style>
 		line-height: 24px;
 	}
 	div#leftMenuLayout span.custom-text.ng-binding {
-		font-family: Frutiger55Roman;
+		font-family: Frutiger55Roman, sans-serif;
 		font-weight: normal;
 		font-size: 16px;
 		color: #646464;
@@ -1137,7 +1137,7 @@ UPDATE CustomComponent SET value = '<style>
 		line-height: 24px;
 	}
 	div#leftMenuLayout span.custom-text.ng-binding {
-		font-family: Frutiger55Roman;
+		font-family: Frutiger55Roman, sans-serif;
 		font-weight: normal;
 		font-size: 16px;
 		color: #646464;
