@@ -24,13 +24,13 @@ values ('div',
 	.acs-header {
 		margin-bottom: 0.5em;
 	}
-	#issuerLogo{
-        width: 120px;
-        height: 33px;
-    }
-    #networkLogo {
-        padding-left: 50px;
-    }
+	#issuerLogo {
+		width: 120px;
+		height: 33px;
+	}
+	#networkLogo {
+		padding-left: 50px;
+	}
 	.acs-purchase-context {
 		margin-bottom: 2em;
 		margin-top: 0.5em;
@@ -177,10 +177,11 @@ values ('div',
 	<!-- ACS HEADER | Branding zone-->
 	<div class="acs-header row branding-zone">
 		<div class="col-md-6">
-			<img src="network_means_pageType_251" id = "issuerLogo" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
+			<img src="network_means_pageType_251" id="issuerLogo" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
 		</div>
 		<div class="col-md-6">
-			<img src="network_means_pageType_254" id = "networkLogo" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
+			<img src="network_means_pageType_254" id="networkLogo" alt="Card network image"
+				 data-cy="CARD_NETWORK_IMAGE"/>
 		</div>
 	</div>
 	<!-- ACS BODY | Challenge/Processing zone -->
