@@ -368,17 +368,17 @@ UPDATE CustomComponent SET value = '<style>
 		#main-container .help-link {width: 36%;text-align: center;}
 	}
 	@media all and (max-width: 250px) {
-        #main-container {padding-left: 16px; }
-        #main-container #pageHeader {padding-left: 0px; }
-        #main-container #pageHeaderLeft {padding-left: 0px; }
-        #main-container #pageHeaderRight {padding-right: 0px; }
-        #main-container #message-container {width: 218px; }
+		#main-container {padding-left: 16px; }
+		#main-container #pageHeader {padding-left: 0px; }
+		#main-container #pageHeaderLeft {padding-left: 0px; }
+		#main-container #pageHeaderRight {padding-right: 0px; }
+		#main-container #message-container {width: 218px; }
 		#main-container #content { text-align: left; margin-left: 0em; }
 		#main-container .ng-isolate-scope .text-right { text-align: left; padding-left: 0px;}
 		#main-container .menu-elements {margin-right: 0px;}
-        .break-word.ng-scope {width: 100%; display: inline-table;}
-        #main-container .col-sm-5 {width: auto; display: inline-table;}
-        #main-container .col-sm-6 {width: auto; display: inline-table;}
+		.break-word.ng-scope {width: 100%; display: inline-table;}
+		#main-container .col-sm-5 {width: auto; display: inline-table;}
+		#main-container .col-sm-6 {width: auto; display: inline-table;}
 		#main-container #contentBottom { padding-left: 0%; }
 		#main-container .otp-field input { width: 218px; }
 		#main-container .resendTan {width: 72%; text-align: left;}
@@ -615,16 +615,16 @@ UPDATE CustomComponent SET value = '<style>
 	}
 	@media all and (max-width: 250px) {
 		#main-container {padding-left: 16px; }
-        #main-container #pageHeader {padding-left: 0px; }
-        #main-container #pageHeaderLeft {padding-left: 0px; }
-        #main-container #pageHeaderRight {padding-right: 0px; }
-        #main-container #message-container {width: 218px; }
+		#main-container #pageHeader {padding-left: 0px; }
+		#main-container #pageHeaderLeft {padding-left: 0px; }
+		#main-container #pageHeaderRight {padding-right: 0px; }
+		#main-container #message-container {width: 218px; }
 		#main-container #content { text-align: left; margin-left: 0em; }
-        #main-container .ng-isolate-scope .text-right { text-align: left; padding-left: 0px;}
+		#main-container .ng-isolate-scope .text-right { text-align: left; padding-left: 0px;}
 		#main-container .menu-elements {margin-right: 0px;}
-        .break-word.ng-scope {width: 100%; display: inline-table;}
-        #main-container .col-sm-5 {width: auto; display: inline-table;}
-        #main-container .col-sm-6 {width: auto; display: inline-table;}
+		.break-word.ng-scope {width: 100%; display: inline-table;}
+		#main-container .col-sm-5 {width: auto; display: inline-table;}
+		#main-container .col-sm-6 {width: auto; display: inline-table;}
 		#main-container #contentBottom { padding-left: 0%; }
 		span#info-icon {position: relative;font-size: 0.8em;top: 7px;left: 5px;float: left;margin-right: 7px;}
 		#main-container .help-link { width: 29%;text-align: left;}
@@ -858,16 +858,16 @@ UPDATE CustomComponent SET value = '<style>
 	}
 	@media all and (max-width: 250px) {
 		#main-container {padding-left: 16px; }
-        #main-container #pageHeader {padding-left: 0px; }
-        #main-container #pageHeaderLeft {padding-left: 0px; }
-        #main-container #pageHeaderRight {padding-right: 0px; }
-        #main-container #message-container {width: 218px; }
+		#main-container #pageHeader {padding-left: 0px; }
+		#main-container #pageHeaderLeft {padding-left: 0px; }
+		#main-container #pageHeaderRight {padding-right: 0px; }
+		#main-container #message-container {width: 218px; }
 		#main-container #content { text-align: left; margin-left: 0em; }
-        #main-container .ng-isolate-scope .text-right { text-align: left; padding-left: 0px;}
+		#main-container .ng-isolate-scope .text-right { text-align: left; padding-left: 0px;}
 		#main-container .menu-elements {margin-right: 0px;}
-        .break-word.ng-scope {width: 100%; display: inline-table;}
-        #main-container .col-sm-5 {width: auto; display: inline-table;}
-        #main-container .col-sm-6 {width: auto; display: inline-table;}
+		.break-word.ng-scope {width: 100%; display: inline-table;}
+		#main-container .col-sm-5 {width: auto; display: inline-table;}
+		#main-container .col-sm-6 {width: auto; display: inline-table;}
 		#main-container #contentBottom { padding-left: 0%; }
 		#main-container #link-text { text-align: left; width: 218px; }
 		span#info-icon {position: relative;font-size: 0.8em;top: 7px;left: 5px;float: left;margin-right: 7px;}
@@ -1087,16 +1087,16 @@ UPDATE CustomComponent SET value = '<style>
 	}
 	@media all and (max-width: 250px) {
 		#main-container {padding-left: 16px; }
-        #main-container #pageHeader {padding-left: 0px; }
-        #main-container #pageHeaderLeft {padding-left: 0px; }
-        #main-container #pageHeaderRight {padding-right: 0px; }
-        #main-container #message-container {width: 218px; }
+		#main-container #pageHeader {padding-left: 0px; }
+		#main-container #pageHeaderLeft {padding-left: 0px; }
+		#main-container #pageHeaderRight {padding-right: 0px; }
+		#main-container #message-container {width: 218px; }
 		#main-container #content { text-align: left; margin-left: 0em; }
-        #main-container .ng-isolate-scope .text-right { text-align: left; padding-left: 0px;}
+		#main-container .ng-isolate-scope .text-right { text-align: left; padding-left: 0px;}
 		#main-container .menu-elements {margin-right: 0px;}
-        .break-word.ng-scope {width: 100%; display: inline-table;}
-        #main-container .col-sm-5 {width: auto; display: inline-table;}
-        #main-container .col-sm-6 {width: auto; display: inline-table;}
+		.break-word.ng-scope {width: 100%; display: inline-table;}
+		#main-container .col-sm-5 {width: auto; display: inline-table;}
+		#main-container .col-sm-6 {width: auto; display: inline-table;}
 		#main-container #contentBottom { padding-left: 0%; }
 		span#info-icon {position: relative;font-size: 0.8em;top: 7px;left: 5px;float: left;margin-right: 7px;}
 		#main-container .help-link { width: 29%;text-align: left;}
@@ -1318,16 +1318,16 @@ UPDATE CustomComponent SET value = '<style>
 	}
 	@media all and (max-width: 250px) {
 		#main-container {padding-left: 16px; }
-        #main-container #pageHeader {padding-left: 0px; }
-        #main-container #pageHeaderLeft {padding-left: 0px; }
-        #main-container #pageHeaderRight {padding-right: 0px; }
-        #main-container #message-container {width: 218px; }
+		#main-container #pageHeader {padding-left: 0px; }
+		#main-container #pageHeaderLeft {padding-left: 0px; }
+		#main-container #pageHeaderRight {padding-right: 0px; }
+		#main-container #message-container {width: 218px; }
 		#main-container #content { text-align: left; margin-left: 0em; }
-        #main-container .ng-isolate-scope .text-right { text-align: left; padding-left: 0px; padding-right: 0px;}
+		#main-container .ng-isolate-scope .text-right { text-align: left; padding-left: 0px; padding-right: 0px;}
 		#main-container .menu-elements {margin-right: 0px;}
-        .break-word.ng-scope {width: 100%; display: inline-table;}
-        #main-container .col-sm-5 {width: auto; display: inline-table;}
-        #main-container .col-sm-6 {width: auto; display: inline-table;}
+		.break-word.ng-scope {width: 100%; display: inline-table;}
+		#main-container .col-sm-5 {width: auto; display: inline-table;}
+		#main-container .col-sm-6 {width: auto; display: inline-table;}
 		#main-container #contentBottom { padding-left: 0%; }
 		span#info-icon {position: relative;font-size: 0.8em;top: 7px;left: 5px;float: left;margin-right: 7px;}
 		#main-container .help-link { width: 29%;text-align: left;}
