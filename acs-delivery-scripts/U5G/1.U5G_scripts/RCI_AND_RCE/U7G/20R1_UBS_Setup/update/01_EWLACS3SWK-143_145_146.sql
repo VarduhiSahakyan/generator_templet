@@ -1333,7 +1333,7 @@ SET @customItemSetMOBILEAPP = (SELECT id FROM `CustomItemSet` WHERE `name` = CON
 SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_SMS'));
 SET @customItemSetINFORefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_MISSING_AUTHENTICATION_REFUSAL'));
 
-
+/*EWLACS3SWK-143*/
 /*===================================================================104=============================================================================*/
 set @ordinal = 104;
 update CustomItem set value = 'Mobilnr.'
