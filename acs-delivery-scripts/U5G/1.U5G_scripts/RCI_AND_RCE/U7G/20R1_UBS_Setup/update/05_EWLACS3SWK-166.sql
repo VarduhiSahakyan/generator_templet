@@ -138,9 +138,16 @@ UPDATE CustomComponent SET value = '<style>
 	}
 	#main-container .menu-elements {
 		width: 50%;
+		white-space: nowrap;
 	}
 	#main-container .side-menu .menu-elements {
 		line-height: 12px;
+	}
+	span.col-sm-5.col-xs-6.col-xs-offset-0.col-sm-offset-1.text-right.padding-left {
+		padding: 0px;
+	}
+	span.col-sm-6.col-xs-6.text-left.padding-left {
+		padding-left: 8px;
 	}
 	#main-container #contentBottom {
 		padding-left: 0%;
@@ -347,7 +354,7 @@ UPDATE CustomComponent SET value = '<style>
 		span#info-icon {position: relative;font-size: 0.8em;top: 7px;left: 5px;float: left;margin-right: 7px;}
 	}
 	@media all and (max-width: 390px) {
-		#main-container .menu-elements { width: 70%; }
+		#main-container .menu-elements { width: 80%; }
 		#main-container #contentBottom { width: 358px; }
 		#accessAppTitle { width: 230px; }
 		#accessAppText { width: 230px; }
@@ -362,7 +369,7 @@ UPDATE CustomComponent SET value = '<style>
 		#main-container #content { text-align: left; margin-left: 0em; }
 		#main-container .ng-isolate-scope .text-right { text-align: left; padding-left: 0px;}
 		#main-container .menu-elements { width: auto; }
-		.break-word.ng-scope {width: 100%; display: inline-table;}
+		.break-word.ng-scope {width: 100%; display: inline-flex;}
 		#main-container .col-sm-5 {width: auto; display: inline-table;}
 		#main-container .col-sm-6 {width: auto; display: inline-table;}
 		#main-container .col-sm-4 { margin-bottom: 0px; }
