@@ -1192,7 +1192,7 @@ UPDATE CustomComponent SET value = '<style>
 		padding-right: 0px;
 	}
 	#cancelButton button span:before {
-		content: \''\'';
+		content: \'\';
 	}
 	@media all and (max-width: 600px) {
 		#main-container #contentBottom { width: 468px; float: right; }
