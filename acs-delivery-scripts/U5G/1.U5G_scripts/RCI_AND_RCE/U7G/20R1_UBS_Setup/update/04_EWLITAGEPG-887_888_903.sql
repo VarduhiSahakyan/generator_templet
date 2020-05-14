@@ -7,11 +7,30 @@ set @authentMeansIDs = (select group_concat(id)
 set @customItemSetIDs = (select group_concat(fk_id_customItemSetCurrent)
 						 from Profile
 						 where find_in_set(fk_id_AuthentMeans, @authentMeansIDs));
-
+start transaction;
 delete
 from CustomItem
 where find_in_set(fk_id_customItemSet, @customItemSetIDs)
   and pageTypes = 'REFUSAL_PAGE';
+commit;
+
+set @ruleIDs = (select group_concat(id order by id)
+				from Rule
+				where description not like '%_ACCEPT%' and description not like '%_DECLINE%');
+set @ruleConditionIDs = (select group_concat(id order by id)
+						 from RuleCondition
+						 where find_in_set(fk_id_rule, @ruleIDs));
+
+
+set @transactionStatusesIDs = (select group_concat(id)
+							   from TransactionStatuses
+							   where transactionStatusType in ('ALWAYS_ACCEPT', 'ALWAYS_DECLINE') and reversed = true);
+start transaction;
+delete
+from Condition_TransactionStatuses
+where find_in_set(id_condition, @ruleConditionIDs)
+  and find_in_set(id_transactionStatuses, @transactionStatusesIDs);
+commit;
 
 
 /*===========================================INFO_TABLE======================================
