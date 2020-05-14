@@ -30,7 +30,7 @@ values ('div',
 	.acs-purchase-context {
 		margin-bottom: 2em;
 		margin-top: 0.5em;
-		height: 24.5em;
+		min-height: 24.5em;
 	}
 	.acs-purchase-context button,
 	.acs-purchase-context input {
