@@ -16,7 +16,7 @@ VALUES (@createdBy, NOW(), 'MC_small.png', NULL, NULL, 'MC_small.png', 'PUSHED_T
 
 -- VISA --
 INSERT IGNORE INTO `Image` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `binaryData`,relativepath)
-VALUES (@createdBy, NOW(), 'VISA_large.png', NULL, NULL, 'VISA_large.png', 'PUSHED_TO_CONFIG', '', '/Schemes/VISA_large.png';
+VALUES (@createdBy, NOW(), 'VISA_large.png', NULL, NULL, 'VISA_large.png', 'PUSHED_TO_CONFIG', '', '/Schemes/VISA_large.png');
 
 INSERT IGNORE INTO `Image` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `binaryData`,relativepath)
 VALUES (@createdBy, NOW(), 'VISA_medium.png', NULL, NULL, 'VISA_medium.png', 'PUSHED_TO_CONFIG', '', '/Schemes/VISA_medium.png');
