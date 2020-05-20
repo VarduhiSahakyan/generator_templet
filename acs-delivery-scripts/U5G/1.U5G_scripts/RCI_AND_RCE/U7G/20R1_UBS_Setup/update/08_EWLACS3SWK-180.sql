@@ -49,6 +49,7 @@ UPDATE CustomComponent SET value = '<style>
 	}
 	#main-container #content {
 		text-align: left;
+		margin-left: 0em;
 	}
 	div#contentHeaderLeft h3 {
 		font-family: FrutigerforUBSWeb-Lt;
@@ -80,6 +81,14 @@ UPDATE CustomComponent SET value = '<style>
 		letter-spacing: 0;
 		line-height: 24px;
 	}
+	#main-container .ng-isolate-scope .text-right {
+		text-align: left;
+		padding-left: 0px;
+	}
+	.break-word.ng-scope {
+		width: 100%;
+		display: inline-flex;
+	}
 	#main-container .menu-title {
 		display: none;
 	}
@@ -100,7 +109,7 @@ UPDATE CustomComponent SET value = '<style>
 		padding-left: 0%;
 		padding-right: 0px;
 		width: 468px;
-		float: right;
+		float: left;
 	}
 	#main-container .code-otp {
 		display: inline-flex;
@@ -132,18 +141,23 @@ UPDATE CustomComponent SET value = '<style>
 		margin-left: 0px;
 		border: 1px solid #aaaaaa;
 		width: 166px;
-		height: 48px;
+		height: 32px;
 	}
 	#main-container .code {
-		font-family: FrutigerforUBSWeb;
-		font-weight: 300;
+		font-family: Frutiger55Roman, sans-serif;
+		font-weight: normal;
 		font-size: 16px;
-		color: #aaaaaa;
+		color: #646464;
 		letter-spacing: 0;
-		line-height: 20px;
+		line-height: 10px;
 		margin-top: 10px;
 		height: 20px;
-		width: 43px;
+		width: 48px;
+	}
+	#main-container .code #menu-separator {
+		font-weight: 700;
+		color: #1c1c1c;
+		font-size: 13px;
 	}
 	#main-container .otp-field input:hover {
 		border: 2px solid #aaaaaa;
@@ -267,13 +281,15 @@ UPDATE CustomComponent SET value = '<style>
 	}
 	#main-container .col-sm-4 {
 		width: 100%;
-		margin-bottom: 20px;
+		margin-bottom: 0px;
 	}
 	#main-container .col-sm-5 {
-		width: 34%;
+		width: auto;
+		display: inline-table;
 	}
 	#main-container .col-sm-6 {
-		width: 65%;
+		width: auto;
+		display: inline-table;
 	}
 	#main-container .col-xs-12 {
 		width: 100%;
@@ -285,30 +301,24 @@ UPDATE CustomComponent SET value = '<style>
 		margin-bottom: 12px;
 	}
 	@media all and (max-width: 600px) {
-		#main-container #contentBottom { width: 468px; float: right; padding-left: 1%;}
+		#main-container #contentBottom { width: 468px; float: left; padding-left: 0%;}
 		span#info-icon {display: inline;position: relative;font-size: 1em;top: 5px;left: 3px;float: left;margin-right: 3px;}
 	}
 	@media all and (max-width: 500px) {
 		#main-container .menu-elements { width: 60%; }
-		#main-container #contentBottom { width: 368px; float: right; }
+		#main-container #contentBottom { width: 368px; float: left;}
 		#main-container .otp-field input { width: 166px; }
 		span#info-icon {position: relative;font-size: 0.8em;top: 7px;left: 5px;float: left;margin-right: 7px;}
 	}
 	@media all and (max-width: 390px) {
 		#main-container .menu-elements { width: 78%; }
-		#main-container #contentBottom { width: 285px; padding-left: 9%;}
+		#main-container #contentBottom { width: 285px; padding-left: 0%; float: left;}
 		#main-container .otp-field input { width: 166px; }
 		span#info-icon {position: relative;font-size: 0.8em;top: 7px;left: 5px;float: left;margin-right: 7px;}
 	}
 	@media all and (max-width: 250px) {
 		#main-container #message-container {width: 218px; }
-		#main-container #content { text-align: left; margin-left: 0em; }
-		#main-container .ng-isolate-scope .text-right { text-align: left; padding-left: 0px;}
 		#main-container .menu-elements { width: auto; }
-		.break-word.ng-scope {width: 100%; display: inline-flex;}
-		#main-container .col-sm-5 {width: auto; display: inline-table;}
-		#main-container .col-sm-6 {width: auto; display: inline-table;}
-		#main-container .col-sm-4 { margin-bottom: 0px; }
 		#main-container #contentBottom { width: 218px; padding-left: 0%; }
 		#main-container .otp-field input { width: 166px; }
 		#main-container .row .submit-btn { display: flex; }
@@ -344,6 +354,7 @@ UPDATE CustomComponent SET value = '<style>
 			<div class="code-otp">
 			<div class="code">
 				<custom-text custom-text-key="''network_means_pageType_3''"></custom-text>
+				<label id = "menu-separator"> : </label>
 			</div>
 			<div class="mtan-input">
 				<div class="input-label">
@@ -382,19 +393,19 @@ UPDATE CustomComponent SET value = '<style>
 SET @currentAuthentMean = 'OTP_SMS_EXT_MESSAGE';
 SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_SMS'));
 SET @currentPageType = 'OTP_FORM_PAGE';
-SET @MaestroVID = (SELECT `id` FROM `Network` WHERE `code` = 'VISA');
+SET @MaestroVID = NULL;
 SET @MaestroVName = (SELECT `name` FROM `Network` WHERE `code` = 'VISA');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
 						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
 						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
-		 'de', 3, @currentPageType, 'Code:', @MaestroVID, NULL, @customItemSetSMS),
+		 'de', 3, @currentPageType, 'Code', @MaestroVID, NULL, @customItemSetSMS),
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
-		 'en', 3, @currentPageType, 'Code:', @MaestroVID, NULL, @customItemSetSMS),
+		 'en', 3, @currentPageType, 'Code', @MaestroVID, NULL, @customItemSetSMS),
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
-		 'fr', 3, @currentPageType, 'Code:', @MaestroVID, NULL, @customItemSetSMS),
+		 'fr', 3, @currentPageType, 'Code', @MaestroVID, NULL, @customItemSetSMS),
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
-		 'it', 3, @currentPageType, 'Codice:', @MaestroVID, NULL, @customItemSetSMS);
+		 'it', 3, @currentPageType, 'Codice', @MaestroVID, NULL, @customItemSetSMS);
 
 commit;
