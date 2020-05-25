@@ -78,8 +78,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG',
-       'de', 1, 'ALL', @BankB, @MaestroVID, im.id, @customItemSetPassword
-FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankB,'%');
+       'de', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetPassword
+FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
@@ -206,6 +206,131 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), 'PUSHED_TO_CONFIG',
  'de', 11, @currentPageType, 'Hilfe schließen', @MaestroVID, NULL, @customItemSetPassword);
 
+
+
+
+/* Elements for the profile MOBILE_APP : */
+SET @customItemSetMobileApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_MOBILE_APP_EXT'));
+SET @currentPageType = 'POLLING_PAGE';
+SET @currentAuthentMean = 'MOBILE_APP_EXT';
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG',
+       'de', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMobileApp
+FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', 'PUSHED_TO_CONFIG',
+       'de', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMobileApp
+FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Mobile App Logo', 'PUSHED_TO_CONFIG',
+       'de', 3, 'ALL', 'Mobile App Logo', @MaestroVID, im.id, @customItemSetMobileApp
+FROM `Image` im WHERE im.name = 'MOBILE_APP_Logo';
+
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
+    'de', 1, @currentPageType, 'Bitte bestätigen Sie folgende Zahlung', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
+    'de', 3, @currentPageType, 'SecurePlus Freigabe', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_4'), 'PUSHED_TO_CONFIG',
+    'de', 4, @currentPageType, 'Wir haben Ihnen über Ihre SecurePlus App eine Anfrage geschickt. Bitte öffnen Sie die App und geben Sie die Zahlung frei.', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_5'), 'PUSHED_TO_CONFIG',
+    'de', 5, @currentPageType, 'Hilfe', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_6'), 'PUSHED_TO_CONFIG',
+    'de', 6, @currentPageType, 'Wir sind für Sie da: 0911 - 369 2000', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_7'), 'PUSHED_TO_CONFIG',
+    'de', 7, @currentPageType, 'Mo-Fr: 09:00 Uhr bis 20:00 Uhr', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
+    'de', 9, @currentPageType, 'Visa Secure - ein Service von Visa in Kooperation mit BNP Paribas', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), 'PUSHED_TO_CONFIG',
+    'de', 11, @currentPageType, 'Abbrechen und zurück zum Händler', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_12'), 'PUSHED_TO_CONFIG',
+    'de', 12, @currentPageType, 'Authentifizierung läuft', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_13'), 'PUSHED_TO_CONFIG',
+    'de', 13, @currentPageType, 'Bitte warten Sie ein paar Sekunden, um Ihre Eingabe zu überprüfen.', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_14'), 'PUSHED_TO_CONFIG',
+    'de', 14, @currentPageType, 'Sie haben die Bezahlung abgebrochen', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_15'), 'PUSHED_TO_CONFIG',
+    'de', 15, @currentPageType, 'Falls Sie den Artikel dennoch kaufen möchten, starten Sie den Zahlungsvorgang bitte erneut.', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_26'), 'PUSHED_TO_CONFIG',
+    'de', 26, @currentPageType, 'Authentifizierung erfolgreich', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_27'), 'PUSHED_TO_CONFIG',
+    'de', 27, @currentPageType, 'Sie wurden erfolgreich authentifiziert und werden automatisch zum Händler weitergeleitet.', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_30'), 'PUSHED_TO_CONFIG',
+    'de', 30, @currentPageType, 'Ihre Session ist abgelaufen', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_31'), 'PUSHED_TO_CONFIG',
+    'de', 31, @currentPageType, 'Aus Sicherheitsgründen wurde die Transaktion aufgrund Überschreitung des Zeitlimits abgebrochen. Bitte versuchen Sie es erneut.
+Bei Rückfragen wenden Sie sich bitte an Ihr persönliches Betreuungsteam.', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
+    'de', 32, @currentPageType, 'Technischer Fehler', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
+    'de', 33, @currentPageType, 'Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut.', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_44'), 'PUSHED_TO_CONFIG',
+    'de', 44, @currentPageType, '&copy; Visa Europe', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_100'), 'PUSHED_TO_CONFIG',
+    'de', 100, 'ALL', 'Händler', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_101'), 'PUSHED_TO_CONFIG',
+    'de', 101, 'ALL', 'Betrag', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_102'), 'PUSHED_TO_CONFIG',
+    'de', 102, 'ALL', 'Datum', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
+    'de', 103, 'ALL', 'Kreditkartennummer', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_104'), 'PUSHED_TO_CONFIG',
+    'de', 104, 'ALL', 'Telefonnummer', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
+    'de', 174, 'ALL', 'Schliessen', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
+    'de', 175, 'ALL', 'Zurück zum Händler', @MaestroVID, NULL, @customItemSetMobileApp);
+
+SET @currentPageType = 'FAILURE_PAGE';
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_5'), 'PUSHED_TO_CONFIG',
+    'de', 5, @currentPageType, 'Hilfe', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_6'), 'PUSHED_TO_CONFIG',
+    'de', 6, @currentPageType, 'Wir sind für Sie da: 0911 - 369 2000', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_7'), 'PUSHED_TO_CONFIG',
+    'de', 7, @currentPageType, 'Mo-Fr: 09:00 Uhr bis 20:00 Uhr', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_8'), 'PUSHED_TO_CONFIG',
+    'de', 8, @currentPageType, '', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
+    'de', 9, @currentPageType, 'Visa Secure - ein Service von Visa in Kooperation mit BNP Paribas', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_16'), 'PUSHED_TO_CONFIG',
+    'de', 16, @currentPageType, 'Ihr Authentifizierungsverfahren wurde gesperrt', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_17'), 'PUSHED_TO_CONFIG',
+    'de', 17, @currentPageType, 'Beachten Sie bitte, dass aus Sicherheitsgründen aufgrund mehrfach falscher Authentifizierung Ihr Authentifizierungs-Verfahren gesperrt wurde. Bei Rückfragen wenden Sie sich bitte an Ihr persönliches Betreuungsteam.', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
+    'de', 32, @currentPageType, 'Technischer Fehler', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
+    'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten, sodass der Bezahlvorgang abgebrochen wurde. Bitte versuchen Sie es zu einem anderen Zeitpunkt erneut.', @MaestroVID, NULL, @customItemSetMobileApp);
+
+SET @currentPageType = 'HELP_PAGE';
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
+    'de', 1, @currentPageType, '<b>Informationen über Visa Secure</b></br>Visa Secure ist ein Service von Visa und BNP Paribas Wealth Management - Private Banking, der Ihnen beim Einkaufen im Internet zusätzlichen Schutz vor der unberechtigten Verwendung Ihrer Kreditkarte bietet. So können Sie unbesorgt online einkaufen.', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
+    'de', 2, @currentPageType, '<b>Registrierung für Visa Secure</b><br>Eine separate Registrierung bei Visa ist nicht erforderlich. Sie werden als Inhaber der Visa Card von BNP Paribas Wealth Management - Private Banking automatisch für den Visa Secure Service angemeldet.', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
+    'de', 3, @currentPageType, '<b>Deaktivierung des Visa Secure Service</b><br>Solange Sie ein Girokonto und eine Visa Card von BNP Paribas Wealth Management - Private Banking haben, ist eine Abmeldung bzw. Löschung aus Visa Secure nicht möglich.', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_4'), 'PUSHED_TO_CONFIG',
+    'de', 4, @currentPageType, '<b>Höhere Sicherheit durch Visa Secure</b><br>Zukünftig öffnet sich bei jedem Online-Einkauf (bei teilnehmenden Händlern) vor Abschluss des Kaufvorganges das Visa Secure Eingabefenster. Visa Secure erkennt automatisch das von Ihnen genutzte TAN-Verfahren. Ihr Online-Einkauf wird durch die für den Bezahlvorgang generierte TAN zusätzlich abgesichert.', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_5'), 'PUSHED_TO_CONFIG',
+    'de', 5, @currentPageType, '<b>Falscheingabe der Visa Secure TAN</b><br>Nach dreimaliger Falscheingabe der TAN wird der TAN-Service aus Sicherheitsgründen gesperrt. Kontaktieren Sie in diesem Fall Ihr persönliches Betreuungsteam, um den TAN-Service wieder zu entsperren. Ihre Visa Card behält während der Sperre des TAN-Services weiterhin ihre Gültigkeit und kann von Ihnen, wie gewohnt, zum Bezahlen in Geschäften und für Bargeldabhebungen genutzt werden.', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), 'PUSHED_TO_CONFIG',
+    'de', 11, @currentPageType, 'Hilfe schließen', @MaestroVID, NULL, @customItemSetMobileApp);
 
 
 /*!40000 ALTER TABLE `CustomItem` ENABLE KEYS */;
