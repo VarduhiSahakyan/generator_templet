@@ -209,7 +209,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div','
 		padding-right: 7px;
 		display: none;
 	}
-</style>
+</style>#
 <div id="messageBanner">
 	<custom-text id="headingTxt" custom-text-key="$parent.heading"></custom-text>
 	<custom-text id="message" custom-text-key="$parent.message"></custom-text>
@@ -325,12 +325,12 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		font-size: 16px;
 		font-weight: normal;
 		text-align: center;
-		color: #403f3d;
-		background-color: #5b7f95;
+		color: #749bb3;
 	}
 	#main-container #helpButton button {
 		border-style: none;
-		padding: 0px
+		padding: 2px;
+		background-color: #5b7f95;
 	}
 	#main-container #helpButton .fa-info {
 		display: none;
@@ -478,11 +478,17 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 	#main-container .row .back-link button {
 		border-style: none;
 		padding: 0px;
-		color: #06c2d4;
+		color: #5b7f95;
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+	}
+	#main-container .row button:hover:enabled {
+		background-color: #5b7f95;
 	}
 	#main-container .row .back-link span {
 		text-align: left;
 		margin-left: 0.5em;
+		color: #749bb3;
 	}
 	#main-container .row .back-link span.fa-ban {
 		display: none;
@@ -651,23 +657,23 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 <style>
 	:root {
 		font-family: proximaLight, Times;
-		padding:0px;
-		margin:0px;
+		padding: 0px;
+		margin: 0px;
 	}
-	.mobileapp{
+	.mobileapp {
 		text-align: center;
 	}
 	#main-container {
-		width:480px;
-		max-width:480px;
-		margin-left:auto;
-		margin-right:auto;
-		padding-left:10px;
-		padding-right:10px;
+		width: 480px;
+		max-width: 480px;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 	#header {
-		height:100px;
-		position:relative;
+		height: 100px;
+		position: relative;
 	}
 	#main-container #networkLogo {
 		max-height: 33px;
@@ -679,94 +685,94 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		padding-right: 0px;
 	}
 	#mobileAppLogo {
-		position:relative;
+		position: relative;
 	}
 	#schemeLogo {
-		width:100px;
-		height:100px;
-		position:absolute;
-		right:0px;
-		top:1em;
-		padding-right:1em;
+		width: 100px;
+		height: 100px;
+		position: absolute;
+		right: 0px;
+		top: 1em;
+		padding-right: 1em;
 	}
 	#content {
-		text-align:left;
+		text-align: left;
 		color: #403f3d;
 	}
 	#content h2 {
-		font-size:1.25em;
-		margin-bottom:0.25em;
-		margin-top:0.25em;
+		font-size: 1.25em;
+		margin-bottom: 0.25em;
+		margin-top: 0.25em;
 		color: #403f3d;
 	}
 	.menu-elements {
 		color: #403f3d;
 	}
-	#main-container   #footer {
-		width:100%;
-		background-color:#d1d1d1;
-		clear:both;
-		background-image:none;
+	#main-container #footer {
+		width: 100%;
+		background-color: #d1d1d1;
+		clear: both;
+		background-image: none;
 		height: auto;
 		color: #403f3d;
 	}
-	#main-container   #footer:after {
+	#main-container #footer:after {
 		content: '';
-		height:100%;
+		height: 100%;
 		display: table;
 		clear: both;
 		padding-bottom: 0.5em;
 	}
-	#main-container   #footer .extra-small {
-		font-size:0.7em;
+	#main-container #footer .extra-small {
+		font-size: 0.7em;
 	}
-	#main-container   #footer .small {
-		font-size:0.8em;
+	#main-container #footer .small {
+		font-size: 0.8em;
 	}
-	#main-container   #footer .bold {
+	#main-container #footer .bold {
 		font-weight: bold;
 	}
-	#main-container   #footer .grey {
+	#main-container #footer .grey {
 		color: #6b6b6b;
 	}
-	#main-container   #footer .bottom-margin {
-		margin-bottom:10px;
+	#main-container #footer .bottom-margin {
+		margin-bottom: 10px;
 	}
-	#main-container   #footer #copyright {
-		width:100%;
-		border-top : 1px solid #6b6b6b;
-		padding-top:0.5em;
-		padding-bottom:1em;
-		display:flex;
+	#main-container #footer #copyright {
+		width: 100%;
+		border-top: 1px solid #6b6b6b;
+		padding-top: 0.5em;
+		padding-bottom: 1em;
+		display: flex;
 		flex-direction: row;
 	}
-	#main-container   #footer #copyright div:nth-child(1) {
-		order:1;
-		text-align:left;
-		width:50%;
-		padding-left:12px;
+	#main-container #footer #copyright div:nth-child(1) {
+		order: 1;
+		text-align: left;
+		width: 50%;
+		padding-left: 12px;
 	}
-	#main-container   #footer #copyright div:nth-child(2) {
-		order:2;
+	#main-container #footer #copyright div:nth-child(2) {
+		order: 2;
 		text-align: right;
-		width:50%;
-		padding-right:12px;
+		width: 50%;
+		padding-right: 12px;
 	}
-	#main-container  #footer .help-area {
+	#main-container #footer .help-area {
 		display: flex;
 		flex-direction: row;
 		padding: 16px;
 	}
 	p {
-		margin-bottom:10px;
+		margin-bottom: 10px;
 	}
 	#main-container #footer .small-font {
-		font-size:0.75em;
+		font-size: 0.75em;
 	}
 	.splashtext {
-		width:80%;
-		margin-left:auto;
-		margin-right:auto
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto
 	}
 	input {
 		border: 1px solid #d1d1d1;
@@ -774,121 +780,121 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		color: #464646;
 		padding: 7px 10px 5px;
 		height: 20px;
-		box-shadow: rgba(0,0,0,0.15) 1px 1px 3px 0 inset;
+		box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 3px 0 inset;
 	}
 	.spinner-container {
-		display:block;
-		width:100%;
+		display: block;
+		width: 100%;
 	}
 	#messageBanner-innerContainer {
-		padding:20px;
+		padding: 20px;
 	}
 	#messageBanner {
-		width:100%;
+		width: 100%;
 		margin-left: 0px;
 		margin-right: 0px;
-		margin-top:10px;
-		margin-bottom:10px;
-		background-color:#F5F5F5;
-		padding:5px;
-		box-sizing:border-box;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		background-color: #f5f5f5;
+		padding: 5px;
+		box-sizing: border-box;
 	}
 	.error {
-		color:#D00;
+		color: #d00;
 	}
 	#messageBanner p {
-		margin-top:0.25em;
-		margin-bottom:0.25em;
+		margin-top: 0.25em;
+		margin-bottom: 0.25em;
 	}
 	#messageBanner h3 {
-		margin-top:0.25em;
-		margin-bottom:0.25em;
+		margin-top: 0.25em;
+		margin-bottom: 0.25em;
 	}
 	#main-container .row button {
 		font-size: 16px;
 		height: 38px;
 		border-radius: 6px;
-		background: linear-gradient(#4dbed3,#007ea5);
-		box-shadow:none;
-		border:0px;
-		color:#000;
+		background: linear-gradient(#4dbed3, #007ea5);
+		box-shadow: none;
+		border: 0px;
+		color: #000;
 	}
 	#main-container .row button:hover:enabled {
-		background: linear-gradient(#749bb3,#005772);
+		background-color: #5b7f95;
 	}
 	#switchId button span.fa {
-		display:none;
+		display: none;
 	}
 	#switchId button span.fa-check-square {
-		display:none;
+		display: none;
 	}
 	#cancelButton button span.fa {
-		display:none;
+		display: none;
 	}
 	#main-container .row .left {
-		float:left;
-		width:180px;
-		text-align:right;
+		float: left;
+		width: 180px;
+		text-align: right;
 	}
 	#main-container .row .left span {
-		margin-right:0.5em
+		margin-right: 0.5em
 	}
 	#main-container .row .back-link {
-		text-align:left;
-		float:left;
+		text-align: left;
+		float: left;
 	}
-	#main-container   .row .back-link button {
-		border-style:none;
-		background:none;
-		padding:0px;
-		color:#06c2d4;
+	#main-container .row .back-link button {
+		border-style: none;
+		background: none;
+		padding: 0px;
+		color: #06c2d4;
 	}
 	#main-container .row .back-link span {
-		text-align:left;
-		margin-left:0.5em;
+		text-align: left;
+		margin-left: 0.5em;
 		color: #749bb3;
 	}
-	#main-container   .row .back-link span.fa-ban {
-		display:none;
+	#main-container .row .back-link span.fa-ban {
+		display: none;
 	}
 	#main-container #footer .help-area {
-		display:flex;
+		display: flex;
 		flex-direction: row;
-		padding:16px;
+		padding: 16px;
 	}
-	#main-container #helpButton  button span{
-		color:#749bb3;
+	#main-container #helpButton button span {
+		color: #749bb3;
 	}
-	#main-container #helpButton  button {
+	#main-container #helpButton button {
 		border-style: none;
-		padding:2px;
+		padding: 2px;
 		background-color: #5b7f95;
 	}
 	#main-container #helpButton .fa-info {
-		display:none;
+		display: none;
 	}
 	.help-link {
-		width:30%;
-		order:2;
-		text-align:right
+		width: 30%;
+		order: 2;
+		text-align: right
 	}
 	.contact {
-		width:70%;
-		order:1;
+		width: 70%;
+		order: 1;
 	}
 	@media (max-width: 560px) {
-		#main-container {width:auto;}
-		body {font-size:14px;}
-		#header {height:65px;}
-		#schemeLogo {margin-top:1em;width:70px;height:70px;}
-		.row {width:auto;clear:none;}
-		.row .back-link {float:none;text-align:center;padding-top:0.5em;}
-		.row button {width:90%;}
-		#main-container #footer {width:100%;background-image:none;background-color:#F5F5F5;clear:both;height:unset;}
-		#main-container #footer .help-area {display:flex;flex-direction: column;padding:16px;text-align:center;}
-		.help-link {width:100%;order:2;text-align:center;padding-top:1em;}
-		.contact {width:100%;order:1;}
-		#main-container #footer .small-font {font-size:0.75em;}
+		#main-container {width: auto;}
+		body {font-size: 14px;}
+		#header {height: 65px;}
+		#schemeLogo {margin-top: 1em;width: 70px;height: 70px;}
+		.row {width: auto;clear: none;}
+		.row .back-link {float: none;text-align: center;padding-top: 0.5em;}
+		.row button {width: 90%;}
+		#main-container #footer {width: 100%;background-image: none;background-color: #f5f5f5;clear: both;height: unset;}
+		#main-container #footer .help-area {display: flex;flex-direction: column;padding: 16px;text-align: center;}
+		.help-link {width: 100%;order: 2;text-align: center;padding-top: 1em;}
+		.contact {width: 100%;order: 1;}
+		#main-container #footer .small-font {font-size: 0.75em;}
 	}
 </style>
 ', @layoutId);
@@ -1087,11 +1093,11 @@ VALUES ('div', '
 		font-weight: normal;
 		text-align: center;
 		color: #749bb3;
-		background-color: #5b7f95;
 	}
 	#main-container #helpButton button {
 		border-style: none;
-		padding: 0px
+		padding: 2px;
+		background-color: #5b7f95;
 	}
 	#main-container #helpButton .fa-info {
 		display: none;
@@ -1129,7 +1135,7 @@ VALUES ('div', '
 		color: #fff;
 	}
 	#main-container .row button:hover:enabled {
-		background: linear-gradient(#2fa8be, #005772);
+		background-color: #5b7f95;
 	}
 	a {
 		color: #000;
@@ -1161,11 +1167,14 @@ VALUES ('div', '
 		border-style: none;
 		background: none;
 		padding: 0px;
-		color: #749bb3;
+		color: #5b7f95;
+		font-family: BNP Sans Regular;
+		font-size: 14px;
 	}
 	#main-container #form-controls .back-link span {
 		text-align: left;
 		margin-left: 0.5em;
+		color: #749bb3;
 	}
 	#main-container #form-controls .back-link span.fa-ban {
 		display: none;
@@ -1503,42 +1512,42 @@ VALUES( 'div', '
 		padding-left: 10px;
 		padding-right: 10px;
 	}
-	#main-container   #pageHeader {
+	#main-container #pageHeader {
 		width: 100%;
 		height: 74px;
-		border-bottom: 1px solid #DCDCDC;
+		border-bottom: 1px solid #dcdcdc;
 	}
-	#main-container   #pageHeaderLeft {
+	#main-container #pageHeaderLeft {
 		width: 20%;
 		float: left;
 		padding-left: 16px;
 		padding-top: 16px;
 	}
-	#main-container   #pageHeaderRight {
+	#main-container #pageHeaderRight {
 		width: 25%;
 		float: right;
 		text-align: right;
 		padding-top: 16px;
 	}
-	#main-container  #issuerLogo {
+	#main-container #issuerLogo {
 		max-height: 64px;
-		max-width:100%;
+		max-width: 100%;
 		padding-left: 0px;
 		padding-right: 0px;
 	}
-	#main-container   #networkLogo {
+	#main-container #networkLogo {
 		max-height: 100%;
 		max-width: 100%;
 	}
 	#main-container #i18n-container {
-		width:100%;
-		text-align:center;
+		width: 100%;
+		text-align: center;
 	}
 	#main-container #i18n-inner {
-		display:inline-block;
+		display: inline-block;
 	}
-	#main-container  #content {
-		text-align:left;
+	#main-container #content {
+		text-align: left;
 		margin-left: 3em;
 	}
 	div#leftMenuLayout {
@@ -1551,12 +1560,12 @@ VALUES( 'div', '
 		font-family: FrutigerforUBSWeb;
 		font-weight: normal;
 		font-size: 16px;
-		color: #1C1C1C;
+		color: #1c1c1c;
 		letter-spacing: 0;
 		line-height: 24px;
 	}
 	div#leftMenuLayout span.custom-text.ng-binding {
-		font-family:  Frutiger55Roman;
+		font-family: Frutiger55Roman;
 		font-weight: normal;
 		font-size: 16px;
 		color: #646464;
@@ -1564,91 +1573,91 @@ VALUES( 'div', '
 		line-height: 24px;
 	}
 	#main-container .menu-title {
-		display:none;
+		display: none;
 	}
 	#main-container .menu-elements {
-		margin-right:25%;
+		margin-right: 25%;
 	}
 	#main-container #contentBottom {
 		margin-left: 26%;
 	}
-	#main-container   message-banner {
+	#main-container message-banner {
 		display: block;
 		margin-top: 5px;
 		position: relative;
 		width: 196px;
 	}
-	#main-container   div#footer {
-		background-image:none;
-		height:100%;
+	#main-container div#footer {
+		background-image: none;
+		height: 100%;
 	}
-	#main-container   #footer {
-		width:100%;
-		clear:both;
-		margin-top:2em;
+	#main-container #footer {
+		width: 100%;
+		clear: both;
+		margin-top: 2em;
 	}
-	#main-container   #footer:after {
+	#main-container #footer:after {
 		content: "";
-		height:100%;
+		height: 100%;
 		display: table;
 		clear: both;
 		padding-bottom: 0.5em;
 	}
-	#main-container  #footer .help-area {
+	#main-container #footer .help-area {
 		display: flex;
 		flex-direction: row;
 	}
-	#main-container  .help-link {
+	#main-container .help-link {
 		font-size: 14px;
 		line-height: 20px;
 		width: 50%;
 		order: 2;
 		text-align: left;
-		color:#007099;
+		color: #007099;
 	}
-	#main-container #helpButton  button span{
-		color:#007099;
+	#main-container #helpButton button span {
+		color: #007099;
 		background-color: #f7f7f7;
 	}
-	#main-container #helpButton  button {
+	#main-container #helpButton button {
 		border-style: none;
-		padding:0px
+		padding: 0px
 	}
-	#main-container   #helpButton span.fa-info{
-		display:none;
+	#main-container #helpButton span.fa-info {
+		display: none;
 	}
-	#main-container   .col-lg-4 {
+	#main-container .col-lg-4 {
 		width: 100%;
 		margin-bottom: 20px;
 	}
-	#main-container   .col-md-4 {
+	#main-container .col-md-4 {
 		width: 100%;
 		margin-bottom: 20px;
 	}
-	#main-container   .col-sm-4 {
+	#main-container .col-sm-4 {
 		width: 100%;
 		margin-bottom: 20px;
 	}
-	#main-container   .col-sm-5 {
+	#main-container .col-sm-5 {
 		width: 34%;
 	}
-	#main-container   .col-sm-6 {
+	#main-container .col-sm-6 {
 		width: 65%;
 	}
-	#main-container   .col-xs-12 {
+	#main-container .col-xs-12 {
 		width: 100%;
 		margin-bottom: 20px;
 	}
-	#main-container   .col-sm-offset-1 {
+	#main-container .col-sm-offset-1 {
 		margin-left: 0%;
 	}
-	#main-container   .row .left {
-		float:left;
-		width:180px;
-		text-align:right;
+	#main-container .row .left {
+		float: left;
+		width: 180px;
+		text-align: right;
 	}
-	#main-container   .row .left span {
-		margin-right:0.5em
+	#main-container .row .left span {
+		margin-right: 0.5em
 	}
 	@media all and (max-width: 480px) {
 		span#info-icon {position: relative;font-size: 0.8em;top: 7px;left: 5px;float: left;margin-right: 7px;}
