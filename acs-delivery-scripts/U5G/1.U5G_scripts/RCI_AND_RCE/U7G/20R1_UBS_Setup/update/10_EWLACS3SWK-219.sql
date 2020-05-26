@@ -107,7 +107,7 @@ UPDATE CustomComponent SET value = '<style>
 		padding-top: 8px;
 	}
 	#main-container #empty {
-		width: 19%;
+		width: 20%;
 		float: left;
 	}
 	#main-container #contentBottom {
@@ -118,7 +118,7 @@ UPDATE CustomComponent SET value = '<style>
 	}
 	#main-container .code-otp {
 		display: inline-flex;
-		padding-left: 9%;
+		padding-left: 8%;
 	}
 	#main-container .tooltips:hover span {
 		margin-bottom: 10px;
@@ -160,10 +160,9 @@ UPDATE CustomComponent SET value = '<style>
 		display: flex;
 	}
 	#main-container .code #menu-separator {
-		font-family: FrutigerforUBSWeb;
 		font-weight: 700;
-		color: #333333;
-		font-size: 16px;
+		color: #1c1c1c;
+		font-size: 13px;
 		padding-left: 3px;
 	}
 	#main-container .otp-field input:hover {
@@ -349,6 +348,7 @@ UPDATE CustomComponent SET value = '<style>
 		span#info-icon {position: relative;font-size: 0.8em;top: 7px;left: 5px;float: left;margin-right: 7px;}
 		#main-container .help-link {width: 29%;text-align: left;}
 	}
+
 </style>
 <div id="main-container" class="" ng-style="style" class="ng-scope">
 	<div id="headerLayout" class="row">
