@@ -135,18 +135,26 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div','
 	}
 	div#message-container.info {
 		background-color: #f5f5f5;
+		font-family: BNP Sans Regular;
+		font-size: 12px;
 		color: #403f3d;
 	}
 	div#message-container.success {
 		background-color: #f5f5f5;
-		color: #7F9C90;
+		font-family: BNP Sans Regular;
+		font-size: 12px;
+		color: #7f9c90;
 	}
 	div#message-container.error {
 		background-color: #f5f5f5;
+		font-family: BNP Sans Regular;
+		font-size: 12px;
 		color: #ab7270;
 	}
 	div#message-container.warn {
 		background-color: #f5f5f5;
+		font-family: BNP Sans Regular;
+		font-size: 12px;
 		color: #403f3d;
 	}
 	div#message-content {
@@ -154,7 +162,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div','
 		background-color: inherit;
 		padding-bottom: 5px;
 	}
-
 	#message {
 		line-height: 16px;
 		text-align: center;
@@ -181,15 +188,15 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div','
 	#return-button-row button {
 		font-family: BNP Sans Regular;
 		font-weight: normal;
-		color: 	#403f3d;
+		color: #403f3d;
 		font-size: 16px;
 		text-align: center;
 		background-color: #5b7f95;
 	}
 	#close-button-row button {
-		 font-family: BNP Sans Regular;
+		font-family: BNP Sans Regular;
 		font-weight: normal;
-		color: 	#403f3d;
+		color: #403f3d;
 		font-size: 16px;
 		text-align: center;
 		background-color: #5b7f95;
@@ -212,324 +219,298 @@ SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONC
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', '
 <style>
-		#main-container {
-			width: 480px;
-			margin-left: auto;
-			margin-right: auto;
-			padding-left: 10px;
-			padding-right: 10px;
-		}
+	#main-container {
+		width: 480px;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	input {
+		border: 1px solid #d1d1d1;
+		border-radius: 6px;
+		color: #464646;
+		padding: 7px 10px 5px;
+		height: 20px;
+		box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 3px 0 inset;
+	}
+	#main-container #issuerLogo {
+		max-height: 72px;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	#main-container #networkLogo {
+		max-height: 33px;
+		max-width: 100%;
+	}
+	#main-container #pageHeader {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		height: 76px;
+		padding-bottom: 4px;
+		margin-top: 8px;
+		margin-bottom: 0px;
+		border-bottom: 1px solid #dcdcdc;
+	}
+	#main-container #pageHeaderLeft {
+		text-align: left;
+	}
+	#main-container #pageHeaderRight {
+		text-align: right;
+	}
+	#main-container .clear {
+		clear: both;
+		display: block;
+	}
+	#main-container #content #contentHeader custom-text.ng-isolate-scope {
+		font-family: BNP Sans Regular;
+		font-size: 18px;
+		font-weight: bold;
+		text-align: center;
+		color: #403f3d;
+		padding-left: 100px;
+	}
+	.side-menu .text-left, .side-menu .text-right {
+		padding-right: 5px;
+		padding-left: 5px;
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+		color: #403f3d;
+	}
+	#main-container #content #contentMain {
+		margin-top: 1em;
+		background-color: #f7f7f7;
+		border-radius: 1em;
+		padding: 1em;
+		display: flex;
+		flex-direction: column;
+	}
+	#main-container #content #contentMain span.custom-text.ng-binding {
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+		font-weight: normal;
+		text-align: center;
+		color: #403f3d;
+	}
+	#main-container #content {
+		text-align: left;
+	}
+	#main-container #content h2 {
+		font-size: 1.25em;
+		margin-top: 0px;
+		margin-bottom: 0.25em;
+	}
+	#main-container #footer .contact custom-text.ng-isolate-scope {
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+		font-weight: normal;
+		text-align: center;
+		color: #403f3d;
+	}
+	#main-container .menu-title {
+		display: none;
+	}
+	#main-container #resend button span {
+		color: #06c2d4;
+		background-color: #f7f7f7;
+	}
+	#main-container #resend button {
+		border-style: none;
+		padding: 0px
+	}
+	#main-container #helpButton button span {
+		font-family: BNP Sans Regular;
+		font-size: 16px;
+		font-weight: normal;
+		text-align: center;
+		color: #403f3d;
+		background-color: #5b7f95;
+	}
+	#main-container #helpButton button {
+		border-style: none;
+		padding: 0px
+	}
+	#main-container #helpButton .fa-info {
+		display: none;
+	}
+	#main-container #otp-input {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		margin-top: 10px;
+		align-self: flex-end;
+	}
+	#main-container .help-link {
+		width: 30%;
+		order: 2;
+		text-align: right;
+	}
+	#main-container .contact {
+		width: 70%;
+		order: 1;
+	}
+	#main-container .resendTan {
+		display: block;
+		margin-left: 196px;
+		margin-top: 10px;
+		margin-bottom: 25px;
+	}
+	#main-container .input-label {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+	#main-container .otp-input input {
+		margin-left: 16px;
+	}
+	#main-container #otp-input span {
+		padding-right: 10px;
+	}
+	#main-container #otp-input input:focus {
+		outline: none;
+	}
+	#main-container #content #contentMain .flex-right {
+		align-self: flex-end;
+	}
+	#main-container #footer {
+		background-image: none;
+		height: 100%;
+	}
+	#main-container #footer {
+		width: 100%;
+		background-color: #f7f7f7;
+		border-radius: 1em;
+		clear: both;
+		margin-top: 1em;
+	}
+	#main-container #footer .help-area .help-link #helpButton .btn-default {
+		background-color: #5b7f95;
+	}
+	#main-container #footer:after {
+		content: "";
+		height: 100%;
+		display: table;
+		clear: both;
+		padding-bottom: 0.5em;
+	}
+	#main-container #footer .extra-small {
+		font-size: 0.7em;
+	}
+	#main-container #footer .small {
+		font-size: 0.8em;
+	}
+	#main-container #footer .bold {
+		font-weight: bold;
+	}
+	#main-container #footer .grey {
+		color: #6b6b6b;
+	}
+	#main-container #footer .bottom-margin {
+		margin-bottom: 10px;
+	}
+	#main-container #footer #copyright {
+		width: 100%;
+		border-top: 1px solid #6b6b6b;
+		padding-top: 0.5em;
+		padding-bottom: 1em;
+		display: flex;
+		flex-direction: row;
+	}
+	#main-container #footer #copyright custom-text.ng-isolate-scope {
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+		font-weight: normal;
+		text-align: center;
+		color: #403f3d;
+	}
+	#main-container #footer #copyright div:nth-child(1) {
+		order: 1;
+		text-align: left;
+		width: 50%;
+		padding-left: 12px;
+	}
+	#main-container #footer #copyright div:nth-child(2) {
+		order: 2;
+		text-align: right;
+		width: 50%;
+		padding-right: 12px;
+	}
+	#main-container #footer .help-area {
+		display: flex;
+		flex-direction: row;
+		padding: 16px;
+	}
+	#main-container .col-lg-4 {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+	#main-container .col-md-4 {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+	#main-container .col-sm-4 {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+	#main-container .col-xs-12 {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+	#main-container message-banner {
+		display: block;
+		width: 100%;
+		position: relative;
+	}
+	#main-container .row .left {
+		float: left;
+		width: 180px;
+		text-align: right;
+	}
+	#main-container .row .left span {
+		margin-right: 0.5em
+	}
+	#main-container .row .back-link {
+		text-align: left;
+		float: left;
+	}
+	#main-container .row .back-link button {
+		border-style: none;
+		padding: 0px;
+		color: #06c2d4;
+	}
+	#main-container .row .back-link span {
+		text-align: left;
+		margin-left: 0.5em;
+	}
+	#main-container .row .back-link span.fa-ban {
+		display: none;
+	}
+	#main-container .row .submit-btn {
+		text-align: right;
+		float: right;
+	}
+	#main-container #val-button-container {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	#main-container #validateButton button {
+		font-size: 16px;
+		height: 30px;
+		line-height: 1.0;
+		border-radius: 6px;
+		background: #5b7f95;
+		box-shadow: none;
+		border: 0px;
+		color: #fff;
+		width: 163px;
+	}
+	#main-container #validateButton span.fa-check-square {
+		display: none;
+	}
 
-		input {
-			border: 1px solid #d1d1d1;
-			border-radius: 6px;
-			color: #464646;
-			padding: 7px 10px 5px;
-			height: 20px;
-			box-shadow: rgba(0,0,0,0.15) 1px 1px 3px 0 inset;
-		}
-
-		#main-container  #issuerLogo {
-			max-height: 72px;
-			padding-left: 0px;
-			padding-right: 0px;
-		}
-		#main-container   #networkLogo {
-			max-height: 33px;
-			max-width: 100%;
-		}
-		#main-container #pageHeader {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				width: 100%;
-				height: 76px;
-				padding-bottom: 4px;
-				margin-top: 8px;
-				margin-bottom: 0px;
-				border-bottom: 1px solid #DCDCDC;
-		}
-
-		#main-container   #pageHeaderLeft {
-			text-align:left;
-		}
-		#main-container   #pageHeaderRight {
-			text-align: right;
-		}
-
-		#main-container .clear {
-			clear:both;
-			display:block;
-		}
-	   #main-container #content #contentHeader  custom-text.ng-isolate-scope  {
-			font-family: BNP Sans Regular;
-			font-size: 18px;
-			font-weight: bold;
-			text-align: center;
-			color: #403f3d;
-			padding-left: 100px;
-	   }
-		.side-menu .text-left, .side-menu .text-right {
-			  padding-right: 5px;
-			  padding-left: 5px;
-			  font-family: BNP Sans Regular;
-			  font-size: 14px;
-			  color: #403f3d;
-		}
-
-		custom-text.ng-isolate-scope {
-			font-family: BNP Sans Regular;
-			font-size: 14px;
-			font-weight: bold;
-			text-align: center;
-		}
-		 #main-container #content #contentMain {
-				margin-top:1em;
-				background-color: #f7f7f7;
-				border-radius:1em;
-				padding:1em;
-				display: flex;
-				flex-direction:column;
-		}
-
-		#main-container #content #contentMain span.custom-text.ng-binding {
-			font-family: BNP Sans Regular;
-			font-size: 14px;
-			font-weight: normal;
-			text-align: center;
-			color: #403f3d;
-		}
-
-		#main-container   #content {
-			text-align:left;
-		}
-		#main-container #content h2 {
-			font-size: 1.25em;
-			margin-top: 0px;
-			margin-bottom: 0.25em;
-		}
-		#main-container #footer .contact custom-text.ng-isolate-scope {
-			font-family: BNP Sans Regular;
-			font-size: 14px;
-			font-weight: normal;
-			text-align: center;
-			color: #403f3d;
-		}
-
-		#main-container .menu-title {
-			display:none;
-		}
-
-		#main-container #resend button span{
-			color:#06c2d4;
-			background-color: #f7f7f7;
-		}
-
-		#main-container #resend button {
-			border-style: none;
-			padding:0px
-		}
-
-		#main-container #helpButton  button span{
-				font-family: BNP Sans Regular;
-				font-size: 16px;
-				font-weight: normal;
-				text-align: center;
-				color: #403f3d;
-				background-color: #f7f7f7;
-		}
-		#main-container #helpButton  button {
-			border-style: none;
-			padding:0px
-		}
-		#main-container #helpButton .fa-info {
-			display:none;
-		}
-		#main-container #otp-input {
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-end;
-			margin-top: 10px;
-			align-self: flex-end;
-		}
-		#main-container   .help-link {
-			width: 30%;
-			order: 2;
-			text-align: right;
-		}
-		#main-container   .contact {
-			width: 70%;
-			order: 1;
-		}
-		#main-container   .resendTan {
-			display:block;
-			margin-left:196px;
-			margin-top:10px;
-			margin-bottom: 25px;
-		}
-		#main-container   .input-label {
-			display:flex;
-			flex-direction: row;
-			align-items: center;
-		}
-		#main-container   .otp-input input {
-			margin-left:16px;
-		}
-		#main-container   #otp-input span {
-			padding-right:10px;
-		}
-		#main-container   #otp-input input:focus {
-			outline:none;
-		}
-		#main-container #content #contentMain .flex-right{
-				align-self: flex-end;
-		}
-		#main-container   #footer {
-			background-image:none;
-			height:100%;
-		}
-		#main-container   #footer {
-			width:100%;
-			background-color: #f7f7f7;
-			border-radius: 1em;
-			clear:both;
-			margin-top:1em;
-		}
-		#main-container #footer .help-area .help-link #helpButton .btn-default {
-			background-color: #5b7f95;
-		}
-		#main-container   #footer:after {
-			content: "";
-			height:100%;
-			display: table;
-			clear: both;
-			padding-bottom: 0.5em;
-		}
-		#main-container   #footer .extra-small {
-			font-size:0.7em;
-		}
-		#main-container   #footer .small {
-			font-size:0.8em;
-		}
-		#main-container   #footer .bold {
-			font-weight: bold;
-		}
-
-	   #main-container   #footer .grey {
-		   color: #6b6b6b;
-		}
-
-		#main-container   #footer .bottom-margin {
-			margin-bottom:10px;
-		 }
-		#main-container   #footer #copyright {
-			width:100%;
-			border-top : 1px solid #6b6b6b;
-			padding-top:0.5em;
-			padding-bottom:1em;
-			display:flex;
-			flex-direction: row;
-		}
-		#main-container #footer #copyright custom-text.ng-isolate-scope {
-			font-family: BNP Sans Regular;
-			font-size: 14px;
-			font-weight: normal;
-			text-align: center;
-			color: #403f3d;
-		}
-		#main-container   #footer #copyright div:nth-child(1) {
-			order:1;
-			text-align:left;
-			width:50%;
-			padding-left:12px;
-		}
-		#main-container   #footer #copyright div:nth-child(2) {
-			order:2;
-			text-align: right;
-			width:50%;
-			padding-right:12px;
-		}
-		#main-container  #footer .help-area {
-			display: flex;
-			flex-direction: row;
-			padding: 16px;
-		}
-		#main-container   .col-lg-4 {
-			width: 100%;
-			margin-bottom: 20px;
-		}
-		#main-container   .col-md-4 {
-			width: 100%;
-			margin-bottom: 20px;
-		}
-		#main-container   .col-sm-4 {
-			width: 100%;
-			margin-bottom: 20px;
-		}
-		#main-container   .col-xs-12 {
-			width: 100%;
-			margin-bottom: 20px;
-		}
-		#main-container   message-banner {
-			display: block;
-			width: 100%;
-			position: relative;
-		}
-		#main-container   .row .left {
-			float:left;
-			width:180px;
-			text-align:right;
-		}
-		#main-container   .row .left span {
-			margin-right:0.5em
-		}
-		#main-container   .row .back-link {
-			text-align:left;
-			float:left;
-		}
-
-		#main-container   .row .back-link button {
-			border-style:none;
-			padding:0px;
-			color:#06c2d4;
-		}
-		#main-container   .row .back-link span {
-			text-align:left;
-			margin-left:0.5em;
-		}
-
-		#main-container   .row .back-link span.fa-ban {
-			display:none;
-		}
-
-		#main-container   .row .submit-btn {
-			text-align:right;
-			float:right;
-		}
-
-		#main-container #val-button-container {
-			margin-top:10px;
-			margin-bottom:10px;
-
-		}
-
-		#main-container #validateButton button {
-			font-size: 16px;
-			height: 30px;
-			line-height:1.0;
-			border-radius: 6px;
-			background: #5b7f95;
-			box-shadow: none;
-			border: 0px;
-			color: #FFF;
-			width:163px;
-		}
-
-		#main-container   #validateButton span.fa-check-square{
-			display:none;
-		}
-
-	</style>
+</style>
 <div id="main-container" class="" ng-style="style" class="ng-scope">
 	<div id="headerLayout">
 		<div id="pageHeader" >
@@ -915,399 +896,597 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Photo Tan Page (', @BankUB, ')%') );
 
-INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', '
+INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
+VALUES ('div', '
 <style>
+	#main-container {
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	#main-container #issuerLogo {
+		max-height: 72px;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	#main-container #networkLogo {
+		max-height: 33px;
+		max-width: 100%;
+	}
+	#main-container #pageHeader {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		height: 76px;
+		padding-bottom: 4px;
+		margin-top: 8px;
+		margin-bottom: 0px;
+		border-bottom: 1px solid #dcdcdc;
+	}
+	#main-container #pageHeaderLeft {
+		text-align: left;
+	}
+	#main-container #pageHeaderRight {
+		text-align: right;
+	}
+	#main-container #centerPieceLayout {
+		padding: 5px 10px 0px;
+		min-height: 200px;
+	}
+	#main-container #content {
+		text-align: left;
+	}
+	#main-container .leftMenuLayout {
+		clear: both
+	}
+	#main-container #content #contentHeader {
+		margin-bottom: 0.25em;
+		margin-top: 0.25em;
+	}
+	#main-container #content #contentHeader custom-text.ng-isolate-scope {
+		font-family: BNP Sans Regular;
+		font-size: 18px;
+		font-weight: bold;
+		text-align: center;
+		color: #403f3d;
+		padding-left: 146px;
+	}
+	.side-menu .text-left, .side-menu .text-right {
+		padding-right: 5px;
+		padding-left: 5px;
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+		color: #403f3d;
+	}
+	#main-container #form-input span.custom-text.ng-binding {
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+		font-weight: normal;
+		text-align: center;
+		color: #403f3d;
+	}
+	#main-container #content #transactionDetails {
+		margin-bottom: 1em;
+		width: 100%;
+	}
+	#main-container .clear {
+		clear: both;
+		display: block;
+	}
+	#main-container #content #contentMain {
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+		font-weight: bold;
+		text-align: center;
+		margin-top: 1em;
+		background-color: #f7f7f7;
+		border-radius: 0.25em;
+		padding: 1em;
+	}
+	#main-container #qrcontrols {
+		display: flex;
+		flex-direction: row;
+	}
+	#main-container #form-input {
+		align-items: start;
+		display: flex;
+		flex-direction: column;
+	}
+	#main-container #otp-input {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		margin-top: 10px;
+		align-self: flex-end;
+	}
+	#main-container #otp-form {
+		margin-left: 10px;
+	}
+	#main-container #qr-display {
+		display: flex;
+		justify-content: center;
+	}
+	#content {
+		text-align: left;
+	}
+	#content h2 {
+		font-size: 1.25em;
+		margin-top: 0px;
+		margin-bottom: 0.25em;
+	}
+	#main-container #footer {
+		width: 100%;
+		background-color: #f7f7f7;
+		margin-top: 1em;
+		border-radius: 1em;
+		background-image: none;
+		height: auto;
+	}
+	#main-container #footer:after {
+		content: "";
+		height: 100%;
+		display: table;
+		padding-bottom: 0.5em;
+	}
+	#main-container #footer .extra-small {
+		font-size: 0.7em;
+	}
+	#main-container #footer .small {
+		font-size: 0.8em;
+	}
+	#main-container #footer .bold {
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+		font-weight: normal;
+		color: #403f3d;
+	}
+	#main-container #footer .grey {
+		color: #6b6b6b;
+	}
+	#main-container #footer .bottom-margin {
+		margin-bottom: 10px;
+	}
+	#main-container #footer #copyright {
+		width: 100%;
+		border-top: 1px solid #6b6b6b;
+		padding-top: 0.5em;
+		padding-bottom: 1em;
+		display: flex;
+		flex-direction: row;
+	}
+	#main-container #footer #copyright custom-text.ng-isolate-scope {
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+		font-weight: normal;
+		text-align: center;
+		color: #403f3d;
+	}
+	#main-container #footer #copyright div:nth-child(1) {
+		order: 1;
+		text-align: left;
+		width: 50%;
+		padding-left: 12px;
+	}
+	#main-container #footer #copyright div:nth-child(2) {
+		order: 2;
+		text-align: right;
+		width: 50%;
+		padding-right: 12px;
+	}
+	#main-container #footer .help-area {
+		display: flex;
+		flex-direction: row;
+		padding: 16px;
+	}
+	#main-container #helpButton button span {
+		font-family: BNP Sans Regular;
+		font-size: 16px;
+		font-weight: normal;
+		text-align: center;
+		color: #749bb3;
+		background-color: #5b7f95;
+	}
+	#main-container #helpButton button {
+		border-style: none;
+		padding: 0px
+	}
+	#main-container #helpButton .fa-info {
+		display: none;
+	}
+	#main-container .externalImage {
+		padding: 1em;
+		width: 100%;
+		min-width: 268px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	p {
+		margin-bottom: 10px;
+	}
+	.splashtext {
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto
+	}
+	input {
+		border: 1px solid #d1d1d1;
+		border-radius: 6px;
+		color: #464646;
+		padding: 7px 10px 5px;
+		height: 20px;
+		box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 3px 0 inset;
+	}
+	#main-container .row button {
+		font-size: 16px;
+		height: 38px;
+		border-radius: 6px;
+		background: linear-gradient(#4dbed3, #007ea5);
+		box-shadow: none;
+		border: 0px;
+		color: #fff;
+	}
+	#main-container .row button:hover:enabled {
+		background: linear-gradient(#2fa8be, #005772);
+	}
+	a {
+		color: #000;
+		text-decoration: none;
+	}
+	a:hover {
+		color: #000;
+		border-bottom: 1px dotted black;
+	}
+	#main-container .row .left {
+		float: left;
+		width: 180px;
+		text-align: right;
+	}
+	#main-container .row .left span {
+		margin-right: 0.5em
+	}
+	#main-container #form-controls-container {
+		display: flex;
+		justify-content: space-between;
+	}
+	#main-container #form-controls .back-link button:hover {
+		background-color: #5b7f95;
+	}
+	#main-container #form-controls .back-link {
+		text-align: left;
+	}
+	#main-container #form-controls .back-link button {
+		border-style: none;
+		background: none;
+		padding: 0px;
+		color: #749bb3;
+	}
+	#main-container #form-controls .back-link span {
+		text-align: left;
+		margin-left: 0.5em;
+	}
+	#main-container #form-controls .back-link span.fa-ban {
+		display: none;
+	}
+	#main-container #form-controls .submit-btn {
+		text-align: right;
+	}
+	.mtan-input {
+		padding-top: 25px;
+		padding-bottom: 10px;
+	}
+	.resendTan {
+		display: block;
+		margin-left: 196px;
+		margin-top: 10px;
+		margin-bottom: 25px;
+	}
+	.input-label {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+	.resendTan a {
+		color: #06c2d4;
+	}
+	.mtan-label {
+		text-align: right;
+		flex: 0 0 180px
+	}
+	.otp-field input {
+		margin-left: 16px;
+	}
+	.otp-field input:focus {
+		outline: none;
+	}
+	.help-link {
+		width: 30%;
+		order: 2;
+		text-align: right
+	}
+	.contact {
+		width: 70%;
+		order: 1;
+	}
+	#otp-error-message {
+		margin-top: 10px;
+		position: relative;
+		background-color: #f5f5f5;
+		text-align: center;
+		width: 300px;
+		margin-left: 56px;
+		padding: 12px;
+	}
+	#otp-error-message:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0px;
+		width: 0;
+		height: 0;
+		border: 10px solid transparent;
+		border-bottom-color: #f5f5f5;
+		border-top: 0;
+		margin-left: 166px;
+		margin-top: -10px;
+	}
+	#otp-error-message p {
+		color: #d00;
+	}
+	#main-container #validateButton {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	#main-container #validateButton button {
+		font-size: 16px;
+		height: 30px;
+		line-height: 1.0;
+		border-radius: 6px;
+		background-color: #5b7f95;
+		box-shadow: none;
+		border: 0px;
+		color: #fff;
+		width: 163px;
+	}
+	#main-container #validateButton span.fa-check-square {
+		display: none;
+	}
+	#main-container #val-button-container {
+		align-self: flex-end;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	@media (max-width: 760px) {
 		#main-container {
-			width: 480px;
-			margin-left: auto;
-			margin-right: auto;
-			padding-left: 10px;
-			padding-right: 10px;
+			width: auto;
 		}
-
-		input {
-			border: 1px solid #d1d1d1;
-			border-radius: 6px;
-			color: #464646;
-			padding: 7px 10px 5px;
-			height: 20px;
-			box-shadow: rgba(0,0,0,0.15) 1px 1px 3px 0 inset;
+		body {
+			font-size: 14px;
 		}
-
-		#main-container  #issuerLogo {
-			max-height: 72px;
-			padding-left: 0px;
-			padding-right: 0px;
+		#header {
+			height: 65px;
 		}
-		#main-container   #networkLogo {
-			max-height: 33px;
-			max-width: 100%;
+		#networkLogo {
+			width: 100px;
 		}
-		#main-container #pageHeader {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				width: 100%;
-				height: 76px;
-				padding-bottom: 4px;
-				margin-top: 8px;
-				margin-bottom: 0px;
-				border-bottom: 1px solid #DCDCDC;
+		#schemeLogo {
+			margin-top: 1em;
+			width: 70px;
+			height: 70px;
 		}
-
-		#main-container   #pageHeaderLeft {
-			text-align:left;
+		.transactiondetails ul li {
+			text-align: left;
 		}
-		#main-container   #pageHeaderRight {
+		.transactiondetails ul li label {
+			display: block;
+			float: left;
+			width: 50%;
 			text-align: right;
-		}
-
-		#main-container .clear {
-			clear:both;
-			display:block;
-		}
-	   #main-container #content #contentHeader  custom-text.ng-isolate-scope  {
-			font-family: BNP Sans Regular;
-			font-size: 18px;
-			font-weight: bold;
-			text-align: center;
-			color: #403f3d;
-			padding-left: 100px;
-	   }
-		.side-menu .text-left, .side-menu .text-right {
-			  padding-right: 5px;
-			  padding-left: 5px;
-			  font-family: BNP Sans Regular;
-			  font-size: 14px;
-			  color: #403f3d;
-		}
-
-		custom-text.ng-isolate-scope {
-			font-family: BNP Sans Regular;
 			font-size: 14px;
-			font-weight: bold;
-			text-align: center;
+			color: #909090;
+			margin-right: 0.5em;
 		}
-		 #main-container #content #contentMain {
-				margin-top:1em;
-				background-color: #f7f7f7;
-				border-radius:1em;
-				padding:1em;
-				display: flex;
-				flex-direction:column;
-		}
-
-		#main-container #content #contentMain span.custom-text.ng-binding {
-			font-family: BNP Sans Regular;
-			font-size: 14px;
-			font-weight: normal;
-			text-align: center;
-			color: #403f3d;
-		}
-
-		#main-container   #content {
-			text-align:left;
-		}
-		#main-container #content h2 {
-			font-size: 1.25em;
-			margin-top: 0px;
-			margin-bottom: 0.25em;
-		}
-		#main-container #footer .contact custom-text.ng-isolate-scope {
-			font-family: BNP Sans Regular;
-			font-size: 14px;
-			font-weight: normal;
-			text-align: center;
-			color: #403f3d;
-		}
-
-		#main-container .menu-title {
-			display:none;
-		}
-
-		#main-container #resend button span{
-			color:#06c2d4;
-			background-color: #f7f7f7;
-		}
-
-		#main-container #resend button {
-			border-style: none;
-			padding:0px
-		}
-
-		#main-container #helpButton  button span{
-				font-family: BNP Sans Regular;
-				font-size: 16px;
-				font-weight: normal;
-				text-align: center;
-				color: #403f3d;
-				background-color: #f7f7f7;
-		}
-		#main-container #helpButton  button {
-			border-style: none;
-			padding:0px
-		}
-		#main-container #helpButton .fa-info {
-			display:none;
-		}
-		#main-container #otp-input {
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-end;
-			margin-top: 10px;
-			align-self: flex-end;
-		}
-		#main-container   .help-link {
-			width: 30%;
-			order: 2;
-			text-align: right;
-		}
-		#main-container   .contact {
-			width: 70%;
-			order: 1;
-		}
-		#main-container   .resendTan {
-			display:block;
-			margin-left:196px;
-			margin-top:10px;
-			margin-bottom: 25px;
-		}
-		#main-container   .input-label {
-			display:flex;
-			flex-direction: row;
-			align-items: center;
-		}
-		#main-container   .otp-input input {
-			margin-left:16px;
-		}
-		#main-container   #otp-input span {
-			padding-right:10px;
-		}
-		#main-container   #otp-input input:focus {
-			outline:none;
-		}
-		#main-container #content #contentMain .flex-right{
-				align-self: flex-end;
-		}
-		#main-container   #footer {
-			background-image:none;
-			height:100%;
-		}
-		#main-container   #footer {
-			width:100%;
-			background-color: #f7f7f7;
-			border-radius: 1em;
-			clear:both;
-			margin-top:1em;
-		}
-		#main-container #footer .help-area .help-link #helpButton .btn-default {
-			background-color: #5b7f95;
-		}
-		#main-container   #footer:after {
-			content: "";
-			height:100%;
-			display: table;
+		.transactiondetails ul li span.value {
 			clear: both;
+			text-align: left;
+			margin-left: 0.5em;
+		}
+		.row {
+			width: auto;
+			clear: none;
+		}
+		.row .back-link {
+			float: none;
+			text-align: center;
+			padding-top: 0.5em;
+		}
+		.row .submit-btn {
+			float: none;
+			text-align: center;
 			padding-bottom: 0.5em;
 		}
-		#main-container   #footer .extra-small {
-			font-size:0.7em;
+		.row button {
+			width: 100%;
 		}
-		#main-container   #footer .small {
-			font-size:0.8em;
+		.mtan-input {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			padding-bottom: 1em;
+			padding-top: 1em;
 		}
-		#main-container   #footer .bold {
-			font-weight: bold;
+		.resendTan {
+			margin-left: 0px;
+			flex-grow: 2;
+			text-align: center;
 		}
-
-	   #main-container   #footer .grey {
-		   color: #6b6b6b;
+		.resendTan a {
+			color: #06c2d4;
+			margin-left: 90px;
+			padding-left: 16px;
 		}
-
-		#main-container   #footer .bottom-margin {
-			margin-bottom:10px;
-		 }
-		#main-container   #footer #copyright {
-			width:100%;
-			border-top : 1px solid #6b6b6b;
-			padding-top:0.5em;
-			padding-bottom:1em;
-			display:flex;
-			flex-direction: row;
+		.mtan-label {
+			flex: 0 0 90px;
 		}
-		#main-container #footer #copyright custom-text.ng-isolate-scope {
+		.input-label {
+			justify-content: center;
+		}
+		.otp-field {
+			display: inline;
+		}
+		.otp-field input {
+		}
+		#main-container #footer {
+			width: 100%;
+			background-image: none;
+			background-color: #f5f5f5;
+			height: unset;
+		}
+		#main-container #footer .help-area {
+			display: flex;
+			flex-direction: column;
+			padding: 16px;
+			text-align: center;
+		}
+		#main-container #helpButton button {
+			border-style: none;
+			padding: 0px
+		}
+		#main-container #helpButton .fa-info {
+			display: none;
+		}
+		.help-link {
+			width: 100%;
+			order: 2;
+			text-align: center;
+			padding-top: 1em;
+		}
+		#main-container #footer .help-area .contact custom-text.ng-isolate-scope {
 			font-family: BNP Sans Regular;
 			font-size: 14px;
 			font-weight: normal;
 			text-align: center;
 			color: #403f3d;
 		}
-		#main-container   #footer #copyright div:nth-child(1) {
-			order:1;
-			text-align:left;
-			width:50%;
-			padding-left:12px;
-		}
-		#main-container   #footer #copyright div:nth-child(2) {
-			order:2;
-			text-align: right;
-			width:50%;
-			padding-right:12px;
-		}
-		#main-container  #footer .help-area {
-			display: flex;
-			flex-direction: row;
-			padding: 16px;
-		}
-		#main-container   .col-lg-4 {
+		.contact {
 			width: 100%;
-			margin-bottom: 20px;
+			order: 1;
 		}
-		#main-container   .col-md-4 {
-			width: 100%;
-			margin-bottom: 20px;
+		#main-container #footer .small-font {
+			font-size: 0.75em;
 		}
-		#main-container   .col-sm-4 {
-			width: 100%;
-			margin-bottom: 20px;
-		}
-		#main-container   .col-xs-12 {
-			width: 100%;
-			margin-bottom: 20px;
-		}
-		#main-container   message-banner {
-			display: block;
-			width: 100%;
+		#otp-error-message {
+			margin-top: 0px;
 			position: relative;
+			background-color: #f5f5f5;
+			text-align: center;
+			width: 100%;
+			margin-left: 0px;
+			margin-bottom: 16px;
+			box-sizing: border-box;
 		}
-		#main-container   .row .left {
-			float:left;
-			width:180px;
-			text-align:right;
+		#otp-error-message:after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0px;
+			width: 0;
+			height: 0;
+			border: 10px solid transparent;
+			border-bottom-color: #f5f5f5;
+			border-top: 0;
+			margin-left: 50%;
+			margin-top: -10px;
 		}
-		#main-container   .row .left span {
-			margin-right:0.5em
+		#main-container #qrcontrols {
+			display: flex;
+			flex-direction: column;
 		}
-		#main-container   .row .back-link {
-			text-align:left;
-			float:left;
-		}
+	}
+</style>
+<div id="main-container">
+		<div id="headerLayout">
+		  <div id="pageHeader">
+		  <div id="pageHeaderLeft">
+			  <custom-image id="issuerLogo" alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" straight-mode="false"></custom-image>
+		  </div>
+		  <div id="pageHeaderRight">
+			  <custom-image id="networkLogo" alt-key="''network_means_pageType_2_IMAGE_ALT''" image-key="''network_means_pageType_2_IMAGE_DATA''" straight-mode="false"></custom-image>
+			  </div>
+		  </div>
+	  </div>
+	  <div id="content">
+			  <message-banner></message-banner>
+			  <div id="contentHeader">
+			  <h2>
+				  <custom-text custom-text-key="''network_means_pageType_1''" id="paragraph1"></custom-text>
+			  </h2>
+			  </div>
 
-		#main-container   .row .back-link button {
-			border-style:none;
-			padding:0px;
-			color:#06c2d4;
-		}
-		#main-container   .row .back-link span {
-			text-align:left;
-			margin-left:0.5em;
-		}
+			  <div id="transactionDetails">
+				  <side-menu></side-menu>
+			  </div>
+			  <span class="clear"></span>
 
-		#main-container   .row .back-link span.fa-ban {
-			display:none;
-		}
+			  <div id="contentMain">
+			  <h2>
+				  <custom-text custom-text-key="''network_means_pageType_3''" id="paragraph1"></custom-text>
+			  </h2>
 
-		#main-container   .row .submit-btn {
-			text-align:right;
-			float:right;
-		}
-
-		#main-container #val-button-container {
-			margin-top:10px;
-			margin-bottom:10px;
-
-		}
-
-		#main-container #validateButton button {
-			font-size: 16px;
-			height: 30px;
-			line-height:1.0;
-			border-radius: 6px;
-			background: #5b7f95;
-			box-shadow: none;
-			border: 0px;
-			color: #FFF;
-			width:163px;
-		}
-
-		#main-container   #validateButton span.fa-check-square{
-			display:none;
-		}
-
-	</style>
-<div id="main-container" class="" ng-style="style" class="ng-scope">
-	<div id="headerLayout">
-		<div id="pageHeader" >
-			<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
-				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
-			</div>
-			<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
-				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"  image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
-			</div>
-		</div>
-	</div>
-	<div id="content">
-			<message-banner close-button="\'network_means_pageType_174\'" back-button="\'network_means_pageType_175\'"></message-banner>
-			<div id="contentHeader">
-				<h2><custom-text custom-text-key="''network_means_pageType_1''"></custom-text></h2>
-			</div>
-			<div  id="transactionDetails">
-					<side-menu menu-title="''TRANSACTION_SUMMARY''"></side-menu>
-					<span class="clear"></span>
-			</div>
-			<div id="contentMain">
-				<h2><custom-text custom-text-key="''network_means_pageType_3''"></custom-text></h2>
-				<custom-text custom-text-key="''network_means_pageType_11''" id="paragraph1"></custom-text>
-					<div id="otp-input">
-						<custom-text custom-text-key="''network_means_pageType_53''"></custom-text>
-						<otp-form ></otp-form>
-					</div>
-
-					<div class="flex-right">
-						<div id="val-button-container">
-							<val-button id="validateButton" val-label="''network_means_pageType_18''"></val-button>
-						</div>
-					</div>
-			</div>
-
-			<div id="form-controls">
-				<div class="row">
-					<div class="submit-btn">
-
-					</div>
-					<div class="back-link">
-						<span class="fa fa-angle-left"></span><cancel-button cn-label="''network_means_pageType_4''"></cancel-button>
-				   </div>
+			  <div id="qrcontrols">
+				<div id="form-input">
+					  <div><custom-text custom-text-key="''network_means_pageType_11''" id="paragraph1"></custom-text></div>
+					  <div id="otp-input">
+						  <custom-text custom-text-key="''network_means_pageType_18''" id="paragraph1"></custom-text>
+						  <otp-form></otp-form>
+					  </div>
+					  <div id="val-button-container"><val-button id="validateButton" val-label="''network_means_pageType_19''"></val-button></div>
 				</div>
-			</div>
-		</div>
-		<div id="footer">
-			<div class="help-area">
-				<div class="help-link">
-					<help help-label="''network_means_pageType_5''" id="helpButton" class="helpButtonClass"></help>
-					<span class="fa fa-angle-right"></span>
+				<div id="qr-display">
+					  <external-image></external-image>
 				</div>
-				<div class="contact">
-					<div class="line bottom-margin">
-						<custom-text custom-text-key="''network_means_pageType_6''"></custom-text>
 
-					</div>
-					<div class="line small bold">
-
-						<div class=""><custom-text custom-text-key="''network_means_pageType_7''"></custom-text></div>
-					</div>
-					<div class="line small grey">
-						<div class=""><custom-text custom-text-key="''network_means_pageType_8''"></custom-text></div>
-					</div>
-				</div>
-			</div>
-			<div id="copyright" class="extra-small">
-				<div><span><custom-text custom-text-key="''network_means_pageType_9''"></custom-text></span></div>
-				<div><span><custom-text custom-text-key="''network_means_pageType_10''"></custom-text></span></div>
-			</div>
+		  </div>
 		</div>
-	</div>
-</div>', @layoutId);
+
+		  <div id="form-controls">
+			<div id="form-controls-container">
+				  <div class="back-link">
+					  <span class="fa fa-angle-left"></span>
+					  <cancel-button cn-label="''network_means_pageType_55''" id="cancelButton" ></cancel-button>
+				  </div>
+			</div>
+			  </div>
+
+		  <div id="footer">
+				  <div class="help-area">
+					  <div class="help-link">
+						<help help-label="''network_means_pageType_5''" id="helpButton" class="helpButtonClass"></help>
+						<span class="fa fa-angle-right"></span>
+
+					  </div>
+					  <div class="contact">
+						  <div class="line bottom-margin">
+							  <custom-text custom-text-key="''network_means_pageType_6''"></custom-text>
+
+						  </div>
+						  <div class="line small bold">
+
+							  <div class=""><custom-text custom-text-key="''network_means_pageType_7''"></custom-text></div>
+						  </div>
+						  <div class="line small grey">
+							  <div class=""><custom-text custom-text-key="''network_means_pageType_8''"></custom-text></div>
+						  </div>
+					  </div>
+				  </div>
+				  <div id="copyright" class="extra-small">
+					  <div><span><custom-text custom-text-key="''network_means_pageType_9''"></custom-text></span></div>
+					  <div><span><custom-text custom-text-key="''network_means_pageType_10''"></custom-text></span></div>
+				  </div>
+			  </div>
+		  </div>', @layoutId);
 
 
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Refusal Page (', @BankUB, ')%') );
@@ -1521,216 +1700,217 @@ SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONC
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 VALUES(  'div', '
  <style>
-		:root {
-			 font-family: proximaLight, Times;
-			 padding:0px;
-			 margin:0px;
-		}
-		#main-container {
-			width: 480px;
-			max-width: 480px;
-			margin-left: auto;
-			margin-right: auto;
-			padding-left: 10px;
-			padding-right: 10px;
-		}
-		#main-container  #issuerLogo {
-			max-height: 72px;
-			padding-left: 0px;
-			padding-right: 0px;
-		}
-		#main-container   #networkLogo {
-			max-height: 33px;
-			max-width: 100%;
-		}
-		#main-container #pageHeader {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				width: 100%;
-				height: 76px;
-				padding-bottom: 4px;
-				margin-top: 8px;
-				margin-bottom: 0px;
-				border-bottom: 1px solid #DCDCDC;
-		}
-		#main-container   #pageHeaderLeft {
-
-			text-align:left;
-		}
-		#main-container   #pageHeaderRight {
-
-			text-align: right;
-		}
-		#main-container   #centerPieceLayout {
-			padding: 5px 10px 0px;
-			min-height: 200px;
-		}
-		#main-container #content #contentHeader  custom-text.ng-isolate-scope  {
-			font-family: BNP Sans Regular;
-			font-size: 18px;
-			font-weight: bold;
-			text-align: center;
-			color: #403f3d;
-			padding-left: 100px;
-	   }
-		.side-menu .text-left, .side-menu .text-right {
-			  padding-right: 5px;
-			  padding-left: 5px;
-			  font-family: BNP Sans Regular;
-			  font-size: 14px;
-			  color: #403f3d;
-		}
-		custom-text.ng-isolate-scope {
-			font-family: BNP Sans Regular;
-			font-size: 14px;
-			font-weight: bold;
-			text-align: center;
-		}
-		#main-container   #content {
-			text-align:left;
-		}
-		#main-container #content h2 {
-			font-size: 1.25em;
-			margin-top: 0px;
-			margin-bottom: 0.25em;
-		}
-		#main-container   #content contentHeaderLeft {
-			font-size:1.25em;
-			margin-bottom:0.25em;
-			margin-top:0.25em;
-		}
-		#main-container   .paragraph {
-			display: block;
-			margin-block-start: 1em;
-			margin-block-end: 1em;
-			margin-inline-start: 0px;
-			margin-inline-end: 0px;
-			margin-bottom: 10px;
-		}
-		#main-container .menu-title {
-			display:none;
-		}
-		#main-container   .help-link {
-			width: 30%;
-			order: 2;
-			text-align: right;
-		}
-		#main-container   .contact {
-			width: 70%;
-			order: 1;
-		}
-		#main-container   div#footer {
-			background-image:none;
-			height:100%;
-		}
-		#main-container   #footer {
-			width:100%;
-			background-color: #f7f7f7;
-			border-radius: 1em;
-			clear:both;
-			margin-top:1em;
-		}
-		#main-container   #footer:after {
-			content: "";
-			height:100%;
-			display: table;
-			clear: both;
-			padding-bottom: 0.5em;
-		}
-		#main-container   #footer .extra-small {
-			font-size:0.7em;
-		}
-		#main-container   #footer .small {
-			font-size:0.8em;
-		}
-		#main-container   #footer .bold {
-			font-weight: bold;
-		}
-	   #main-container   #footer .grey {
-		   color: #6b6b6b;
-		}
-		#main-container   #footer .bottom-margin {
-			margin-bottom:10px;
-		 }
-		#main-container   #footer #copyright {
-			width:100%;
-			border-top : 1px solid #6b6b6b;
-			padding-top:0.5em;
-			padding-bottom:1em;
-			display:flex;
-			flex-direction: row;
-		}
-		#main-container #footer #copyright custom-text.ng-isolate-scope {
-			font-family: BNP Sans Regular;
-			font-size: 14px;
-			font-weight: normal;
-			text-align: center;
-			color: #403f3d;
-		}
-		#main-container   #footer #copyright div:nth-child(1) {
-			order:1;
-			text-align:left;
-			width:50%;
-			padding-left:12px;
-		}
-		#main-container   #footer #copyright div:nth-child(2) {
-			order:2;
-			text-align: right;
-			width:50%;
-			padding-right:12px;
-		}
-		#main-container  #footer .help-area {
-			display: flex;
-			flex-direction: row;
-			padding: 16px;
-		}
-		#main-container #helpButton  button span{
-				font-family: BNP Sans Regular;
-				font-size: 16px;
-				font-weight: normal;
-				text-align: center;
-				color: #403f3d;
-				background-color: #f7f7f7;
-		}
-		#main-container #helpButton  button {
-			border-style: none;
-			padding:0px
-		}
-		#main-container #helpButton .fa-info {
-			display:none;
-		}
-		#main-container   .col-lg-4 {
-			width: 100%;
-			margin-bottom: 20px;
-		}
-		#main-container   .col-md-4 {
-			width: 100%;
-			margin-bottom: 20px;
-		}
-		#main-container   .col-sm-4 {
-			width: 100%;
-			margin-bottom: 20px;
-		}
-		#main-container   .col-xs-12 {
-			width: 100%;
-			margin-bottom: 20px;
-		}
-		#main-container   message-banner {
-			display: block;
-			width: 100%;
-			position: relative;
-		}
-		#main-container .halfdivsRight {
-			width:50%;
-			float: right;
-		}
-
-		#main-container  .halfdivsLeft{
-			width:50%;
-			float: left;
-		}
-	</style>
+	:root {
+		font-family: proximaLight, Times;
+		padding: 0px;
+		margin: 0px;
+	}
+	#main-container {
+		width: 480px;
+		max-width: 480px;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	#main-container #issuerLogo {
+		max-height: 72px;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	#main-container #networkLogo {
+		max-height: 33px;
+		max-width: 100%;
+	}
+	#main-container #pageHeader {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		height: 76px;
+		padding-bottom: 4px;
+		margin-top: 8px;
+		margin-bottom: 0px;
+		border-bottom: 1px solid #dcdcdc;
+	}
+	#main-container #pageHeaderLeft {
+		text-align: left;
+	}
+	#main-container #pageHeaderRight {
+		text-align: right;
+	}
+	#main-container #centerPieceLayout {
+		padding: 5px 10px 0px;
+		min-height: 200px;
+	}
+	#main-container #content #contentHeader custom-text.ng-isolate-scope {
+		font-family: BNP Sans Regular;
+		font-size: 18px;
+		font-weight: bold;
+		text-align: center;
+		color: #403f3d;
+		padding-left: 100px;
+	}
+	.side-menu .text-left, .side-menu .text-right {
+		padding-right: 5px;
+		padding-left: 5px;
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+		color: #403f3d;
+	}
+	#main-container #content {
+		text-align: left;
+	}
+	#main-container #content h2 {
+		font-size: 1.25em;
+		margin-top: 0px;
+		margin-bottom: 0.25em;
+	}
+	#main-container #content contentHeaderLeft {
+		font-size: 1.25em;
+		margin-bottom: 0.25em;
+		margin-top: 0.25em;
+	}
+	#main-container .paragraph {
+		display: block;
+		margin-block-start: 1em;
+		margin-block-end: 1em;
+		margin-inline-start: 0px;
+		margin-inline-end: 0px;
+		margin-bottom: 10px;
+	}
+	#main-container .menu-title {
+		display: none;
+	}
+	#main-container .help-link {
+		width: 30%;
+		order: 2;
+		text-align: right;
+	}
+	#main-container .contact {
+		width: 70%;
+		order: 1;
+	}
+	#main-container div#footer {
+		background-image: none;
+		height: 100%;
+	}
+	#main-container #footer {
+		width: 100%;
+		background-color: #f7f7f7;
+		border-radius: 1em;
+		clear: both;
+		margin-top: 1em;
+	}
+	#main-container #footer:after {
+		content: "";
+		height: 100%;
+		display: table;
+		clear: both;
+		padding-bottom: 0.5em;
+	}
+	#main-container #footer .extra-small {
+		font-size: 0.7em;
+	}
+	#main-container #footer .small {
+		font-size: 0.8em;
+	}
+	#main-container #footer .bold {
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+		font-weight: normal;
+		color: #403f3d;
+	}
+	#main-container #footer .grey {
+		color: #6b6b6b;
+	}
+	#main-container #footer .bottom-margin {
+		margin-bottom: 10px;
+	}
+	#main-container #footer #copyright {
+		width: 100%;
+		border-top: 1px solid #6b6b6b;
+		padding-top: 0.5em;
+		padding-bottom: 1em;
+		display: flex;
+		flex-direction: row;
+	}
+	#main-container #footer #copyright custom-text.ng-isolate-scope {
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+		font-weight: normal;
+		text-align: center;
+		color: #403f3d;
+	}
+	#main-container #footer #copyright div:nth-child(1) {
+		order: 1;
+		text-align: left;
+		width: 50%;
+		padding-left: 12px;
+	}
+	#main-container #footer #copyright div:nth-child(2) {
+		order: 2;
+		text-align: right;
+		width: 50%;
+		padding-right: 12px;
+	}
+	#main-container #footer .help-area {
+		display: flex;
+		flex-direction: row;
+		padding: 16px;
+	}
+	#main-container #footer .contact custom-text.ng-isolate-scope {
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+		font-weight: normal;
+		text-align: center;
+		color: #403f3d;
+	}
+	#main-container #helpButton button span {
+		font-family: BNP Sans Regular;
+		font-size: 16px;
+		font-weight: normal;
+		text-align: center;
+		color: #749bb3;
+		background-color: #5b7f95;
+	}
+	#main-container #helpButton button {
+		border-style: none;
+		padding: 0px
+	}
+	#main-container #helpButton .fa-info {
+		display: none;
+	}
+	#main-container .col-lg-4 {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+	#main-container .col-md-4 {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+	#main-container .col-sm-4 {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+	#main-container .col-xs-12 {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+	#main-container message-banner {
+		display: block;
+		width: 100%;
+		position: relative;
+	}
+	#main-container .halfdivsRight {
+		width: 50%;
+		float: right;
+	}
+	#main-container .halfdivsLeft {
+		width: 50%;
+		float: left;
+	}
+</style>
 <div id="main-container" ng-style="style" class="ng-scope">
 		<div id="headerLayout">
 			<div id="pageHeader" >
@@ -1789,44 +1969,40 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	VALUES( 'div', '
 	<style>
 	#help-container {
-		overflow:visible;
+		overflow: visible;
 	}
-	 #helpContent {
+	#helpContent {
 		font-family: BNP Sans Regular;
 		font-size: 16px;
 		font-weight: normal;
 		text-align: left;
 		color: #403f3d;
-		 padding: 5px 10px 0px;
-		 min-height: 200px;
-	 }
-	 #helpContent #helpCloseButton div {
+		padding: 5px 10px 0px;
+		min-height: 200px;
+	}
+	#helpContent #helpCloseButton div {
 		display: inline;
 	}
-	#helpButton #help-container #helpContent #helpCloseButton button{
+	#helpButton #help-container #helpContent #helpCloseButton button {
 		font-family: BNP Sans Regular;
 		font-size: 16px;
 		font-weight: normal;
 		height: 30px;
 		line-height: 1.0;
 		border-radius: 6px;
-		background: linear-gradient(#749bb3,#005772);
+		background-color: #5b7f95;
 		box-shadow: none;
 		border: 0px;
-		color: #FFF;
+		color: #403f3d;
 		width: 163px;
 	}
-	#helpButton #help-container #helpContent #helpCloseButton button span{
-		color:#FFF;
-		background:inherit;
-	}
-	#helpButton  #help-container #helpContent #helpCloseButton span.fa-times {
+	#helpButton #help-container #helpContent #helpCloseButton span.fa-times {
 		display: none;
 	}
-	 .paragraph {
-		 margin: 0px 0px 10px;
-		 text-align: justify;
-	 }
+	.paragraph {
+		margin: 0px 0px 10px;
+		text-align: justify;
+	}
 </style>
 <div class="container-fluid">
 	 <div>
