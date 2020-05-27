@@ -209,7 +209,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div','
 		padding-right: 7px;
 		display: none;
 	}
-</style>#
+</style>
 <div id="messageBanner">
 	<custom-text id="headingTxt" custom-text-key="$parent.heading"></custom-text>
 	<custom-text id="message" custom-text-key="$parent.message"></custom-text>
@@ -225,14 +225,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		margin-right: auto;
 		padding-left: 10px;
 		padding-right: 10px;
-	}
-	input {
-		border: 1px solid #d1d1d1;
-		border-radius: 6px;
-		color: #464646;
-		padding: 7px 10px 5px;
-		height: 20px;
-		box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 3px 0 inset;
 	}
 	#main-container #issuerLogo {
 		max-height: 72px;
@@ -302,6 +294,59 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		margin-top: 0px;
 		margin-bottom: 0.25em;
 	}
+	#main-container message-banner {
+		display: block;
+		width: 100%;
+		position: relative;
+	}
+	#main-container .menu-title {
+		display: none;
+	}
+	#main-container #content #contentMain .flex-right {
+		align-self: flex-end;
+	}
+	#main-container #otp-input {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		margin-top: 10px;
+		align-self: flex-end;
+	}
+	input {
+		border: 1px solid #d1d1d1;
+		border-radius: 6px;
+		color: #464646;
+		padding: 7px 10px 5px;
+		height: 20px;
+		box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 3px 0 inset;
+	}
+	#main-container .input-label {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+	#main-container .otp-input input {
+		margin-left: 16px;
+	}
+	#main-container #otp-input span {
+		padding-right: 10px;
+	}
+	#main-container #otp-input input:focus {
+		outline: none;
+	}
+	#main-container #footer {
+		background-image: none;
+		height: 100%;
+		width: 100%;
+		background-color: #f7f7f7;
+		border-radius: 1em;
+		clear: both;
+		margin-top: 1em;
+	}
+	#main-container .contact {
+		width: 70%;
+		order: 1;
+	}
 	#main-container #footer .contact custom-text.ng-isolate-scope {
 		font-family: BNP Sans Regular;
 		font-size: 14px;
@@ -309,16 +354,8 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		text-align: center;
 		color: #403f3d;
 	}
-	#main-container .menu-title {
-		display: none;
-	}
-	#main-container #resend button span {
-		color: #06c2d4;
-		background-color: #f7f7f7;
-	}
-	#main-container #resend button {
-		border-style: none;
-		padding: 0px
+	#main-container #footer .help-area .help-link #helpButton .btn-default {
+		background-color: #5b7f95;
 	}
 	#main-container #helpButton button span {
 		font-family: BNP Sans Regular;
@@ -335,58 +372,10 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 	#main-container #helpButton .fa-info {
 		display: none;
 	}
-	#main-container #otp-input {
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-end;
-		margin-top: 10px;
-		align-self: flex-end;
-	}
 	#main-container .help-link {
 		width: 30%;
 		order: 2;
 		text-align: right;
-	}
-	#main-container .contact {
-		width: 70%;
-		order: 1;
-	}
-	#main-container .resendTan {
-		display: block;
-		margin-left: 196px;
-		margin-top: 10px;
-		margin-bottom: 25px;
-	}
-	#main-container .input-label {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-	}
-	#main-container .otp-input input {
-		margin-left: 16px;
-	}
-	#main-container #otp-input span {
-		padding-right: 10px;
-	}
-	#main-container #otp-input input:focus {
-		outline: none;
-	}
-	#main-container #content #contentMain .flex-right {
-		align-self: flex-end;
-	}
-	#main-container #footer {
-		background-image: none;
-		height: 100%;
-	}
-	#main-container #footer {
-		width: 100%;
-		background-color: #f7f7f7;
-		border-radius: 1em;
-		clear: both;
-		margin-top: 1em;
-	}
-	#main-container #footer .help-area .help-link #helpButton .btn-default {
-		background-color: #5b7f95;
 	}
 	#main-container #footer:after {
 		content: "";
@@ -458,11 +447,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		width: 100%;
 		margin-bottom: 20px;
 	}
-	#main-container message-banner {
-		display: block;
-		width: 100%;
-		position: relative;
-	}
 	#main-container .row .left {
 		float: left;
 		width: 180px;
@@ -515,9 +499,8 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 	#main-container #validateButton span.fa-check-square {
 		display: none;
 	}
-
 </style>
-<div id="main-container" class="" ng-style="style" class="ng-scope">
+<div id="main-container" class="ng-style="style" class="ng-scope">
 	<div id="headerLayout">
 		<div id="pageHeader" >
 			<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
@@ -544,7 +527,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 						<custom-text custom-text-key="''network_means_pageType_53''"></custom-text>
 						<otp-form ></otp-form>
 					</div>
-
 					<div class="flex-right">
 						<div id="val-button-container">
 							<val-button id="validateButton" val-label="''network_means_pageType_18''"></val-button>
@@ -555,7 +537,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 			<div id="form-controls">
 				<div class="row">
 					<div class="submit-btn">
-
 					</div>
 					<div class="back-link">
 						<span class="fa fa-angle-left"></span><cancel-button cn-label="''network_means_pageType_4''"></cancel-button>
@@ -572,10 +553,8 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 				<div class="contact">
 					<div class="line bottom-margin">
 						<custom-text custom-text-key="''network_means_pageType_6''"></custom-text>
-
 					</div>
 					<div class="line small bold">
-
 						<div class=""><custom-text custom-text-key="''network_means_pageType_7''"></custom-text></div>
 					</div>
 					<div class="line small grey">
@@ -938,10 +917,6 @@ VALUES ('div', '
 	#main-container #pageHeaderRight {
 		text-align: right;
 	}
-	#main-container #centerPieceLayout {
-		padding: 5px 10px 0px;
-		min-height: 200px;
-	}
 	#main-container #content {
 		text-align: left;
 	}
@@ -967,13 +942,6 @@ VALUES ('div', '
 		font-size: 14px;
 		color: #403f3d;
 	}
-	#main-container #form-input span.custom-text.ng-binding {
-		font-family: BNP Sans Regular;
-		font-size: 14px;
-		font-weight: normal;
-		text-align: center;
-		color: #403f3d;
-	}
 	#main-container #content #transactionDetails {
 		margin-bottom: 1em;
 		width: 100%;
@@ -992,14 +960,34 @@ VALUES ('div', '
 		border-radius: 0.25em;
 		padding: 1em;
 	}
+	#content h2 {
+		font-size: 1.25em;
+		margin-top: 0px;
+		margin-bottom: 0.25em;
+	}
 	#main-container #qrcontrols {
 		display: flex;
 		flex-direction: row;
+	}
+	#main-container #form-input span.custom-text.ng-binding {
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+		font-weight: normal;
+		text-align: center;
+		color: #403f3d;
 	}
 	#main-container #form-input {
 		align-items: start;
 		display: flex;
 		flex-direction: column;
+	}
+	input {
+		border: 1px solid #d1d1d1;
+		border-radius: 6px;
+		color: #464646;
+		padding: 7px 10px 5px;
+		height: 20px;
+		box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 3px 0 inset;
 	}
 	#main-container #otp-input {
 		display: flex;
@@ -1011,17 +999,46 @@ VALUES ('div', '
 	#main-container #otp-form {
 		margin-left: 10px;
 	}
+	.input-label {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+	.otp-field input {
+		margin-left: 16px;
+	}
+	.otp-field input:focus {
+		outline: none;
+	}
 	#main-container #qr-display {
 		display: flex;
 		justify-content: center;
 	}
-	#content {
+	#main-container #form-controls-container {
+		display: flex;
+		justify-content: space-between;
+	}
+	#main-container #form-controls .back-link button:hover {
+		background-color: #5b7f95;
+	}
+	#main-container #form-controls .back-link {
 		text-align: left;
 	}
-	#content h2 {
-		font-size: 1.25em;
-		margin-top: 0px;
-		margin-bottom: 0.25em;
+	#main-container #form-controls .back-link button {
+		border-style: none;
+		background: none;
+		padding: 0px;
+		color: #5b7f95;
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+	}
+	#main-container #form-controls .back-link span {
+		text-align: left;
+		margin-left: 0.5em;
+		color: #749bb3;
+	}
+	#main-container #form-controls .back-link span.fa-ban {
+		display: none;
 	}
 	#main-container #footer {
 		width: 100%;
@@ -1036,6 +1053,35 @@ VALUES ('div', '
 		height: 100%;
 		display: table;
 		padding-bottom: 0.5em;
+	}
+	#main-container #footer .help-area {
+		display: flex;
+		flex-direction: row;
+		padding: 16px;
+	}
+	#main-container #helpButton button span {
+		font-family: BNP Sans Regular;
+		font-size: 16px;
+		font-weight: normal;
+		text-align: center;
+		color: #749bb3;
+	}
+	#main-container #helpButton button {
+		border-style: none;
+		padding: 2px;
+		background-color: #5b7f95;
+	}
+	#main-container #helpButton .fa-info {
+		display: none;
+	}
+	.help-link {
+		width: 30%;
+		order: 2;
+		text-align: right
+	}
+	.contact {
+		width: 70%;
+		order: 1;
 	}
 	#main-container #footer .extra-small {
 		font-size: 0.7em;
@@ -1082,26 +1128,6 @@ VALUES ('div', '
 		width: 50%;
 		padding-right: 12px;
 	}
-	#main-container #footer .help-area {
-		display: flex;
-		flex-direction: row;
-		padding: 16px;
-	}
-	#main-container #helpButton button span {
-		font-family: BNP Sans Regular;
-		font-size: 16px;
-		font-weight: normal;
-		text-align: center;
-		color: #749bb3;
-	}
-	#main-container #helpButton button {
-		border-style: none;
-		padding: 2px;
-		background-color: #5b7f95;
-	}
-	#main-container #helpButton .fa-info {
-		display: none;
-	}
 	#main-container .externalImage {
 		padding: 1em;
 		width: 100%;
@@ -1117,14 +1143,6 @@ VALUES ('div', '
 		margin-left: auto;
 		margin-right: auto
 	}
-	input {
-		border: 1px solid #d1d1d1;
-		border-radius: 6px;
-		color: #464646;
-		padding: 7px 10px 5px;
-		height: 20px;
-		box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 3px 0 inset;
-	}
 	#main-container .row button {
 		font-size: 16px;
 		height: 38px;
@@ -1137,14 +1155,6 @@ VALUES ('div', '
 	#main-container .row button:hover:enabled {
 		background-color: #5b7f95;
 	}
-	a {
-		color: #000;
-		text-decoration: none;
-	}
-	a:hover {
-		color: #000;
-		border-bottom: 1px dotted black;
-	}
 	#main-container .row .left {
 		float: left;
 		width: 180px;
@@ -1152,72 +1162,6 @@ VALUES ('div', '
 	}
 	#main-container .row .left span {
 		margin-right: 0.5em
-	}
-	#main-container #form-controls-container {
-		display: flex;
-		justify-content: space-between;
-	}
-	#main-container #form-controls .back-link button:hover {
-		background-color: #5b7f95;
-	}
-	#main-container #form-controls .back-link {
-		text-align: left;
-	}
-	#main-container #form-controls .back-link button {
-		border-style: none;
-		background: none;
-		padding: 0px;
-		color: #5b7f95;
-		font-family: BNP Sans Regular;
-		font-size: 14px;
-	}
-	#main-container #form-controls .back-link span {
-		text-align: left;
-		margin-left: 0.5em;
-		color: #749bb3;
-	}
-	#main-container #form-controls .back-link span.fa-ban {
-		display: none;
-	}
-	#main-container #form-controls .submit-btn {
-		text-align: right;
-	}
-	.mtan-input {
-		padding-top: 25px;
-		padding-bottom: 10px;
-	}
-	.resendTan {
-		display: block;
-		margin-left: 196px;
-		margin-top: 10px;
-		margin-bottom: 25px;
-	}
-	.input-label {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-	}
-	.resendTan a {
-		color: #06c2d4;
-	}
-	.mtan-label {
-		text-align: right;
-		flex: 0 0 180px
-	}
-	.otp-field input {
-		margin-left: 16px;
-	}
-	.otp-field input:focus {
-		outline: none;
-	}
-	.help-link {
-		width: 30%;
-		order: 2;
-		text-align: right
-	}
-	.contact {
-		width: 70%;
-		order: 1;
 	}
 	#otp-error-message {
 		margin-top: 10px;
@@ -1433,17 +1377,14 @@ VALUES ('div', '
 				  <custom-text custom-text-key="''network_means_pageType_1''" id="paragraph1"></custom-text>
 			  </h2>
 			  </div>
-
 			  <div id="transactionDetails">
 				  <side-menu></side-menu>
 			  </div>
 			  <span class="clear"></span>
-
 			  <div id="contentMain">
 			  <h2>
 				  <custom-text custom-text-key="''network_means_pageType_3''" id="paragraph1"></custom-text>
 			  </h2>
-
 			  <div id="qrcontrols">
 				<div id="form-input">
 					  <div><custom-text custom-text-key="''network_means_pageType_11''" id="paragraph1"></custom-text></div>
@@ -1456,10 +1397,8 @@ VALUES ('div', '
 				<div id="qr-display">
 					  <external-image></external-image>
 				</div>
-
 		  </div>
 		</div>
-
 		  <div id="form-controls">
 			<div id="form-controls-container">
 				  <div class="back-link">
@@ -1468,21 +1407,17 @@ VALUES ('div', '
 				  </div>
 			</div>
 			  </div>
-
 		  <div id="footer">
 				  <div class="help-area">
 					  <div class="help-link">
 						<help help-label="''network_means_pageType_5''" id="helpButton" class="helpButtonClass"></help>
 						<span class="fa fa-angle-right"></span>
-
 					  </div>
 					  <div class="contact">
 						  <div class="line bottom-margin">
 							  <custom-text custom-text-key="''network_means_pageType_6''"></custom-text>
-
 						  </div>
 						  <div class="line small bold">
-
 							  <div class=""><custom-text custom-text-key="''network_means_pageType_7''"></custom-text></div>
 						  </div>
 						  <div class="line small grey">
