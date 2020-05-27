@@ -430,6 +430,8 @@ SET @currentPageType = 'FAILURE_PAGE';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
 						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
 						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
+    'de', 1, @currentPageType, 'Bitte bestätigen Sie folgende Zahlung', @MaestroVID, NULL, @customItemSetMobileApp),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_5'), 'PUSHED_TO_CONFIG',
 	'de', 5, @currentPageType, 'Hilfe', @MaestroVID, NULL, @customItemSetMobileApp),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_6'), 'PUSHED_TO_CONFIG',
@@ -440,6 +442,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 	'de', 8, @currentPageType, '', @MaestroVID, NULL, @customItemSetMobileApp),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
 	'de', 9, @currentPageType, 'Visa Secure - ein Service von Visa in Kooperation mit BNP Paribas', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_44'), 'PUSHED_TO_CONFIG',
+    'de', 10, @currentPageType, '&copy; Visa Europe', @MaestroVID, NULL, @customItemSetMobileApp),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_16'), 'PUSHED_TO_CONFIG',
 	'de', 16, @currentPageType, 'Ihr Authentifizierungsverfahren wurde gesperrt', @MaestroVID, NULL, @customItemSetMobileApp),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_17'), 'PUSHED_TO_CONFIG',
