@@ -1436,91 +1436,127 @@ VALUES ('div', '
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Refusal Page (', @BankUB, ')%') );
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
-VALUES( 'div', '
-<style>
+VALUES( 'div', '<style>
+	:root {
+		font-family: BNP Sans Regular;
+		padding: 0px;
+		margin: 0px;
+	}
 	#main-container {
-		font-family: FrutigerforUBSWeb;
-		max-width: 600px;
-		max-height: 600px;
+		width: 480px;
+		max-width: 480px;
 		margin-left: auto;
 		margin-right: auto;
 		padding-left: 10px;
 		padding-right: 10px;
 	}
-	#main-container #pageHeader {
-		width: 100%;
-		height: 74px;
-		border-bottom: 1px solid #dcdcdc;
-	}
-	#main-container #pageHeaderLeft {
-		width: 20%;
-		float: left;
-		padding-left: 16px;
-		padding-top: 16px;
-	}
-	#main-container #pageHeaderRight {
-		width: 25%;
-		float: right;
-		text-align: right;
-		padding-top: 16px;
-	}
 	#main-container #issuerLogo {
-		max-height: 64px;
-		max-width: 100%;
+		max-height: 72px;
 		padding-left: 0px;
 		padding-right: 0px;
 	}
 	#main-container #networkLogo {
-		max-height: 100%;
+		max-height: 33px;
 		max-width: 100%;
 	}
-	#main-container #i18n-container {
+	#main-container #pageHeader {
 		width: 100%;
-		text-align: center;
+		height: 76px;
+		padding-bottom: 4px;
+		margin-top: 8px;
+		margin-bottom: 0px;
+		border-bottom: 1px solid #dcdcdc;
 	}
-	#main-container #i18n-inner {
-		display: inline-block;
+	#main-container #pageHeader {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		height: 76px;
+		padding-bottom: 4px;
+		margin-top: 8px;
+		margin-bottom: 0px;
+		border-bottom: 1px solid #dcdcdc;
+	}
+	#main-container #pageHeaderLeft {
+		text-align: left;
+	}
+	#main-container #pageHeaderRight {
+		text-align: right;
+	}
+	#main-container #centerPieceLayout {
+		padding: 5px 10px 0px;
+		min-height: 200px;
+	}
+	span#paragraph1 {
+		font-family: BNP Sans Regular;
+		font-size: 18px;
+		font-weight: bold;
+		text-align: center;
+		color: #403f3d;
 	}
 	#main-container #content {
 		text-align: left;
-		margin-left: 3em;
 	}
-	div#leftMenuLayout {
-		font-size: 16px;
-		letter-spacing: 0;
-		line-height: 24px;
-		margin-top: 10px;
+	#main-container #content contentHeaderLeft {
+		font-size: 1.25em;
+		margin-bottom: 0.25em;
+		margin-top: 0.25em;
 	}
-	div#leftMenuLayout span.ng-binding {
-		font-family: FrutigerforUBSWeb;
-		font-weight: normal;
-		font-size: 16px;
-		color: #1c1c1c;
-		letter-spacing: 0;
-		line-height: 24px;
-	}
-	div#leftMenuLayout span.custom-text.ng-binding {
-		font-family: Frutiger55Roman;
-		font-weight: normal;
-		font-size: 16px;
-		color: #646464;
-		letter-spacing: 0;
-		line-height: 24px;
+	#main-container .paragraph {
+		display: block;
+		margin-block-start: 1em;
+		margin-block-end: 1em;
+		margin-inline-start: 0px;
+		margin-inline-end: 0px;
+		margin-bottom: 10px;
 	}
 	#main-container .menu-title {
 		display: none;
 	}
-	#main-container .menu-elements {
-		margin-right: 25%;
+	#main-container #resend button span {
+		color: #06c2d4;
 	}
-	#main-container #contentBottom {
-		margin-left: 26%;
+	#main-container #resend button {
+		border-style: none;
+		padding: 0px
 	}
-	#main-container message-banner {
+	#main-container .help-link {
+		width: 30%;
+		order: 2;
+		text-align: right;
+	}
+	#main-container .contact {
+		width: 70%;
+		order: 1;
+	}
+	#main-container .mtan-input {
+		padding-top: 25px;
+		padding-bottom: 10px;
+	}
+	#main-container .resendTan {
 		display: block;
-		margin-top: 5px;
-		position: relative;
-		width: 196px;
+		margin-left: 196px;
+		margin-top: 10px;
+		margin-bottom: 25px;
+	}
+	#main-container .input-label {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+	#main-container .resendTan a {
+		color: #06c2d4;
+	}
+	#main-container .mtan-label {
+		text-align: right;
+		flex: 0 0 180px
+	}
+	#main-container .otp-field input {
+		margin-left: 16px;
+	}
+	#main-container .otp-field input:focus {
+		outline: none;
 	}
 	#main-container div#footer {
 		background-image: none;
@@ -1528,8 +1564,10 @@ VALUES( 'div', '
 	}
 	#main-container #footer {
 		width: 100%;
+		background-color: #f7f7f7;
+		border-radius: 1em;
 		clear: both;
-		margin-top: 2em;
+		margin-top: 1em;
 	}
 	#main-container #footer:after {
 		content: "";
@@ -1538,27 +1576,55 @@ VALUES( 'div', '
 		clear: both;
 		padding-bottom: 0.5em;
 	}
-	#main-container #footer .help-area {
+	#main-container #footer .extra-small {
+		font-size: 0.7em;
+	}
+	#main-container #footer .small {
+		font-size: 0.8em;
+	}
+	#main-container #footer .bold {
+		font-weight: bold;
+	}
+	#main-container #footer .grey {
+		color: #6b6b6b;
+	}
+	#main-container #footer .bottom-margin {
+		margin-bottom: 10px;
+	}
+	#main-container #footer #copyright {
+		width: 100%;
+		border-top: 1px solid #6b6b6b;
+		padding-top: 0.5em;
+		padding-bottom: 1em;
 		display: flex;
 		flex-direction: row;
 	}
-	#main-container .help-link {
-		font-size: 14px;
-		line-height: 20px;
-		width: 50%;
-		order: 2;
+	#main-container #footer #copyright div:nth-child(1) {
+		order: 1;
 		text-align: left;
-		color: #007099;
+		width: 50%;
+		padding-left: 12px;
+	}
+	#main-container #footer #copyright div:nth-child(2) {
+		order: 2;
+		text-align: right;
+		width: 50%;
+		padding-right: 12px;
+	}
+	#main-container #footer .help-area {
+		display: flex;
+		flex-direction: row;
+		padding: 16px;
 	}
 	#main-container #helpButton button span {
-		color: #007099;
-		background-color: #f7f7f7;
+		color: #749bb3;
 	}
 	#main-container #helpButton button {
 		border-style: none;
-		padding: 0px
+		padding: 2px;
+		background-color: #5b7f95;
 	}
-	#main-container #helpButton span.fa-info {
+	#main-container #helpButton .fa-info {
 		display: none;
 	}
 	#main-container .col-lg-4 {
@@ -1573,18 +1639,14 @@ VALUES( 'div', '
 		width: 100%;
 		margin-bottom: 20px;
 	}
-	#main-container .col-sm-5 {
-		width: 34%;
-	}
-	#main-container .col-sm-6 {
-		width: 65%;
-	}
 	#main-container .col-xs-12 {
 		width: 100%;
 		margin-bottom: 20px;
 	}
-	#main-container .col-sm-offset-1 {
-		margin-left: 0%;
+	#main-container message-banner {
+		display: block;
+		width: 100%;
+		position: relative;
 	}
 	#main-container .row .left {
 		float: left;
@@ -1594,50 +1656,109 @@ VALUES( 'div', '
 	#main-container .row .left span {
 		margin-right: 0.5em
 	}
-	@media all and (max-width: 480px) {
-		span#info-icon {position: relative;font-size: 0.8em;top: 7px;left: 5px;float: left;margin-right: 7px;}
+	#main-container .row .back-link {
+		text-align: left;
+		float: left;
 	}
-	@media all and (max-width: 600px) {
-		span#info-icon {display: inline;position: relative;font-size: 1em;top: 5px;left: 3px;float: left;margin-right: 3px;}
+	#main-container .row .back-link button {
+		border-style: none;
+		padding: 0px;
+		color: #06c2d4;
+	}
+	#main-container .row .back-link span {
+		text-align: left;
+		margin-left: 0.5em;
+	}
+	#main-container .row .back-link span.fa-ban {
+		display: none;
+	}
+	#main-container .row .submit-btn {
+		text-align: right;
+		float: right;
+	}
+	#main-container #validateButton {
+		font-size: 16px;
+		height: 38px;
+		border-radius: 6px;
+		box-shadow: none;
+		border: 0px;
+	}
+	#main-container #validateButton span.fa-check-square {
+		display: none;
+	}
+	#main-container #validateButton button:disabled {
+		font-size: 16px;
+		height: 38px;
+		border-radius: 6px;
+		background: linear-gradient(#4dbed3, #007ea5);
+		box-shadow: none;
+		border: 0px;
+		color: #fff;
+	}
+	#main-container .halfdivsRight {
+		width: 50%;
+		float: right;
+	}
+	#main-container .halfdivsLeft {
+		width: 50%;
+		float: left;
 	}
 </style>
-<div id="main-container" class="" ng-style="style" class="ng-scope">
-		<div id="headerLayout" class="row">
-			<div id="pageHeader" class="text-center col-xs-12">
-				<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
-					<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+<div id="main-container" ng-style="style" class="ng-scope">
+	<div id="headerLayout">
+		<div id="pageHeader">
+			<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
+				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+			</div>
+			<div id="pageHeaderRight" ng-style="style" class="ng-scope">
+				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''" image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+			</div>
+		</div>
+	</div>
+	<hamburger hamburger-text-key="''network_means_pageType_1''"></hamburger>
+	<message-banner></message-banner>
+	<div id="mainLayout" class="row">
+		<div id="content">
+			<div id="contentHeaderLeft">
+				<div class="paragraph">
+					<custom-text custom-text-key="''network_means_pageType_1''" id="paragraph1"></custom-text>
 				</div>
-				<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
-					<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"  image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+			</div>
+			<div id="leftMenuLayout" class=" col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<div>
+					<side-menu menu-title="''TRANSACTION_SUMMARY''"></side-menu>
 				</div>
 			</div>
 		</div>
-		<div id="i18n-container">
-			 <div id="i18n-inner">
-				<i18n></i18n>
-			 </div>
-		</div>
-		<div id="content">
-				<div  id="leftMenuLayout" class=" col-xs-12 col-sm-4 col-md-4 col-lg-4">
-					<div>
-						<side-menu menu-title="''TRANSACTION_SUMMARY''"></side-menu>
-					</div>
+		<div id="footer">
+			<div class="help-area">
+				<div class="help-link">
+					<help help-label="''network_means_pageType_5''" id="helpButton" class="helpButtonClass"></help>
+					<span class="fa fa-angle-right"></span>
 				</div>
-				<div id="contentBottom" class=" col-xs-12 col-sm-4 col-md-4 col-lg-4">
-					<div>
-						<message-banner></message-banner>
+				<div class="contact">
+					<div class="line bottom-margin">
+						<custom-text custom-text-key="''network_means_pageType_6''"></custom-text>
 					</div>
-					<div id="footer">
-						<div class="help-area">
-							<div class="help-link">
-							  <span class="fa fa-angle-right"></span> <span id="helpButton" class="helpButtonClass"> <custom-text custom-text-key="''network_means_pageType_41''"></custom-text> </span>
-							</div>
+					<div class="line small bold">
+						<div class="">
+							<custom-text custom-text-key="''network_means_pageType_7''"></custom-text>
+						</div>
+					</div>
+					<div class="line small">
+						<div class="">
+							<custom-text custom-text-key="''network_means_pageType_8''"></custom-text>
 						</div>
 					</div>
 				</div>
+			</div>
+			<div id="copyright" class="extra-small">
+				<div><span><custom-text custom-text-key="''network_means_pageType_9''"></custom-text></span></div>
+				<div><span><custom-text custom-text-key="''network_means_pageType_10''"></custom-text></span></div>
+			</div>
 		</div>
-</div>
-', @layoutId);
+	</div>
+</div>', @layoutId);
 
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Failure Page (', @BankUB, ')%') );
 
