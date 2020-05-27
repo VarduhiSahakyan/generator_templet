@@ -512,7 +512,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		</div>
 	</div>
 	<div id="content">
-			<message-banner close-button="\'network_means_pageType_174\'" back-button="\'network_means_pageType_175\'"></message-banner>
+			<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
 			<div id="contentHeader">
 				<h2><custom-text custom-text-key="''network_means_pageType_1''"></custom-text></h2>
 			</div>
@@ -583,7 +583,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		</div>
 	</div>
 	<div id="content">
-		<message-banner></message-banner>
+		<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
 			<h2>
 				<custom-text custom-text-key="''network_means_pageType_1''" id="paragraph1"></custom-text>
 			</h2>
@@ -1371,7 +1371,7 @@ VALUES ('div', '
 		  </div>
 	  </div>
 	  <div id="content">
-			  <message-banner></message-banner>
+			  <message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
 			  <div id="contentHeader">
 			  <h2>
 				  <custom-text custom-text-key="''network_means_pageType_1''" id="paragraph1"></custom-text>
@@ -1716,7 +1716,7 @@ VALUES( 'div', '<style>
 		</div>
 	</div>
 	<hamburger hamburger-text-key="''network_means_pageType_1''"></hamburger>
-	<message-banner></message-banner>
+	<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
 	<div id="mainLayout" class="row">
 		<div id="content">
 			<div id="contentHeaderLeft">
@@ -1987,7 +1987,7 @@ VALUES(  'div', '
 				</div>
 			</div>
 		</div>
-		<message-banner close-button="\'network_means_pageType_174\'" back-button="\'network_means_pageType_175\'"></message-banner>
+		<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
 		<div id="mainLayout" class="row">
 			<div id="content">
 				<div class="paragraph">

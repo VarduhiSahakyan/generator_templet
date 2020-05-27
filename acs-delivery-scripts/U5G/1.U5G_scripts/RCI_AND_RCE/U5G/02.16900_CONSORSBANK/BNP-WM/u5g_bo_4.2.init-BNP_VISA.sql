@@ -142,15 +142,15 @@ Bei Rückfragen wenden Sie sich bitte an Ihr persönliches Betreuungsteam.', @Ma
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_53'), 'PUSHED_TO_CONFIG',
  'de', 53, @currentPageType, 'Eingabe', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_100'), 'PUSHED_TO_CONFIG',
- 'de', 100, @currentPageType, 'Händler', @MaestroVID, NULL, @customItemSetPassword),
+ 'de', 100, 'ALL', 'Händler', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_101'), 'PUSHED_TO_CONFIG',
- 'de', 101, @currentPageType, 'Betrag', @MaestroVID, NULL, @customItemSetPassword),
+ 'de', 101, 'ALL', 'Betrag', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_102'), 'PUSHED_TO_CONFIG',
- 'de', 102, @currentPageType, 'Datum', @MaestroVID, NULL, @customItemSetPassword),
+ 'de', 102, 'ALL', 'Datum', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
- 'de', 103, @currentPageType, 'Kreditkartennummer', @MaestroVID, NULL, @customItemSetPassword),
+ 'de', 103, 'ALL', 'Kreditkartennummer', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_104'), 'PUSHED_TO_CONFIG',
- 'de', 104, @currentPageType, 'Telefonnummer', @MaestroVID, NULL, @customItemSetPassword),
+ 'de', 104, 'ALL', 'Telefonnummer', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
  'de', 174, @currentPageType, 'Schliessen', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
@@ -187,7 +187,11 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
  'de', 40, @currentPageType, '', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_41'), 'PUSHED_TO_CONFIG',
- 'de', 41, @currentPageType, '', @MaestroVID, NULL, @customItemSetPassword);
+ 'de', 41, @currentPageType, '', @MaestroVID, NULL, @customItemSetPassword),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
+ 'de', 174, @currentPageType, 'Schliessen', @MaestroVID, NULL, @customItemSetPassword),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
+ 'de', 175, @currentPageType, 'Zurück zum Händler', @MaestroVID, NULL, @customItemSetPassword);
 
 SET @currentPageType = 'HELP_PAGE';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
@@ -279,15 +283,15 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_55'), 'PUSHED_TO_CONFIG',
  'de', 55, @currentPageType, 'Abbrechen und zurück zum Händler', @MaestroVID, NULL, @customItemSetPhotoTan),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_100'), 'PUSHED_TO_CONFIG',
- 'de', 100, @currentPageType, 'Händler', @MaestroVID, NULL, @customItemSetPhotoTan),
+ 'de', 100, 'ALL', 'Händler', @MaestroVID, NULL, @customItemSetPhotoTan),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_101'), 'PUSHED_TO_CONFIG',
- 'de', 101, @currentPageType, 'Betrag', @MaestroVID, NULL, @customItemSetPhotoTan),
+ 'de', 101, 'ALL', 'Betrag', @MaestroVID, NULL, @customItemSetPhotoTan),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_102'), 'PUSHED_TO_CONFIG',
- 'de', 102, @currentPageType, 'Datum', @MaestroVID, NULL, @customItemSetPhotoTan),
+ 'de', 102, 'ALL', 'Datum', @MaestroVID, NULL, @customItemSetPhotoTan),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
- 'de', 103, @currentPageType, 'Kreditkartennummer', @MaestroVID, NULL, @customItemSetPhotoTan),
+ 'de', 103, 'ALL', 'Kreditkartennummer', @MaestroVID, NULL, @customItemSetPhotoTan),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_104'), 'PUSHED_TO_CONFIG',
- 'de', 104, @currentPageType, 'Telefonnummer', @MaestroVID, NULL, @customItemSetPhotoTan),
+ 'de', 104, 'ALL', 'Telefonnummer', @MaestroVID, NULL, @customItemSetPhotoTan),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
  'de', 174, @currentPageType, 'Schliessen', @MaestroVID, NULL, @customItemSetPhotoTan),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
@@ -324,7 +328,12 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
  'de', 40, @currentPageType, '', @MaestroVID, NULL, @customItemSetPhotoTan),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_41'), 'PUSHED_TO_CONFIG',
- 'de', 41, @currentPageType, '', @MaestroVID, NULL, @customItemSetPhotoTan);
+ 'de', 41, @currentPageType, '', @MaestroVID, NULL, @customItemSetPhotoTan),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
+ 'de', 174, @currentPageType, 'Schliessen', @MaestroVID, NULL, @customItemSetPhotoTan),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
+ 'de', 175, @currentPageType, 'Zurück zum Händler', @MaestroVID, NULL, @customItemSetPhotoTan);
+
 
 SET @currentPageType = 'HELP_PAGE';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
@@ -422,16 +431,16 @@ Bei Rückfragen wenden Sie sich bitte an Ihr persönliches Betreuungsteam.', @Ma
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_104'), 'PUSHED_TO_CONFIG',
 	'de', 104, 'ALL', 'Telefonnummer', @MaestroVID, NULL, @customItemSetMobileApp),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
-	'de', 174, 'ALL', 'Schliessen', @MaestroVID, NULL, @customItemSetMobileApp),
+	'de', 174, @currentPageType, 'Schliessen', @MaestroVID, NULL, @customItemSetMobileApp),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
-	'de', 175, 'ALL', 'Zurück zum Händler', @MaestroVID, NULL, @customItemSetMobileApp);
+	'de', 175, @currentPageType, 'Zurück zum Händler', @MaestroVID, NULL, @customItemSetMobileApp);
 
 SET @currentPageType = 'FAILURE_PAGE';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
 						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
 						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
-    'de', 1, @currentPageType, 'Bitte bestätigen Sie folgende Zahlung', @MaestroVID, NULL, @customItemSetMobileApp),
+	'de', 1, @currentPageType, 'Bitte bestätigen Sie folgende Zahlung', @MaestroVID, NULL, @customItemSetMobileApp),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_5'), 'PUSHED_TO_CONFIG',
 	'de', 5, @currentPageType, 'Hilfe', @MaestroVID, NULL, @customItemSetMobileApp),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_6'), 'PUSHED_TO_CONFIG',
@@ -443,7 +452,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
 	'de', 9, @currentPageType, 'Visa Secure - ein Service von Visa in Kooperation mit BNP Paribas', @MaestroVID, NULL, @customItemSetMobileApp),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_44'), 'PUSHED_TO_CONFIG',
-    'de', 10, @currentPageType, '&copy; Visa Europe', @MaestroVID, NULL, @customItemSetMobileApp),
+	'de', 10, @currentPageType, '&copy; Visa Europe', @MaestroVID, NULL, @customItemSetMobileApp),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_16'), 'PUSHED_TO_CONFIG',
 	'de', 16, @currentPageType, 'Ihr Authentifizierungsverfahren wurde gesperrt', @MaestroVID, NULL, @customItemSetMobileApp),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_17'), 'PUSHED_TO_CONFIG',
@@ -451,7 +460,11 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
 	'de', 32, @currentPageType, 'Technischer Fehler', @MaestroVID, NULL, @customItemSetMobileApp),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
-	'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten, sodass der Bezahlvorgang abgebrochen wurde. Bitte versuchen Sie es zu einem anderen Zeitpunkt erneut.', @MaestroVID, NULL, @customItemSetMobileApp);
+	'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten, sodass der Bezahlvorgang abgebrochen wurde. Bitte versuchen Sie es zu einem anderen Zeitpunkt erneut.', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
+	'de', 174, @currentPageType, 'Schliessen', @MaestroVID, NULL, @customItemSetMobileApp),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
+	'de', 175, @currentPageType, 'Zurück zum Händler', @MaestroVID, NULL, @customItemSetMobileApp);
 
 SET @currentPageType = 'HELP_PAGE';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
@@ -523,7 +536,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_104'), 'PUSHED_TO_CONFIG',
 	'de', 104, 'ALL', 'Telefonnummer', @MaestroVID, NULL, @customItemSetREFUSAL),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
-	'de', 175,'ALL', 'Zurück zum Händler', @MaestroVID, NULL, @customItemSetREFUSAL);
+	'de', 175,@currentPageType, 'Zurück zum Händler', @MaestroVID, NULL, @customItemSetREFUSAL);
 
 SET @currentPageType = 'HELP_PAGE';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
