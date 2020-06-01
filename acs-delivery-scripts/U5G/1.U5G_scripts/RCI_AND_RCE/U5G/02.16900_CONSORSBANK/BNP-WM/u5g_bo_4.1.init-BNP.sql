@@ -135,25 +135,21 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div','
 	}
 	div#message-container.info {
 		background-color: #f5f5f5;
-		font-family: BNP Sans Regular;
 		font-size: 12px;
 		color: #403f3d;
 	}
 	div#message-container.success {
 		background-color: #f5f5f5;
-		font-family: BNP Sans Regular;
 		font-size: 12px;
 		color: #7f9c90;
 	}
 	div#message-container.error {
 		background-color: #f5f5f5;
-		font-family: BNP Sans Regular;
 		font-size: 12px;
 		color: #ab7270;
 	}
 	div#message-container.warn {
 		background-color: #f5f5f5;
-		font-family: BNP Sans Regular;
 		font-size: 12px;
 		color: #403f3d;
 	}
@@ -167,7 +163,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div','
 		text-align: center;
 	}
 	span#message {
-		font-family: BNP Sans Regular;
 		font-size: 14px;
 		font-weight: normal;
 		text-align: center;
@@ -175,7 +170,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div','
 		padding-left: 25px;
 	}
 	custom-text#headingTxt {
-		font-family: BNP Sans Regular;
 		padding-left: 8px;
 		display: grid;
 		font-weight: bold;
@@ -186,7 +180,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div','
 		padding-top: 5px;
 	}
 	#return-button-row button {
-		font-family: BNP Sans Regular;
 		font-weight: normal;
 		color: #403f3d;
 		font-size: 16px;
@@ -194,7 +187,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div','
 		background-color: #5b7f95;
 	}
 	#close-button-row button {
-		font-family: BNP Sans Regular;
 		font-weight: normal;
 		color: #403f3d;
 		font-size: 16px;
@@ -220,6 +212,7 @@ SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONC
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', '
 <style>
 	#main-container {
+		font-family: BNP Sans Regular;
 		width: 480px;
 		margin-left: auto;
 		margin-right: auto;
@@ -257,7 +250,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		display: block;
 	}
 	#main-container #content #contentHeader custom-text.ng-isolate-scope {
-		font-family: BNP Sans Regular;
 		font-size: 18px;
 		font-weight: bold;
 		text-align: center;
@@ -267,7 +259,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 	.side-menu .text-left, .side-menu .text-right {
 		padding-right: 5px;
 		padding-left: 5px;
-		font-family: BNP Sans Regular;
 		font-size: 14px;
 		color: #403f3d;
 	}
@@ -280,7 +271,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		flex-direction: column;
 	}
 	#main-container #content #contentMain span.custom-text.ng-binding {
-		font-family: BNP Sans Regular;
 		font-size: 14px;
 		font-weight: normal;
 		text-align: center;
@@ -348,9 +338,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		order: 1;
 	}
 	#main-container #footer .contact custom-text.ng-isolate-scope {
-		font-family: BNP Sans Regular;
-		font-size: 14px;
-		font-weight: normal;
 		text-align: center;
 		color: #403f3d;
 	}
@@ -358,7 +345,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		background-color: #5b7f95;
 	}
 	#main-container #helpButton button span {
-		font-family: BNP Sans Regular;
 		font-size: 16px;
 		font-weight: normal;
 		text-align: center;
@@ -391,7 +377,9 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		font-size: 0.8em;
 	}
 	#main-container #footer .bold {
-		font-weight: bold;
+		font-size: 14px;
+		font-weight: normal;
+		color: #403f3d;
 	}
 	#main-container #footer .grey {
 		color: #6b6b6b;
@@ -408,8 +396,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		flex-direction: row;
 	}
 	#main-container #footer #copyright custom-text.ng-isolate-scope {
-		font-family: BNP Sans Regular;
-		font-size: 14px;
 		font-weight: normal;
 		text-align: center;
 		color: #403f3d;
@@ -463,7 +449,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		border-style: none;
 		padding: 0px;
 		color: #5b7f95;
-		font-family: BNP Sans Regular;
 		font-size: 14px;
 	}
 	#main-container .row button:hover:enabled {
@@ -585,7 +570,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 	<div id="content">
 		<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
 			<h2>
-				<custom-text custom-text-key="''network_means_pageType_1''" id="paragraph1"></custom-text>
+				<custom-text custom-text-key="''network_means_pageType_1''" id="title"></custom-text>
 			</h2>
 			<div class="transactiondetails">
 				<side-menu></side-menu>
@@ -625,6 +610,9 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 				<div class="line small bold">
 					<div class=""><custom-text custom-text-key="''network_means_pageType_7''"></custom-text></div>
 				</div>
+				<div class="line small grey">
+					<div class=""><custom-text custom-text-key="''network_means_pageType_8''"></custom-text></div>
+				</div>
 			</div>
 		</div>
 		<div id="copyright" class="extra-small">
@@ -634,15 +622,13 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 	</div>
 </div>
 <style>
-	:root {
-		font-family: proximaLight, Times;
-		padding: 0px;
-		margin: 0px;
-	}
 	.mobileapp {
 		text-align: center;
 	}
 	#main-container {
+		font-family: BNP Sans Regular;
+		font-size: 14px;
+		color: #403f3d;
 		width: 480px;
 		max-width: 480px;
 		margin-left: auto;
@@ -674,12 +660,18 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		top: 1em;
 		padding-right: 1em;
 	}
+	custom-text#title {
+		font-weight: bold;
+		font-size: 18px;
+		color: #403f3d;
+	}
 	#content {
 		text-align: left;
 		color: #403f3d;
 	}
 	#content h2 {
-		font-size: 1.25em;
+		font-size: 14px;
+		font-weight: normal;
 		margin-bottom: 0.25em;
 		margin-top: 0.25em;
 		color: #403f3d;
@@ -709,7 +701,9 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		font-size: 0.8em;
 	}
 	#main-container #footer .bold {
-		font-weight: bold;
+		font-size: 14px;
+		font-weight: normal;
+		color: #403f3d;
 	}
 	#main-container #footer .grey {
 		color: #6b6b6b;
@@ -885,6 +879,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 VALUES ('div', '
 <style>
 	#main-container {
+		font-family: BNP Sans Regular;
 		width: 100%;
 		margin-left: auto;
 		margin-right: auto;
@@ -928,7 +923,6 @@ VALUES ('div', '
 		margin-top: 0.25em;
 	}
 	#main-container #content #contentHeader custom-text.ng-isolate-scope {
-		font-family: BNP Sans Regular;
 		font-size: 18px;
 		font-weight: bold;
 		text-align: center;
@@ -938,7 +932,6 @@ VALUES ('div', '
 	.side-menu .text-left, .side-menu .text-right {
 		padding-right: 5px;
 		padding-left: 5px;
-		font-family: BNP Sans Regular;
 		font-size: 14px;
 		color: #403f3d;
 	}
@@ -951,7 +944,6 @@ VALUES ('div', '
 		display: block;
 	}
 	#main-container #content #contentMain {
-		font-family: BNP Sans Regular;
 		font-size: 14px;
 		font-weight: bold;
 		text-align: center;
@@ -961,7 +953,8 @@ VALUES ('div', '
 		padding: 1em;
 	}
 	#content h2 {
-		font-size: 1.25em;
+		font-size: 14px;
+		font-weight: bold;
 		margin-top: 0px;
 		margin-bottom: 0.25em;
 	}
@@ -970,7 +963,6 @@ VALUES ('div', '
 		flex-direction: row;
 	}
 	#main-container #form-input span.custom-text.ng-binding {
-		font-family: BNP Sans Regular;
 		font-size: 14px;
 		font-weight: normal;
 		text-align: center;
@@ -1029,7 +1021,6 @@ VALUES ('div', '
 		background: none;
 		padding: 0px;
 		color: #5b7f95;
-		font-family: BNP Sans Regular;
 		font-size: 14px;
 	}
 	#main-container #form-controls .back-link span {
@@ -1060,7 +1051,6 @@ VALUES ('div', '
 		padding: 16px;
 	}
 	#main-container #helpButton button span {
-		font-family: BNP Sans Regular;
 		font-size: 16px;
 		font-weight: normal;
 		text-align: center;
@@ -1090,7 +1080,6 @@ VALUES ('div', '
 		font-size: 0.8em;
 	}
 	#main-container #footer .bold {
-		font-family: BNP Sans Regular;
 		font-size: 14px;
 		font-weight: normal;
 		color: #403f3d;
@@ -1110,8 +1099,6 @@ VALUES ('div', '
 		flex-direction: row;
 	}
 	#main-container #footer #copyright custom-text.ng-isolate-scope {
-		font-family: BNP Sans Regular;
-		font-size: 14px;
 		font-weight: normal;
 		text-align: center;
 		color: #403f3d;
@@ -1212,151 +1199,36 @@ VALUES ('div', '
 		margin-bottom: 10px;
 	}
 	@media (max-width: 760px) {
-		#main-container {
-			width: auto;
-		}
-		body {
-			font-size: 14px;
-		}
-		#header {
-			height: 65px;
-		}
-		#networkLogo {
-			width: 100px;
-		}
-		#schemeLogo {
-			margin-top: 1em;
-			width: 70px;
-			height: 70px;
-		}
-		.transactiondetails ul li {
-			text-align: left;
-		}
-		.transactiondetails ul li label {
-			display: block;
-			float: left;
-			width: 50%;
-			text-align: right;
-			font-size: 14px;
-			color: #909090;
-			margin-right: 0.5em;
-		}
-		.transactiondetails ul li span.value {
-			clear: both;
-			text-align: left;
-			margin-left: 0.5em;
-		}
-		.row {
-			width: auto;
-			clear: none;
-		}
-		.row .back-link {
-			float: none;
-			text-align: center;
-			padding-top: 0.5em;
-		}
-		.row .submit-btn {
-			float: none;
-			text-align: center;
-			padding-bottom: 0.5em;
-		}
-		.row button {
-			width: 100%;
-		}
-		.mtan-input {
-			display: flex;
-			flex-direction: column;
-			width: 100%;
-			padding-bottom: 1em;
-			padding-top: 1em;
-		}
-		.resendTan {
-			margin-left: 0px;
-			flex-grow: 2;
-			text-align: center;
-		}
-		.resendTan a {
-			color: #06c2d4;
-			margin-left: 90px;
-			padding-left: 16px;
-		}
-		.mtan-label {
-			flex: 0 0 90px;
-		}
-		.input-label {
-			justify-content: center;
-		}
-		.otp-field {
-			display: inline;
-		}
-		.otp-field input {
-		}
-		#main-container #footer {
-			width: 100%;
-			background-image: none;
-			background-color: #f5f5f5;
-			height: unset;
-		}
-		#main-container #footer .help-area {
-			display: flex;
-			flex-direction: column;
-			padding: 16px;
-			text-align: center;
-		}
-		#main-container #helpButton button {
-			border-style: none;
-			padding: 0px
-		}
-		#main-container #helpButton .fa-info {
-			display: none;
-		}
-		.help-link {
-			width: 100%;
-			order: 2;
-			text-align: center;
-			padding-top: 1em;
-		}
-		#main-container #footer .help-area .contact custom-text.ng-isolate-scope {
-			font-family: BNP Sans Regular;
-			font-size: 14px;
-			font-weight: normal;
-			text-align: center;
-			color: #403f3d;
-		}
-		.contact {
-			width: 100%;
-			order: 1;
-		}
-		#main-container #footer .small-font {
-			font-size: 0.75em;
-		}
-		#otp-error-message {
-			margin-top: 0px;
-			position: relative;
-			background-color: #f5f5f5;
-			text-align: center;
-			width: 100%;
-			margin-left: 0px;
-			margin-bottom: 16px;
-			box-sizing: border-box;
-		}
-		#otp-error-message:after {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0px;
-			width: 0;
-			height: 0;
-			border: 10px solid transparent;
-			border-bottom-color: #f5f5f5;
-			border-top: 0;
-			margin-left: 50%;
-			margin-top: -10px;
-		}
-		#main-container #qrcontrols {
-			display: flex;
-			flex-direction: column;
-		}
+		#main-container {width: auto;}
+		body {font-size: 14px;}
+		#header {height: 65px;}
+		#networkLogo {width: 100px;}
+		#schemeLogo {margin-top: 1em; width: 70px; height: 70px;}
+		.transactiondetails ul li {text-align: left;}
+		.transactiondetails ul li label {display: block; float: left; width: 50%; text-align: right; font-size: 14px; color: #909090; margin-right: 0.5em;}
+		.transactiondetails ul li span.value {clear: both; text-align: left; margin-left: 0.5em;}
+		.row {width: auto; clear: none;}
+		.row .back-link {float: none; text-align: center; padding-top: 0.5em;}
+		.row .submit-btn {float: none; text-align: center; padding-bottom: 0.5em;}
+		.row button {width: 100%;}
+		.mtan-input {display: flex; flex-direction: column; width: 100%; padding-bottom: 1em; padding-top: 1em;}
+		.resendTan {margin-left: 0px; flex-grow: 2; text-align: center;}
+		.resendTan a {color: #06c2d4; margin-left: 90px; padding-left: 16px;}
+		.mtan-label {flex: 0 0 90px;}
+		.input-label {justify-content: center;}
+		.otp-field {display: inline;}
+		.otp-field input {}
+		#main-container #footer {width: 100%; background-image: none; background-color: #f5f5f5; height: unset;}
+		#main-container #footer .help-area {display: flex; flex-direction: column; padding: 16px; text-align: center;}
+		#main-container #helpButton button {border-style: none; padding: 0px}
+		#main-container #helpButton .fa-info {display: none;}
+		.help-link {width: 100%; order: 2; text-align: center; padding-top: 1em;}
+		#main-container #footer .help-area .contact custom-text.ng-isolate-scope {text-align: center; color: #403f3d;}
+		.contact {width: 100%; order: 1;}
+		#main-container #footer .small-font {font-size: 0.75em;}
+		#otp-error-message {margin-top: 0px; position: relative; background-color: #f5f5f5; text-align: center; width: 100%; margin-left: 0px; margin-bottom: 16px; box-sizing: border-box;}
+		#otp-error-message:after {content:''; position: absolute; top: 0; left: 0px; width: 0; height: 0; border: 10px solid transparent; border-bottom-color: #f5f5f5; border-top: 0; margin-left: 50%; margin-top: -10px;}
+		#main-container #qrcontrols {display: flex; flex-direction: column;}
 	}
 </style>
 <div id="main-container">
@@ -1437,12 +1309,8 @@ SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONC
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 VALUES( 'div', '<style>
-	:root {
-		font-family: BNP Sans Regular;
-		padding: 0px;
-		margin: 0px;
-	}
 	#main-container {
+		font-family: BNP Sans Regular;
 		width: 480px;
 		max-width: 480px;
 		margin-left: auto;
@@ -1489,7 +1357,6 @@ VALUES( 'div', '<style>
 		min-height: 200px;
 	}
 	span#paragraph1 {
-		font-family: BNP Sans Regular;
 		font-size: 18px;
 		font-weight: bold;
 		text-align: center;
@@ -1583,7 +1450,9 @@ VALUES( 'div', '<style>
 		font-size: 0.8em;
 	}
 	#main-container #footer .bold {
-		font-weight: bold;
+		font-size: 14px;
+		font-weight: normal;
+		color: #403f3d;
 	}
 	#main-container #footer .grey {
 		color: #6b6b6b;
@@ -1764,13 +1633,9 @@ SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONC
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 VALUES(  'div', '
- <style>
-	:root {
-		font-family: proximaLight, Times;
-		padding: 0px;
-		margin: 0px;
-	}
+<style>
 	#main-container {
+		font-family: BNP Sans Regular;
 		width: 480px;
 		max-width: 480px;
 		margin-left: auto;
@@ -1809,7 +1674,6 @@ VALUES(  'div', '
 		min-height: 200px;
 	}
 	#main-container #content #contentHeader custom-text.ng-isolate-scope {
-		font-family: BNP Sans Regular;
 		font-size: 18px;
 		font-weight: bold;
 		text-align: center;
@@ -1819,7 +1683,6 @@ VALUES(  'div', '
 	.side-menu .text-left, .side-menu .text-right {
 		padding-right: 5px;
 		padding-left: 5px;
-		font-family: BNP Sans Regular;
 		font-size: 14px;
 		color: #403f3d;
 	}
@@ -1830,6 +1693,12 @@ VALUES(  'div', '
 		font-size: 1.25em;
 		margin-top: 0px;
 		margin-bottom: 0.25em;
+	}
+	#main-container #content #paragraph1 {
+		font-size: 18px;
+		font-weight: bold;
+		text-align: center;
+		color: #403f3d;
 	}
 	#main-container #content contentHeaderLeft {
 		font-size: 1.25em;
@@ -1881,7 +1750,6 @@ VALUES(  'div', '
 		font-size: 0.8em;
 	}
 	#main-container #footer .bold {
-		font-family: BNP Sans Regular;
 		font-size: 14px;
 		font-weight: normal;
 		color: #403f3d;
@@ -1901,8 +1769,6 @@ VALUES(  'div', '
 		flex-direction: row;
 	}
 	#main-container #footer #copyright custom-text.ng-isolate-scope {
-		font-family: BNP Sans Regular;
-		font-size: 14px;
 		font-weight: normal;
 		text-align: center;
 		color: #403f3d;
@@ -1925,14 +1791,11 @@ VALUES(  'div', '
 		padding: 16px;
 	}
 	#main-container #footer .contact custom-text.ng-isolate-scope {
-		font-family: BNP Sans Regular;
-		font-size: 14px;
 		font-weight: normal;
 		text-align: center;
 		color: #403f3d;
 	}
 	#main-container #helpButton button span {
-		font-family: BNP Sans Regular;
 		font-size: 16px;
 		font-weight: normal;
 		text-align: center;
@@ -2037,7 +1900,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		overflow: visible;
 	}
 	#helpContent {
-		font-family: BNP Sans Regular;
 		font-size: 16px;
 		font-weight: normal;
 		text-align: left;
@@ -2049,7 +1911,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		display: inline;
 	}
 	#helpButton #help-container #helpContent #helpCloseButton button {
-		font-family: BNP Sans Regular;
 		font-size: 16px;
 		font-weight: normal;
 		height: 30px;
