@@ -5,13 +5,9 @@ SET @appViewPageDescription = CONCAT('OTP_SMS_App_View (', @BankB ,')');
 SET @profileSetName = CONCAT('PS_' , @BankB , '_01');
 SET @pageType = 'OTP_SMS_APP_VIEW';
 
-INSERT INTO CustomPageLayout (controller, pageType, description) VALUES
-( NULL, @pageType, @appViewPageDescription);
-
 SET @idAppViewPage=(SELECT id FROM `CustomPageLayout` WHERE `pageType`= @pageType and `description` = @appViewPageDescription) ;
 
-INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
-VALUES( 'div','
+UPDATE `CustomComponent` SET `value` = '
 <style>
     .acs-container {
         padding: 0.5em;
@@ -213,9 +209,4 @@ VALUES( 'div','
         </div>
     </div>
 </div>
-', @idAppViewPage);
-
-INSERT INTO CustomPageLayout_ProfileSet (customPageLayout_id, profileSet_id)
-select cpl.id, ps.id
-from CustomPageLayout cpl, ProfileSet ps
-where cpl.description = @appViewPageDescription and ps.name = @profileSetName;
+' WHERE `fk_id_layout` = @idAppViewPage;
