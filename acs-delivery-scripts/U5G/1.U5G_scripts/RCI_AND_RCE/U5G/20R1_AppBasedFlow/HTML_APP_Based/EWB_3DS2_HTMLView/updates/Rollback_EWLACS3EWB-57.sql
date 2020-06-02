@@ -173,7 +173,7 @@ UPDATE `CustomComponent` SET `value` = '
                 network_means_pageType_151
             </div>
             <div class="row">
-                <div class="acs-challengeInfoText col-md-10"  id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
+                <div class="acs-challengeInfoText col-md-10"  data-cy="CHALLENGE_INFO_TEXT">
                     network_means_pageType_152
                 </div>
             </div>
