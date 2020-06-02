@@ -92,7 +92,7 @@ INSERT INTO `SubIssuerCrypto` (`acsIdForCrypto`, `binKeyIdentifier`, `cavvKeyInd
 /* ProfileSet */
 /*!40000 ALTER TABLE `ProfileSet` DISABLE KEYS */;
 SET @BankB = '16900';
-SET @BankUB = 'BNP';
+SET @BankUB = 'BNP_WM';
 INSERT INTO `ProfileSet` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `fk_id_subIssuer`)
 	SELECT @createdBy, NOW(), CONCAT(@BankB, ' profile set'), NULL, NULL, CONCAT('PS_', @BankUB, '_01'), @updateState, si.id
 	FROM `SubIssuer` si

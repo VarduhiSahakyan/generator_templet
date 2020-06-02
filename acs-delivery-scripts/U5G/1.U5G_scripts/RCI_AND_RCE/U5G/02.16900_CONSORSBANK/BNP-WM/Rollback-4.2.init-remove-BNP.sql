@@ -2,7 +2,7 @@ USE `U5G_ACS_BO`;
 
 SET @BankB = 'Consorsbank';
 
-SET @BankUB = 'BNP';
+SET @BankUB = 'BNP_WM';
 
 SET @issuerCode = '16900';
 SET @subIssuerCode = '16901';

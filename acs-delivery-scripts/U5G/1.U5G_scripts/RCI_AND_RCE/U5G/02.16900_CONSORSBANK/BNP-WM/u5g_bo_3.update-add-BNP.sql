@@ -8,8 +8,8 @@ SET @subIssuerA = 'BNP Paribas Wealth Management';
 SET @IssuerCode = '16900';
 SET @SubIssuerCodeA = '16901';
 
-SET @Role1 = 'Consors Admin';
-SET @Role2 = 'Consors Intern';
+SET @Role1 = 'BNPWM Admin';
+SET @Role2 = 'BNPWM Intern';
 
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -18,10 +18,9 @@ INSERT INTO `Customer` (`code`, `customerType`, `name`, `parent_id`)
 
 
 -- 2. Add Role
--- Roles are already available
-#INSERT INTO `Role` (`name`) VALUES
-#  (@Role1),
-#  (@Role2);
+INSERT INTO `Role` (`name`) VALUES
+  (@Role1),
+  (@Role2);
 
 -- 3. Add Role-Customer
 

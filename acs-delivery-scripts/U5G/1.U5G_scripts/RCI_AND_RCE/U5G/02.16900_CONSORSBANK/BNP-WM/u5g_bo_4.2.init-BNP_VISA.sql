@@ -16,7 +16,7 @@ SET @subIssuerID = (SELECT id FROM `SubIssuer` WHERE `code` = @subIssuerCode);
 /* ProfileSet */
 /*!40000 ALTER TABLE `ProfileSet` DISABLE KEYS */;
 SET @BankB = '16900';
-SET @BankUB = 'BNP';
+SET @BankUB = 'BNP_WM';
 
 SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` = CONCAT('PS_', @BankUB, '_01'));
 
