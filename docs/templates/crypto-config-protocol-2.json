@@ -1,0 +1,41 @@
+{
+  "cavvKeyIndicator": "${cavvKeyIndicator}",
+  "cipherKeyIdentifier": "${cipherKeyIdentifier}",
+  "acsIdForCrypto": "${acsIdForCrypto}",
+  "binKeyIdentifier": "${binKeyIdentifier}",
+  "hubAESKey": "${hubAESKey}",
+  "cardNetworkAlgorithmMap": {
+    "MASTERCARD": "${cardNetworkAlgorithmMap_MC}",
+    "VISA": "${cardNetworkAlgorithmMap_VISA}"
+  },
+  "cardNetworkSeqGenerationMethodMap": {
+    "MASTERCARD": "${cardNetworkSeqGenerationMethodMap_MC}",
+    "VISA": "${cardNetworkSeqGenerationMethodMap_VISA}"
+  },
+  "cardNetworkIdentifierMap": {
+    "MASTERCARD": "${cardNetworkIdentifierMap_MC}",
+    "VISA": "${cardNetworkIdentifierMap_VISA}"
+  },
+  "acsSignedContentCertificateKeyMap": {
+    "VISA": "${acsSignedContentCertificateKeyMap_VISA}",
+    "MASTERCARD": "${acsSignedContentCertificateKeyMap_MC}"
+  },
+  "acsSignedContentCertificateMap": {
+    "MASTERCARD": {
+      "signingCertificate": "${signingCertificate_MC}",
+      "authorityCertificate": "${authorityCertificate_MC}",
+      "rootCertificate": "${rootCertificate_MC}",
+      "signingCertificateExpiryDate": "${signingCertificate_MC}",
+      "authorityCertificateExpiryDate": "${authorityCertificateExpiryDate_MC}",
+      "rootCertificateExpiryDate": "${rootCertificateExpiryDate_MC}"
+    },
+    "VISA": {
+      "signingCertificate": "${signingCertificate_VISA}",
+      "authorityCertificate": "${authorityCertificate_VISA}",
+      "rootCertificate": "${rootCertificate_VISA}",
+      "signingCertificateExpiryDate": "${signingCertificateExpiryDate_VISA}",
+      "authorityCertificateExpiryDate": "${authorityCertificateExpiryDate_VISA}",
+      "rootCertificateExpiryDate": "${rootCertificateExpiryDate_VISA}"
+    }
+  }
+}
