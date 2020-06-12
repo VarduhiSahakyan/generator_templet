@@ -1010,7 +1010,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 5, 'OTP_FORM_PAGE', 'Zoom', @idNetworkVISA, null,  @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_6'), 'PUSHED_TO_CONFIG',
- 'de', 6, 'OTP_FORM_PAGE', 'Beschreibung für manuelle Challenge', @idNetworkVISA, null,  @currentCustomItemSet),
+ 'de', 6, 'OTP_FORM_PAGE', 'TODO: Beschreibung für manuelle Challenge', @idNetworkVISA, null,  @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_7'), 'PUSHED_TO_CONFIG',
  'de', 7, 'OTP_FORM_PAGE', 'Umschalten auf manuelle Challenge', @idNetworkVISA, null,  @currentCustomItemSet),
@@ -1185,6 +1185,8 @@ INSERT INTO `ProfileSet` (`createdBy`, `creationDate`, `description`, `lastUpdat
 INSERT INTO CustomPageLayout_ProfileSet
 SELECT cpl.id, ps.id FROM (SELECT id FROM ProfileSet where name = CONCAT('PS_', @sharedIssuerName, '_01')) as ps
                         , (SELECT id FROM CustomPageLayout where description like CONCAT('%', @bankName, '%')) as cpl;
+
+SET @idProfileSet = (SELECT id FROM ProfileSet where name = CONCAT('PS_', @sharedIssuerName, '_01'));
 
 /* Profile */
 SET @authMeanRefusal = (SELECT id FROM `AuthentMeans` WHERE `name` = 'REFUSAL');
@@ -1760,6 +1762,18 @@ INSERT INTO `ProfileSet_Rule` (`id_profileSet`, `id_rule`)
 SELECT ps.`id`, r.`id` FROM `ProfileSet` ps, `Rule` r
 WHERE ps.`name` = CONCAT('PS_', @sharedIssuerName, '_01')AND r.`id` IN (@ruleRefusalTE, @ruleRefusalFE, @ruleRBADecline, @ruleRBAAccept, @rulePasswordnormal, @ruleUndefinednormal,
                                                                         @ruleSMSnormal, @ruleMobileAppnormal, @ruleChipTannormal, @ruleSMS_APP, @ruleCHIP_APP, @ruleSMS_CHIP, @ruleCHOICE_ALL, @ruleRefusalDefault);
+-- Bin ranges
+SET @cryptoConfidId = (SELECT id FROM CryptoConfig WHERE description = 'Sparda CryptoConfig');
+
+INSERT INTO `BinRange` (`activateState`, `createdBy`, `creationDate`, `updateState`, `immediateActivation`, `activationDate`, `lowerBound`, `panLength`, `sharedBinRange`, `updateDSDate`, `upperBound`, `fk_id_network`, `fk_id_profileSet`, `toExport`, `coBrandedCardNetwork`, `fk_id_cryptoConfig`, `serviceCode`)
+VALUES
+('ACTIVATED', 'A169318', NOW(), 'PUSHED_TO_CONFIG', false, NULL, '4908040000', 16, false, NULL, '4908049999', @idNetworkVISA, @idProfileSet, false, NULL, @cryptoConfidId, NULL),
+('ACTIVATED', 'A169318', NOW(), 'PUSHED_TO_CONFIG', false, NULL, '5232790000', 16, false, NULL, '5232799999', @idNetworkMC, @idProfileSet, false, NULL, @cryptoConfidId, NULL),
+('ACTIVATED', 'A169318', NOW(), 'PUSHED_TO_CONFIG', false, NULL, '5247210000', 16, false, NULL, '5247219999', @idNetworkMC, @idProfileSet, false, NULL, @cryptoConfidId, NULL),
+('ACTIVATED', 'A169318', NOW(), 'PUSHED_TO_CONFIG', false, NULL, '5256150000', 16, false, NULL, '5256159999', @idNetworkMC, @idProfileSet, false, NULL, @cryptoConfidId, NULL);
+
+INSERT INTO BinRange_SubIssuer (id_binRange, id_subIssuer)
+SELECT br.id, @subIssuerID FROM BinRange br WHERE lowerBound in ('4908040000', '5232790000', '5247210000', '5256150000');
 
 
 /* MerchantPivotList */
