@@ -1,11 +1,11 @@
 USE `U5G_ACS_BO`;
 
 INSERT INTO CustomPageLayout (controller, pageType, description) VALUES
-( NULL, 'EXT_PASSWORD_APP_VIEW', 'EXT_PASSWORD_App_View (ING)');
+( NULL, 'OTP_SMS_APP_VIEW', 'SMS_App_View (FBK)');
 
-SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` ='PS_16500_01');
+SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` ='PS_18502_PB_01');
 
-SET @idAppViewPage=(SELECT id FROM `CustomPageLayout` WHERE `pageType`= 'EXT_PASSWORD_APP_VIEW' and DESCRIPTION = 'EXT_PASSWORD_APP_VIEW (ING)') ;
+SET @idAppViewPage=(SELECT id FROM `CustomPageLayout` WHERE `pageType`= 'OTP_SMS_APP_VIEW' and DESCRIPTION = 'SMS_App_View (FBK)') ;
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
   VALUES( 'div',
@@ -179,7 +179,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 							network_means_pageType_152
 						</div>
 					</div>
-
 					<div class="col-md-12">
 						<form action="HTTPS://EMV3DS/challenge" method="get" data-cy="CHALLENGE_FORM">
 							<div class="form-group">
@@ -198,7 +197,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 			<!-- ACS FOOTER | Information zone -->
 			<div class="acs-footer col-md-12 information-zone">
 				<div class="row">
-					<div class="col-md-10">network_means_pageType_156</div>
 					<div class="acs-footer-icon col-md-2">
 						<a tabindex="0" role="button"
 						   data-container="body" data-toggle="popover" data-placement="top"
@@ -208,9 +206,10 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 					</div>
 				</div>
 			</div>
-		</div>', @idAppViewPage);
+		</div>
+  ', @idAppViewPage);
 
 INSERT INTO CustomPageLayout_ProfileSet (customPageLayout_id, profileSet_id)
 select cpl.id, ps.id
   from CustomPageLayout cpl, ProfileSet ps
-    where cpl.description = 'EXT_PASSWORD_APP_VIEW (ING)' and pageType = 'EXT_PASSWORD_APP_VIEW' and ps.name = 'PS_16500_01';
+    where cpl.description = 'SMS_App_View (FBK)' and pageType = 'OTP_SMS_APP_VIEW' and ps.name = 'PS_18502_PB_01';

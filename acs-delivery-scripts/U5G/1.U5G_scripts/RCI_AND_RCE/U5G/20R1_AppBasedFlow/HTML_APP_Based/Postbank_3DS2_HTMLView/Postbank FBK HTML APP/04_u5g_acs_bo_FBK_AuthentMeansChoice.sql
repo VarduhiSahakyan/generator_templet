@@ -1,11 +1,11 @@
 USE `U5G_ACS_BO`;
 
 INSERT INTO CustomPageLayout (controller, pageType, description) VALUES
-( NULL, 'EXT_PASSWORD_APP_VIEW', 'EXT_PASSWORD_App_View (ING)');
+( NULL, 'UNDEFINED_APP_VIEW', 'Choice_App_View (FBK)');
 
-SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` ='PS_16500_01');
+SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` ='PS_18501_PB_01');
 
-SET @idAppViewPage=(SELECT id FROM `CustomPageLayout` WHERE `pageType`= 'EXT_PASSWORD_APP_VIEW' and DESCRIPTION = 'EXT_PASSWORD_APP_VIEW (ING)') ;
+SET @idAppViewPage=(SELECT id FROM `CustomPageLayout` WHERE `pageType`= 'UNDEFINED_APP_VIEW' and DESCRIPTION = 'Choice_App_View (FBK)') ;
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
   VALUES( 'div',
@@ -160,18 +160,18 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	<body>
 		<div class="acs-container col-md-12">
 			<!-- ACS HEADER | Branding zone-->
-			<div class="acs-header row branding-zone">
-				<div class="col-md-6">
-					<img src="network_means_pageType_251" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
+			    <div class="acs-header row branding-zone">
+					<div class="col-md-6">
+						<img src="network_means_pageType_251" id="issuer-image" alt="Issuer image" data-cy="ISSUER_IMAGE" />
+					</div>
+					<div class="col-md-6">
+						<img src="network_means_pageType_254" id="payment-system-image" alt="Card network image" data-cy="CARD_NETWORK_IMAGE" />
+					</div>
 				</div>
-				<div class="col-md-6">
-					<img src="network_means_pageType_254" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
-				</div>
-			</div>
 			<!-- ACS BODY | Challenge/Processing zone -->
 			<div class="acs-purchase-context col-md-12 challenge-processing-zone">
 				<div class="row">
-					<div class="acs-challengeInfoHeader col-md-12" data-cy="CHALLENGE_INFO_HEADER">
+					<div class="acs-challengeInfoHeader col-md-12" id="acs-challenge-info-header" data-cy="CHALLENGE_INFO_HEADER">
 						network_means_pageType_151
 					</div>
 					<div class="row">
@@ -179,18 +179,14 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 							network_means_pageType_152
 						</div>
 					</div>
-
 					<div class="col-md-12">
-						<form action="HTTPS://EMV3DS/challenge" method="get" data-cy="CHALLENGE_FORM">
-							<div class="form-group">
-								<label for="challenge-html-data-entry" data-cy="CHALLENGE_INFO_LABEL">
-									network_means_pageType_153
-								</label>
-								<input id="challenge-html-data-entry" name="submitted-otp-value"
-									   type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY"/>
+						<!-- DO NOT change the id attribute of the form tag -->
+						<form id="select-means-form" action="HTTPS://EMV3DS/challenge" method="get">
+							<!-- The list of selectable values will be inserted here by the challenge-app service -->
+							<div>
+								<!-- The value attribute of the input tag can be set as a customItem -->
+								<input type="submit" id="select-means-submit" class="btn btn-primary" value="network_means_pageType_154" data-cy="CHALLENGE_MEANS_SELECT_FORM_SUBMIT"/>
 							</div>
-							<input type="submit" value="network_means_pageType_154" class="btn btn-primary"
-								   id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
 						</form>
 					</div>
 				</div>
@@ -198,19 +194,20 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 			<!-- ACS FOOTER | Information zone -->
 			<div class="acs-footer col-md-12 information-zone">
 				<div class="row">
-					<div class="col-md-10">network_means_pageType_156</div>
-					<div class="acs-footer-icon col-md-2">
-						<a tabindex="0" role="button"
-						   data-container="body" data-toggle="popover" data-placement="top"
-						   data-trigger="focus" data-content="network_means_pageType_157">
-							<i class="fa fa-plus"></i>
-						</a>
-					</div>
+				<div class="col-md-10" id="why-info-label" data-cy="WHY_INFO_LABEL">
+                network_means_pageType_156
+				</div>
+				<div class="acs-footer-icon col-md-2" id="why-info-text">
+                <a tabindex="0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" data-container="body" data-content="network_means_pageType_157">
+                    <i class="fa fa-plus"></i>
+                </a>
+				</div>
 				</div>
 			</div>
-		</div>', @idAppViewPage);
+		</div>
+  ', @idAppViewPage);
 
 INSERT INTO CustomPageLayout_ProfileSet (customPageLayout_id, profileSet_id)
 select cpl.id, ps.id
   from CustomPageLayout cpl, ProfileSet ps
-    where cpl.description = 'EXT_PASSWORD_APP_VIEW (ING)' and pageType = 'EXT_PASSWORD_APP_VIEW' and ps.name = 'PS_16500_01';
+    where cpl.description = 'Choice_App_View (FBK)' and pageType = 'UNDEFINED_APP_VIEW' and ps.name = 'PS_18502_PB_01';

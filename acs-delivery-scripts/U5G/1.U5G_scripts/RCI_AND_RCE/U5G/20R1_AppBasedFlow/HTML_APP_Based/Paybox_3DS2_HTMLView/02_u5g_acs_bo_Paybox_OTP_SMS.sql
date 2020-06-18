@@ -1,11 +1,11 @@
 USE `U5G_ACS_BO`;
 
 INSERT INTO CustomPageLayout (controller, pageType, description) VALUES
-( NULL, 'EXT_PASSWORD_APP_VIEW', 'EXT_PASSWORD_App_View (ING)');
+( NULL, 'OTP_SMS_APP_VIEW', 'SMS_App_View (Paybox)');
 
-SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` ='PS_16500_01');
+SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` ='PS_PAYBOX_01');
 
-SET @idAppViewPage=(SELECT id FROM `CustomPageLayout` WHERE `pageType`= 'EXT_PASSWORD_APP_VIEW' and DESCRIPTION = 'EXT_PASSWORD_APP_VIEW (ING)') ;
+SET @idAppViewPage=(SELECT id FROM `CustomPageLayout` WHERE `pageType`= 'OTP_SMS_APP_VIEW' and DESCRIPTION = 'SMS_App_View (Paybox)') ;
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
   VALUES( 'div',
@@ -179,7 +179,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 							network_means_pageType_152
 						</div>
 					</div>
-
 					<div class="col-md-12">
 						<form action="HTTPS://EMV3DS/challenge" method="get" data-cy="CHALLENGE_FORM">
 							<div class="form-group">
@@ -191,6 +190,11 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 							</div>
 							<input type="submit" value="network_means_pageType_154" class="btn btn-primary"
 								   id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
+						</form>
+						<form action="HTTPS://EMV3DS/challenge" method="get">
+							<input type="hidden" name="resend" value="Y">
+							<input type="submit" value="network_means_pageType_155" class="btn btn-default"
+								   id="challenge-resend-submit" data-cy="CHALLENGE_RESEND_FORM_SUBMIT"/>
 						</form>
 					</div>
 				</div>
@@ -208,9 +212,10 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 					</div>
 				</div>
 			</div>
-		</div>', @idAppViewPage);
+		</div>
+  ', @idAppViewPage);
 
 INSERT INTO CustomPageLayout_ProfileSet (customPageLayout_id, profileSet_id)
 select cpl.id, ps.id
   from CustomPageLayout cpl, ProfileSet ps
-    where cpl.description = 'EXT_PASSWORD_APP_VIEW (ING)' and pageType = 'EXT_PASSWORD_APP_VIEW' and ps.name = 'PS_16500_01';
+    where cpl.description = 'SMS_App_View (Paybox)' and pageType = 'OTP_SMS_APP_VIEW' and ps.name = 'PS_PAYBOX_01';

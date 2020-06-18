@@ -1,11 +1,11 @@
 USE `U5G_ACS_BO`;
 
 INSERT INTO CustomPageLayout (controller, pageType, description) VALUES
-( NULL, 'EXT_PASSWORD_APP_VIEW', 'EXT_PASSWORD_App_View (ING)');
+( NULL, 'PASSWORD_APP_VIEW', 'PASSWORD_APP_VIEW (FBK)');
 
-SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` ='PS_16500_01');
+SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` ='PS_18502_PB_01');
 
-SET @idAppViewPage=(SELECT id FROM `CustomPageLayout` WHERE `pageType`= 'EXT_PASSWORD_APP_VIEW' and DESCRIPTION = 'EXT_PASSWORD_APP_VIEW (ING)') ;
+SET @idAppViewPage=(SELECT id FROM `CustomPageLayout` WHERE `pageType`= 'PASSWORD_APP_VIEW' and DESCRIPTION = 'PASSWORD_APP_VIEW (FBK)') ;
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
   VALUES( 'div',
@@ -179,7 +179,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 							network_means_pageType_152
 						</div>
 					</div>
-
 					<div class="col-md-12">
 						<form action="HTTPS://EMV3DS/challenge" method="get" data-cy="CHALLENGE_FORM">
 							<div class="form-group">
@@ -208,9 +207,10 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 					</div>
 				</div>
 			</div>
-		</div>', @idAppViewPage);
+		</div>
+  ', @idAppViewPage);
 
 INSERT INTO CustomPageLayout_ProfileSet (customPageLayout_id, profileSet_id)
 select cpl.id, ps.id
   from CustomPageLayout cpl, ProfileSet ps
-    where cpl.description = 'EXT_PASSWORD_APP_VIEW (ING)' and pageType = 'EXT_PASSWORD_APP_VIEW' and ps.name = 'PS_16500_01';
+    where cpl.description = 'PASSWORD_APP_VIEW (FBK)' and pageType = 'PASSWORD_APP_VIEW' and ps.name = 'PS_18502_PB_01';

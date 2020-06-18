@@ -4,10 +4,10 @@ start transaction;
 
 set foreign_key_checks = 0; 
 
-SET @customItemSetIdMOBILEAPP = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_18501_PB_MOBILE_APP_Normal');
+SET @customItemSetIdMOBILEAPP = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_18501_PB_MOBILE_APP');
 SET @customItemSetIdMOBILEAPPCHOICE = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_18501_PB_MOBILE_APP_Choice');
-SET @customItemSetIdOTPSMS = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_18501_PB_SMS_Normal');
-SET @customItemSetIdPSWD = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_18501_PB_PASSWORD');
+SET @customItemSetIdOTPSMS = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_18501_PB_SMS');
+SET @customItemSetIdPSWD = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_18501_PB_LOGIN');
 SET @customItemSetIdOTPSMSCHOICE = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_18501_PB_SMS_Choice');
 SET @customItemSetIdAUTHENTMEANSCHOICE = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_18501_PB_UNDEFINED');
 SET @pageType = 'APP_VIEW';

@@ -5,10 +5,12 @@ start transaction;
 set foreign_key_checks = 0; 
 
 SET @customItemSetIdMOBILEAPP = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_Paybox_MOBILE_APP');
+SET @customItemSetIdOTPSMS = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_PAYBOX_SMS');
+
 SET @pageType = 'APP_VIEW';
 
 delete from Image where name like '%paybox_%.png%';
-delete from CustomItem where pageTypes = @pageType and fk_id_customItemSet in (@customItemSetIdMOBILEAPP);
+delete from CustomItem where pageTypes = @pageType and fk_id_customItemSet in (@customItemSetIdMOBILEAPP,@customItemSetIdOTPSMS);
 
 set foreign_key_checks = 1; 
 

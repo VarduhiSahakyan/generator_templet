@@ -2,9 +2,9 @@
 USE `U5G_ACS_BO`;
 
 SET @locale = 'de';
-SET @amName = 'EXT_PASSWORD';
+SET @amName = 'KBA';
 SET @username = 'InitPhase';
-SET @customItemSetId = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_18501_PB_PASSWORD');
+SET @customItemSetId = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_18501_PB_LOGIN');
 SET @networkVISA = (SELECT id FROM `Network` WHERE `code` = 'VISA');
 SET @networkMC = (SELECT id FROM `Network` WHERE `code` = 'MASTERCARD');
 
@@ -72,7 +72,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3DS INPUT LABEL
 SET @ordinal = 153;
-SET @text = 'Passwort zur Postbank-ID:';
+SET @text = '';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA, @networkMC);
 

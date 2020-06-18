@@ -4,7 +4,7 @@ USE `U5G_ACS_BO`;
 SET @locale = 'de';
 SET @amName = 'PASSWORD';
 SET @username = 'InitPhase';
-SET @customItemSetId = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_18502_PB_PASSWORD_Normal');
+SET @customItemSetId = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_18502_PB_PASSWORD');
 SET @networkVISA = (SELECT id FROM `Network` WHERE `code` = 'VISA');
 SET @networkMC = (SELECT id FROM `Network` WHERE `code` = 'MASTERCARD');
 

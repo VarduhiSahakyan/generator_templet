@@ -66,7 +66,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3DS MAIN CONTENT TEXT
 SET @ordinal = 152;
-SET @text = '"Bitte bestätigen Sie Ihren Einkauf. Geben Sie dazu die Ihnen zugesandte mobileTAN ein. \n\nAbrechnungskonto : @pam \nHändler : @merchant \nBetrag : @amount \nDatum : @formattedDate \nKartennummer : @maskedPan';
+SET @text = 'Bitte bestätigen Sie Ihren Einkauf. Geben Sie dazu die Ihnen zugesandte mobileTAN ein. \n\nAbrechnungskonto : @pam \nHändler : @merchant \nBetrag : @amount \nDatum : @formattedDate \nKartennummer : @maskedPan';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA, @networkMC);
 
@@ -130,5 +130,14 @@ SET @ordinal = 162;
 SET @text = '';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA, @networkMC);
+	
+	
+	
+SET @customItemSetChoice = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_18502_PB_SMS_Choice');
+
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,`fk_id_network`, `fk_id_image`, @customItemSetChoice
+FROM `CustomItem`  WHERE fk_id_customItemSet = @customItemSetId and pageTypes =@pageType;
 
 
