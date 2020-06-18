@@ -7,7 +7,7 @@ clients.proxy.port.challenge_app = <%= @context['softman_global']['SERVICE_PUBLI
 clients.request.timeout.milli.config=300000
 clients.read.timeout.milli.config=300000
 clients.request.timeout.milli=<%= @context['softman_global']['HYSTRIX_CLIENTS_REQUEST_TIMEOUT_MILLI'] %>
-clients.read.timeout.milli=<%= @context['softman_global']['HYSTRIX_CLIENTS_READ_TIMEOUT_MILLI'] %>
+clients.read.timeout.milli=<%= @context['softman_global']['CLIENTS_READ_TIMEOUT_MILLI'] %>
 clients.backup.exceptions.threshold=<%= @context['softman_global']['HYSTRIX_BACKUP_EXCEPTION_THRESHOLD'] %>
 clients.backup.exceptions.delay=<%= @context['softman_global']['HYSTRIX_BACKUP_EXCEPTION_DELAY'] %>
 clients.backup.error.percentage.threshold=<%= @context['softman_global']['HYSTRIX_BACKUP_ERROR_PERCENTAGE_THRESHOLD'] %>

@@ -1,7 +1,7 @@
 clients.max.connections=5
 clients.max.routes=3
 clients.request.timeout.milli=<%= @context['softman_global']['HYSTRIX_CLIENTS_REQUEST_TIMEOUT_MILLI'] %>
-clients.read.timeout.milli=<%= @context['softman_global']['HYSTRIX_CLIENTS_READ_TIMEOUT_MILLI'] %>
+clients.read.timeout.milli=<%= @context['softman_global']['CLIENTS_READ_TIMEOUT_MILLI'] %>
 clients.backup.exceptions.threshold=<%= @context['softman_global']['HYSTRIX_BACKUP_EXCEPTION_THRESHOLD'] %>
 clients.backup.exceptions.delay=<%= @context['softman_global']['HYSTRIX_BACKUP_EXCEPTION_DELAY'] %>
 clients.backup.error.percentage.threshold=<%= @context['softman_global']['HYSTRIX_BACKUP_ERROR_PERCENTAGE_THRESHOLD'] %>
