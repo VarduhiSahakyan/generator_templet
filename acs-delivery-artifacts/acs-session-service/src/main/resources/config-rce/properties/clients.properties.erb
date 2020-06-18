@@ -1,11 +1,5 @@
 clients.max.connections=5
 clients.max.routes=3
-clients.proxy.host.challenge = <%= @context['softman_global']['SERVICE_PUBLIC_PROXY_HOST'] %>
-clients.proxy.port.challenge = <%= @context['softman_global']['SERVICE_PUBLIC_PROXY_PORT'] %>
-clients.proxy.host.challenge_app = <%= @context['softman_global']['SERVICE_PUBLIC_PROXY_HOST'] %>
-clients.proxy.port.challenge_app = <%= @context['softman_global']['SERVICE_PUBLIC_PROXY_PORT'] %>
-clients.request.timeout.milli.config=300000
-clients.read.timeout.milli.config=300000
 clients.request.timeout.milli=<%= @context['softman_global']['HYSTRIX_CLIENTS_REQUEST_TIMEOUT_MILLI'] %>
 clients.read.timeout.milli=<%= @context['softman_global']['HYSTRIX_CLIENTS_READ_TIMEOUT_MILLI'] %>
 clients.backup.exceptions.threshold=<%= @context['softman_global']['HYSTRIX_BACKUP_EXCEPTION_THRESHOLD'] %>
