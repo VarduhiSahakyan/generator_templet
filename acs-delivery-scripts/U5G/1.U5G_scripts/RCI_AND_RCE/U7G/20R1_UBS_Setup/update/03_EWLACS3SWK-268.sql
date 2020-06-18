@@ -1,4 +1,6 @@
+
 use U7G_ACS_BO;
+
 set @updateBy = 'A707825';
 set @subIssuerNameAndLabel = 'UBS Switzerland AG';
 set @subIssuerCode = '23000';
@@ -12,7 +14,7 @@ set @customItemSets = (select group_concat(id)
 					   where fk_id_subIssuer = @subIssuerID);
 start transaction;
 update CustomItem
-set value        = 'Nº di cell',
+set value        = 'N° di cell',
 	lastUpdateBy = @updateBy,
     lastUpdateDate = now()
 where find_in_set(fk_id_customItemSet, @customItemSets)
