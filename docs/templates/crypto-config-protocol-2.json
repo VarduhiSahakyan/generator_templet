@@ -25,7 +25,7 @@
       "signingCertificate": "${signingCertificate_MC}",
       "authorityCertificate": "${authorityCertificate_MC}",
       "rootCertificate": "${rootCertificate_MC}",
-      "signingCertificateExpiryDate": "${signingCertificate_MC}",
+      "signingCertificateExpiryDate": "${signingCertificateExpiryDate_MC}",
       "authorityCertificateExpiryDate": "${authorityCertificateExpiryDate_MC}",
       "rootCertificateExpiryDate": "${rootCertificateExpiryDate_MC}"
     },
