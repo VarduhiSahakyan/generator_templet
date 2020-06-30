@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <assembly>
-	<id>ds-config-u5g-brx-oldproxy</id>
+	<id>ds-config-prd-vdm-phoenix</id>
 	<formats>
 		<format>zip</format>
 	</formats>
 	<includeBaseDirectory>false</includeBaseDirectory>
 	<fileSets>
 		<fileSet>
-			<directory>src/main/resources/ds-config-u5g-brx-oldproxy</directory>
+			<directory>src/main/resources/ds-config-prd-vdm-phoenix</directory>
 			<excludes>
 				<exclude>**/META-INF/</exclude>
 			</excludes>
