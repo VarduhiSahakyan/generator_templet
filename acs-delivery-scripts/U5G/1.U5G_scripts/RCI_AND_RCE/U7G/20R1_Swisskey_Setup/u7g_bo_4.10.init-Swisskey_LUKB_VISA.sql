@@ -60,13 +60,13 @@ INSERT INTO `BinRange` (`activateState`, `createdBy`, `creationDate`, `descripti
                         `name`, `updateState`, `immediateActivation`, `activationDate`, `lowerBound`, `panLength`,
                         `sharedBinRange`, `updateDSDate`, `upperBound`, `toExport`, `fk_id_profileSet`, `fk_id_network`,
                         `coBrandedCardNetwork`) VALUES
-  ('ACTIVATED', @createdBy, NOW(), NULL, NULL, NULL, NULL, 'PUSHED_TO_CONFIG', TRUE, NOW(), '4395902000', 16, FALSE, NULL, '4395902099', FALSE, @ProfileSet, @MaestroVID, NULL);
+  ('ACTIVATED', @createdBy, NOW(), NULL, NULL, NULL, NULL, 'PUSHED_TO_CONFIG', TRUE, NOW(), '4395902000', 16, FALSE, NULL, '4395902499', FALSE, @ProfileSet, @MaestroVID, NULL);
 
 /* BinRange_SubIssuer */
 INSERT INTO `BinRange_SubIssuer` (`id_binRange`, `id_subIssuer`)
   SELECT b.id, s.id
   FROM BinRange b, SubIssuer s
-  WHERE b.lowerBound='4395902000' AND b.upperBound='4395902099' AND b.fk_id_profileSet=@ProfileSet
+  WHERE b.lowerBound='4395902000' AND b.upperBound='4395902499' AND b.fk_id_profileSet=@ProfileSet
   AND s.code=@subIssuerCode;
 
 /* CustomItem */
