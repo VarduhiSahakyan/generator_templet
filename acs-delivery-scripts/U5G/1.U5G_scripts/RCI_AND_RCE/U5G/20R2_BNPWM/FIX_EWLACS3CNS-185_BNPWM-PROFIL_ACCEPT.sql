@@ -1,0 +1,7 @@
+SELECT id INTO @id_ACCEPT FROM AuthentMeans WHERE NAME = 'ACCEPT';
+SELECT 3 INTO @MAX_ATTEMPTS;
+
+UPDATE Profile
+SET fk_id_AuthentMeans=@id_ACCEPT,
+maxAttempts = @MAX_ATTEMPTS
+WHERE NAME = 'BNP_WM_ACCEPT_01';
