@@ -62,7 +62,7 @@ values ('div',
 		margin-bottom: 1.1em;
 	}
 	.acs-challengeInfoText {
-		white-space: pre-line;
+		white-space: normal;
 		margin-bottom: 2em;
 	}
 	.acs-footer {
