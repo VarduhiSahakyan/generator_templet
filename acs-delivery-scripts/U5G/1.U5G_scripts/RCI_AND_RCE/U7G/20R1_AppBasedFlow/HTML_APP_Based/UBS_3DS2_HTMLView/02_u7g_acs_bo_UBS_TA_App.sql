@@ -20,12 +20,29 @@ values ('div',
 	.acs-header {
 		margin-bottom: 0.5em;
 	}
+	div#bankLogoDiv {
+        width: 50%;
+        float: left;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
 	#issuerLogo {
-		width: 120px;
-		height: 33px;
+        max-height: 96px;
+        max-width: 100%;
 	}
+    div#networkLogoDiv {
+        width: 50%;
+        float: right;
+        padding-right: 16px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
 	#networkLogo {
-		padding-left: 50px;
+        max-height: 96px;
+        max-width: 100%;
 	}
 	.acs-purchase-context {
 		margin-bottom: 2em;
@@ -172,10 +189,10 @@ values ('div',
 <div class="acs-container col-md-12">
 	<!-- ACS HEADER | Branding zone-->
 	<div class="acs-header row branding-zone">
-		<div class="col-md-6">
+		<div id="bankLogoDiv" class="col-md-6">
 			<img src="network_means_pageType_251" id = "issuerLogo" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
 		</div>
-		<div class="col-md-6">
+		<div id="networkLogoDiv" class="col-md-6">
 			<img src="network_means_pageType_254" id = "networkLogo" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
 		</div>
 	</div>
