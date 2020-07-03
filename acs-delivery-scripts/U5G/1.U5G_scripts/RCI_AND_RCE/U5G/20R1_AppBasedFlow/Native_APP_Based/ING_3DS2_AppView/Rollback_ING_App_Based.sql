@@ -8,9 +8,11 @@ SET @customItemSetIdMOBILEAPP = (SELECT id FROM CustomItemSet WHERE name = 'cust
 SET @customItemSetIdOTPSMS = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_16500_ING_SMS');
 SET @customItemSetIdPSWD = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_16500_PASSWORD');
 SET @pageType = 'APP_VIEW';
+SET @pageTypeDevice = 'APP_VIEW_DEVICE_SELECT';
 
 delete from Image where name like '%ing_%.png%';
 delete from CustomItem where pageTypes = @pageType and fk_id_customItemSet in (@customItemSetIdMOBILEAPP, @customItemSetIdOTPSMS, @customItemSetIdPSWD);
+delete from CustomItem where pageTypes = @pageTypeDevice and fk_id_customItemSet in (@customItemSetIdMOBILEAPP);
 
 set foreign_key_checks = 1; 
 
