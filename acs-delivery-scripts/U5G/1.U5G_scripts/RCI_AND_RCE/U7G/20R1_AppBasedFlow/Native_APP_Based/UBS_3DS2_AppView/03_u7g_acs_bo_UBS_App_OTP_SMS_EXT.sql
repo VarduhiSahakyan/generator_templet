@@ -88,7 +88,7 @@ SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code, '_', @amName, '_'
 
 -- 3DS RESEND BUTTON LABEL 
 SET @ordinal = 155;
-SET @text = 'Neuen Bestätigungscode anfordern';
+SET @text = 'Neuer Code';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code, '_', @amName, '_', @pageType, '_', @ordinal, '_', @locale), @updateState, @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA);
 
@@ -208,7 +208,7 @@ SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code, '_', @amName, '_'
 
 -- 3DS RESEND BUTTON LABEL
 SET @ordinal = 155;
-SET @text = 'Request another confirmation code';
+SET @text = 'New code';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code, '_', @amName, '_', @pageType, '_', @ordinal, '_', @locale), @updateState, @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA);
 
@@ -327,7 +327,7 @@ SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code, '_', @amName, '_'
 
 -- 3DS RESEND BUTTON LABEL
 SET @ordinal = 155;
-SET @text = 'Demander un nouveau code de confirmation';
+SET @text = 'Nouveau code';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code, '_', @amName, '_', @pageType, '_', @ordinal, '_', @locale), @updateState, @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA);
 
@@ -446,7 +446,7 @@ SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code, '_', @amName, '_'
 
 -- 3DS RESEND BUTTON LABEL
 SET @ordinal = 155;
-SET @text = 'Richiedere nuovo codice di conferma';
+SET @text = 'Nuovo codice';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code, '_', @amName, '_', @pageType, '_', @ordinal, '_', @locale), @updateState, @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA);
 
