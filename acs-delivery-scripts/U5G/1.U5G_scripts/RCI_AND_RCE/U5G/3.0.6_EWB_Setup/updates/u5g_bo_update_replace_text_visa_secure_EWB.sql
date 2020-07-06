@@ -1,16 +1,23 @@
-USE `U5G_ACS_BO`;
+use `U5G_ACS_BO`;
 
-SET @updateBy = 'A707825';
-SET @BankUB = 'EWB';
+set @issuerCode = '00062';
+set @updateBy = 'A707825';
 
-START TRANSACTION;
-UPDATE CustomItem
-SET value = REPLACE(value, 'Verified by Visa', 'Visa Secure')
-WHERE fk_id_customItemSet IN (SELECT id
-							  FROM `CustomItemSet`
-							  WHERE `name` IN (CONCAT('customitemset_', @BankUB, '_1_REFUSAL'),
-											   CONCAT('customitemset_', @BankUB, '_SMS')))
-  AND value LIKE '%Verified by Visa%'
-  AND DTYPE = 'T';
+set @masterOld = 'Mastercard SecureCode';
+set @masterNew = 'Mastercard Identity Check';
+set @visaOld = 'Verified by Visa';
+set @visaNew = 'VisaSecure';
 
-COMMIT;
+start transaction;
+update CustomItem
+set value          = replace(replace(value, @masterOld, @masterNew), @visaOld, @visaNew),
+	lastUpdateBy   = @updateBy,
+	lastUpdateDate = now()
+where fk_id_customItemSet in (select id
+							  from `CustomItemSet`
+							  where fk_id_subIssuer in (select id
+														from SubIssuer
+														where fk_id_issuer = (select id from Issuer where code = @issuerCode)))
+  and (value like CONCAT('%', @visaOld, '%') or value like CONCAT('%', @masterOld, '%'))
+  and DTYPE = 'T';
+commit;
