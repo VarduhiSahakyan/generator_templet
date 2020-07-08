@@ -2,16 +2,14 @@ stages:
 - build
 - deploy
 - release
-# - notify
+#- notify
 
 variables:
   MAVEN_CLI_OPTS: "-T 2C"
   MM_MSG_USER: "GitLab Tech User"
-  MAJOR: "19"
-  MINOR: "R3"
   GIT_REPO_URL: https://acs-dlge-gitlab-tech-user:8XcLn7eDtl6zGhs1@gitlab.kazan.priv.atos.fr/acs-dlge/acs-dlge-gitlab-1.git
-  # MM_MSG_ICON: "https://gitlab.kazan.priv.atos.fr/uploads/-/system/user/avatar/13412/avatar.png"
-  # MM_MSG_TEXT: "###  **New release ` $MAVEN_RELEASE ` available on Nexus for *$CI_PROJECT_NAME* project [ branch `$CI_COMMIT_REF_NAME` ].**\n_The new snapshot version : `$MAVEN_SNAPSHOT`. :triumph:_\nHappy coding @channel"
+  MM_MSG_ICON: "https://gitlab.kazan.priv.atos.fr/uploads/-/system/user/avatar/13412/avatar.png"
+  MM_MSG_TEXT: "###  **New release ` $MAVEN_RELEASE ` available on Nexus for *$CI_PROJECT_NAME* project [ branch `$CI_COMMIT_REF_NAME` ].**\n_The new snapshot version : `$MAVEN_SNAPSHOT`. :triumph:_\nHappy coding @channel"
   # MM_MSG_WEBHOOK: "https://mattermost.kazan.priv.atos.fr/hooks/1645okpkr3gdpgghshmb799cxw"
 
 
@@ -22,42 +20,24 @@ build:
   - mvn -f pom.xml clean package -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
   when: always
   tags:
-    - kazan-M
-    - docker-M
-
-
-prepare_acs_release:
-  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
-  stage: release
-  before_script:
-    - mvn help:evaluate -Dexpression=project.version -q -DforceStdout > version.tmp
-    - sed -i 's/-SNAPSHOT//g' version.tmp
-    - export RELEASE="`cat version.tmp`"
-    - echo "build version $RELEASE"
-  script:
-  - mvn versions:set -DnewVersion=$RELEASE versions:commit
-  - mvn -f pom.xml clean package -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
-  - git config user.name "technical-user-acs"
-  - git config user.email "technical-user-acs@atos.net"
-  - git add .
-  - git commit -m "Release $RELEASE"
-  - git tag -a $RELEASE -m "Release $RELEASE"
-  - git push --tags $GIT_REPO_URL HEAD:$CI_COMMIT_REF_NAME
-  when: manual
-  only:
-  - master
-  tags:
-    - kazan-M
-    - docker-M
+    - kazan-S
+    - docker-S
 
 snapshot_deploy:
   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
   stage: deploy
+  before_script:
+    - mvn help:evaluate -Dexpression=project.version -q -DforceStdout > version.tmp
+    - sed -i 's/-SNAPSHOT//g' version.tmp
+    - export SNAPSHOT="`cat version.tmp`"
+    - rm version.tmp
+    - echo "build version $SNAPSHOT-SNAPSHOT"
+    - mvn versions:set -DnewVersion=$SNAPSHOT-SNAPSHOT versions:commit
   script:
     - mvn -f pom.xml clean deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
   tags:
-    - kazan-M
-    - docker-M
+    - kazan-S
+    - docker-S
   when: manual
   only:
     - /^snapshots/.+$/
@@ -66,56 +46,71 @@ snapshot_deploy:
     - /^request/.+$/
     - specific_artifacts
     - master
-
-release_deploy:
-  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
-  stage: release
-  script:
-    - mvn -f pom.xml clean deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
-  when: manual
-  only: 
-  - master
-  tags:
-    - kazan-M
-    - docker-M
-
-
-update_snapshot: 
+    - /^[HU][0-9X][BFGMAH]$/
+  
+make_release: 
   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
   stage: release
   before_script:
     - mvn help:evaluate -Dexpression=project.version -q -DforceStdout > version.tmp
+    - sed -i 's/-SNAPSHOT//g' version.tmp
+    - export RELEASE="`cat version.tmp`"
+    - echo "build version $RELEASE"
+
+  script:
+    - mvn versions:set -DnewVersion=$RELEASE versions:commit
+    - mvn -f pom.xml clean package -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+    - git config user.name "acs-dlfr-gitlab-tech-user"
+    - git config user.email "acs-dlfr-gitlab-tech-user@atos.net"
+    - git add .
+    - git commit -m "Release $RELEASE"
+    - git tag -a $RELEASE -m "Release $RELEASE"
+    - git push --tags $GIT_REPO_URL HEAD:$CI_COMMIT_REF_NAME
+  after_script:
     - sed -ri 's/^([0-9a-Z]+)-?([0-9]+\.)?([0-9]+)(-SNAPSHOT)?/echo "\1-\2$((\3+1))-SNAPSHOT"/ge' version.tmp
     - export SNAPSHOT="`cat version.tmp`"
+    - rm version.tmp
     - echo "new version $SNAPSHOT"
-  script:
-  - mvn build-helper:parse-version versions:set -DnewVersion=$SNAPSHOT versions:commit
-  - git config user.name "technical-user-acs"
-  - git config user.email "technical-user-acs@atos.net"
-  - git add .
-  - git commit -m "Next Snapshot $SNAPSHOT"
-  - git push $GIT_REPO_URL HEAD:$CI_COMMIT_REF_NAME
+    - mvn versions:set -DnewVersion=$SNAPSHOT versions:commit
+    - git add .
+    - git commit -m "Next Snapshot $SNAPSHOT"
+    - git push $GIT_REPO_URL HEAD:$CI_COMMIT_REF_NAME
   when: manual
-  only: 
+  only:
   - master
   tags:
     - kazan-S
     - docker-S
 
 
-# notify: 
-#   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
-#   stage: notify
-#   script:
-#   - VERSION="$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)"
-#   - >-
-#       curl -X POST
-#       -H 'Content-Type: application/json'
-#       -H 'cache-control: no-cache'
-#       -d "{ \"text\": \":gitlabrunner: Pipeline done for job : ** $CI_JOB_ID from branch $CI_COMMIT_REF_NAME with hash $CI_COMMIT_SHA and text $CI_COMMIT_MESSAGE ** \" }"
-#       https://mattermost.kazan.priv.atos.fr/hooks/1645okpkr3gdpgghshmb799cxw
-# 
-#   when: always
-#   tags:
-#     - kazan-S
-#     - docker-S
+release_deploy:
+  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
+  stage: release
+  script:
+    - mvn -f pom.xml clean deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+  only: 
+  - tags
+  tags:
+    - kazan-S
+    - docker-S
+
+
+#notify: 
+#  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
+#  stage: notify
+#  script:
+#  - VERSION="$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)"
+#  - >-
+#      curl -X POST
+#      -H 'Content-Type: application/json'
+#      -H 'cache-control: no-cache'
+#      -d "{ \"text\": \":gitlabrunner: Pipeline done for job : ** $CI_JOB_ID from branch $CI_COMMIT_REF_NAME :**\n$CI_COMMIT_MESSAGE \nhash was $CI_COMMIT_SHA\" }"
+#      $MM_MSG_WEBHOOK
+#
+#  when: always
+#  only:
+#    - master
+#    - tags
+#  tags:
+#    - kazan-S
+#    - docker-S
