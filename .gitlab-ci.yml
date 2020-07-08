@@ -2,7 +2,7 @@ stages:
 - build
 - deploy
 - release
-- notify
+#- notify
 
 variables:
   MAVEN_CLI_OPTS: "-T 2C"
@@ -10,7 +10,7 @@ variables:
   GIT_REPO_URL: https://acs-dlge-gitlab-tech-user:8XcLn7eDtl6zGhs1@gitlab.kazan.priv.atos.fr/acs-dlge/acs-dlge-gitlab-1.git
   MM_MSG_ICON: "https://gitlab.kazan.priv.atos.fr/uploads/-/system/user/avatar/13412/avatar.png"
   MM_MSG_TEXT: "###  **New release ` $MAVEN_RELEASE ` available on Nexus for *$CI_PROJECT_NAME* project [ branch `$CI_COMMIT_REF_NAME` ].**\n_The new snapshot version : `$MAVEN_SNAPSHOT`. :triumph:_\nHappy coding @channel"
-  MM_MSG_WEBHOOK: "https://mattermost.kazan.priv.atos.fr/hooks/1645okpkr3gdpgghshmb799cxw"
+  # MM_MSG_WEBHOOK: "https://mattermost.kazan.priv.atos.fr/hooks/1645okpkr3gdpgghshmb799cxw"
 
 
 build:
@@ -95,22 +95,22 @@ release_deploy:
     - docker-S
 
 
-notify: 
-  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
-  stage: notify
-  script:
-  - VERSION="$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)"
-  - >-
-      curl -X POST
-      -H 'Content-Type: application/json'
-      -H 'cache-control: no-cache'
-      -d "{ \"text\": \":gitlabrunner: Pipeline done for job : ** $CI_JOB_ID from branch $CI_COMMIT_REF_NAME :**\n$CI_COMMIT_MESSAGE \nhash was $CI_COMMIT_SHA\" }"
-      $MM_MSG_WEBHOOK
-
-  when: always
-  only:
-    - master
-    - tags
-  tags:
-    - kazan-S
-    - docker-S
+#notify: 
+#  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
+#  stage: notify
+#  script:
+#  - VERSION="$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)"
+#  - >-
+#      curl -X POST
+#      -H 'Content-Type: application/json'
+#      -H 'cache-control: no-cache'
+#      -d "{ \"text\": \":gitlabrunner: Pipeline done for job : ** $CI_JOB_ID from branch $CI_COMMIT_REF_NAME :**\n$CI_COMMIT_MESSAGE \nhash was $CI_COMMIT_SHA\" }"
+#      $MM_MSG_WEBHOOK
+#
+#  when: always
+#  only:
+#    - master
+#    - tags
+#  tags:
+#    - kazan-S
+#    - docker-S
