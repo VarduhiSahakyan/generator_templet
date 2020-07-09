@@ -140,33 +140,20 @@ After this conversion the example message looks like this (in hex and with space
 
 `2A 86 01 26 72 61 61 55 00 4C 4D65726368616E744E616D65 45 35302C3030 4D 43757272656E63793A20455552 48`
 
-| Value from example | Name | Description | 
-|--------------------|------|-------------|
-| `2A`               | Payload length      | Length of the payload (excluding the synchronisation pattern) |
-| `86`               | Message format | describes the format of start code. One byte. See blow for details) |
-| `01` | Control byte | for our use this is always set to 0x01 |
-| `26 72 61 61 55 00` | Startcode | The start code we received from the issuer |
-| `4C` | Format / Length indicator 1 | Describes the length and the format of the following payload field. See detailed description below.|
-| `4D65726368616E744E616D65` | Payload data 1 | Payload field from the authentication message. Here encoded in ISO 676 and displayed as hex |
-| `45` | Format / Length indicator 2 | Describes the length and the format of the following payload field. See detailed description below. |
-| `35302C3030` | Payload data 2 | Payload field from the authentication message. Here encoded in ISO 676 and displayed as hex |
-| `4D` | Format / Length indicator 3 | Describes the length and the format of the following payload field. See detailed description below. |
-| `43757272656E63793A20455552` | Payload data 3 | Payload field from the authentication message. Here encoded in ISO 676 and displayed as hex |
-| `48` | Checksum | Checksum for the message. See below for a detailed description | 
+| Value from example | Name | Length | Description | 
+|--------------------|------|--------|-------------|
+| `2A`               | Payload length      | 1 byte | Length of the payload (excluding the synchronisation pattern) |
+| `86`               | Message format | 1 byte |describes the format of start code. One byte. See blow for details) |
+| `01` | Control byte | 1 byte | for our use this is always set to 0x01 |
+| `26 72 61 61 55 00` | Startcode | Varies, but for the 3DS use case it should always be 6 bytes long | The start code we received from the issuer |
+| `4C` | Format / Length indicator 1 | 1 byte | Describes the length and the format of the following payload field. See detailed description below.|
+| `4D65726368616E744E616D65` | Payload data 1 | Varies (see Format / Length indicator | Payload field from the authentication message. Here encoded in ISO 676 and displayed as hex |
+| `45` | Format / Length indicator 2 | 1 byte | Describes the length and the format of the following payload field. See detailed description below. |
+| `35302C3030` | Payload data 2 |  Varies (see Format / Length indicator | Payload field from the authentication message. Here encoded in ISO 676 and displayed as hex |
+| `4D` | Format / Length indicator 3 | 1 byte | Describes the length and the format of the following payload field. See detailed description below. |
+| `43757272656E63793A20455552` | Payload data 3 |  Varies (see Format / Length indicator | Payload field from the authentication message. Here encoded in ISO 676 and displayed as hex |
+| `48` | Checksum | 1 byte | Checksum for the message. See below for a detailed description | 
 
-`Payload length | Format / Length Startcode | ControlByte | Startcode | Fmt / Length data 1 | data 1 | Fmt / Length data 2 | data 2 |  Fmt / Length data 2 | data 2 | Checksum` 
-
- 
-- Payload length : : Length: 1 Byte
--  : . Length: 1 Byte 
-    - Internal structure of the Format byte
- 
-- Control Byte : for our purposes always set to `0x01` Length: 1 Byte
-- Startcode: Startcode from the  
-
-- Length/Format : 
-- Data field : Value in ISO 676 encoding   
-- Checksum :     
 
 #### Message Format Field
 
