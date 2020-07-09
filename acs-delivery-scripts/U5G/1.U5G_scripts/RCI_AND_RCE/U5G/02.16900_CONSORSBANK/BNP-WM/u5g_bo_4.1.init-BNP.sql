@@ -2017,7 +2017,7 @@ INSERT INTO `Profile` (`createdBy`, `creationDate`, `description`, `lastUpdateBy
 	(@createdBy, NOW(), 'Authentication refused', NULL, NULL, CONCAT(@BankUB,'_REFUSAL_01'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanRefusal, @customItemSetRefusal, NULL, NULL, @subIssuerID),
 	(@createdBy, NOW(), 'Authentication by Mobile App', NULL, NULL, CONCAT(@BankUB,'_MOBILE_APP_EXT_01'), @updateState, 3, '6:(:DIGIT:1)', '^[^OIi]*$', @authMeanMobileApp, @customItemSetMOBILEAPP, NULL, NULL, @subIssuerID),
 	(@createdBy, NOW(), 'Authentication by Photo Tan', NULL, NULL, CONCAT(@BankUB,'_PHOTO_TAN_01'), @updateState, 3,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanPhotoTan, @customItemSetPhotoTan, NULL, NULL, @subIssuerID),
-	(@createdBy, NOW(), 'Automatic Authentication', NULL, NULL, CONCAT(@BankUB,'_ACCEPT_01'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanAttempt, @customItemSetAcceptMaint, NULL, NULL, @subIssuerID),
+	(@createdBy, NOW(), 'Automatic Authentication', NULL, NULL, CONCAT(@BankUB,'_ACCEPT_01'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanACCEPT, @customItemSetAcceptMaint, NULL, NULL, @subIssuerID),
 	(@createdBy, NOW(), 'Authentication by Ext Password', NULL, NULL, CONCAT(@BankUB,'_PASSWORD_01'), @updateState, 3, '4:(:ALPHA_MAJ:1)&(:ALPHA_MIN:1)&(:DIGIT:1)', '^[^OIi]*$', @authMeanPassword, @customItemSetPassword, NULL, NULL, @subIssuerID);
 	/*!40000 ALTER TABLE `Profile` ENABLE KEYS */;
 
