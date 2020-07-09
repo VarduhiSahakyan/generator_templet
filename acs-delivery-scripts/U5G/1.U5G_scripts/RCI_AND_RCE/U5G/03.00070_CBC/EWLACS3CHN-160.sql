@@ -3,71 +3,10 @@ USE `U5G_ACS_BO`;
 SET @createdBy = 'A758582';
 SET @issuerCode = '00070';
 
-SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_00070_SMS' AND `versionNumber` = '2');
+SET @profileSMS = (SELECT fk_id_customItemSetCurrent FROM `Profile` WHERE `name` = '00070_SMS_01');
+SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE id = @profileSMS);
 SET @pageType = 'REFUSAL_PAGE';
 
-
-update CustomItem
-set name      = replace(name, '_ALL_1_en', concat('_', @pageType, '_1_en')),
-	pageTypes = @pageType
-where fk_id_customItemSet = @customItemSetSMS
-  and pageTypes = 'ALL'
-  and ordinal = 1
-  and name like '%MASTERCARD_OTP_SMS_ALL_1_en%'
-  and DTYPE = 'T';
-
-update CustomItem
-set name      = replace(name, '_ALL_2_en', concat('_', @pageType, '_2_en')),
-	pageTypes = @pageType
-where fk_id_customItemSet = @customItemSetSMS
-  and pageTypes = 'ALL'
-  and ordinal = 2
-  and name like '%MASTERCARD_OTP_SMS_ALL_2_en%'
-  and DTYPE = 'T';
-
-update CustomItem
-set name      = replace(name, '_ALL_20_en', concat('_', @pageType, '_20_en')),
-	pageTypes = @pageType
-where fk_id_customItemSet = @customItemSetSMS
-  and pageTypes = 'ALL'
-  and ordinal = 20
-  and name like '%MASTERCARD_OTP_SMS_ALL_20_en%'
-  and DTYPE = 'T';
-
-update CustomItem
-set name      = replace(name, '_ALL_22_en', concat('_', @pageType, '_22_en')),
-	pageTypes = @pageType,
-	value = 'Payment refused'
-where fk_id_customItemSet = @customItemSetSMS
-  and pageTypes = 'ALL'
-  and ordinal = 22
-  and name like '%MASTERCARD_OTP_SMS_ALL_22_en%'
-  and DTYPE = 'T';
-
-update CustomItem
-set name      = replace(name, '_ALL_23_en', concat('_', @pageType, '_23_en')),
-	pageTypes = @pageType,
-	value = 'Your payment with Mastercard SecureCode™ is refused!'
-where fk_id_customItemSet = @customItemSetSMS
-  and pageTypes = 'ALL'
-  and ordinal = 23
-  and name like '%MASTERCARD_OTP_SMS_ALL_23_en%'
-  and DTYPE = 'T';
-
-update CustomItem
-set name      = replace(name, '_ALL_40_en', concat('_', @pageType, '_40_en')),
-	pageTypes = @pageType
-where fk_id_customItemSet = @customItemSetSMS
-  and pageTypes = 'ALL'
-  and ordinal = 40
-  and name like '%MASTERCARD_OTP_SMS_ALL_40_en%'
-  and DTYPE = 'T';
-
-update CustomItem
-set name      = replace(name, '_ALL_41_en', concat('_', @pageType, '_41_en')),
-	pageTypes = @pageType
-where fk_id_customItemSet = @customItemSetSMS
-  and pageTypes = 'ALL'
-  and ordinal = 41
-  and name like '%MASTERCARD_OTP_SMS_ALL_41_en%'
-  and DTYPE = 'T';
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `backgroundColor`, `borderStyle`, `textColor`, `fk_id_network`, `fk_id_image`, `fk_id_font`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, 'MASTERCARD_OTP_SMS_REFUSAL_PAGE_22_en', 'PUSHED_TO_CONFIG', 'en', 22, @pageType, 'Payment refused', NULL, NULL, NULL, 2, NULL, NULL, @customItemSetSMS),
+	('T', @createdBy, NOW(), NULL, NULL, NULL, 'MASTERCARD_OTP_SMS_REFUSAL_PAGE_23_en', 'PUSHED_TO_CONFIG', 'en', 23, @pageType, 'Your payment with Mastercard SecureCode™ is refused!', NULL, NULL, NULL, 2, NULL, NULL, @customItemSetSMS);
