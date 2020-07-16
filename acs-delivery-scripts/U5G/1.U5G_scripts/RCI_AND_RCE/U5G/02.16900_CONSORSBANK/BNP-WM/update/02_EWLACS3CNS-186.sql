@@ -297,7 +297,6 @@ UPDATE CustomComponent SET value = '
 		font-weight: bold;
 		text-align: center;
 		color: #403f3d;
-		padding-left: 30px;
 	}
 	span.col-sm-6.col-xs-6.text-left.padding-left {
 		font-family: OpenSansRegular;
