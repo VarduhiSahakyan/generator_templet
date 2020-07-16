@@ -126,7 +126,23 @@ INSERT INTO `CustomPageLayout_ProfileSet` (`customPageLayout_id`, `profileSet_id
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Message Banner (', @BankUB, ')%'));
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div','
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_301_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_301_FONT_TITLE''"
+			 font-key="''network_means_pageType_301_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_302_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_302_FONT_TITLE''"
+			 font-key="''network_means_pageType_302_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_303_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_303_FONT_TITLE''"
+			 font-key="''network_means_pageType_303_FONT_DATA''"></custom-font>
+
 <style>
+	@font-face {
+		font-family: "BNPPSans";
+		src: url(data:font/truetype;charset=utf-8;base64,<<copied base64 string>>) format(''''truetype'''');
+		font-weight: normal;
+		font-style: normal;
+	}
 	#message-container {
 		position: relative;
 	}
@@ -159,47 +175,57 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div','
 		padding-bottom: 5px;
 	}
 	#message {
-		line-height: 16px;
 		text-align: center;
 	}
 	span#message {
-		font-size: 14px;
+		font-family: "BNPPSansExpanded";
+		font-size: 20px;
 		font-weight: normal;
 		text-align: center;
 		width: 100%;
 		padding-left: 25px;
+		padding: 0px;
 	}
 	custom-text#headingTxt {
+		font-family: "BNPPSansExpandedLight";
 		padding-left: 8px;
 		display: grid;
 		font-weight: bold;
-		font-size: 18px;
+		font-size: 35px;
 		text-align: center;
+		text-transform: uppercase;
 	}
 	div#message-controls {
 		padding-top: 5px;
 	}
 	#return-button-row button {
 		font-weight: normal;
-		color: #403f3d;
-		font-size: 16px;
+		color: white;
+		font-size: 15px;
+		font-family: BNPPSans;
 		text-align: center;
 		background-color: #5b7f95;
 	}
 	#close-button-row button {
 		font-weight: normal;
-		color: #403f3d;
-		font-size: 16px;
+		color: white;
+		font-size: 15px;
+		font-family: BNPPSans;
 		text-align: center;
 		background-color: #5b7f95;
 	}
 	div.message-button {
+		font-family: OpenSansRegular;
+		font-size: 15px;
 		padding-top: 0px;
 		padding-left: 25px;
 	}
 	button span.fa {
 		padding-right: 7px;
 		display: none;
+	}
+	.btn {
+		border-radius: 0px;
 	}
 </style>
 <div id="messageBanner">
@@ -210,9 +236,29 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div','
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('EXT Password OTP Form Page (', @BankUB, ')%') );
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', '
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_301_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_301_FONT_TITLE''"
+			 font-key="''network_means_pageType_301_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_304_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_304_FONT_TITLE''"
+			 font-key="''network_means_pageType_304_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_305_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_305_FONT_TITLE''"
+			 font-key="''network_means_pageType_305_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_306_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_306_FONT_TITLE''"
+			 font-key="''network_means_pageType_306_FONT_DATA''"></custom-font>
+
 <style>
+	@font-face {
+		font-family: "BNPPSans";
+		src: url(data:font/truetype;charset=utf-8;base64,<<copied base64 string>>) format(''''truetype'''');
+		font-weight: normal;
+		font-style: normal;
+	}
 	#main-container {
-		font-family: BNP Sans Regular;
+		font-family: OpenSansRegular;
+		font-size: 15px;
 		width: 480px;
 		margin-left: auto;
 		margin-right: auto;
@@ -250,20 +296,26 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		display: block;
 	}
 	#main-container #content #contentHeader custom-text.ng-isolate-scope {
-		font-size: 18px;
+		font-family: OpenSansRegular;
+		font-size: 25px;
 		font-weight: bold;
 		text-align: center;
 		color: #403f3d;
-		padding-left: 100px;
+	}
+	span.col-sm-6.col-xs-6.text-left.padding-left {
+		font-family: OpenSansRegular;
 	}
 	.side-menu .text-left, .side-menu .text-right {
+		font-family: OpenSansRegular;
 		padding-right: 5px;
 		padding-left: 5px;
-		font-size: 14px;
+		font-size: 15px;
 		color: #403f3d;
 	}
+	.btn {
+		border-radius: 0px;
+	}
 	#main-container #content #contentMain {
-		margin-top: 1em;
 		background-color: #f7f7f7;
 		border-radius: 1em;
 		padding: 1em;
@@ -271,16 +323,19 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		flex-direction: column;
 	}
 	#main-container #content #contentMain span.custom-text.ng-binding {
-		font-size: 14px;
+		font-family: OpenSansRegular;
+		font-size: 15px;
 		font-weight: normal;
 		text-align: center;
-		color: #403f3d;
 	}
 	#main-container #content {
 		text-align: left;
+		background-color: #f7f7f7;
 	}
 	#main-container #content h2 {
-		font-size: 1.25em;
+		font-family: BNPPSansLight;
+		font-size: 25px;
+		line-height: 0.8;
 		margin-top: 0px;
 		margin-bottom: 0.25em;
 	}
@@ -304,7 +359,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 	}
 	input {
 		border: 1px solid #d1d1d1;
-		border-radius: 6px;
 		color: #464646;
 		padding: 7px 10px 5px;
 		height: 20px;
@@ -331,11 +385,11 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		background-color: #f7f7f7;
 		border-radius: 1em;
 		clear: both;
-		margin-top: 1em;
 	}
 	#main-container .contact {
 		width: 70%;
 		order: 1;
+		font-weight: bold;
 	}
 	#main-container #footer .contact custom-text.ng-isolate-scope {
 		text-align: center;
@@ -345,10 +399,11 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		background-color: #5b7f95;
 	}
 	#main-container #helpButton button span {
-		font-size: 16px;
+		font-family: BNPPSans;
+		font-size: 15px;
 		font-weight: normal;
 		text-align: center;
-		color: #749bb3;
+		color: white;
 	}
 	#main-container #helpButton button {
 		border-style: none;
@@ -371,21 +426,21 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		padding-bottom: 0.5em;
 	}
 	#main-container #footer .extra-small {
-		font-size: 0.7em;
+		font-size: 12px;
 	}
 	#main-container #footer .small {
 		font-size: 0.8em;
+		font-weight: normal;
 	}
 	#main-container #footer .bold {
-		font-size: 14px;
-		font-weight: normal;
+		font-family: OpenSansRegular;
+		font-size: 15px;
+		font-weight: bold;
 		color: #403f3d;
 	}
 	#main-container #footer .grey {
 		color: #6b6b6b;
-	}
-	#main-container #footer .bottom-margin {
-		margin-bottom: 10px;
+		font-weight: normal;
 	}
 	#main-container #footer #copyright {
 		width: 100%;
@@ -446,10 +501,12 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		float: left;
 	}
 	#main-container .row .back-link button {
+		font-family: OpenSansRegular;
+		font-size: 15px;
 		border-style: none;
 		padding: 0px;
+		background-color: #f7f7f7;
 		color: #5b7f95;
-		font-size: 14px;
 	}
 	#main-container .row button:hover:enabled {
 		background-color: #5b7f95;
@@ -471,10 +528,10 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		margin-bottom: 10px;
 	}
 	#main-container #validateButton button {
-		font-size: 16px;
+		font-family: BNPPSans;
+		font-size: 15px;
 		height: 30px;
 		line-height: 1.0;
-		border-radius: 6px;
 		background: #5b7f95;
 		box-shadow: none;
 		border: 0px;
@@ -558,6 +615,19 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Polling Page (', @BankUB, ')%') );
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', '
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_301_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_301_FONT_TITLE''"
+			 font-key="''network_means_pageType_301_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_304_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_304_FONT_TITLE''"
+			 font-key="''network_means_pageType_304_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_305_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_305_FONT_TITLE''"
+			 font-key="''network_means_pageType_305_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_306_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_306_FONT_TITLE''"
+			 font-key="''network_means_pageType_306_FONT_DATA''"></custom-font>
+
 <div id="main-container">
 	<div id="header">
 		<div id="banklogo">
@@ -622,12 +692,18 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 	</div>
 </div>
 <style>
+	@font-face {
+		font-family: "BNPPSans";
+		src: url(data:font/truetype;charset=utf-8;base64,<<copied base64 string>>) format(''''truetype'''');
+		font-weight: normal;
+		font-style: normal;
+	}
 	.mobileapp {
 		text-align: center;
 	}
 	#main-container {
-		font-family: BNP Sans Regular;
-		font-size: 14px;
+		font-family: OpenSansRegular;
+		font-size: 15px;
 		color: #403f3d;
 		width: 480px;
 		max-width: 480px;
@@ -660,24 +736,50 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		top: 1em;
 		padding-right: 1em;
 	}
+	div#contentHeader {
+		background-color: #f7f7f7;
+	}
+	div#transactionDetails {
+		background-color: #f7f7f7;
+	}
 	custom-text#title {
 		font-weight: bold;
-		font-size: 18px;
+		font-size: 25px;
+		font-family: OpenSansRegular;
 		color: #403f3d;
 	}
 	#content {
 		text-align: left;
 		color: #403f3d;
+		background-color: #f7f7f7;
 	}
 	#content h2 {
-		font-size: 14px;
+		font-family: BNPPSansLight;
+		font-size: 25px;
+		line-height: 0.8;
 		font-weight: normal;
 		margin-bottom: 0.25em;
 		margin-top: 0.25em;
 		color: #403f3d;
 	}
+	.btn {
+		border-radius: 0px;
+	}
+	span.col-sm-6.col-xs-6.text-left.padding-left {
+		font-family: OpenSansRegular;
+	}
+	.side-menu .text-left, .side-menu .text-right {
+		font-family: OpenSansRegular;
+		padding-right: 5px;
+		padding-left: 5px;
+		font-size: 15px;
+		color: #403f3d;
+	}
 	.menu-elements {
 		color: #403f3d;
+	}
+	div#form-controls {
+		background-color: #f7f7f7;
 	}
 	#main-container #footer {
 		width: 100%;
@@ -695,21 +797,20 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		padding-bottom: 0.5em;
 	}
 	#main-container #footer .extra-small {
-		font-size: 0.7em;
+		font-size: 12px;
 	}
 	#main-container #footer .small {
 		font-size: 0.8em;
+		font-weight: normal;
 	}
 	#main-container #footer .bold {
-		font-size: 14px;
-		font-weight: normal;
+		font-size: 15px;
+		font-weight: bold;
 		color: #403f3d;
 	}
 	#main-container #footer .grey {
 		color: #6b6b6b;
-	}
-	#main-container #footer .bottom-margin {
-		margin-bottom: 10px;
+		font-weight: normal;
 	}
 	#main-container #footer #copyright {
 		width: 100%;
@@ -749,7 +850,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 	}
 	input {
 		border: 1px solid #d1d1d1;
-		border-radius: 6px;
 		color: #464646;
 		padding: 7px 10px 5px;
 		height: 20px;
@@ -784,9 +884,9 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		margin-bottom: 0.25em;
 	}
 	#main-container .row button {
-		font-size: 16px;
+		font-family: OpenSansRegular;
+		font-size: 15px;
 		height: 38px;
-		border-radius: 6px;
 		background: linear-gradient(#4dbed3, #007ea5);
 		box-shadow: none;
 		border: 0px;
@@ -820,6 +920,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		border-style: none;
 		background: none;
 		padding: 0px;
+		background-color: #f7f7f7;
 		color: #06c2d4;
 	}
 	#main-container .row .back-link span {
@@ -836,7 +937,9 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 		padding: 16px;
 	}
 	#main-container #helpButton button span {
-		color: #749bb3;
+		font-family: BNPPSans;
+		font-size: 15px;
+		color: white;
 	}
 	#main-container #helpButton button {
 		border-style: none;
@@ -854,6 +957,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`) VALUES ( 'div', 
 	.contact {
 		width: 70%;
 		order: 1;
+		font-weight: bold;
 	}
 	@media (max-width: 560px) {
 		#main-container {width: auto;}
@@ -877,9 +981,29 @@ SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONC
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 VALUES ('div', '
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_301_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_301_FONT_TITLE''"
+			 font-key="''network_means_pageType_301_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_304_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_304_FONT_TITLE''"
+			 font-key="''network_means_pageType_304_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_305_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_305_FONT_TITLE''"
+			 font-key="''network_means_pageType_305_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_306_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_306_FONT_TITLE''"
+			 font-key="''network_means_pageType_306_FONT_DATA''"></custom-font>
+
 <style>
+	@font-face {
+		font-family: "BNPPSans";
+		src: url(data:font/truetype;charset=utf-8;base64,<<copied base64 string>>) format(''''truetype'''');
+		font-weight: normal;
+		font-style: normal;
+	}
 	#main-container {
-		font-family: BNP Sans Regular;
+		font-family: OpenSansRegular;
+		font-size: 15px;
 		width: 100%;
 		margin-left: auto;
 		margin-right: auto;
@@ -912,8 +1036,15 @@ VALUES ('div', '
 	#main-container #pageHeaderRight {
 		text-align: right;
 	}
+	div#contentHeader {
+		background-color: #f7f7f7;
+	}
+	div#transactionDetails {
+		background-color: #f7f7f7;
+	}
 	#main-container #content {
 		text-align: left;
+		background-color: #f7f7f7;
 	}
 	#main-container .leftMenuLayout {
 		clear: both
@@ -923,16 +1054,24 @@ VALUES ('div', '
 		margin-top: 0.25em;
 	}
 	#main-container #content #contentHeader custom-text.ng-isolate-scope {
-		font-size: 18px;
+		font-family: OpenSansRegular;
+		font-size: 25px;
 		font-weight: bold;
 		text-align: center;
 		color: #403f3d;
 		padding-left: 146px;
 	}
+	.btn {
+		border-radius: 0px;
+	}
+	span.col-sm-6.col-xs-6.text-left.padding-left {
+		font-family: OpenSansRegular;
+	}
 	.side-menu .text-left, .side-menu .text-right {
+		font-family: OpenSansRegular;
 		padding-right: 5px;
 		padding-left: 5px;
-		font-size: 14px;
+		font-size: 15px;
 		color: #403f3d;
 	}
 	#main-container #content #transactionDetails {
@@ -944,16 +1083,17 @@ VALUES ('div', '
 		display: block;
 	}
 	#main-container #content #contentMain {
-		font-size: 14px;
+		font-size: 15px;
 		font-weight: bold;
 		text-align: center;
-		margin-top: 1em;
 		background-color: #f7f7f7;
 		border-radius: 0.25em;
 		padding: 1em;
 	}
 	#content h2 {
-		font-size: 14px;
+		font-family: BNPPSansLight;
+		font-size: 25px;
+		line-height: 0.8;
 		font-weight: bold;
 		margin-top: 0px;
 		margin-bottom: 0.25em;
@@ -963,10 +1103,10 @@ VALUES ('div', '
 		flex-direction: row;
 	}
 	#main-container #form-input span.custom-text.ng-binding {
-		font-size: 14px;
+		font-family: OpenSansRegular;
+		font-size: 15px;
 		font-weight: normal;
 		text-align: center;
-		color: #403f3d;
 	}
 	#main-container #form-input {
 		align-items: start;
@@ -975,7 +1115,6 @@ VALUES ('div', '
 	}
 	input {
 		border: 1px solid #d1d1d1;
-		border-radius: 6px;
 		color: #464646;
 		padding: 7px 10px 5px;
 		height: 20px;
@@ -997,7 +1136,7 @@ VALUES ('div', '
 		align-items: center;
 	}
 	.otp-field input {
-		margin-left: 16px;
+		margin-left: 15px;
 	}
 	.otp-field input:focus {
 		outline: none;
@@ -1005,6 +1144,9 @@ VALUES ('div', '
 	#main-container #qr-display {
 		display: flex;
 		justify-content: center;
+	}
+	div#form-controls {
+		background-color: #f7f7f7;
 	}
 	#main-container #form-controls-container {
 		display: flex;
@@ -1021,7 +1163,8 @@ VALUES ('div', '
 		background: none;
 		padding: 0px;
 		color: #5b7f95;
-		font-size: 14px;
+		font-size: 15px;
+		font-family: OpenSansRegular;
 	}
 	#main-container #form-controls .back-link span {
 		text-align: left;
@@ -1034,7 +1177,6 @@ VALUES ('div', '
 	#main-container #footer {
 		width: 100%;
 		background-color: #f7f7f7;
-		margin-top: 1em;
 		border-radius: 1em;
 		background-image: none;
 		height: auto;
@@ -1051,10 +1193,11 @@ VALUES ('div', '
 		padding: 16px;
 	}
 	#main-container #helpButton button span {
-		font-size: 16px;
+		font-family: BNPPSans;
+		font-size: 15px;
 		font-weight: normal;
 		text-align: center;
-		color: #749bb3;
+		color: white;
 	}
 	#main-container #helpButton button {
 		border-style: none;
@@ -1072,23 +1215,23 @@ VALUES ('div', '
 	.contact {
 		width: 70%;
 		order: 1;
+		font-weight: bold;
 	}
 	#main-container #footer .extra-small {
-		font-size: 0.7em;
+		font-size: 12px;
 	}
 	#main-container #footer .small {
 		font-size: 0.8em;
+		font-weight: normal;
 	}
 	#main-container #footer .bold {
-		font-size: 14px;
-		font-weight: normal;
+		font-size: 15px;
+		font-weight: bold;
 		color: #403f3d;
 	}
 	#main-container #footer .grey {
 		color: #6b6b6b;
-	}
-	#main-container #footer .bottom-margin {
-		margin-bottom: 10px;
+		font-weight: normal;
 	}
 	#main-container #footer #copyright {
 		width: 100%;
@@ -1133,7 +1276,6 @@ VALUES ('div', '
 	#main-container .row button {
 		font-size: 16px;
 		height: 38px;
-		border-radius: 6px;
 		background: linear-gradient(#4dbed3, #007ea5);
 		box-shadow: none;
 		border: 0px;
@@ -1180,10 +1322,10 @@ VALUES ('div', '
 		margin-bottom: 10px;
 	}
 	#main-container #validateButton button {
-		font-size: 16px;
+		font-family: BNPPSans;
+		font-size: 15px;
 		height: 30px;
 		line-height: 1.0;
-		border-radius: 6px;
 		background-color: #5b7f95;
 		box-shadow: none;
 		border: 0px;
@@ -1200,12 +1342,12 @@ VALUES ('div', '
 	}
 	@media (max-width: 760px) {
 		#main-container {width: auto;}
-		body {font-size: 14px;}
+		body {font-size: 15px;}
 		#header {height: 65px;}
 		#networkLogo {width: 100px;}
 		#schemeLogo {margin-top: 1em; width: 70px; height: 70px;}
 		.transactiondetails ul li {text-align: left;}
-		.transactiondetails ul li label {display: block; float: left; width: 50%; text-align: right; font-size: 14px; color: #909090; margin-right: 0.5em;}
+		.transactiondetails ul li label {display: block; float: left; width: 50%; text-align: right; font-size: 15px; color: #909090; margin-right: 0.5em;}
 		.transactiondetails ul li span.value {clear: both; text-align: left; margin-left: 0.5em;}
 		.row {width: auto; clear: none;}
 		.row .back-link {float: none; text-align: center; padding-top: 0.5em;}
@@ -1227,7 +1369,9 @@ VALUES ('div', '
 		.contact {width: 100%; order: 1;}
 		#main-container #footer .small-font {font-size: 0.75em;}
 		#otp-error-message {margin-top: 0px; position: relative; background-color: #f5f5f5; text-align: center; width: 100%; margin-left: 0px; margin-bottom: 16px; box-sizing: border-box;}
-		#otp-error-message:after {content:''; position: absolute; top: 0; left: 0px; width: 0; height: 0; border: 10px solid transparent; border-bottom-color: #f5f5f5; border-top: 0; margin-left: 50%; margin-top: -10px;}
+		#otp-error-message:after {
+		content:
+	''; position: absolute; top: 0; left: 0px; width: 0; height: 0; border: 10px solid transparent; border-bottom-color: #f5f5f5; border-top: 0; margin-left: 50%; margin-top: -10px;}
 		#main-container #qrcontrols {display: flex; flex-direction: column;}
 	}
 </style>
@@ -1308,9 +1452,29 @@ VALUES ('div', '
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Refusal Page (', @BankUB, ')%') );
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
-VALUES( 'div', '<style>
+VALUES( 'div', '<custom-font straight-mode="false" mime-type-key="''network_means_pageType_301_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_301_FONT_TITLE''"
+			 font-key="''network_means_pageType_301_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_304_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_304_FONT_TITLE''"
+			 font-key="''network_means_pageType_304_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_305_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_305_FONT_TITLE''"
+			 font-key="''network_means_pageType_305_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_306_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_306_FONT_TITLE''"
+			 font-key="''network_means_pageType_306_FONT_DATA''"></custom-font>
+
+<style>
+	@font-face {
+		font-family: "BNPPSans";
+		src: url(data:font/truetype;charset=utf-8;base64,<<copied base64 string>>) format(''''truetype'''');
+		font-weight: normal;
+		font-style: normal;
+	}
 	#main-container {
-		font-family: BNP Sans Regular;
+		font-family: OpenSansRegular;
+		font-size: 15px;
 		width: 480px;
 		max-width: 480px;
 		margin-left: auto;
@@ -1356,27 +1520,46 @@ VALUES( 'div', '<style>
 		padding: 5px 10px 0px;
 		min-height: 200px;
 	}
+	div#contentHeader {
+		background-color: #f7f7f7;
+	}
+	div#transactionDetails {
+		background-color: #f7f7f7;
+	}
 	span#paragraph1 {
-		font-size: 18px;
+		font-family: OpenSansRegular;
+		font-size: 25px;
 		font-weight: bold;
 		text-align: center;
 		color: #403f3d;
 	}
 	#main-container #content {
 		text-align: left;
+		background-color: #f7f7f7;
 	}
 	#main-container #content contentHeaderLeft {
 		font-size: 1.25em;
 		margin-bottom: 0.25em;
 		margin-top: 0.25em;
 	}
+	div#leftMenuLayout {
+		background-color: #f7f7f7;
+	}
 	#main-container .paragraph {
 		display: block;
-		margin-block-start: 1em;
-		margin-block-end: 1em;
-		margin-inline-start: 0px;
-		margin-inline-end: 0px;
-		margin-bottom: 10px;
+	}
+	.btn {
+		border-radius: 0px;
+	}
+	span.col-sm-6.col-xs-6.text-left.padding-left {
+		font-family: OpenSansRegular;
+	}
+	.side-menu .text-left, .side-menu .text-right {
+		padding-right: 5px;
+		padding-left: 5px;
+		font-size: 15px;
+		font-family: OpenSansRegular;
+		color: #403f3d;
 	}
 	#main-container .menu-title {
 		display: none;
@@ -1396,6 +1579,7 @@ VALUES( 'div', '<style>
 	#main-container .contact {
 		width: 70%;
 		order: 1;
+		font-weight: bold;
 	}
 	#main-container .mtan-input {
 		padding-top: 25px;
@@ -1434,7 +1618,6 @@ VALUES( 'div', '<style>
 		background-color: #f7f7f7;
 		border-radius: 1em;
 		clear: both;
-		margin-top: 1em;
 	}
 	#main-container #footer:after {
 		content: "";
@@ -1444,21 +1627,20 @@ VALUES( 'div', '<style>
 		padding-bottom: 0.5em;
 	}
 	#main-container #footer .extra-small {
-		font-size: 0.7em;
+		font-size: 12px;
 	}
 	#main-container #footer .small {
 		font-size: 0.8em;
+		font-weight: normal;
 	}
 	#main-container #footer .bold {
-		font-size: 14px;
-		font-weight: normal;
+		font-size: 15px;
+		font-weight: bold;
 		color: #403f3d;
 	}
 	#main-container #footer .grey {
 		color: #6b6b6b;
-	}
-	#main-container #footer .bottom-margin {
-		margin-bottom: 10px;
+		font-weight: normal;
 	}
 	#main-container #footer #copyright {
 		width: 100%;
@@ -1486,7 +1668,7 @@ VALUES( 'div', '<style>
 		padding: 16px;
 	}
 	#main-container #helpButton button span {
-		color: #749bb3;
+		color: white;
 	}
 	#main-container #helpButton button {
 		border-style: none;
@@ -1498,19 +1680,15 @@ VALUES( 'div', '<style>
 	}
 	#main-container .col-lg-4 {
 		width: 100%;
-		margin-bottom: 20px;
 	}
 	#main-container .col-md-4 {
 		width: 100%;
-		margin-bottom: 20px;
 	}
 	#main-container .col-sm-4 {
 		width: 100%;
-		margin-bottom: 20px;
 	}
 	#main-container .col-xs-12 {
 		width: 100%;
-		margin-bottom: 20px;
 	}
 	#main-container message-banner {
 		display: block;
@@ -1530,6 +1708,7 @@ VALUES( 'div', '<style>
 		float: left;
 	}
 	#main-container .row .back-link button {
+		background-color: #f7f7f7;
 		border-style: none;
 		padding: 0px;
 		color: #06c2d4;
@@ -1548,7 +1727,6 @@ VALUES( 'div', '<style>
 	#main-container #validateButton {
 		font-size: 16px;
 		height: 38px;
-		border-radius: 6px;
 		box-shadow: none;
 		border: 0px;
 	}
@@ -1556,9 +1734,9 @@ VALUES( 'div', '<style>
 		display: none;
 	}
 	#main-container #validateButton button:disabled {
-		font-size: 16px;
+		font-family: BNPPSans;
+		font-size: 15px;
 		height: 38px;
-		border-radius: 6px;
 		background: linear-gradient(#4dbed3, #007ea5);
 		box-shadow: none;
 		border: 0px;
@@ -1633,9 +1811,29 @@ SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONC
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 VALUES(  'div', '
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_301_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_301_FONT_TITLE''"
+			 font-key="''network_means_pageType_301_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_304_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_304_FONT_TITLE''"
+			 font-key="''network_means_pageType_304_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_305_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_305_FONT_TITLE''"
+			 font-key="''network_means_pageType_305_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_306_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_306_FONT_TITLE''"
+			 font-key="''network_means_pageType_306_FONT_DATA''"></custom-font>
+
 <style>
+	@font-face {
+		font-family: "BNPPSans";
+		src: url(data:font/truetype;charset=utf-8;base64,<<copied base64 string>>) format(''''truetype'''');
+		font-weight: normal;
+		font-style: normal;
+	}
 	#main-container {
-		font-family: BNP Sans Regular;
+		font-family: OpenSansRegular;
+		font-size: 15px;
 		width: 480px;
 		max-width: 480px;
 		margin-left: auto;
@@ -1673,6 +1871,9 @@ VALUES(  'div', '
 		padding: 5px 10px 0px;
 		min-height: 200px;
 	}
+	div#leftMenuLayout {
+		background-color: #f7f7f7;
+	}
 	#main-container #content #contentHeader custom-text.ng-isolate-scope {
 		font-size: 18px;
 		font-weight: bold;
@@ -1680,22 +1881,32 @@ VALUES(  'div', '
 		color: #403f3d;
 		padding-left: 100px;
 	}
+	.btn {
+		border-radius: 0px;
+	}
+	span.col-sm-6.col-xs-6.text-left.padding-left {
+		font-family: OpenSansRegular;
+	}
 	.side-menu .text-left, .side-menu .text-right {
 		padding-right: 5px;
 		padding-left: 5px;
-		font-size: 14px;
+		font-size: 15px;
+		font-family: OpenSansRegular;
 		color: #403f3d;
 	}
 	#main-container #content {
 		text-align: left;
+		background-color: #f7f7f7;
 	}
 	#main-container #content h2 {
 		font-size: 1.25em;
+		line-height: 0.8;
 		margin-top: 0px;
 		margin-bottom: 0.25em;
 	}
 	#main-container #content #paragraph1 {
-		font-size: 18px;
+		font-family: OpenSansRegular;
+		font-size: 25px;
 		font-weight: bold;
 		text-align: center;
 		color: #403f3d;
@@ -1707,11 +1918,6 @@ VALUES(  'div', '
 	}
 	#main-container .paragraph {
 		display: block;
-		margin-block-start: 1em;
-		margin-block-end: 1em;
-		margin-inline-start: 0px;
-		margin-inline-end: 0px;
-		margin-bottom: 10px;
 	}
 	#main-container .menu-title {
 		display: none;
@@ -1724,6 +1930,7 @@ VALUES(  'div', '
 	#main-container .contact {
 		width: 70%;
 		order: 1;
+		font-weight: bold;
 	}
 	#main-container div#footer {
 		background-image: none;
@@ -1734,7 +1941,6 @@ VALUES(  'div', '
 		background-color: #f7f7f7;
 		border-radius: 1em;
 		clear: both;
-		margin-top: 1em;
 	}
 	#main-container #footer:after {
 		content: "";
@@ -1744,21 +1950,20 @@ VALUES(  'div', '
 		padding-bottom: 0.5em;
 	}
 	#main-container #footer .extra-small {
-		font-size: 0.7em;
+		font-size: 12px;
 	}
 	#main-container #footer .small {
 		font-size: 0.8em;
+		font-weight: normal;
 	}
 	#main-container #footer .bold {
-		font-size: 14px;
-		font-weight: normal;
+		font-size: 15px;
+		font-weight: bold;
 		color: #403f3d;
 	}
 	#main-container #footer .grey {
 		color: #6b6b6b;
-	}
-	#main-container #footer .bottom-margin {
-		margin-bottom: 10px;
+		font-weight: normal;
 	}
 	#main-container #footer #copyright {
 		width: 100%;
@@ -1791,15 +1996,15 @@ VALUES(  'div', '
 		padding: 16px;
 	}
 	#main-container #footer .contact custom-text.ng-isolate-scope {
-		font-weight: normal;
 		text-align: center;
 		color: #403f3d;
 	}
 	#main-container #helpButton button span {
-		font-size: 16px;
+		font-family: BNPPSans;
+		font-size: 15px;
 		font-weight: normal;
 		text-align: center;
-		color: #749bb3;
+		color: white;
 		background-color: #5b7f95;
 	}
 	#main-container #helpButton button {
@@ -1811,19 +2016,15 @@ VALUES(  'div', '
 	}
 	#main-container .col-lg-4 {
 		width: 100%;
-		margin-bottom: 20px;
 	}
 	#main-container .col-md-4 {
 		width: 100%;
-		margin-bottom: 20px;
 	}
 	#main-container .col-sm-4 {
 		width: 100%;
-		margin-bottom: 20px;
 	}
 	#main-container .col-xs-12 {
 		width: 100%;
-		margin-bottom: 20px;
 	}
 	#main-container message-banner {
 		display: block;
@@ -1895,12 +2096,29 @@ SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONC
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	VALUES( 'div', '
-	<style>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_304_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_304_FONT_TITLE''"
+			 font-key="''network_means_pageType_304_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_305_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_305_FONT_TITLE''"
+			 font-key="''network_means_pageType_305_FONT_DATA''"></custom-font>
+<custom-font straight-mode="false" mime-type-key="''network_means_pageType_306_FONT_MIME_TYPE''"
+			 title-key="''network_means_pageType_306_FONT_TITLE''"
+			 font-key="''network_means_pageType_306_FONT_DATA''"></custom-font>
+
+<style>
+	@font-face {
+		font-family: "BNPPSans";
+		src: url(data:font/truetype;charset=utf-8;base64,<<copied base64 string>>) format(''''truetype'''');
+		font-weight: normal;
+		font-style: normal;
+	}
 	#help-container {
 		overflow: visible;
 	}
 	#helpContent {
-		font-size: 16px;
+		font-family: OpenSansRegular;
+		font-size: 15px;
 		font-weight: normal;
 		text-align: left;
 		color: #403f3d;
@@ -1911,11 +2129,10 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		display: inline;
 	}
 	#helpButton #help-container #helpContent #helpCloseButton button {
-		font-size: 16px;
+		font-size: 15px;
 		font-weight: normal;
 		height: 30px;
 		line-height: 1.0;
-		border-radius: 6px;
 		background-color: #5b7f95;
 		box-shadow: none;
 		border: 0px;
@@ -1924,6 +2141,10 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	}
 	#helpButton #help-container #helpContent #helpCloseButton span.fa-times {
 		display: none;
+	}
+	.btn {
+		border-radius: 0px;
+		font-size: 15px;
 	}
 	.paragraph {
 		margin: 0px 0px 10px;
