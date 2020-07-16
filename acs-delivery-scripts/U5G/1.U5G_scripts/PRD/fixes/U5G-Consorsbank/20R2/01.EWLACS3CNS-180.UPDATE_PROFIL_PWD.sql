@@ -1,0 +1,3 @@
+USE U5G_ACS_BO;
+
+UPDATE Profile SET maxAttempts=99 WHERE name = '16900_PASSWORD_01';
