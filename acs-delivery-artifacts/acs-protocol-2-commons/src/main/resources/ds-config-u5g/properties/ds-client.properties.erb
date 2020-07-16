@@ -6,12 +6,12 @@ ds.request.timeout.milli=300000
 ds.read.timeout.milli=5200
 ds.disable.hostname.verif=<%= @context['softman_global']['DS_DISABLE_HOSTNAME_VERIF'] %>
 #Visa config
-ds.ssl.trust.store.file.visa=<%= @context['softman_global']['VISA_DS_TRUSTSTORE_FILE_PATH'] %>
-ds.ssl.trust.store.password.visa=<%= @context['softman_global']['VISA_DS_TRUSTSTORE_PASSWORD'] %>
+ds.ssl.trust.store.file.visa=certificates/truststore-default.jks
+ds.ssl.trust.store.password.visa=truststore
 ds.ssl.key.store.file.visa=<%= @context['softman_global']['VISA_DS_KEYSTORE_FILE_PATH'] %>
 ds.ssl.key.store.password.visa=<%= @context['softman_global']['VISA_DS_KEYSTORE_PASSWORD'] %>
 #Mastercard config
-ds.ssl.trust.store.file.mastercard=<%= @context['softman_global']['MASTERCARD_DS_TRUSTSTORE_FILE_PATH'] %>
-ds.ssl.trust.store.password.mastercard=<%= @context['softman_global']['MASTERCARD_DS_TRUSTSTORE_PASSWORD'] %>
+ds.ssl.trust.store.file.mastercard=certificates/truststore-default.jks
+ds.ssl.trust.store.password.mastercard=truststore
 ds.ssl.key.store.file.mastercard=<%= @context['softman_global']['MASTERCARD_DS_KEYSTORE_FILE_PATH'] %>
 ds.ssl.key.store.password.mastercard=<%= @context['softman_global']['MASTERCARD_DS_KEYSTORE_PASSWORD'] %>
