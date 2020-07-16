@@ -34,7 +34,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 				margin-bottom: 1.1em;
 			}
 			.acs-challengeInfoText {
-				white-space: pre-wrap;
+				white-space: normal;
 				margin-bottom: 2em;
 			}
 			.acs-footer {
