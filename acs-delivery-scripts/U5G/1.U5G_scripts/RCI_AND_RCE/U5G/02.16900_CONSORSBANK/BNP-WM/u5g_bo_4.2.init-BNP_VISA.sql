@@ -110,7 +110,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_10'), 'PUSHED_TO_CONFIG',
 	'de', 10, @currentPageType, '&copy; Visa Europe', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), 'PUSHED_TO_CONFIG',
-	'de', 11, @currentPageType, 'Bitte bestätigen Sie Ihre Zahlung. Geben Sie dazu die <b>@challenge1</b> Stelle Ihrer 5-stelligen Online-PIN hintereinander und ohne Kommastellen ein.', @MaestroVID, NULL, @customItemSetPassword),
+	'de', 11, @currentPageType, 'Bitte geben Sie zweimal nacheinander die <b>@challenge1</b> Stelle Ihrer 5-stelligen Online PIN ohne Komma und Leerzeichen ein (z. B. „1k1k“).', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_12'), 'PUSHED_TO_CONFIG',
 	'de', 12, @currentPageType, 'Authentifizierung läuft', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_13'), 'PUSHED_TO_CONFIG',
