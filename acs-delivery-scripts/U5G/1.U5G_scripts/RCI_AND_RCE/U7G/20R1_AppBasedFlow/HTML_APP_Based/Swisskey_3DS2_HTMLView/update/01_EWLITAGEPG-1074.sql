@@ -19,9 +19,6 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		width: 120px;
 		height: 33px;
 	}
-	#networkLogo {
-		padding-left: 50px;
-	}
 	.acs-purchase-context {
 		margin-bottom: 2em;
 		margin-top: 0.5em;
@@ -243,9 +240,6 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		width: 120px;
 		height: 33px;
 	}
-	#networkLogo {
-		padding-left: 50px;
-	}
 	.acs-purchase-context {
 		margin-bottom: 2em;
 		margin-top: 0.5em;
@@ -432,4 +426,4 @@ UPDATE `CustomComponent` SET `value` = '<style>
 			</div>
 		</div>
 	</div>
-</div>'
+</div>'  WHERE `fk_id_layout` = @idAppViewPage;
