@@ -677,7 +677,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'de', 3, @currentPageType, 'Um eine Zahlung freizugeben, bestätigen Sie diese mit einem Freigabe-Code, welchen Sie per SMS erhalten. Bei jedem Kauf wird Ihnen per SMS ein neuer, einmaliger Code an die von Ihnen registrierte Telefonnummer gesendet. Für Änderungen Ihrer Telefonnummer, oder anderen Fragen zum Online-Einkauf mit Ihrer Karte, wenden Sie sich bitte an Ihre Bank.', @MaestroVID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_174'), 'PUSHED_TO_CONFIG',
-         'de', 174, @currentPageType, 'Hilfe schließen', @MaestroVID, NULL, @customItemSetSMS);
+         'de', 174, @currentPageType, 'Hilfe-Text schliessen', @MaestroVID, NULL, @customItemSetSMS);
 
 
 
@@ -1342,7 +1342,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'de', 3, @currentPageType, 'Sie können Online-Zahlungen auf Ihrem Mobil-Telefon in der von Ihrer Bank zur Verfügung gestellten Authentifikations-App freigeben. Bei Fragen oder Unklarheiten wenden Sie sich bitte an Ihre Bank.', @MaestroVID, NULL, @customItemSetMobileApp),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@helpPage,'_174'), 'PUSHED_TO_CONFIG',
-         'de', 174, @currentPageType, 'Hilfe schließen', @MaestroVID, NULL, @customItemSetMobileApp);
+         'de', 174, @currentPageType, 'Hilfe-Text schliessen', @MaestroVID, NULL, @customItemSetMobileApp);
 
 
 /* Elements for the FAILURE page, for MOBILE APP Profile */
