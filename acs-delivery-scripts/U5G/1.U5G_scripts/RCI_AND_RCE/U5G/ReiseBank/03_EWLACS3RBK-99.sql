@@ -132,6 +132,9 @@ set @layout = '<style>
 		margin: 0px 0px 10px;
 		text-align: justify;
 	}
+	.menu-elements {
+		display: grid;
+	}
 	.menu-title {
 		color: rgb(0, 100, 62);
 	}
@@ -321,6 +324,9 @@ set @layout = '<style>
 	.paragraph {
 		margin: 0px 0px 10px;
 		text-align: justify;
+	}
+	.menu-elements {
+		display: grid;
 	}
 	.menu-title {
 		color: rgb(0, 100, 62);
@@ -530,6 +536,9 @@ set @layout = '<style>
 	.paragraph {
 		margin: 0px 0px 10px;
 		text-align: justify;
+	}
+	.menu-elements {
+		display: grid;
 	}
 	.menu-title {
 		color: rgb(0, 100, 62);
