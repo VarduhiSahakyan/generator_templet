@@ -1,11 +1,11 @@
 USE `U7G_ACS_BO`;
 
 INSERT INTO CustomPageLayout (controller, pageType, description) VALUES
-( NULL,'OTP_SMS_EXT_MESSAGE_APP_VIEW_LANGUAGE_SELECT', 'LANGUAGE_Choice_App_View (UBS)');
+( NULL,'APP_VIEW_LANGUAGE_SELECT', 'LANGUAGE_Choice_App_View (UBS)');
 
 SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` ='PS_UBS_01');
 SET @customPageLayoutDesc_appView = 'LANGUAGE_Choice_App_View (UBS)';
-SET @pageType = 'OTP_SMS_EXT_MESSAGE_APP_VIEW_LANGUAGE_SELECT';
+SET @pageType = 'APP_VIEW_LANGUAGE_SELECT';
 
 set @idAppViewPage = (select id
 					  from `CustomPageLayout`
@@ -21,6 +21,30 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	}
 	.acs-header {
 		margin-bottom: 0.5em;
+	}
+	div#bankLogoDiv {
+		width: 50%;
+		float: left;
+		height: 100%;
+		display: flex;
+		align-items: center;
+	}
+	#issuerLogo {
+		max-height: 96px;
+		max-width: 100%;
+	}
+	div#networkLogoDiv {
+		width: 50%;
+		float: right;
+		padding-right: 16px;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+	}
+	#networkLogo {
+		max-height: 96px;
+		max-width: 100%;
 	}
 	.acs-purchase-context {
 		margin-bottom: 2em;
@@ -40,7 +64,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		margin-bottom: 1.1em;
 	}
 	.acs-challengeInfoText {
-		white-space: pre-wrap;
+		white-space: normal;
 		margin-bottom: 2em;
 	}
 	.acs-footer {
@@ -74,6 +98,9 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	}
 	.col-md-2 {
 		width: 16.66666667%;
+	}
+	.select-radio {
+		width: 10% !important;
 	}
 	.form-group {
 		margin-bottom: 15px;
@@ -162,56 +189,55 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		border-color: #204d74;
 	}
 </style>
-	</head>
-	<body>
-		<div class="acs-container col-md-12">
-			<!-- ACS HEADER | Branding zone-->
-				<div class="acs-header row branding-zone">
-					<div class="col-md-6">
-						<img src="network_means_pageType_251" id="issuer-image" alt="Issuer image" data-cy="ISSUER_IMAGE" />
-					</div>
-					<div class="col-md-6">
-						<img src="network_means_pageType_254" id="payment-system-image" alt="Card network image" data-cy="CARD_NETWORK_IMAGE" />
-					</div>
-				</div>
-			<!-- ACS BODY | Challenge/Processing zone -->
-			<div class="acs-purchase-context col-md-12 challenge-processing-zone">
-				<div class="row">
-					<div class="acs-challengeInfoHeader col-md-12" id="acs-challenge-info-header" data-cy="CHALLENGE_INFO_HEADER">
-						network_means_pageType_151
-					</div>
-					<div class="row">
-						<div class="acs-challengeInfoText col-md-10" id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
-							network_means_pageType_152
-						</div>
-					</div>
-					<div class="col-md-12">
-				<!-- DO NOT change the id attribute of the form tag -->
-				<form id="select-languages-form" action="HTTPS://EMV3DS/challenge" method="get">
-					<!-- The list of selectable values will be inserted here by the challenge-app service -->
-					<div>
-						<!-- The value attribute of the input tag can be set as a customItem -->
-						<input type="submit" id="select-languages-submit" class="btn btn-primary" value="network_means_pageType_154" data-cy="CHALLENGE_LANGUAGE_SELECT_FORM_SUBMIT" />
-					</div>
-				</form>
+</head>
+<body>
+<div class="acs-container col-md-12">
+	<!-- ACS HEADER | Branding zone-->
+	<div class="acs-header row branding-zone">
+		<div id="bankLogoDiv" class="col-md-6">
+			<img src="network_means_pageType_251" id = "issuerLogo" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
+		</div>
+		<div id="networkLogoDiv" class="col-md-6">
+			<img src="network_means_pageType_254" id = "networkLogo" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
+		</div>
+	</div>
+	<!-- ACS BODY | Challenge/Processing zone -->
+	<div class="acs-purchase-context col-md-12 challenge-processing-zone">
+		<div class="row">
+			<div class="acs-challengeInfoHeader col-md-12" data-cy="CHALLENGE_INFO_HEADER">
+				network_means_pageType_151
 			</div>
+			<div class="row">
+				<div class="acs-challengeInfoText col-md-10" id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
+					network_means_pageType_152
 				</div>
 			</div>
-			<!-- ACS FOOTER | Information zone -->
-			<div class="acs-footer col-md-12 information-zone">
-				<div class="row">
-				<div class="col-md-10">network_means_pageType_156</div>
-				<div class="acs-footer-icon col-md-2" id="why-info-text">
-				<a tabindex="0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" data-container="body" data-content="network_means_pageType_157">
+			<!-- DO NOT change the id attribute of the form tag -->
+			<form id="select-languages-form" action="HTTPS://EMV3DS/challenge" method="get">
+				<!-- The list of selectable values will be inserted here by the challenge-app service -->
+				<div>
+					<!-- The value attribute of the input tag can be set as a customItem -->
+					<input type="submit" id="select-languages-submit" class="btn btn-primary" value="network_means_pageType_154" data-cy="CHALLENGE_LANGUAGE_SELECT_FORM_SUBMIT" />
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- ACS FOOTER | Information zone -->
+	<div class="acs-footer col-md-12 information-zone">
+		<div class="row">
+			<div class="col-md-10">network_means_pageType_156</div>
+			<div class="acs-footer-icon col-md-2">
+				<a tabindex="0" role="button"
+				   data-container="body" data-toggle="popover" data-placement="top"
+				   data-trigger="focus" data-content="network_means_pageType_157">
 					<i class="fa fa-plus"></i>
 				</a>
-				</div>
-				</div>
 			</div>
 		</div>
-  ', @idAppViewPage);
+	</div>
+</div>', @idAppViewPage);
 
   INSERT INTO CustomPageLayout_ProfileSet (customPageLayout_id, profileSet_id)
 select cpl.id, ps.id
   from CustomPageLayout cpl, ProfileSet ps
-	where cpl.description = @customPageLayoutDesc_appView and pageType = @pageType  and ps.name = 'PS_UBS_01';
+    where cpl.description = @customPageLayoutDesc_appView and pageType = @pageType  and ps.name = 'PS_UBS_01';
