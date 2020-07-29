@@ -109,6 +109,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', NULL, @idBankLogo,  @currentCustomItemSet),
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'MASTERCARD_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','MASTERCARD_LOGO', @idNetworkMC, @idNetworkMC,  @currentCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Freigabe der Zahlung nicht möglich</b>', NULL, NULL, @currentCustomItemSet),
 
@@ -173,6 +174,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', NULL, @idBankLogo,  @currentCustomItemSet),
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'MASTERCARD_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','MASTERCARD_LOGO', @idNetworkMC, @idNetworkMC,  @currentCustomItemSet),
 -- ('T', @createdBy, NOW(), NULL, NULL, NULL, 'OTP_SMS_MESSAGE_BODY', 'PUSHED_TO_CONFIG', 'de', 0, 'MESSAGE_BODY', 'Die mobileTAN für Ihren Einkauf mit Kreditkarte @maskedPan am @formattedDate bei @merchant über @amount lautet: @otp Ihre Sparda Bank', NULL, NULL, @currentCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Schritt 2: Eingabe mobileTAN</b>', NULL, NULL, @currentCustomItemSet),
@@ -292,12 +294,18 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
  'de', 174, @currentPageType, 'Schließen', NULL, NULL, @currentCustomItemSet);
 
+SET @currentPageType = 'MEANS_PAGE';
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
+ 'de', 9, @currentPageType, 'SMS', NULL, NULL, @currentCustomItemSet);
+
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, @MaestroVID, `fk_id_image`, @customItemSetSMSChoice
   FROM `CustomItem` WHERE fk_id_customItemSet = @customItemSetSMS;
-
 
 /* Elements for the profile PASSWORD : */
 SET @currentAuthentMean = 'EXT_PASSWORD';
@@ -314,6 +322,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', NULL, @idBankLogo,  @currentCustomItemSet),
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'MASTERCARD_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','MASTERCARD_LOGO', @idNetworkMC, @idNetworkMC,  @currentCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Schritt 1: Eingabe Online-Banking-PIN</b>', NULL, NULL, @currentCustomItemSet),
 
@@ -443,7 +452,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', NULL, @idBankLogo,  @currentCustomItemSet),
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
-
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'MASTERCARD_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','MASTERCARD_LOGO', @idNetworkMC, @idNetworkMC,  @currentCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Schritt 2: Freigabe per SpardaSecureApp</b>', NULL, NULL, @currentCustomItemSet),
 
@@ -592,6 +601,13 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
  'de', 174, @currentPageType, 'Schließen', NULL, NULL, @currentCustomItemSet);
 
+SET @currentPageType = 'MEANS_PAGE';
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
+ 'de', 9, @currentPageType, 'APP', NULL, NULL, @currentCustomItemSet);
+
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
@@ -613,6 +629,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', NULL, @idBankLogo,  @currentCustomItemSet),
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'MASTERCARD_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','MASTERCARD_LOGO', @idNetworkMC, @idNetworkMC,  @currentCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Schritt 2: Eingabe chipTAN</b>', NULL, NULL, @currentCustomItemSet),
 
@@ -739,6 +756,13 @@ Prüfen Sie die Hinweise und bestätigen Sie diese dann jeweils mit "OK" auf Ihr
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
  'de', 174, @currentPageType, 'Schließen', NULL, NULL, @currentCustomItemSet);
  
+SET @currentPageType = 'MEANS_PAGE';
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
+ 'de', 9, @currentPageType, 'SMS', NULL, NULL, @currentCustomItemSet);
+
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
@@ -757,7 +781,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', NULL, @idBankLogo,  @currentCustomItemSet),
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
-
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'MASTERCARD_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','MASTERCARD_LOGO', @idNetworkMC, @idNetworkMC,  @currentCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
  'de', 1, @currentPageType, '<b>Schritt 2: Auswahl TAN-Verfahren</b>', NULL, NULL, @currentCustomItemSet),
 
