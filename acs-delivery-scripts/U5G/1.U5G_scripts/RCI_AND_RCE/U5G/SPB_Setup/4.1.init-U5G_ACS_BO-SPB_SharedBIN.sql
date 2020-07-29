@@ -13,43 +13,7 @@ SET @createdBy = 'A707825';
 /* SubIssuer */
 
 SET @issuerId = (SELECT `id` FROM `Issuer` WHERE `code` = @issuerCode);
-SET @subIssuerNameAndLabel = 'sharedBIN';
 SET @subIssuerCode = '16950';
-/* @backUpLanguage corresponds to a (comma separated) list of locales that should be displayed to the user,
-   and @defaultLanguage a default locale which should be selected by default. */
-SET @backUpLanguages = '';
-SET @defaultLanguage = 'de';
-/* Provides option to call the authentication HUB at PA or VE step */
-SET @HUBcallMode = 'PA_ONLY_MODE';
-/* Correspond to URL to configure for the BinRanges extraction */
-SET @acsURLVEMastercard = 'https://ssl-qlf-u5g-fo-acs-ve.wlp-acs.com:9743/acs-ve-service/ve/veRequest';
-SET @acsURLVEVisa = 'https://ssl-qlf-u5g-fo-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
-/* Corresponds to the authentication mean to use primarily */
-SET @preferredAuthMean = 'EXT_PASSWORD';
-/* See en_countrycode.json, 250 is France's country code. It is important in order to know if the transaction
-   was initiated from an IP from the same location as the ACS (local purchase) */
-SET @issuerCountryCode = '250';
-SET @maskParam = '*,6,4';
-SET @dateFormat = 'DD.MM.YYYY HH:mm';
-SET @activatedAuthMeans = '[ {
-  "authentMeans" : "REFUSAL",
-  "validate" : true
-}, {
-  "authentMeans" : "EXT_PASSWORD",
-  "validate" : true
-}, {
-  "authentMeans" : "UNDEFINED",
-  "validate" : true
-}, {
-  "authentMeans" : "OTP_SMS_EXT_MESSAGE",
-  "validate" : true
-}, {
-  "authentMeans" : "CHIP_TAN",
-  "validate" : true
-}, {
-  "authentMeans" : "MOBILE_APP_EXT",
-  "validate" : true
-} ]';
 
 SET @authMeanRefusal = (SELECT id FROM `AuthentMeans` WHERE `name` = 'REFUSAL');
 SET @authMeanACCEPT = (SELECT id FROM `AuthentMeans` WHERE `name` = 'ACCEPT');
@@ -58,7 +22,7 @@ SET @authMeanUndefined = (SELECT id FROM `AuthentMeans` WHERE `name` = 'UNDEFINE
 SET @authMeanOTPsms = (SELECT id FROM `AuthentMeans` WHERE `name` = 'OTP_SMS_EXT_MESSAGE');
 SET @authMeanOTPchiptan = (SELECT id FROM `AuthentMeans` WHERE `name` = 'CHIP_TAN');
 SET @authentMeansMobileApp = (SELECT id FROM `AuthentMeans`  WHERE `name` = 'MOBILE_APP_EXT');
-
+SET @MaestroVID = NULL;
 SET @subIssuerID = (SELECT id FROM `SubIssuer` WHERE `code` = @subIssuerCode);
 
 INSERT INTO `CustomItemSet` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
@@ -76,8 +40,6 @@ VALUES
  CONCAT('customitemset_', @sharedIssuerName, '_RBAACCEPT'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
 (@createdBy, NOW(), CONCAT('customitemset_', @sharedIssuerName, '_PASSWORD_Current'), NULL, NULL,
  CONCAT('customitemset_', @sharedIssuerName, '_PASSWORD'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), CONCAT('customitemset_', @sharedIssuerName, '_UNDEFINED_Current'), NULL, NULL,
- CONCAT('customitemset_', @sharedIssuerName, '_UNDEFINED'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
 (@createdBy, NOW(), CONCAT('customitemset_', @sharedIssuerName, '_CHOICE_ALL_Current'), NULL, NULL,
  CONCAT('customitemset_', @sharedIssuerName, '_CHOICE_ALL'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
 (@createdBy, NOW(), CONCAT('customitemset_', @sharedIssuerName, '_SMS_CHIP_Current'), NULL, NULL,
@@ -91,7 +53,13 @@ VALUES
 (@createdBy, NOW(), CONCAT('customitemset_', @sharedIssuerName, '_CHIP_TAN'), NULL, NULL,
  CONCAT('customitemset_', @sharedIssuerName, '_CHIP_TAN'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
 (@createdBy, NOW(), CONCAT('customitemset_', @sharedIssuerName, '_MOBILE_APP_EXT_Current'), NULL, NULL,
- CONCAT('customitemset_', @sharedIssuerName, '_MOBILE_APP_EXT'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID);
+ CONCAT('customitemset_', @sharedIssuerName, '_MOBILE_APP_EXT'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), CONCAT('customitemset_', @sharedIssuerName, '_SMS_CHOICE_Current'), NULL, NULL,
+ CONCAT('customitemset_', @sharedIssuerName, '_SMS_CHOICE'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), CONCAT('customitemset_', @sharedIssuerName, '_CHIP_TAN_CHOICE_Current'), NULL, NULL,
+ CONCAT('customitemset_', @sharedIssuerName, '_CHIP_TAN_CHOICE'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), CONCAT('customitemset_', @sharedIssuerName, '_MOBILE_APP_EXT_CHOICE_Current'), NULL, NULL,
+ CONCAT('customitemset_', @sharedIssuerName, '_MOBILE_APP_EXT_CHOICE'), 'PUSHED_TO_CONFIG', 'DEPLOYED_IN_PRODUCTION', 1, NULL, NULL, @subIssuerID);
 
 SET @customItemSetDefaultRefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_DEFAULT_REFUSAL'));
 SET @customItemSetTERefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_TE_REFUSAL'));
@@ -99,14 +67,17 @@ SET @customItemSetFERefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CON
 SET @customItemSetRBADECLINE = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_RBADECLINE'));
 SET @customItemSetRBAACCEPT = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_RBAACCEPT'));
 SET @customItemSetPassword = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_PASSWORD'));
-SET @customItemSetUndefined = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_UNDEFINED'));
-SET @customItemSetChoiceAll = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_CHOICE_ALL'));
-SET @customItemSetChoiceSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_SMS_CHIP'));
-SET @customItemSetChoiceChipApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_CHIP_APP'));
-SET @customItemSetChoiceSMSApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_SMS_APP'));
+-- SET @customItemSetUndefined = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_UNDEFINED'));
+SET @customItemSetUndefinedAll = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_CHOICE_ALL'));
+SET @customItemSetUndefinedSMSChip = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_SMS_CHIP'));
+SET @customItemSetUndefinedChipApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_CHIP_APP'));
+SET @customItemSetUndefinedSMSApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_SMS_APP'));
 SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_SMS'));
 SET @customItemSetCHIPTAN = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @sharedIssuerName, '_CHIP_TAN'));
 SET @customItemSetMobileApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @sharedIssuerName, '_MOBILE_APP_EXT'));
+SET @customItemSetSMSChoice = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@sharedIssuerName,'_SMS_CHOICE'));
+SET @customItemSetCHIPTANChoice = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @sharedIssuerName, '_CHIP_TAN_CHOICE'));
+SET @customItemSetMobileAppChoice = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @sharedIssuerName, '_MOBILE_APP_EXT_CHOICE'));
 
 
 SET @currentAuthentMean = 'REFUSAL';
@@ -127,33 +98,6 @@ SET @networkMC = 'MASTERCARD';
 SET  @idNetworkVISA = (SELECT id FROM Network where code = @networkVISA);
 SET  @idNetworkMC = (SELECT id FROM Network where code = @networkMC);
 
--- refusal custom items
-
-SET @currentPageType = 'REFUSAL_PAGE';
-SET @currentCustomItemSet = @customItemSetDefaultRefusal;
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-VALUES  ('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-       ('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
-    ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA, @currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG', 'de', 1, @currentPageType, '<b>Eine Freigabe der Zahlung ist nicht möglich</b>',  @idNetworkVISA, NULL,  @currentCustomItemSet),
-    ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA, @currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG', 'de', 2, @currentPageType, 'Eine Freigabe der Zahlung durch das Online-Banking ist nicht möglich.',  @idNetworkVISA, NULL,  @currentCustomItemSet),
-    ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA, @currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG', 'de', 3, @currentPageType, 'Über den Button gelangen Sie zurück zum Shop.',  @idNetworkVISA, NULL,  @currentCustomItemSet),
-    ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA, @currentAuthentMean,'_',@currentPageType,'_22'), 'PUSHED_TO_CONFIG', 'de', 22, @currentPageType, 'Der Vorgang konnte nicht durchgeführt werden.',  @idNetworkVISA, NULL,  @currentCustomItemSet),
-    ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA, @currentAuthentMean,'_',@currentPageType,'_23'), 'PUSHED_TO_CONFIG', 'de', 23, @currentPageType, 'Bitte aktivieren Sie Ihre Kreditkarte im Online Banking oder wenden Sie sich an den Berater in Ihrer Filiale.',  @idNetworkVISA, NULL,  @currentCustomItemSet),
-    ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA, @currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG', 'de', 40, @currentPageType, 'Schließen',  @idNetworkVISA, NULL,  @currentCustomItemSet);
-
--- create the same set for Mastercard
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-       @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
 /* Elements for the profile _TE_REFUSAL : */
 
 SET @currentPageType = 'REFUSAL_PAGE';
@@ -163,72 +107,59 @@ SET @currentCustomItemSet = @customItemSetTERefusal;
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', NULL, @idBankLogo,  @currentCustomItemSet),
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Eine Freigabe der Zahlung ist nicht möglich</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 1, @currentPageType, '<b>Freigabe der Zahlung nicht möglich</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Eine Freigabe der Zahlung durch das Online-Banking ist nicht möglich.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Eine Freigabe der Zahlung durch das Online-Banking ist nicht möglich.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, 'Über den Button gelangen Sie zurück zum Shop.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 3, @currentPageType, 'Der Einkauf kann leider nicht fortgesetzt werden. Bitte wenden Sie sich an die kontoführende Filiale Ihrer Sparda-Bank.', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_4'), 'PUSHED_TO_CONFIG',
+ 'de', 4, @currentPageType, 'Über den Button gelangen Sie zurück zum Shop.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_22'), 'PUSHED_TO_CONFIG',
- 'de', 22, @currentPageType, 'Der Vorgang konnte nicht durchgeführt werden.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 22, @currentPageType, 'Der Vorgang konnte nicht durchgeführt werden.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_23'), 'PUSHED_TO_CONFIG',
- 'de', 23, @currentPageType, 'Bitte aktivieren Sie Ihre Kreditkarte im Online Banking oder wenden Sie sich an den Berater in Ihrer Filiale.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 23, @currentPageType, 'Bitte aktivieren Sie Ihre Kreditkarte im Online Banking oder wenden Sie sich an den Berater in Ihrer Filiale.', NULL, NULL, @currentCustomItemSet),
 
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
- 'de', 40, @currentPageType, 'Schließen', @idNetworkVISA, NULL, @currentCustomItemSet);
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
+ 'de', 32, @currentPageType, 'Technischer Fehler', NULL, NULL, @currentCustomItemSet),
 
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
+ 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten und Ihr Kauf konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
+ 'de', 174, 'ALL', 'Schließen', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
+ 'de', 175, 'ALL', 'Zurück zum Shop', NULL, NULL, @currentCustomItemSet);
 
 /* Elements for the profile _FE_REFUSAL : */
 SET @currentCustomItemSet = @customItemSetFERefusal;
 SET @currentPageType = 'REFUSAL_PAGE';
 SET @currentAuthentMean = 'REFUSAL';
 
-
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, @MaestroVID, `fk_id_image`, @customItemSetFERefusal
+  FROM `CustomItem` WHERE fk_id_customItemSet = @customItemSetTERefusal;
 
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Eine Freigabe der Zahlung ist nicht möglich</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+-- refusal custom items
 
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Der Einkauf kann leider nicht fortgesetzt werden. Bitte wenden Sie sich an die kontoführende Filiale Ihrer Sparda-Bank.', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, 'Über den Button gelangen Sie zurück zum Shop.', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_22'), 'PUSHED_TO_CONFIG',
- 'de', 22, @currentPageType, 'Der Vorgang konnte nicht durchgeführt werden.', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_23'), 'PUSHED_TO_CONFIG',
- 'de', 23, @currentPageType, 'Bitte aktivieren Sie Ihre Kreditkarte im Online Banking oder wenden Sie sich an den Berater in Ihrer Filiale.', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
- 'de', 40, @currentPageType, 'Schließen', @idNetworkVISA, NULL, @currentCustomItemSet);
+SET @currentPageType = 'REFUSAL_PAGE';
+SET @currentCustomItemSet = @customItemSetDefaultRefusal;
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
+SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, @MaestroVID, `fk_id_image`, @customItemSetDefaultRefusal
+  FROM `CustomItem` WHERE fk_id_customItemSet = @customItemSetTERefusal;
 
 /* Elements for the profile SMS : */
 SET @currentCustomItemSet = @customItemSetSMS;
@@ -240,124 +171,89 @@ SET @currentPageType = 'OTP_FORM_PAGE';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', NULL, @idBankLogo,  @currentCustomItemSet),
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, 'OTP_SMS_MESSAGE_BODY', 'PUSHED_TO_CONFIG', 'de', 0, 'MESSAGE_BODY', 'Die mobileTAN für Ihren Einkauf mit Kreditkarte @maskedPan am @formattedDate bei @merchant über @amount lautet: @otp Ihre Sparda Bank', @idNetworkVISA, NULL, @currentCustomItemSet),
+-- ('T', @createdBy, NOW(), NULL, NULL, NULL, 'OTP_SMS_MESSAGE_BODY', 'PUSHED_TO_CONFIG', 'de', 0, 'MESSAGE_BODY', 'Die mobileTAN für Ihren Einkauf mit Kreditkarte @maskedPan am @formattedDate bei @merchant über @amount lautet: @otp Ihre Sparda Bank', NULL, NULL, @currentCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Schritt 2: Eingabe mobileTAN</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 1, @currentPageType, '<b>Schritt 2: Eingabe mobileTAN</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte geben Sie die TAN ein, die per SMS an die unten aufgeführte Mobilfunknummer gesendet wurde.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Bitte geben Sie die TAN ein, die per SMS an die unten aufgeführte Mobilfunknummer gesendet wurde.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, '<b>TAN* :</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 3, @currentPageType, '<b>TAN* :</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_12'), 'PUSHED_TO_CONFIG',
- 'de', 12, @currentPageType, 'Authentifizierung läuft', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 12, @currentPageType, 'Authentifizierung läuft', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_13'), 'PUSHED_TO_CONFIG',
- 'de', 13, @currentPageType, 'Bitte warten Sie ein paar Sekunden, um Ihre Eingabe zu überprüfen.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 13, @currentPageType, 'Bitte warten Sie ein paar Sekunden, um Ihre Eingabe zu überprüfen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_14'), 'PUSHED_TO_CONFIG',
- 'de', 14, @currentPageType, 'Die Zahlung wurde abgebrochen.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 14, @currentPageType, 'Die Zahlung wurde abgebrochen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_15'), 'PUSHED_TO_CONFIG',
- 'de', 15, @currentPageType, 'Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung durchführen möchten.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 15, @currentPageType, 'Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung durchführen möchten.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_26'), 'PUSHED_TO_CONFIG',
- 'de', 26, @currentPageType, 'Authentifizierung erfolgreich.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 26, @currentPageType, 'Authentifizierung erfolgreich.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_27'), 'PUSHED_TO_CONFIG',
- 'de', 27, @currentPageType, 'Sie wurden erfolgreich authentifiziert und werden automatisch zum Händler weitergeleitet.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 27, @currentPageType, 'Sie wurden erfolgreich authentifiziert und werden automatisch zum Händler weitergeleitet.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_28'), 'PUSHED_TO_CONFIG',
- 'de', 28, @currentPageType, 'Fehlerhafte TAN', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 28, @currentPageType, 'Fehlerhafte TAN', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_29'), 'PUSHED_TO_CONFIG',
- 'de', 29, @currentPageType, 'Diese TAN-Nummer ist ungültig. Bitte ändern Sie Ihre Eingabe.Die Anzahl der Ihnen verbleibenden Versuche lautet: <remaining tries>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 29, @currentPageType, 'Diese TAN-Nummer ist ungültig. Bitte ändern Sie Ihre Eingabe. Die Anzahl der Ihnen verbleibenden Versuche lautet: @trialsLeft', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_30'), 'PUSHED_TO_CONFIG',
- 'de', 30, @currentPageType, 'Die Session ist abgelaufen.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 30, @currentPageType, 'Die Session ist abgelaufen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_31'), 'PUSHED_TO_CONFIG',
- 'de', 31, @currentPageType, 'Sie haben einige Zeit keine Eingaben vorgenommen, daher wurde die Zahlung abgebrochen. Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung durchführen  möchten.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 31, @currentPageType, 'Sie haben einige Zeit keine Eingaben vorgenommen, daher wurde die Zahlung abgebrochen. Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung durchführen  möchten.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
- 'de', 32, @currentPageType, 'Technischer Fehler.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 32, @currentPageType, 'Technischer Fehler.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
- 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten, Ihr Kauf konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten, Ihr Kauf konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_34'), 'PUSHED_TO_CONFIG',
- 'de', 34, @currentPageType, 'SMS wird versendet.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 34, @currentPageType, 'SMS wird versendet.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_35'), 'PUSHED_TO_CONFIG',
- 'de', 35, @currentPageType, 'Bitte haben Sie einen kleinen Moment Geduld. In Kürze erhalten Sie ein neues Einmalpasswort.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 35, @currentPageType, 'Bitte haben Sie einen kleinen Moment Geduld. In Kürze erhalten Sie ein neues Einmalpasswort.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
- 'de', 40, @currentPageType, 'Abbrechen', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 40, @currentPageType, 'Abbrechen', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_41'), 'PUSHED_TO_CONFIG',
+ 'de', 41, @currentPageType, '?', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_42'), 'PUSHED_TO_CONFIG',
- 'de', 42, @currentPageType, 'Senden', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
- 'de', 175, @currentPageType, 'Zurück zum Shop', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 42, @currentPageType, 'Senden', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_100'), 'PUSHED_TO_CONFIG',
- 'de', 100, 'ALL', 'Händler', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 100, 'ALL', 'Händler', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_101'), 'PUSHED_TO_CONFIG',
- 'de', 101, 'ALL', 'Betrag', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 101, 'ALL', 'Betrag', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_102'), 'PUSHED_TO_CONFIG',
- 'de', 102, 'ALL', 'Datum', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 102, 'ALL', 'Datum', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
- 'de', 103, 'ALL', 'Kartennummer', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 103, 'ALL', 'Kartennummer', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_104'), 'PUSHED_TO_CONFIG',
- 'de', 104, 'ALL', 'Mobilfunknummer', @idNetworkVISA, NULL, @currentCustomItemSet);
+ 'de', 104, 'ALL', 'Mobilfunknummer', NULL, NULL, @currentCustomItemSet),
 
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
+ 'de', 174, 'ALL', 'Schließen', NULL, NULL, @currentCustomItemSet),
 
-
-
-SET @Imageid = (SELECT `id` FROM `Image` im WHERE im.name LIKE CONCAT('%','OTP_SMS_Logo','%'));
-/* Elements for the MEANS page, for SMS Profile */
-SET @currentPageType = 'MEANS_PAGE';
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Schritt 2: Auswahl TAN-Verfahren</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte wählen Sie eines der möglichen TAN-Verfahren aus.', @idNetworkVISA, NULL, @currentCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, '<b>Auswahl TAN-Verfahren*: </b>', @idNetworkVISA, NULL, @currentCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
- 'de', 9, @currentPageType, 'SMS', @idNetworkVISA, NULL, @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
- 'de', 9, @currentPageType, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), @idNetworkVISA, @Imageid, @currentCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
- 'de', 40, @currentPageType, 'Abbrechen', @idNetworkVISA, NULL, @currentCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_42'), 'PUSHED_TO_CONFIG',
- 'de', 42, @currentPageType, 'Senden', @idNetworkVISA, NULL, @currentCustomItemSet);
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
+ 'de', 175, 'ALL', 'Zurück zum Shop', NULL, NULL, @currentCustomItemSet);
 
 /* Elements for the FAILURE page, for SMS Profile */
 SET @currentPageType = 'FAILURE_PAGE';
@@ -365,34 +261,19 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Eine Freigabe der Zahlung ist nicht möglich.</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 1, @currentPageType, '<b>Freigabe der Zahlung nicht möglich</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Die Anmeldung ist fehlgeschlagen. Bitte versuchen Sie es erneut mit gültigen Anmeldedaten.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Die Anmeldung ist fehlgeschlagen. Bitte versuchen Sie es erneut mit gültigen Anmeldedaten.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, 'Über den Button gelangen Sie zurück zum Shop.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 3, @currentPageType, 'Über den Button gelangen Sie zurück zum Shop.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_16'), 'PUSHED_TO_CONFIG',
- 'de', 16, @currentPageType, 'Maximale Anzahl der Fehlversuche erreicht.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 16, @currentPageType, 'Maximale Anzahl der Fehlversuche erreicht.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_17'), 'PUSHED_TO_CONFIG',
- 'de', 17, @currentPageType, 'Die Transaktion wurde abgebrochen, die Zahlung nicht durchgeführt.', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
- 'de', 174, @currentPageType, 'Schließen', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
- 'de', 175, @currentPageType, 'Zurück zum Shop', @idNetworkVISA, NULL, @currentCustomItemSet);
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
+ 'de', 17, @currentPageType, 'Die Transaktion wurde abgebrochen, die Zahlung nicht durchgeführt.', NULL, NULL, @currentCustomItemSet);
 
 /* Elements for the REFUSAL page, for SMS Profile */
 SET @currentPageType = 'HELP_PAGE';
@@ -400,24 +281,23 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Hinweise zur Anmeldung</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 1, @currentPageType, '<b>Hinweise zur mobilenTAN</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte geben Sie die zu der angezeigten Kundennummer passende Online-PIN Ihres SpardaOnline-Bankings ein. Um fortzufahren, bestätigen Sie die Eingabe mit "Senden". Um die Freigabe der Zahlung abzubrechen, klicken Sie auf "Abbrechen". ', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Wenn Sie eine mobileTAN anfordern, wird Ihnen diese als SMS auf Ihr Mobilfunkgerät gesandt. Bitte gleichen Sie die in der SMS enthaltenen Zahlungsinformationen ab und geben die mobileTAN ein. Um fortzufahren, bestätigen Sie die Eingabe mit „Senden“. Um die Freigabe der Zahlung abzubrechen, klicken Sie auf „Abbrechen“.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, 'Aus Sicherheitsgründen zeigen wir sowohl die Kartennummer als auch die Kundennummer nur maskiert an."', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 3, @currentPageType, 'Bitte beachten Sie, dass die mobileTAN nur für diese Transaktion gilt. Sie verfällt, wenn Sie die Bearbeitung an dieser Stelle abbrechen. Die Verwaltung des mobileTAN-Verfahrens können Sie im SpardaOnline-Banking vornehmen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
- 'de', 174, @currentPageType, 'Schließen', @idNetworkVISA, NULL, @currentCustomItemSet);
+ 'de', 174, @currentPageType, 'Schließen', NULL, NULL, @currentCustomItemSet);
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
+SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, @MaestroVID, `fk_id_image`, @customItemSetSMSChoice
+  FROM `CustomItem` WHERE fk_id_customItemSet = @customItemSetSMS;
+
 
 /* Elements for the profile PASSWORD : */
 SET @currentAuthentMean = 'EXT_PASSWORD';
@@ -432,84 +312,82 @@ SET @currentPageType = 'OTP_FORM_PAGE';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', NULL, @idBankLogo,  @currentCustomItemSet),
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Schritt 1: Eingabe Online-Banking-PIN</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 1, @currentPageType, '<b>Schritt 1: Eingabe Online-Banking-PIN</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte geben Sie Ihre PIN für das SpardaOnline-Banking zur dargestellten Kundenummer ein, um den Bezahlvorgang zu bestätigen.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Bitte geben Sie Ihre PIN für das SpardaOnline-Banking zur dargestellten Kundenummer ein, um den Bezahlvorgang zu bestätigen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, '<b>Kundennummer:</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 3, @currentPageType, '<b>Kundennummer:</b> @challenge1', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_4'), 'PUSHED_TO_CONFIG',
- 'de', 4, @currentPageType, '<b>Online-PIN*:</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 4, @currentPageType, '<b>Online-PIN*:</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_12'), 'PUSHED_TO_CONFIG',
- 'de', 12, @currentPageType, 'Authentifizierung läuft.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 12, @currentPageType, 'Authentifizierung läuft.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_13'), 'PUSHED_TO_CONFIG',
- 'de', 13, @currentPageType, 'Bitte warten Sie ein paar Sekunden, um Ihre Eingabe zu überprüfen.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 13, @currentPageType, 'Bitte warten Sie ein paar Sekunden, um Ihre Eingabe zu überprüfen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_14'), 'PUSHED_TO_CONFIG',
- 'de', 14, @currentPageType, 'Die Zahlung wurde abgebrochen.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 14, @currentPageType, 'Die Zahlung wurde abgebrochen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_15'), 'PUSHED_TO_CONFIG',
- 'de', 15, @currentPageType, 'Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung abschließen möchten.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 15, @currentPageType, 'Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung abschließen möchten.', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_26'), 'PUSHED_TO_CONFIG',
+ 'de', 26, @currentPageType, 'Authentifizierung wird fortgesetzt', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_27'), 'PUSHED_TO_CONFIG',
+ 'de', 27, @currentPageType, ' ', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_28'), 'PUSHED_TO_CONFIG',
- 'de', 28, @currentPageType, '<h3>Falsche Online-PIN</h3>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 28, @currentPageType, '<h3>Falsche Online-PIN</h3>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_29'), 'PUSHED_TO_CONFIG',
- 'de', 29, @currentPageType, 'Die Anmeldung ist fehlgeschlagen. Bitte versuchen Sie es erneut mit einer gültigen Online-PIN.
-Die Anzahl der Ihnen verbleibenden Versuche lautet: <remaining tries>
-', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 29, @currentPageType, 'Die Anmeldung ist fehlgeschlagen. Bitte versuchen Sie es erneut mit einer gültigen Online-PIN.<br>Die Anzahl der Ihnen verbleibenden Versuche lautet: @trialsLeft', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_30'), 'PUSHED_TO_CONFIG',
- 'de', 30, @currentPageType, 'Die Session ist abgelaufen.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 30, @currentPageType, 'Die Session ist abgelaufen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_31'), 'PUSHED_TO_CONFIG',
- 'de', 31, @currentPageType, 'Sie haben einige Zeit keine Eingaben vorgenommen, daher wurde die Zahlung abgebrochen. Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung abschließen möchten.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 31, @currentPageType, 'Sie haben einige Zeit keine Eingaben vorgenommen, daher wurde die Zahlung abgebrochen. Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung abschließen möchten.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
- 'de', 32, @currentPageType, 'Technischer Fehler.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 32, @currentPageType, 'Technischer Fehler.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
- 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten und Ihr Kauf konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten und Ihr Kauf konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
- 'de', 40, @currentPageType, 'Abbrechen', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 40, @currentPageType, 'Abbrechen', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_41'), 'PUSHED_TO_CONFIG',
+ 'de', 41, @currentPageType, '?', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_42'), 'PUSHED_TO_CONFIG',
- 'de', 42, @currentPageType, 'Senden', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 42, @currentPageType, 'Senden', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_100'), 'PUSHED_TO_CONFIG',
- 'de', 100, 'ALL', 'Händler', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 100, 'ALL', 'Händler', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_101'), 'PUSHED_TO_CONFIG',
- 'de', 101, 'ALL', 'Betrag', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 101, 'ALL', 'Betrag', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_102'), 'PUSHED_TO_CONFIG',
- 'de', 102, 'ALL', 'Datum', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 102, 'ALL', 'Datum', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
- 'de', 103, 'ALL', 'Kartennummer', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 103, 'ALL', 'Kartennummer', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
- 'de', 174, @currentPageType, 'Schließen', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 174, 'ALL', 'Schließen', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
- 'de', 175, @currentPageType, 'Zurück zum Shop', @idNetworkVISA, NULL, @currentCustomItemSet);
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
+ 'de', 175, 'ALL', 'Zurück zum Shop', NULL, NULL, @currentCustomItemSet);
 
 /* Elements for the FAILURE page, for PASSWORD Profile */
 SET @currentPageType = 'FAILURE_PAGE';
@@ -518,32 +396,19 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Eine Freigabe der Zahlung ist nicht möglich.</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 1, @currentPageType, '<b>Freigabe der Zahlung nicht möglich</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Die Anmeldung ist fehlgeschlagen. Bitte versuchen Sie es erneut mit gültigen Anmeldedaten.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Die Anmeldung ist fehlgeschlagen. Bitte versuchen Sie es erneut mit gültigen Anmeldedaten.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, 'Über den Button gelangen Sie zurück zum Shop.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 3, @currentPageType, 'Über den Button gelangen Sie zurück zum Shop.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_16'), 'PUSHED_TO_CONFIG',
- 'de', 16, @currentPageType, 'Maximale Anzahl der Fehlversuche erreicht.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 16, @currentPageType, 'Maximale Anzahl der Fehlversuche erreicht.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_17'), 'PUSHED_TO_CONFIG',
- 'de', 17, @currentPageType, 'Die Transaktion wurde abgebrochen, die Zahlung nicht durchgeführt.', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
- 'de', 174, @currentPageType, 'Schließen', @idNetworkVISA, NULL, @currentCustomItemSet);
-
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
+ 'de', 17, @currentPageType, 'Die Transaktion wurde abgebrochen, die Zahlung nicht durchgeführt.', NULL, NULL, @currentCustomItemSet);
 
 /* Elements for the REFUSAL page, for PASSWORD Profile */
 SET @currentPageType = 'HELP_PAGE';
@@ -552,24 +417,16 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Hinweise zur Anmeldung</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 1, @currentPageType, '<b>Hinweise zur Anmeldung</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte geben Sie die zu der angezeigten Kundennummer passende Online-PIN Ihres SpardaOnline-Bankings ein. Um fortzufahren, bestätigen Sie die Eingabe mit "Senden". Um die Freigabe der Zahlung abzubrechen, klicken Sie auf "Abbrechen". ', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Bitte geben Sie die zu der angezeigten Kundennummer passende Online-PIN Ihres SpardaOnline-Bankings ein. Um fortzufahren, bestätigen Sie die Eingabe mit "Senden". Um die Freigabe der Zahlung abzubrechen, klicken Sie auf "Abbrechen".', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, 'Aus Sicherheitsgründen zeigen wir sowohl die Kartennummer als auch die Kundennummer nur maskiert an."', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 3, @currentPageType, 'Aus Sicherheitsgründen zeigen wir sowohl die Kartennummer als auch die Kundennummer nur maskiert an.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
- 'de', 174, @currentPageType, 'Schließen', @idNetworkVISA, NULL, @currentCustomItemSet);
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
+ 'de', 174, @currentPageType, 'Schließen', NULL, NULL, @currentCustomItemSet);
 
 /* Elements for the profile APP : */
 SET @currentAuthentMean = 'MOBILE_APP_EXT';
@@ -584,83 +441,80 @@ SET @currentCustomItemSet = @customItemSetMobileApp;
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', NULL, @idBankLogo,  @currentCustomItemSet),
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Schritt 2: Freigabe per SpardaSecureApp</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 1, @currentPageType, '<b>Schritt 2: Freigabe per SpardaSecureApp</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte geben Sie den Auftrag in der SpardaSecureApp frei.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Bitte geben Sie den Auftrag in der SpardaSecureApp frei.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, '<b>Hinweis :</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 3, @currentPageType, '<b>Hinweis :</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_4'), 'PUSHED_TO_CONFIG',
- 'de', 4, @currentPageType, 'Sie können die Zahlungsfreigabe in der SpardaSecureApp auch ablehnen.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 4, @currentPageType, 'Sie können die Zahlungsfreigabe in der SpardaSecureApp auch ablehnen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_12'), 'PUSHED_TO_CONFIG',
- 'de', 12, @currentPageType, 'Authentifizierung läuft', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 12, @currentPageType, 'Authentifizierung läuft', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_13'), 'PUSHED_TO_CONFIG',
- 'de', 13, @currentPageType, 'Bitte warten Sie ein paar Sekunden, um Ihre Eingabe zu überprüfen.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 13, @currentPageType, 'Bitte warten Sie ein paar Sekunden, um Ihre Eingabe zu überprüfen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_14'), 'PUSHED_TO_CONFIG',
- 'de', 14, @currentPageType, 'Die Zahlung wurde abgebrochen', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 14, @currentPageType, 'Die Zahlung wurde abgebrochen', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_15'), 'PUSHED_TO_CONFIG',
- 'de', 15, @currentPageType, 'Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung abschließen möchten.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 15, @currentPageType, 'Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung abschließen möchten.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_26'), 'PUSHED_TO_CONFIG',
- 'de', 26, @currentPageType, 'Authentifizierung erfolgreich', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 26, @currentPageType, 'Authentifizierung erfolgreich', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_27'), 'PUSHED_TO_CONFIG',
- 'de', 27, @currentPageType, 'Sie wurden erfolgreich authentifiziert und werden automatisch zum Händler weitergeleitet.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 27, @currentPageType, 'Sie wurden erfolgreich authentifiziert und werden automatisch zum Händler weitergeleitet.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_28'), 'PUSHED_TO_CONFIG',
- 'de', 28, @currentPageType, 'Ungültige BestSign TAN', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 28, @currentPageType, 'Ungültige BestSign TAN', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_29'), 'PUSHED_TO_CONFIG',
- 'de', 29, @currentPageType, 'Sie haben eine ungültige BestSign TAN eingegeben. Nach der zweiten falschen TAN-Eingabe in Folge wird das Sicherheitsverfahren gesperrt. Bitte geben Sie die Ihnen zugesandte BestSign TAN erneut ein.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 29, @currentPageType, 'Sie haben eine ungültige BestSign TAN eingegeben. Nach der zweiten falschen TAN-Eingabe in Folge wird das Sicherheitsverfahren gesperrt. Bitte geben Sie die Ihnen zugesandte BestSign TAN erneut ein.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_30'), 'PUSHED_TO_CONFIG',
- 'de', 30, @currentPageType, 'Die Session ist abgelaufen.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 30, @currentPageType, 'Die Session ist abgelaufen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_31'), 'PUSHED_TO_CONFIG',
- 'de', 31, @currentPageType, 'Sie haben einige Zeit keine Eingaben vorgenommen, daher wurde die Zahlung abgebrochen. Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung abschließen möchten.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 31, @currentPageType, 'Sie haben einige Zeit keine Eingaben vorgenommen, daher wurde die Zahlung abgebrochen. Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung abschließen möchten.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
- 'de', 32, @currentPageType, 'Technischer Fehler', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 32, @currentPageType, 'Technischer Fehler', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
- 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten und Ihr Kauf konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten und Ihr Kauf konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
- 'de', 40, @currentPageType, 'Abbrechen', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 40, @currentPageType, 'Abbrechen', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_41'), 'PUSHED_TO_CONFIG',
+ 'de', 41, @currentPageType, '?', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_100'), 'PUSHED_TO_CONFIG',
- 'de', 100, 'ALL', 'Händler', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 100, 'ALL', 'Händler', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_101'), 'PUSHED_TO_CONFIG',
- 'de', 101, 'ALL', 'Betrag', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 101, 'ALL', 'Betrag', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_102'), 'PUSHED_TO_CONFIG',
- 'de', 102, 'ALL', 'Datum', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 102, 'ALL', 'Datum', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
- 'de', 103, 'ALL', 'Kartennummer', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 103, 'ALL', 'Kartennummer', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
+ 'de', 174, 'ALL', 'Schließen', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
- 'de', 175, @currentPageType, 'Zurück zum Shop', @idNetworkVISA, NULL, @currentCustomItemSet);
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
+ 'de', 175, 'ALL', 'Zurück zum Shop', NULL, NULL, @currentCustomItemSet);
 
 /* Elements for the CHOICE page, for APP Profile */
 SET @currentPageType = 'CHOICE_PAGE';
@@ -668,24 +522,37 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Schritt 2: Geräteauswahl</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 1, @currentPageType, '<b>Schritt 2: Geräteauswahl</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte wählen Sie das Gerät aus, mit dem Sie diesen Auftrag bestätigen wollen.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Bitte wählen Sie das Gerät aus, mit dem Sie diesen Auftrag bestätigen wollen.', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_14'), 'PUSHED_TO_CONFIG',
+ 'de', 14, @currentPageType, 'Die Zahlung wurde abgebrochen', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_15'), 'PUSHED_TO_CONFIG',
+ 'de', 15, @currentPageType, 'Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung abschließen möchten.', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_30'), 'PUSHED_TO_CONFIG',
+ 'de', 30, @currentPageType, 'Die Session ist abgelaufen.', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_31'), 'PUSHED_TO_CONFIG',
+ 'de', 31, @currentPageType, 'Sie haben einige Zeit keine Eingaben vorgenommen, daher wurde die Zahlung abgebrochen. Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung abschließen möchten.', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
+ 'de', 32, @currentPageType, 'Technischer Fehler', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
+ 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten und Ihr Kauf konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
- 'de', 40, @currentPageType, 'Abbrechen', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 40, @currentPageType, 'Abbrechen', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_41'), 'PUSHED_TO_CONFIG',
+ 'de', 41, @currentPageType, '?', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_42'), 'PUSHED_TO_CONFIG',
- 'de', 42, @currentPageType, 'Senden', @idNetworkVISA, NULL, @currentCustomItemSet);
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
+ 'de', 42, @currentPageType, 'Senden', NULL, NULL, @currentCustomItemSet);
 
 /* Elements for the FAILURE page, for APP Profile */
 SET @currentPageType = 'FAILURE_PAGE';
@@ -693,291 +560,43 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Eine Freigabe der Zahlung ist nicht möglich.</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 1, @currentPageType, '<b>Freigabe der Zahlung nicht möglich</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Die Anmeldung ist fehlgeschlagen. Bitte versuchen Sie es erneut mit gültigen Anmeldedaten.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Die Anmeldung ist fehlgeschlagen. Bitte versuchen Sie es erneut mit gültigen Anmeldedaten.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, 'Über den Button gelangen Sie zurück zum Shop.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 3, @currentPageType, 'Über den Button gelangen Sie zurück zum Shop.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_16'), 'PUSHED_TO_CONFIG',
- 'de', 16, @currentPageType, 'Authentifizierung fehlgeschlagen', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 16, @currentPageType, 'Authentifizierung fehlgeschlagen', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_17'), 'PUSHED_TO_CONFIG',
- 'de', 17, @currentPageType, '', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 17, @currentPageType, '', NULL, NULL, @currentCustomItemSet);
+
+/* Elements for the HELPPAGE page, for MOBILEAPP Profile */
+SET @currentPageType = 'HELP_PAGE';
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
+ 'de', 1, @currentPageType, '<b>Hinweise zur SpardaSecureApp</b>', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
+ 'de', 2, @currentPageType, 'Bitte öffnen Sie die SpardaSecureApp auf dem entsprechenden Gerät. Hierzu müssen Sie sich mit Ihrem SpardaSecureApp-Passwort oder mit der TouchID/FaceID einloggen. Anschließend werden Ihnen die Zahlungsinformationen angezeigt. Bitte gleichen Sie diese ab und geben die Zahlung frei.', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
+ 'de', 3, @currentPageType, 'Sie können die Zahlungsfreigabe in der SpardaSecureApp auch ablehnenbrechen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
- 'de', 174, @currentPageType, 'Schließen', @idNetworkVISA, NULL, @currentCustomItemSet);
+ 'de', 174, @currentPageType, 'Schließen', NULL, NULL, @currentCustomItemSet);
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
-
-/* Elements for the REFUSAL page, for APP Profile */
-SET @currentPageType = 'REFUSAL_PAGE';
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Eine Freigabe der Zahlung ist nicht möglich</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Eine Freigabe der Zahlung durch das Online-Banking ist nicht möglich.', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, 'Über den Button gelangen Sie zurück zum Shop.', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_22'), 'PUSHED_TO_CONFIG',
- 'de', 22, @currentPageType, 'Der Vorgang konnte nicht durchgeführt werden.', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_23'), 'PUSHED_TO_CONFIG',
- 'de', 23, @currentPageType, 'Bitte aktivieren Sie Ihre Kreditkarte im Online Banking oder wenden Sie sich an den Berater in Ihrer Filiale.', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
- 'de', 175, @currentPageType, 'Zurück zum Shop', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
- 'de', 40, @currentPageType, 'Schließen', @idNetworkVISA, NULL, @currentCustomItemSet);
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
-
-
-SET @Imageid = (SELECT `id` FROM `Image` im WHERE im.name = 'MOBILE_APP_Logo');
-SET @currentPageType = 'MEANS_PAGE';
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Schritt 2: Auswahl TAN-Verfahren</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte wählen Sie eines der möglichen TAN-Verfahren aus.', @idNetworkVISA, NULL, @currentCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, '<b>Auswahl TAN-Verfahren*: </b>', @idNetworkVISA, NULL, @currentCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
- 'de', 9, @currentPageType, 'SMS', @idNetworkVISA, NULL, @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
- 'de', 9, @currentPageType, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), @idNetworkVISA, @Imageid, @currentCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
- 'de', 40, @currentPageType, 'Abbrechen', @idNetworkVISA, NULL, @currentCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_42'), 'PUSHED_TO_CONFIG',
- 'de', 42, @currentPageType, 'Senden', @idNetworkVISA, NULL, @currentCustomItemSet);
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
-/* Elements for the CHOICE page, for CHOICE ALL Profile */
-SET @currentCustomItemSet = @customItemSetChoiceAll;
-
-SET @currentPageType = 'MEANS_PAGE';
-SET @currentAuthentMean = 'UNDEFINED';
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Schritt 2: Auswahl TAN-Verfahren</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte wählen Sie eines der möglichen TAN-Verfahren aus.', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, '<b>Auswahl TAN-Verfahren*: </b>', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
- 'de', 40, @currentPageType, 'Abbrechen', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_42'), 'PUSHED_TO_CONFIG',
- 'de', 42, @currentPageType, 'Senden', @idNetworkVISA, NULL, @currentCustomItemSet);
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
-
-/* Elements for the CHOICE page, for CHOICE_SMS_CHIP Profile */
-SET @currentCustomItemSet = @customItemSetChoiceSMS;
-SET @currentPageType = 'MEANS_PAGE';
-SET @currentAuthentMean = 'UNDEFINED';
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Schritt 2: Auswahl TAN-Verfahren</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte wählen Sie eines der möglichen TAN-Verfahren aus.', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, '<b>Auswahl TAN-Verfahren*: </b>', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
- 'de', 40, @currentPageType, 'Abbrechen', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_42'), 'PUSHED_TO_CONFIG',
- 'de', 42, @currentPageType, 'Senden', @idNetworkVISA, NULL, @currentCustomItemSet);
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
-
-/* Elements for the CHOICE page, for CHOICE_CHIP_APP Profile */
-SET @currentCustomItemSet = @customItemSetChoiceChipApp;
-SET @currentPageType = 'MEANS_PAGE';
-SET @currentAuthentMean = 'UNDEFINED';
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Schritt 2: Auswahl TAN-Verfahren</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte wählen Sie eines der möglichen TAN-Verfahren aus.', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, '<b>Auswahl TAN-Verfahren*: </b>', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
- 'de', 40, @currentPageType, 'Abbrechen', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_42'), 'PUSHED_TO_CONFIG',
- 'de', 42, @currentPageType, 'Senden', @idNetworkVISA, NULL, @currentCustomItemSet);
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
-
-/* Elements for the CHOICE page, for CHOICE_SMS_APP Profile */
--- SET @customItemSetCHOICE_SMS_APP = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_SMS_APP'));
-SET @currentCustomItemSet = @customItemSetChoiceSMSApp;
-SET @currentPageType = 'MEANS_PAGE';
-SET @currentAuthentMean = 'UNDEFINED';
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Schritt 2: Auswahl TAN-Verfahren</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte wählen Sie eines der möglichen TAN-Verfahren aus.', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, '<b>Auswahl TAN-Verfahren*: </b>', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
- 'de', 40, @currentPageType, 'Abbrechen', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_42'), 'PUSHED_TO_CONFIG',
- 'de', 42, @currentPageType, 'Senden', @idNetworkVISA, NULL, @currentCustomItemSet);
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
-
-/* Elements for the profile MEANS_CHOICE : */
--- SET @customItemSetUndefined = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_UNDEFINED'));
-SET @currentCustomItemSet = @customItemSetUndefined;
-SET @currentPageType = 'MEANS_PAGE';
-SET @currentAuthentMean = 'UNDEFINED';
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Schritt 2: Auswahl TAN-Verfahren</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte wählen Sie eines der möglichen TAN-Verfahren aus.', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, '<b>Auswahl TAN-Verfahren*: </b>', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
- 'de', 40, @currentPageType, 'Abbrechen', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_42'), 'PUSHED_TO_CONFIG',
- 'de', 42, @currentPageType, 'Senden', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_100'), 'PUSHED_TO_CONFIG',
- 'de', 100, 'ALL', 'Händler', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_101'), 'PUSHED_TO_CONFIG',
- 'de', 101, 'ALL', 'Betrag', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_102'), 'PUSHED_TO_CONFIG',
- 'de', 102, 'ALL', 'Datum', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
- 'de', 103, 'ALL', 'Kartennummer', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
- 'de', 174, 'ALL', 'Schließen', @idNetworkVISA, NULL, @currentCustomItemSet),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
- 'de', 175, 'ALL', 'Zurück zum Händler', @idNetworkVISA, NULL, @currentCustomItemSet);
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
+SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, @MaestroVID, `fk_id_image`, @customItemSetMobileAppChoice
+  FROM `CustomItem` WHERE fk_id_customItemSet = @customItemSetMobileApp;
 
 /* Elements for the profile CHIPTAN : */
 SET @currentAuthentMean = 'CHIP_TAN';
@@ -992,92 +611,91 @@ SET @currentPageType = 'OTP_FORM_PAGE';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', @idNetworkVISA, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', NULL, @idBankLogo,  @currentCustomItemSet),
 ('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Schritt 2: Eingabe chipTAN</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 1, @currentPageType, '<b>Schritt 2: Eingabe chipTAN</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte geben Sie die Generierte chipTAN ein.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Bitte geben Sie die Generierte chipTAN ein.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, '<b>TAN* :</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 3, @currentPageType, '<b>TAN* :</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_4'), 'PUSHED_TO_CONFIG',
- 'de', 4, 'OTP_FORM_PAGE', 'Geschwindigkeit', @idNetworkVISA, null,  @currentCustomItemSet),
+ 'de', 4, 'OTP_FORM_PAGE', 'Geschwindigkeit', NULL, null,  @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_5'), 'PUSHED_TO_CONFIG',
- 'de', 5, 'OTP_FORM_PAGE', 'Zoom', @idNetworkVISA, null,  @currentCustomItemSet),
+ 'de', 5, 'OTP_FORM_PAGE', 'Zoom', NULL, null,  @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_6'), 'PUSHED_TO_CONFIG',
- 'de', 6, 'OTP_FORM_PAGE', 'TODO: Beschreibung für manuelle Challenge', @idNetworkVISA, null,  @currentCustomItemSet),
+ 'de', 6, 'OTP_FORM_PAGE', 'Beschreibung für manuelle Challenge', NULL, null,  @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_7'), 'PUSHED_TO_CONFIG',
- 'de', 7, 'OTP_FORM_PAGE', 'Umschalten auf manuelle Challenge', @idNetworkVISA, null,  @currentCustomItemSet),
+ 'de', 7, 'OTP_FORM_PAGE', 'Umschalten auf manuelle Challenge', NULL, null,  @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_12'), 'PUSHED_TO_CONFIG',
- 'de', 12, @currentPageType, 'Authentifizierung läuft.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 12, @currentPageType, 'Authentifizierung läuft.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_13'), 'PUSHED_TO_CONFIG',
- 'de', 13, @currentPageType, 'Bitte warten Sie ein paar Sekunden, um Ihre Eingabe zu überprüfen.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 13, @currentPageType, 'Bitte warten Sie ein paar Sekunden, um Ihre Eingabe zu überprüfen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_14'), 'PUSHED_TO_CONFIG',
- 'de', 14, @currentPageType, 'Die Zahlung wurde abgebrochen.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 14, @currentPageType, 'Die Zahlung wurde abgebrochen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_15'), 'PUSHED_TO_CONFIG',
- 'de', 15, @currentPageType, 'Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung abschließen möchten.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 15, @currentPageType, 'Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung abschließen möchten.', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_26'), 'PUSHED_TO_CONFIG',
+ 'de', 26, @currentPageType, 'Authentifizierung erfolgreich.', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_27'), 'PUSHED_TO_CONFIG',
+ 'de', 27, @currentPageType, 'Sie wurden erfolgreich authentifiziert und werden automatisch zum Händler weitergeleitet.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_28'), 'PUSHED_TO_CONFIG',
- 'de', 28, @currentPageType, '<h3>Fehlerhafte TAN</h3>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 28, @currentPageType, '<h3>Fehlerhafte TAN</h3>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_29'), 'PUSHED_TO_CONFIG',
- 'de', 29, @currentPageType, 'Diese TAN-Nummer ist ungültig. Bitte ändern Sie Ihre Eingabe.
-Die Anzahl der Ihnen verbleibenden Versuche lautet: <remaining tries>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 29, @currentPageType, 'Diese TAN-Nummer ist ungültig. Bitte ändern Sie Ihre Eingabe.<br>Die Anzahl der Ihnen verbleibenden Versuche lautet: @trialsLeft', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_30'), 'PUSHED_TO_CONFIG',
- 'de', 30, @currentPageType, 'Die Session ist abgelaufen.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 30, @currentPageType, 'Die Session ist abgelaufen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_31'), 'PUSHED_TO_CONFIG',
- 'de', 31, @currentPageType, 'Sie haben einige Zeit keine Eingaben vorgenommen, daher wurde die Zahlung abgebrochen. Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung abschließen möchten.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 31, @currentPageType, 'Sie haben einige Zeit keine Eingaben vorgenommen, daher wurde die Zahlung abgebrochen. Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung abschließen möchten.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
- 'de', 32, @currentPageType, 'Technischer Fehler.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 32, @currentPageType, 'Technischer Fehler.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
- 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten und Ihr Kauf konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten und Ihr Kauf konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
- 'de', 40, @currentPageType, 'Abbrechen', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 40, @currentPageType, 'Abbrechen', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_41'), 'PUSHED_TO_CONFIG',
+ 'de', 41, @currentPageType, '?', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_42'), 'PUSHED_TO_CONFIG',
- 'de', 42, @currentPageType, 'Senden', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 42, @currentPageType, 'Senden', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_100'), 'PUSHED_TO_CONFIG',
- 'de', 100, @currentPageType, 'Händler', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 100, 'ALL', 'Händler', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_101'), 'PUSHED_TO_CONFIG',
- 'de', 101, @currentPageType, 'Betrag', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 101, 'ALL', 'Betrag', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_102'), 'PUSHED_TO_CONFIG',
- 'de', 102, @currentPageType, 'Datum', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 102, 'ALL', 'Datum', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
- 'de', 103, @currentPageType, 'Kreditkartennummer', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 103, 'ALL', 'Kreditkartennummer', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
- 'de', 174, @currentPageType, 'Schließen', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 174, 'ALL', 'Schließen', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
- 'de', 175, @currentPageType, 'Zurück zum Shop', @idNetworkVISA, NULL, @currentCustomItemSet);
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
+ 'de', 175, 'ALL', 'Zurück zum Shop', NULL, NULL, @currentCustomItemSet);
 
 /* Elements for the FAILURE page, for CHIPTAN Profile */
 SET @currentPageType = 'FAILURE_PAGE';
@@ -1086,89 +704,164 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Eine Freigabe der Zahlung ist nicht möglich.</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 1, @currentPageType, '<b>Freigabe der Zahlung nicht möglich</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Die Anmeldung ist fehlgeschlagen. Bitte versuchen Sie es erneut mit gültigen Anmeldedaten.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Die Anmeldung ist fehlgeschlagen. Bitte versuchen Sie es erneut mit gültigen Anmeldedaten.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, 'Über den Button gelangen Sie zurück zum Shop.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 3, @currentPageType, 'Über den Button gelangen Sie zurück zum Shop.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_16'), 'PUSHED_TO_CONFIG',
- 'de', 16, @currentPageType, 'Maximale Anzahl der Fehlversuche erreicht.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 16, @currentPageType, 'Maximale Anzahl der Fehlversuche erreicht.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_17'), 'PUSHED_TO_CONFIG',
- 'de', 17, @currentPageType, 'Die Transaktion wurde abgebrochen, die Zahlung nicht durchgeführt.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 17, @currentPageType, 'Die Transaktion wurde abgebrochen, die Zahlung nicht durchgeführt.', NULL, NULL, @currentCustomItemSet);
 
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
- 'de', 174, @currentPageType, 'Schließen', @idNetworkVISA, NULL, @currentCustomItemSet);
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
-
-
-/* Elements for the REFUSAL page, for CHIPTAN Profile */
+/* Elements for the HELP_PAGE page, for CHIPTAN Profile */
 SET @currentPageType = 'HELP_PAGE';
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Hinweise zur chipTAN</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 1, @currentPageType, '<b>Hinweise zur chipTAN</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, '<b>Eingabe per Flickercode:</b> <p>Stecken Sie nun Ihre BankCard (nicht die für den Einkauf verwendete Sparda-Kreditkarte) in den TAN-Generator und drücken „F“. Halten Sie den TAN-Generator vor die animierte Grafik.
+ 'de', 2, @currentPageType, '<b>Eingabe per Flickercode:</b> <p>Stecken Sie Ihre BankCard (nicht die für den Einkauf verwendete Sparda-Kreditkarte) in den TAN-Generator und drücken „F“. Halten Sie den TAN-Generator vor die animierte Grafik.
 Dabei müssen die Markierungen (Dreiecke) der Grafik mit denen auf Ihrem TAN-Generator übereinstimmen. Prüfen Sie die Anzeige auf dem Leserdisplay und drücken "OK".
 Prüfen Sie die Hinweise und bestätigen Sie diese dann jeweils mit "OK" auf Ihrem TAN-Generator.
-</p>', @idNetworkVISA, NULL, @currentCustomItemSet),
+</p>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, '<b>Manuelle Eingabe:</b> <p>Führen Sie Ihre Karte in den TAN-Generator ein. Drücken Sie die Taste "TAN", so dass im Display "Start-Code" erscheint. Geben Sie den Start-Code 267160 ein. Drücken Sie die Taste "OK". Geben Sie die geforderten Daten in den TAN-Generator ein und bestätigen Sie diese mit "OK".</p>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 3, @currentPageType, '<b>Manuelle Eingabe:</b> <p>Führen Sie Ihre Karte in den TAN-Generator ein. Drücken Sie die Taste "TAN", so dass im Display "Start-Code" erscheint. Geben Sie den Start-Code 267160 ein. Drücken Sie die Taste "OK". Geben Sie die geforderten Daten in den TAN-Generator ein und bestätigen Sie diese mit "OK".</p>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
- 'de', 174, @currentPageType, 'Schließen', @idNetworkVISA, NULL, @currentCustomItemSet);
-
+ 'de', 174, @currentPageType, 'Schließen', NULL, NULL, @currentCustomItemSet);
+ 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
+SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, @MaestroVID, `fk_id_image`, @customItemSetCHIPTANChoice
+  FROM `CustomItem` WHERE fk_id_customItemSet = @customItemSetCHIPTAN;
 
+
+/* Elements for the CHOICE page, for CHOICE ALL Profile */
+SET @currentCustomItemSet = @customItemSetUndefinedAll;
 
 SET @currentPageType = 'MEANS_PAGE';
-SET @Imageid = (SELECT `id` FROM `Image` im WHERE im.name = 'MOBILE_APP_Logo');/*TODO use CHIPTAN logo*/
+SET @currentAuthentMean = 'UNDEFINED';
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG', 'de', 1, 'ALL', 'Banklogo', NULL, @idBankLogo,  @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, 'VISA_LOGO', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL','VISA_LOGO', @idNetworkVISA, @idNetworkVISA,  @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
+ 'de', 1, @currentPageType, '<b>Schritt 2: Auswahl TAN-Verfahren</b>', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
+ 'de', 2, @currentPageType, 'Bitte wählen Sie eines der möglichen TAN-Verfahren aus.', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
+ 'de', 3, @currentPageType, '<b>Auswahl TAN-Verfahren*: </b>', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_14'), 'PUSHED_TO_CONFIG',
+ 'de', 14, @currentPageType, 'Die Zahlung wurde abgebrochen', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_15'), 'PUSHED_TO_CONFIG',
+ 'de', 15, @currentPageType, 'Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung abschließen möchten.', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_30'), 'PUSHED_TO_CONFIG',
+ 'de', 30, @currentPageType, 'Die Session ist abgelaufen.', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_31'), 'PUSHED_TO_CONFIG',
+ 'de', 31, @currentPageType, 'Sie haben einige Zeit keine Eingaben vorgenommen, daher wurde die Zahlung abgebrochen. Starten Sie den Bezahlvorgang erneut, wenn Sie die Zahlung abschließen möchten.', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
+ 'de', 32, @currentPageType, 'Technischer Fehler', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
+ 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten und Ihr Kauf konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
+ 'de', 40, @currentPageType, 'Abbrechen', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_41'), 'PUSHED_TO_CONFIG',
+ 'de', 41, @currentPageType, '?', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_42'), 'PUSHED_TO_CONFIG',
+ 'de', 42, @currentPageType, 'Senden', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_100'), 'PUSHED_TO_CONFIG',
+ 'de', 100, 'ALL', 'Händler', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_101'), 'PUSHED_TO_CONFIG',
+ 'de', 101, 'ALL', 'Betrag', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_102'), 'PUSHED_TO_CONFIG',
+ 'de', 102, 'ALL', 'Datum', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
+ 'de', 103, 'ALL', 'Kartennummer', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
+ 'de', 174, 'ALL', 'Schließen', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
+ 'de', 175, 'ALL', 'Zurück zum Händler', NULL, NULL, @currentCustomItemSet);
+ 
+SET @currentPageType = 'HELP_PAGE';
+
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Schritt 2: Auswahl TAN-Verfahren</b>', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 1, @currentPageType, '<b>Hinweis zur TAN-Verfahrensauswahl</b>', NULL, NULL, @currentCustomItemSet),
+
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte wählen Sie eines der möglichen TAN-Verfahren aus.', @idNetworkVISA, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Sie haben die Möglichkeit eines Ihrer verfügbaren TAN-Verfahren auszuwählen. Öffnen Sie hierzu die Auswahlliste und klicken Sie auf das gewünschte Verfahren. Um die Freigabe der Zahlung abzubrechen, klicken Sie auf „Abbrechen”.', NULL, NULL, @currentCustomItemSet),
+
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, '<b>Auswahl TAN-Verfahren*: </b>', @idNetworkVISA, NULL, @currentCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
- 'de', 9, @currentPageType, 'SMS', @idNetworkVISA, NULL, @currentCustomItemSet),
-('I', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
- 'de', 9, @currentPageType, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), @idNetworkVISA, @Imageid, @currentCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
- 'de', 40, @currentPageType, 'Abbrechen', @idNetworkVISA, NULL, @currentCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_42'), 'PUSHED_TO_CONFIG',
- 'de', 42, @currentPageType, 'Senden', @idNetworkVISA, NULL, @currentCustomItemSet);
+ 'de', 3, @currentPageType, 'Sofern die SpardaSecureApp eines der verfügbaren Verfahren ist und Sie mehrere Geräte für die SpardaSecureApp angemeldet haben, werden Ihnen diese in der Auswahlliste angezeigt.', NULL, NULL, @currentCustomItemSet),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
+ 'de', 174, @currentPageType, 'Schließen', NULL, NULL, @currentCustomItemSet);
+
+/* Elements for the CHOICE page, for CHOICE_SMS_CHIP Profile */
+SET @currentCustomItemSet = @customItemSetUndefinedSMSChip;
+SET @currentPageType = 'MEANS_PAGE';
+SET @currentAuthentMean = 'UNDEFINED';
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT ci.DTYPE, ci.createdBy, ci.creationDate, ci.description, ci.lastUpdateBy, ci.lastUpdateDate,
-       REPLACE(ci.name, @networkVISA, @networkMC), ci.updateState, ci.locale, ci.ordinal, ci.pageTypes, ci.value,
-        @idNetworkMC, ci.fk_id_image, ci.fk_id_customItemSet FROM CustomItem ci
-WHERE fk_id_customItemSet = @currentCustomItemSet and pageTypes IN (@currentPageType, 'ALL');
+SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, @MaestroVID, `fk_id_image`, @customItemSetUndefinedSMSChip
+  FROM `CustomItem` WHERE fk_id_customItemSet = @customItemSetUndefinedAll;
+
+/* Elements for the CHOICE page, for CHOICE_CHIP_APP Profile */
+SET @currentCustomItemSet = @customItemSetUndefinedChipApp;
+SET @currentPageType = 'MEANS_PAGE';
+SET @currentAuthentMean = 'UNDEFINED';
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, @MaestroVID, `fk_id_image`, @customItemSetUndefinedChipApp
+  FROM `CustomItem` WHERE fk_id_customItemSet = @customItemSetUndefinedAll;
+
+/* Elements for the CHOICE page, for CHOICE_SMS_APP Profile */
+-- SET @customItemSetCHOICE_SMS_APP = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_SMS_APP'));
+SET @currentCustomItemSet = @customItemSetUndefinedSMSApp;
+SET @currentPageType = 'MEANS_PAGE';
+SET @currentAuthentMean = 'UNDEFINED';
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, @MaestroVID, `fk_id_image`, @customItemSetUndefinedSMSApp
+  FROM `CustomItem` WHERE fk_id_customItemSet = @customItemSetUndefinedAll;
 
 /* ProfileSet */
 
@@ -1189,31 +882,27 @@ SELECT cpl.id, ps.id FROM (SELECT id FROM ProfileSet where name = CONCAT('PS_', 
 SET @idProfileSet = (SELECT id FROM ProfileSet where name = CONCAT('PS_', @sharedIssuerName, '_01'));
 
 /* Profile */
-SET @authMeanRefusal = (SELECT id FROM `AuthentMeans` WHERE `name` = 'REFUSAL');
-SET @authMeanACCEPT = (SELECT id FROM `AuthentMeans` WHERE `name` = 'REFUSAL');
-SET @authMeanPassword = (SELECT id FROM `AuthentMeans` WHERE `name` = 'REFUSAL');
-SET @authMeanUndefined = (SELECT id FROM `AuthentMeans` WHERE `name` = 'REFUSAL');
-SET @authMeanOTPsms = (SELECT id FROM `AuthentMeans` WHERE `name` = 'REFUSAL');
-SET @authentMeansMobileApp = (SELECT id FROM `AuthentMeans` WHERE `name` = 'REFUSAL');
-
 INSERT INTO `Profile` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
-                       `updateState`, `maxAttempts`, dataEntryFormat, dataEntryAllowedPattern, `fk_id_authentMeans`,
+                       `updateState`, `maxAttempts`, dataEntryAllowedPattern, dataEntryFormat, `fk_id_authentMeans`,
                        `fk_id_customItemSetCurrent`, `fk_id_customItemSetOld`, `fk_id_customItemSetNew`,
                        `fk_id_subIssuer`) VALUES
-(@createdBy, NOW(), 'TECHNICAL ERROR', NULL, NULL, CONCAT(@sharedIssuerName,'_DEFAULT_REFUSAL_TE'), 'PUSHED_TO_CONFIG', -1, '^[^OIi]*$', '7:(:DIGIT:1)', @authMeanRefusal, @customItemSetTERefusal, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'FUNCTIONAL ERROR', NULL, NULL, CONCAT(@sharedIssuerName,'_DEFAULT_REFUSAL_FE'), 'PUSHED_TO_CONFIG', -1, '^[^OIi]*$', '7:(:DIGIT:1)', @authMeanRefusal, @customItemSetFERefusal, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'RBA_DECLINE', NULL, NULL, CONCAT(@sharedIssuerName,'_DECLINE'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '7:(:DIGIT:1)', @authMeanACCEPT, @customItemSetRBADECLINE, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'RBA_ACCEPT', NULL, NULL, CONCAT(@sharedIssuerName,'_ACCEPT'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '7:(:DIGIT:1)', @authMeanACCEPT, @customItemSetRBAACCEPT, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'EXT PASSWORD (NORMAL)', NULL, NULL, CONCAT(@sharedIssuerName,'_PASSWORD_01'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '7:(:DIGIT:1)', @authMeanPassword, @customItemSetPassword, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'UNDEFINED', NULL, NULL, CONCAT(@sharedIssuerName,'_UNDEFINED_01'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '7:(:DIGIT:1)', @authMeanUndefined, @customItemSetUndefined, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'CHOICE_ALL', NULL, NULL, CONCAT(@sharedIssuerName,'_AUTHENT_MEANS_CHOICE_ALL'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '7:(:DIGIT:1)', @authMeanUndefined, @customItemSetChoiceAll, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'CHOICE_SMS_CHIP', NULL, NULL, CONCAT(@sharedIssuerName,'_AUTHENT_MEANS_CHOICE_SMS_CHIP'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '7:(:DIGIT:1)', @authMeanUndefined, @customItemSetChoiceSMS, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'CHOICE_CHIP_APP', NULL, NULL, CONCAT(@sharedIssuerName,'_AUTHENT_MEANS_CHOICE_CHIP_APP'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '7:(:DIGIT:1)', @authMeanUndefined, @customItemSetChoiceChipApp, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'CHOICE_SMS_APP', NULL, NULL, CONCAT(@sharedIssuerName,'_AUTHENT_MEANS_CHOICE_SMS_APP'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '7:(:DIGIT:1)', @authMeanUndefined, @customItemSetChoiceSMSApp, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'OTP_SMS', NULL, NULL, CONCAT(@sharedIssuerName,'_SMS_01'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '7:(:DIGIT:1)', @authMeanOTPsms, @customItemSetSMS, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'CHIPTAN', NULL, NULL, CONCAT(@sharedIssuerName,'_CHIPTAN_01'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '7:(:DIGIT:1)', @authMeanOTPchiptan, @customItemSetCHIPTAN, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'MOBILE_APP', NULL, NULL, CONCAT(@sharedIssuerName,'_APP_01'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '7:(:DIGIT:1)', @authentMeansMobileApp, @customItemSetMOBILEAPP, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'REFUSAL (DEFAULT)', NULL, NULL, CONCAT(@sharedIssuerName,'_DEFAULT_REFUSAL'), 'PUSHED_TO_CONFIG', -1, '^[^OIi]*$', '7:(:DIGIT:1)', @authMeanRefusal, @customItemSetDefaultRefusal, NULL, NULL, @subIssuerID);
+(@createdBy, NOW(), 'TECHNICAL ERROR', NULL, NULL, CONCAT(@sharedIssuerName,'_DEFAULT_REFUSAL_TE'), 'PUSHED_TO_CONFIG', -1, '^[^OIi]*$', '6:(:DIGIT:1)', @authMeanRefusal, @customItemSetTERefusal, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'FUNCTIONAL ERROR', NULL, NULL, CONCAT(@sharedIssuerName,'_DEFAULT_REFUSAL_FE'), 'PUSHED_TO_CONFIG', -1, '^[^OIi]*$', '6:(:DIGIT:1)', @authMeanRefusal, @customItemSetFERefusal, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'RBA_DECLINE', NULL, NULL, CONCAT(@sharedIssuerName,'_DECLINE'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '6:(:DIGIT:1)', @authMeanACCEPT, @customItemSetRBADECLINE, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'RBA_ACCEPT', NULL, NULL, CONCAT(@sharedIssuerName,'_ACCEPT'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '6:(:DIGIT:1)', @authMeanACCEPT, @customItemSetRBAACCEPT, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'OTP_SMS_CHOICE', NULL, NULL, CONCAT(@sharedIssuerName,'_SMS_01'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '6:(:DIGIT:1)', @authMeanOTPsms, @customItemSetSMSChoice, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'CHIPTAN_CHOICE', NULL, NULL, CONCAT(@sharedIssuerName,'_CHIPTAN_01'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '6:(:DIGIT:1)', @authMeanOTPchiptan, @customItemSetCHIPTANChoice, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'MOBILE_APP_CHOICE', NULL, NULL, CONCAT(@sharedIssuerName,'_APP_01'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '6:(:DIGIT:1)', @authentMeansMobileApp, @customItemSetMOBILEAPPChoice, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'CHOICE_ALL', NULL, NULL, CONCAT(@sharedIssuerName,'_AUTHENT_MEANS_CHOICE_ALL'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '6:(:DIGIT:1)', @authMeanUndefined, @customItemSetUndefinedAll, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'CHOICE_SMS_CHIP', NULL, NULL, CONCAT(@sharedIssuerName,'_AUTHENT_MEANS_CHOICE_SMS_CHIP'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '6:(:DIGIT:1)', @authMeanUndefined, @customItemSetUndefinedSMSChip, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'CHOICE_CHIP_APP', NULL, NULL, CONCAT(@sharedIssuerName,'_AUTHENT_MEANS_CHOICE_CHIP_APP'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '6:(:DIGIT:1)', @authMeanUndefined, @customItemSetUndefinedChipApp, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'CHOICE_SMS_APP', NULL, NULL, CONCAT(@sharedIssuerName,'_AUTHENT_MEANS_CHOICE_SMS_APP'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '6:(:DIGIT:1)', @authMeanUndefined, @customItemSetUndefinedSMSApp, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'EXT PASSWORD (NORMAL)', NULL, NULL, CONCAT(@sharedIssuerName,'_PASSWORD_01'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '6:(:DIGIT:1)', @authMeanPassword, @customItemSetPassword, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'UNDEFINED', NULL, NULL, CONCAT(@sharedIssuerName,'_UNDEFINED_01'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '6:(:DIGIT:1)', @authMeanUndefined, NULL, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'OTP_SMS_NORMAL', NULL, NULL, CONCAT(@sharedIssuerName,'_SMS_02'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '6:(:DIGIT:1)', @authMeanOTPsms, @customItemSetSMS, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'CHIPTAN_NORMAL', NULL, NULL, CONCAT(@sharedIssuerName,'_CHIPTAN_02'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '6:(:DIGIT:1)', @authMeanOTPchiptan, @customItemSetCHIPTAN, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'MOBILE_APP_NORMAL', NULL, NULL, CONCAT(@sharedIssuerName,'_APP_02'), 'PUSHED_TO_CONFIG', 3, '^[^OIi]*$', '6:(:DIGIT:1)', @authentMeansMobileApp, @customItemSetMOBILEAPP, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'REFUSAL (DEFAULT)', NULL, NULL, CONCAT(@sharedIssuerName,'_DEFAULT_REFUSAL'), 'PUSHED_TO_CONFIG', -1, '^[^OIi]*$', '6:(:DIGIT:1)', @authMeanRefusal, @customItemSetDefaultRefusal, NULL, NULL, @subIssuerID);
 
 /* Rule */
 
@@ -1222,15 +911,18 @@ SET @profileRefusalTE = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedI
 SET @profileRefusalFE = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName, '_DEFAULT_REFUSAL_FE'));
 SET @profileRBADECLINE = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName,'_DECLINE'));
 SET @profileRBAACCEPT = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName,'_ACCEPT'));
-SET @profilePassword = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName,'_PASSWORD_01'));
-SET @profileUndefined = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName,'_UNDEFINED_01'));
+SET @profileSMSChoice = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName,'_SMS_01'));
+SET @profileCHIPTANChoice = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName,'_CHIPTAN_01'));
+SET @profileMOBILEAPPChoice = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName,'_APP_01'));
 SET @profileCHOICE_ALL = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName, '_AUTHENT_MEANS_CHOICE_ALL'));
 SET @profileSMS_CHIP = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName, '_AUTHENT_MEANS_CHOICE_SMS_CHIP'));
 SET @profileCHIP_APP = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName, '_AUTHENT_MEANS_CHOICE_CHIP_APP'));
 SET @profileSMS_APP = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName, '_AUTHENT_MEANS_CHOICE_SMS_APP'));
-SET @profileSMS = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName,'_SMS_01'));
-SET @profileCHIPTAN = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName,'_CHIPTAN_01'));
-SET @profileMOBILEAPP = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName,'_APP_01'));
+SET @profilePassword = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName,'_PASSWORD_01'));
+SET @profileUndefined = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName,'_UNDEFINED_01'));
+SET @profileSMS = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName,'_SMS_02'));
+SET @profileCHIPTAN = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName,'_CHIPTAN_02'));
+SET @profileMOBILEAPP = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@sharedIssuerName,'_APP_02'));
 
 INSERT INTO `Rule` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
                     `updateState`, `orderRule`, `fk_id_profile`) VALUES
@@ -1238,16 +930,19 @@ INSERT INTO `Rule` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, 
 (@createdBy, NOW(), 'REFUSAL_FUNCTIONAL_ERROR', NULL, NULL, 'FUNCTIONAL_ERROR', 'PUSHED_TO_CONFIG', 2, @profileRefusalFE),
 (@createdBy, NOW(), 'RBA_DECLINE', NULL, NULL, 'REFUSAL (DECLINE)', 'PUSHED_TO_CONFIG', 3, @profileRBADECLINE),
 (@createdBy, NOW(), 'RBA_ACCEPT', NULL, NULL, 'NONE (ACCEPT)', 'PUSHED_TO_CONFIG', 4, @profileRBAACCEPT),
-(@createdBy, NOW(), 'PASSWORD_AVAILABLE_NORMAL', NULL, NULL, 'EXT_PASSWORD (NORMAL)', 'PUSHED_TO_CONFIG', 5, @profilePassword),
-(@createdBy, NOW(), 'UNDEFINED_NORMAL', NULL, NULL, 'UNDEFINED (NORMAL)', 'PUSHED_TO_CONFIG', 6, @profileUndefined),
-(@createdBy, NOW(), 'ALL METHODS AVAILABLE', NULL, NULL, 'ALL METHODS AVAILABLE', 'PUSHED_TO_CONFIG', 7, @profileCHOICE_ALL),
-(@createdBy, NOW(), 'SMS & CHIPTAN AVAILABLE', NULL, NULL, 'SMS & CHIPTAN AVAILABLE', 'PUSHED_TO_CONFIG', 8, @profileSMS_CHIP),
-(@createdBy, NOW(), 'CHIPTAN & APP AVAILABLE', NULL, NULL, 'CHIPTAN & APP AVAILABLE', 'PUSHED_TO_CONFIG', 9, @profileCHIP_APP),
-(@createdBy, NOW(), 'SMS & APP AVAILABLE', NULL, NULL, 'SMS & APP AVAILABLE', 'PUSHED_TO_CONFIG', 10, @profileSMS_APP),
-(@createdBy, NOW(), 'SMS_AVAILABLE_NORMAL', NULL, NULL, 'OTP_SMS (NORMAL)', 'PUSHED_TO_CONFIG', 11, @profileSMS),
-(@createdBy, NOW(), 'CHIP_TAN (NORMAL)', NULL, NULL, 'CHIP_TAN (NORMAL)', 'PUSHED_TO_CONFIG', 12, @profileCHIPTAN),
-(@createdBy, NOW(), 'OTP_APP (NORMAL)', NULL, NULL, 'APP (NORMAL)', 'PUSHED_TO_CONFIG', 13, @profileMOBILEAPP),
-(@createdBy, NOW(), 'REFUSAL_DEFAULT', NULL, NULL, 'REFUSAL (DEFAULT)', 'PUSHED_TO_CONFIG', 14, @profileRefusal);
+(@createdBy, NOW(), 'SMS_CHOICE_AVAILABLE', NULL, NULL, 'OTP_SMS (CHOICE)', 'PUSHED_TO_CONFIG', 5, @profileSMSChoice),
+(@createdBy, NOW(), 'CHIP_TAN_CHOICE_AVAILABLE', NULL, NULL, 'CHIP_TAN (CHOICE)', 'PUSHED_TO_CONFIG', 6, @profileCHIPTANChoice),
+(@createdBy, NOW(), 'OTP_APP_CHOICE_AVAILABLE', NULL, NULL, 'APP (CHOICE)', 'PUSHED_TO_CONFIG', 7, @profileMOBILEAPPChoice),
+(@createdBy, NOW(), 'ALL METHODS AVAILABLE', NULL, NULL, 'ALL METHODS AVAILABLE', 'PUSHED_TO_CONFIG', 8, @profileCHOICE_ALL),
+(@createdBy, NOW(), 'SMS & CHIPTAN AVAILABLE', NULL, NULL, 'SMS & CHIPTAN AVAILABLE', 'PUSHED_TO_CONFIG', 9, @profileSMS_CHIP),
+(@createdBy, NOW(), 'CHIPTAN & APP AVAILABLE', NULL, NULL, 'CHIPTAN & APP AVAILABLE', 'PUSHED_TO_CONFIG', 10, @profileCHIP_APP),
+(@createdBy, NOW(), 'SMS & APP AVAILABLE', NULL, NULL, 'SMS & APP AVAILABLE', 'PUSHED_TO_CONFIG', 11, @profileSMS_APP),
+(@createdBy, NOW(), 'PASSWORD_AVAILABLE_NORMAL', NULL, NULL, 'EXT_PASSWORD (NORMAL)', 'PUSHED_TO_CONFIG', 12, @profilePassword),
+(@createdBy, NOW(), 'UNDEFINED_NORMAL', NULL, NULL, 'UNDEFINED (NORMAL)', 'PUSHED_TO_CONFIG', 13, @profileUndefined),
+(@createdBy, NOW(), 'SMS_AVAILABLE_NORMAL', NULL, NULL, 'OTP_SMS (NORMAL)', 'PUSHED_TO_CONFIG', 14, @profileSMS),
+(@createdBy, NOW(), 'CHIP_TAN (NORMAL)', NULL, NULL, 'CHIP_TAN (NORMAL)', 'PUSHED_TO_CONFIG', 15, @profileCHIPTAN),
+(@createdBy, NOW(), 'OTP_APP (NORMAL)', NULL, NULL, 'APP (NORMAL)', 'PUSHED_TO_CONFIG', 16, @profileMOBILEAPP),
+(@createdBy, NOW(), 'REFUSAL_DEFAULT', NULL, NULL, 'REFUSAL (DEFAULT)', 'PUSHED_TO_CONFIG', 17, @profileRefusal);
 
 
 /* RuleCondition */
@@ -1256,12 +951,15 @@ SET @ruleRefusalTE = (SELECT id FROM `Rule` WHERE `description` = 'REFUSAL_TECHN
 SET @ruleRefusalFE = (SELECT id FROM `Rule` WHERE `description` = 'REFUSAL_FUNCTIONAL_ERROR' AND `fk_id_profile` = @profileRefusalFE);
 SET @ruleRBADecline = (SELECT id FROM `Rule` WHERE `description` = 'RBA_DECLINE' AND `fk_id_profile` = @profileRBADECLINE);
 SET @ruleRBAAccept = (SELECT id FROM `Rule` WHERE `description` = 'RBA_ACCEPT' AND `fk_id_profile` = @profileRBAACCEPT);
-SET @rulePasswordnormal = (SELECT id FROM `Rule` WHERE `description` = 'PASSWORD_AVAILABLE_NORMAL' AND `fk_id_profile` = @profilePassword);
-SET @ruleUndefinednormal = (SELECT id FROM `Rule` WHERE `description` = 'UNDEFINED_NORMAL' AND `fk_id_profile` = @profileUndefined);
+SET @ruleSMSChoice = (SELECT id FROM `Rule` WHERE `description` = 'SMS_CHOICE_AVAILABLE' AND `fk_id_profile` = @profileSMSChoice);
+SET @ruleChipTanChoice = (SELECT id FROM `Rule` WHERE `description` = 'CHIP_TAN_CHOICE_AVAILABLE' AND `fk_id_profile` = @profileCHIPTANChoice);
+SET @ruleMobileAppChoice = (SELECT id FROM `Rule` WHERE `description` = 'OTP_APP_CHOICE_AVAILABLE' AND `fk_id_profile` = @profileMOBILEAPPChoice);
 SET @ruleCHOICE_ALL = (SELECT id FROM `Rule` WHERE `description` = 'ALL METHODS AVAILABLE' AND `fk_id_profile` = @profileCHOICE_ALL);
 SET @ruleSMS_CHIP = (SELECT id FROM `Rule` WHERE `description` = 'SMS & CHIPTAN AVAILABLE' AND `fk_id_profile` = @profileSMS_CHIP);
 SET @ruleCHIP_APP = (SELECT id FROM `Rule` WHERE `description` = 'CHIPTAN & APP AVAILABLE' AND `fk_id_profile` = @profileCHIP_APP);
 SET @ruleSMS_APP = (SELECT id FROM `Rule` WHERE `description` = 'SMS & APP AVAILABLE' AND `fk_id_profile` = @profileSMS_APP);
+SET @rulePasswordnormal = (SELECT id FROM `Rule` WHERE `description` = 'PASSWORD_AVAILABLE_NORMAL' AND `fk_id_profile` = @profilePassword);
+SET @ruleUndefinednormal = (SELECT id FROM `Rule` WHERE `description` = 'UNDEFINED_NORMAL' AND `fk_id_profile` = @profileUndefined);
 SET @ruleSMSnormal = (SELECT id FROM `Rule` WHERE `description` = 'SMS_AVAILABLE_NORMAL' AND `fk_id_profile` = @profileSMS);
 SET @ruleChipTannormal = (SELECT id FROM `Rule` WHERE `description` = 'CHIP_TAN (NORMAL)' AND `fk_id_profile` = @profileCHIPTAN);
 SET @ruleMobileAppnormal = (SELECT id FROM `Rule` WHERE `description` = 'OTP_APP (NORMAL)' AND `fk_id_profile` = @profileMOBILEAPP);
@@ -1273,22 +971,35 @@ INSERT INTO `RuleCondition` (`createdBy`, `creationDate`, `description`, `lastUp
 (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_02_TECHNICAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalTE),
 (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_03_TECHNICAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalTE),
 (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_04_TECHNICAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalTE),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_05_TECHNICAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalTE),
 (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_FUNCTIONAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalFE),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_02_FUNCTIONAL_ERROR'), 'PUSHED_TO_CONFIG', @ruleRefusalFE),
 (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_RBA_DECLINE'), 'PUSHED_TO_CONFIG', @ruleRBADecline),
 (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_RBA_ACCEPT'), 'PUSHED_TO_CONFIG', @ruleRBAAccept),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_PASSWORD_NORMAL'), 'PUSHED_TO_CONFIG', @rulePasswordnormal),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_UNDEFINED_NORMAL'), 'PUSHED_TO_CONFIG', @ruleUndefinednormal),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_SMS_CHOICE_AVAILABLE'), 'PUSHED_TO_CONFIG', @ruleSMSChoice),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_02_SMS_CHOICE_AVAILABLE'), 'PUSHED_TO_CONFIG', @ruleSMSChoice),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_CHOICE_AVAILABLE'), 'PUSHED_TO_CONFIG', @ruleChipTanChoice),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_02_CHIP_TAN_CHOICE_AVAILABLE'), 'PUSHED_TO_CONFIG', @ruleChipTanChoice),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_MOBILE_APP_CHOICE_AVAILABLE'), 'PUSHED_TO_CONFIG', @ruleMobileAppChoice),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_02_MOBILE_APP_CHOICE_AVAILABLE'), 'PUSHED_TO_CONFIG', @ruleMobileAppChoice),
 (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL'), 'PUSHED_TO_CONFIG', @ruleCHOICE_ALL),
 (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_CHIP'), 'PUSHED_TO_CONFIG', @ruleSMS_CHIP),
 (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_CHIP_APP'), 'PUSHED_TO_CONFIG', @ruleCHIP_APP),
 (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_APP'), 'PUSHED_TO_CONFIG', @ruleSMS_APP),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_PASSWORD_NORMAL'), 'PUSHED_TO_CONFIG', @rulePasswordnormal),
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_UNDEFINED_NORMAL'), 'PUSHED_TO_CONFIG', @ruleUndefinednormal),
 (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_SMS_NORMAL'), 'PUSHED_TO_CONFIG', @ruleSMSnormal),
 (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_NORMAL'), 'PUSHED_TO_CONFIG', @ruleChipTannormal),
 (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_APP_NORMAL'), 'PUSHED_TO_CONFIG', @ruleMobileAppnormal),
 (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @sharedIssuerName, '_01_DEFAULT'), 'PUSHED_TO_CONFIG', @ruleRefusalDefault);
 
 -- the ids of the authent means
+SET @rulePasswordCondtn = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_', @sharedIssuerName, '_01_PASSWORD_NORMAL') AND `fk_id_rule` = @rulePasswordnormal);
+SET @ruleChipTanChoiceCondtn1 = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_CHOICE_AVAILABLE') AND `fk_id_rule` = @ruleChipTanChoice);
+SET @ruleChipTanChoiceCondtn2 = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_', @sharedIssuerName, '_02_CHIP_TAN_CHOICE_AVAILABLE') AND `fk_id_rule` = @ruleChipTanChoice);
+SET @ruleCHOICE_ALLCondtn = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL') AND `fk_id_rule` = @ruleCHOICE_ALL);
+SET @ruleSMS_CHIPCondtn = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_CHIP') AND `fk_id_rule` = @ruleSMS_CHIP);
+SET @ruleCHIP_APPCondtn = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_CHIP_APP') AND `fk_id_rule` = @ruleCHIP_APP);
+SET @ruleChipTannormalCondtn = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_NORMAL') AND `fk_id_rule` = @ruleChipTannormal);
 
 SET @authMeanOTPchiptan = (SELECT id FROM `AuthentMeans`  WHERE `name` = 'CHIP_TAN');
 
@@ -1311,6 +1022,10 @@ INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStat
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_04_TECHNICAL_ERROR')
   AND (ts.`transactionStatusType` = 'MERCHANT_URL_IN_NEGATIVE_LIST' AND ts.`reversed` = FALSE);
+INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
+SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_05_TECHNICAL_ERROR')
+  AND (ts.`transactionStatusType` = 'PHONE_NUMBER_IN_NEGATIVE_LIST' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
@@ -1318,7 +1033,7 @@ WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_FUNCTIONAL_ERROR')
   AND (ts.`transactionStatusType` = 'CARD_HOLDER_BLOCKED' AND ts.`reversed` = FALSE);
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_02_FUNCTIONAL_ERROR')
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_FUNCTIONAL_ERROR')
   AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
@@ -1343,18 +1058,38 @@ WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_RBA_ACCEPT')
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_SMS_CHOICE_AVAILABLE')
+  AND (ts.`transactionStatusType` = 'USER_CHOICE_ALLOWED' AND ts.`reversed` = FALSE);
+
+INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
+SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_02_SMS_CHOICE_AVAILABLE')
+  AND (ts.`transactionStatusType` = 'USER_CHOICE_ALLOWED' AND ts.`reversed` = FALSE);
+
+INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
+SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_CHOICE_AVAILABLE')
+  AND (ts.`transactionStatusType` = 'USER_CHOICE_ALLOWED' AND ts.`reversed` = FALSE);
+
+INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
+SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_02_CHIP_TAN_CHOICE_AVAILABLE')
+  AND (ts.`transactionStatusType` = 'USER_CHOICE_ALLOWED' AND ts.`reversed` = FALSE);
+
+INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
+SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_MOBILE_APP_CHOICE_AVAILABLE')
+  AND (ts.`transactionStatusType` = 'USER_CHOICE_ALLOWED' AND ts.`reversed` = FALSE);
+
+INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
+SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_02_MOBILE_APP_CHOICE_AVAILABLE')
+  AND (ts.`transactionStatusType` = 'USER_CHOICE_ALLOWED' AND ts.`reversed` = FALSE);
+
+INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
+SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_PASSWORD_NORMAL')
   AND (ts.`transactionStatusType` = 'COMBINED_AUTHENTICATION_ALLOWED' AND ts.`reversed` = FALSE);
-
-INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
-SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_PASSWORD_NORMAL')
-  AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
-
-INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
-SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_PASSWORD_NORMAL')
-  AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
@@ -1364,52 +1099,42 @@ WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_UNDEFINED_NORMAL')
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
-  AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
+  AND (ts.`transactionStatusType` = 'COMBINED_AUTHENTICATION_ALLOWED' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
-  AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
+  AND (ts.`transactionStatusType` = 'USER_CHOICE_ALLOWED' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_CHIP')
-  AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
+  AND (ts.`transactionStatusType` = 'COMBINED_AUTHENTICATION_ALLOWED' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_CHIP')
-  AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
+  AND (ts.`transactionStatusType` = 'USER_CHOICE_ALLOWED' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_CHIP_APP')
-  AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
+  AND (ts.`transactionStatusType` = 'COMBINED_AUTHENTICATION_ALLOWED' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_CHIP_APP')
-  AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
+  AND (ts.`transactionStatusType` = 'USER_CHOICE_ALLOWED' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_APP')
-  AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
+  AND (ts.`transactionStatusType` = 'COMBINED_AUTHENTICATION_ALLOWED' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_APP')
-  AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
-
-INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
-SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_SMS_NORMAL')
-  AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
-
-INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
-SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_SMS_NORMAL')
-  AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
+  AND (ts.`transactionStatusType` = 'USER_CHOICE_ALLOWED' AND ts.`reversed` = FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
@@ -1419,27 +1144,7 @@ WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_SMS_NORMAL')
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_NORMAL')
-  AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
-
-INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
-SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_NORMAL')
-  AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
-
-INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
-SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_NORMAL')
   AND (ts.`transactionStatusType` = 'COMBINED_AUTHENTICATION_ALLOWED ' AND ts.`reversed` = FALSE);
-
-INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
-SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_APP_NORMAL')
-  AND (ts.`transactionStatusType` = 'ALWAYS_ACCEPT' AND ts.`reversed` = TRUE);
-
-INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
-SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_APP_NORMAL')
-  AND (ts.`transactionStatusType` = 'ALWAYS_DECLINE' AND ts.`reversed` = TRUE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
@@ -1453,20 +1158,153 @@ WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_DEFAULT')
 
 
 /* Condition_MeansProcessStatuses */
-
-
-# INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-#   SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-#   WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_TECHNICAL_ERROR')
-#     AND mps.`fk_id_authentMean` = @authMeanRefusal
-#     AND (mps.`meansProcessStatusType` IN ('PAYMENT_MEANS_IN_NEGATIVE_LIST') AND mps.`reversed` = FALSE);
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_SMS_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_PASSWORD_NORMAL')
-  AND mps.`fk_id_authentMean` = @authMeanPassword
-  AND (mps.`meansProcessStatusType` IN ('COMBINED_MEANS_REQUIRED') AND mps.`reversed` = FALSE);
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_SMS_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_SMS_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_SMS_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanUndefined
+  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_02_SMS_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_02_SMS_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_02_SMS_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_02_SMS_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed` = FALSE);
+
+--
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanUndefined
+  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_02_CHIP_TAN_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_02_CHIP_TAN_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_02_CHIP_TAN_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_02_CHIP_TAN_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed` = FALSE);
+
+--
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_MOBILE_APP_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_MOBILE_APP_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_MOBILE_APP_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_MOBILE_APP_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authMeanUndefined
+  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_02_MOBILE_APP_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_02_MOBILE_APP_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_02_MOBILE_APP_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_02_MOBILE_APP_CHOICE_AVAILABLE')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed` = FALSE);
+
+--
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_PASSWORD_NORMAL')
@@ -1484,6 +1322,34 @@ SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_PASSWORD_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanPassword
   AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_PASSWORD_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanPassword
+  AND (mps.`meansProcessStatusType` IN ('COMBINED_MEANS_REQUIRED') AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_PASSWORD_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanPassword
+  AND (mps.`meansProcessStatusType` IN ('MEANS_PROCESS_ERROR') AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_PASSWORD_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanPassword
+  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_PASSWORD_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanUndefined
+  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed` = TRUE);
+
+INSERT INTO `Thresholds` (`isAmountThreshold`, `reversed`, `thresholdType`, `value`, `fk_id_condition`) 
+VALUES (b'0', b'0', 'UNDER_TRIAL_NUMBER_THRESHOLD', 3, @rulePasswordCondtn);
+
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
@@ -1495,91 +1361,139 @@ INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessSt
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_UNDEFINED_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanPassword
-  AND (mps.`meansProcessStatusType` IN ('COMBINED_MEANS_REQUIRED') AND mps.`reversed` = TRUE);
+  AND (mps.`meansProcessStatusType` IN ('COMBINED_MEANS_REQUIRED') AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_UNDEFINED_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanUndefined
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_UNDEFINED_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
-  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = FALSE);
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_UNDEFINED_NORMAL')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
-  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = FALSE);
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_UNDEFINED_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
+  AND mps.`fk_id_authentMean` = @authMeanUndefined
+  AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
+  AND mps.`fk_id_authentMean` = @authMeanPassword
   AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
-  AND mps.`fk_id_authentMean` = @authMeanUndefined
-  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = FALSE);
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
-  AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
+  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
-  AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
-  AND mps.`fk_id_authentMean` = @authMeanOTPsms
-  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
-  AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
-  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
-  AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
-  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
-  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
-  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
-  AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
-  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
-  AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_ALL')
-  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
-  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_CHIP')
   AND mps.`fk_id_authentMean` = @authMeanUndefined
-  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = FALSE);
+  AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
@@ -1616,12 +1530,42 @@ SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_CHIP')
   AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
   AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_CHIP')
+  AND mps.`fk_id_authentMean` = @authMeanPassword
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_CHIP')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_CHIP')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_CHIP')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_CHIP')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_CHIP_APP')
   AND mps.`fk_id_authentMean` = @authMeanUndefined
-  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = FALSE);
+  AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
@@ -1658,12 +1602,42 @@ SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_CHIP_APP')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
   AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_CHIP_APP')
+  AND mps.`fk_id_authentMean` = @authMeanPassword
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_CHIP_APP')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_CHIP_APP')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_CHIP_APP')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_CHIP_APP')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_APP')
   AND mps.`fk_id_authentMean` = @authMeanUndefined
-  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = FALSE);
+  AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
@@ -1700,6 +1674,36 @@ SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_APP')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
   AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_APP')
+  AND mps.`fk_id_authentMean` = @authMeanPassword
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_APP')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_APP')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_APP')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHOICE_SMS_APP')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
@@ -1717,8 +1721,43 @@ INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessSt
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_SMS_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_SMS_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_SMS_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanPassword
   AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = FALSE);
 
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_SMS_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_SMS_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanUndefined
+  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_SMS_NORMAL')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_SMS_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
@@ -1736,7 +1775,43 @@ INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessSt
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_NORMAL')
   AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanPassword
   AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanUndefined
+  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_NORMAL')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_CHIP_TAN_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
@@ -1754,13 +1829,58 @@ INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessSt
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
 WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_APP_NORMAL')
   AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_APP_NORMAL')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_APP_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanPassword
   AND (mps.`meansProcessStatusType` = 'COMBINED_MEANS_REQUIRED' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_APP_NORMAL')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_APP_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanUndefined
+  AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_APP_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanOTPsms
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @sharedIssuerName, '_01_OTP_APP_NORMAL')
+  AND mps.`fk_id_authentMean` = @authMeanOTPchiptan
+  AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = TRUE);
+
+
+INSERT INTO `TransactionValue` (`reversed`, `transactionValueType`, `value`, `fk_id_condition`) VALUES 
+(b'1', 'DEVICE_CHANNEL', '01', @ruleChipTanChoiceCondtn1),
+(b'1', 'DEVICE_CHANNEL', '01', @ruleChipTanChoiceCondtn2),
+(b'1', 'DEVICE_CHANNEL', '01', @ruleCHOICE_ALLCondtn),
+(b'1', 'DEVICE_CHANNEL', '01', @ruleSMS_CHIPCondtn),
+(b'1', 'DEVICE_CHANNEL', '01', @ruleCHIP_APPCondtn),
+(b'1', 'DEVICE_CHANNEL', '01', @ruleChipTannormalCondtn);
 
 /* ProfileSet_Rule */
 
 INSERT INTO `ProfileSet_Rule` (`id_profileSet`, `id_rule`)
 SELECT ps.`id`, r.`id` FROM `ProfileSet` ps, `Rule` r
-WHERE ps.`name` = CONCAT('PS_', @sharedIssuerName, '_01')AND r.`id` IN (@ruleRefusalTE, @ruleRefusalFE, @ruleRBADecline, @ruleRBAAccept, @rulePasswordnormal, @ruleUndefinednormal,
+WHERE ps.`name` = CONCAT('PS_', @sharedIssuerName, '_01')AND r.`id` IN (@ruleRefusalTE, @ruleRefusalFE, @ruleRBADecline, @ruleRBAAccept, @ruleSMSChoice, @ruleChipTanChoice, @ruleMobileAppChoice, @rulePasswordnormal, @ruleUndefinednormal,
                                                                         @ruleSMSnormal, @ruleMobileAppnormal, @ruleChipTannormal, @ruleSMS_APP, @ruleCHIP_APP, @ruleSMS_CHIP, @ruleCHOICE_ALL, @ruleRefusalDefault);
 -- Bin ranges
 SET @cryptoConfidId = (SELECT id FROM CryptoConfig WHERE description = 'Sparda CryptoConfig');

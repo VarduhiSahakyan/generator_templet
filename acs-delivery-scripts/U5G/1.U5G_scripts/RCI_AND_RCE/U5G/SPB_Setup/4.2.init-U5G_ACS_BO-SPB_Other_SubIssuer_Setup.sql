@@ -138,10 +138,10 @@ WHERE ci.fk_id_customItemSet = @idTemplateCustomItemSet;
 
 SET @authMeanRefusal = (SELECT id FROM `AuthentMeans` WHERE `name` = 'REFUSAL');
 INSERT INTO `Profile` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
-                       `updateState`, `maxAttempts`, dataEntryFormat, dataEntryAllowedPattern, `fk_id_authentMeans`,
+                       `updateState`, `maxAttempts`, `dataEntryAllowedPattern`, `dataEntryFormat`, `fk_id_authentMeans`,
                        `fk_id_customItemSetCurrent`, `fk_id_customItemSetOld`, `fk_id_customItemSetNew`,
                        `fk_id_subIssuer`)
-SELECT @createdBy, NOW(), 'REFUSAL (DEFAULT)', NULL, NULL, CONCAT(si.name,'_DEFAULT_REFUSAL'), 'PUSHED_TO_CONFIG', -1,  '^[^OIi]*$', '7:(:DIGIT:1)',@authMeanRefusal, cis.id, NULL, NULL, si.id
+SELECT @createdBy, NOW(), 'REFUSAL (DEFAULT)', NULL, NULL, CONCAT(si.name,'_DEFAULT_REFUSAL'), 'PUSHED_TO_CONFIG', -1,  '^[^OIi]*$', '6:(:DIGIT:1)',@authMeanRefusal, cis.id, NULL, NULL, si.id
 FROM SubIssuer si INNER JOIN CustomItemSet cis ON si.id = cis.fk_id_subIssuer
 where si.fk_id_issuer = @issuerId and find_in_set(si.code, @subIssuerCodes);
 

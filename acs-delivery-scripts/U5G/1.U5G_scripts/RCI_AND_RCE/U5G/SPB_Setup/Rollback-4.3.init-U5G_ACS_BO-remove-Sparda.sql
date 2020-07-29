@@ -11,21 +11,21 @@ SET @BankB_Shared = 'SPB_sharedBIN';
 set @idIssuer = (SELECT ID from Issuer where CODE = @issuerCode);
 set @idSharedSubIssuer = (SELECT ID from SubIssuer where code = @sharedSubIssuerCode);
 
-set @idsOtherSubissuers = (SELECT group_concat(id) FROM SubIssuer where name like 'SBK_%');
+set @idsOtherSubissuers = (SELECT group_concat(distinct(id)) FROM SubIssuer where name like 'SBK_%' or name like 'SPD_%');
 set @idSharedProfileSet = (SELECT ID from ProfileSet where FK_ID_SUBISSUER = @idSharedSubIssuer);
-set @idOtherProfileSets = (SELECT group_concat(id) FROM ProfileSet WHERE name like 'PS\_SBK\_%' OR name = '');
+set @idOtherProfileSets = (SELECT group_concat(distinct(id)) FROM ProfileSet WHERE name like 'PS\_SBK\_%' OR name like 'PS\_SPB\_%');
 
-set @idRules = (SELECT group_concat(r.id) FROM Rule r INNER JOIN ProfileSet_Rule psr ON r.id = psr.id_rule INNER JOIN ProfileSet ps ON ps.id = psr.id_profileSet
+set @idRules = (SELECT group_concat(distinct(r.id)) FROM Rule r INNER JOIN ProfileSet_Rule psr ON r.id = psr.id_rule INNER JOIN ProfileSet ps ON ps.id = psr.id_profileSet
                 WHERE ps.id = @idSharedProfileSet OR find_in_set(ps.id, @idOtherProfileSets));
 
-set @idCryptoConfigs = (SELECT group_concat(cc.id) FROM CryptoConfig cc INNER JOIN SubIssuer si on cc.id = si.fk_id_cryptoConfig
+set @idCryptoConfigs = (SELECT group_concat(distinct(cc.id)) FROM CryptoConfig cc INNER JOIN SubIssuer si on cc.id = si.fk_id_cryptoConfig
                             where (si.id = @idSharedSubIssuer) OR (find_in_set(si.id, @idsOtherSubissuers)));
 
 SELECT @idSharedSubIssuer, @idSharedProfileSet, @idRules;
 
 -- delete the profile set / custompage layout mapping
 delete from CustomPageLayout_ProfileSet where profileset_id in
-                                              (@idSharedProfileSet) OR find_in_set( profileSet_id, @i4OtherProfileSets);
+                                              (@idSharedProfileSet) OR find_in_set( profileSet_id, @idOtherProfileSets);
 
 -- delete all the custom components
 DELETE FROM CustomComponent WHERE fk_id_layout IN (SELECT id FROM CustomPageLayout WHERE description LIKE '%Spardabank%');
@@ -33,22 +33,24 @@ DELETE FROM CustomPageLayout WHERE description LIKE '%Spardabank%';
 
 -- delete profiles for sub issuer
 
-set @id_customitemsets = (select group_concat(cis.id) FROM
+set @id_customitemsets = (select group_concat(distinct(cis.id)) FROM
                               CustomItemSet cis INNER JOIN Profile p ON p.fk_id_customItemSetCurrent = cis.id
                               INNER JOIN Rule r ON p.id = r.fk_id_profile
                               INNER JOIN ProfileSet_Rule psr ON psr.id_rule = r.id
                               INNER JOIN ProfileSet ps ON ps.id = psr.id_profileSet
-                          where FIND_IN_SET(ps.id ,@idProfileSets));
+                          where FIND_IN_SET(ps.id ,@idSharedProfileSet) OR find_in_set( ps.id, @idOtherProfileSets));
 
 update Profile p set p.FK_ID_CUSTOMITEMSETCURRENT = null where find_in_set(FK_ID_CUSTOMITEMSETCURRENT, @id_customitemsets) OR
-                                                               fk_id_customItemSetCurrent IN (SELECT id FROM CustomItemSet WHERE name like 'customitemset_SPB%');
+                                                               fk_id_customItemSetCurrent IN (SELECT id FROM CustomItemSet WHERE name like 'customitemset_SBK%' or name like 'customitemset_SPB%');
 
 DELETE FROM CustomItem where find_in_set(fk_id_customItemSet, @id_customitemsets);
-DELETE FROM CustomItem WHERE fk_id_customItemSet IN (SELECT id FROM CustomItemSet cis where name like 'customitemset_SPB%');
+DELETE FROM CustomItem WHERE fk_id_customItemSet IN (SELECT id FROM CustomItemSet cis where name like 'customitemset_SBK%' or name like 'customitemset_SPB%');
+
+DELETE FROM CustomItem WHERE fk_id_customItemSet IS NULL;
 
 delete from CustomItemSet where find_in_set(id, @id_customitemsets);
-delete from CustomItemSet WHERE name like 'customitemset_SPB%';
-set @id_profiles = (select group_concat(p.id) from Profile p,
+delete from CustomItemSet WHERE name like 'customitemset_SBK%' or name like 'customitemset_SPB%';
+set @id_profiles = (select group_concat(distinct(p.id)) from Profile p,
                                                   Rule r ,
                                                   ProfileSet_Rule pr
                           where  r.FK_ID_PROFILE = p.ID
@@ -58,12 +60,12 @@ set @id_profiles = (select group_concat(p.id) from Profile p,
 SELECT @id_profiles;
 
 -- delete conditions
-SET @idRules = (SELECT group_concat(r.id) from Rule r, ProfileSet_Rule pr
+SET @idRules = (SELECT group_concat(distinct(r.id)) from Rule r, ProfileSet_Rule pr
                        where pr.ID_RULE = r.id and (pr.ID_PROFILESET in
                                                    (@idSharedProfileSet) OR find_in_set(pr.id_profileSet, @idOtherProfileSets)));
 
 
-SET @idConditions = (SELECT group_concat(rc.id) from RuleCondition rc, Rule r, ProfileSet_Rule pr
+SET @idConditions = (SELECT group_concat(distinct(rc.id)) from RuleCondition rc, Rule r, ProfileSet_Rule pr
                        where rc.FK_ID_RULE = r.id and find_in_set(r.id, @idRules));
 
 delete from Condition_TransactionStatuses
@@ -71,6 +73,10 @@ where find_in_set(ID_CONDITION, @idConditions) ;
 
 delete from Condition_MeansProcessStatuses
 where find_in_set(ID_CONDITION, @idConditions);
+
+delete from Thresholds where find_in_set (fk_id_condition, @idConditions);
+
+delete from TransactionValue where find_in_set (fk_id_condition, @idConditions);
 
 delete from RuleCondition where find_in_set(ID, @idConditions);
 

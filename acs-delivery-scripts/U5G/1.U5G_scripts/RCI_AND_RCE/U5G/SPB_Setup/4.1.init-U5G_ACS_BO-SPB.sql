@@ -16,6 +16,8 @@ SET @mastercardNetworkId = (SELECT id FROM Network where code = 'MASTERCARD');
 
 SET @subIssuerNameAndLabel = 'SPD_sharedBIN';
 SET @subIssuerCode = '16950';
+SET @subIssuerCodes = '12069,13606,15009,16009,17009,17209,17509,17609' ;
+
 /* @backUpLanguage corresponds to a (comma separated) list of locales that should be displayed to the user,
    and @defaultLanguage a default locale which should be selected by default. */
 SET @backUpLanguages = '';
@@ -31,7 +33,7 @@ SET @preferredAuthMean = 'EXT_PASSWORD';
    was initiated from an IP from the same location as the ACS (local purchase) */
 SET @issuerCountryCode = '250';
 SET @maskParam = '*,6,4';
-SET @dateFormat = 'DD.MM.YYYY HH:mm';
+SET @dateFormat = 'DD.MM.YYYY HH:mm|CET';
 SET @activatedAuthMeans = '[ {
   "authentMeans" : "REFUSAL",
   "validate" : true
@@ -75,8 +77,6 @@ INSERT INTO `MeansProcessStatuses` (meansProcessStatusType, reversed, fk_id_auth
    At first, the different authentication means need to be activated, so 'validate' is set to 'true'.
 */
 
-
-
 INSERT INTO `Issuer` (`code`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
                       `updateState`, `label`, `availaibleAuthentMeans`) VALUES
   (@issuerCode, @createdBy, NOW(), NULL, NULL, NULL, @issuerNameAndLabel, 'PUSHED_TO_CONFIG', @issuerNameAndLabel,
@@ -93,6 +93,25 @@ INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `c
                          `issuerCountry`, `hubCallMode`, `fk_id_issuer`, `maskParams`, `dateFormat`, `resendSameOTP`,`combinedAuthenticationAllowed`, authentMeans) VALUES
 -- Shared subissuer
 ('ACS_U5G', 120, @backUpLanguages, @subIssuerCode, @subIssuerCode, '978', @createdBy, NOW(), NULL, NULL, NULL, @subIssuerNameAndLabel,'PUSHED_TO_CONFIG', @defaultLanguage, 600, @subIssuerNameAndLabel, TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans);
+
+INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `code`, `codeSvi`, `currencyCode`,
+                         `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`,
+                         `defaultLanguage`, `freshnessPeriod`, `label`, `manageBackupsCombinedAmounts`, `manageChoicesCombinedAmounts`,
+                         `personnalDataStorage`, `resetBackupsIfSuccess`, `resetChoicesIfSuccess`,
+                         `transactionTimeOut`, `acs_URL1_VE_MC`, `acs_URL2_VE_MC`, `acs_URL1_VE_VISA`, `acs_URL2_VE_VISA`,
+                         `automaticDeviceSelection`, `userChoiceAllowed`, `backupAllowed`, `defaultDeviceChoice`, `preferredAuthentMeans`,
+                         `issuerCountry`, `hubCallMode`, `fk_id_issuer`, `maskParams`, `dateFormat`, `resendSameOTP`,`combinedAuthenticationAllowed`,
+                         authentMeans, fk_id_cryptoConfig)
+VALUES
+('ACS_U5G', 120, @backUpLanguages, '12069', '12069', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Hamburg','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Hamburg', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig),
+('ACS_U5G', 120, @backUpLanguages, '13606', '13606', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_West','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_West', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig),
+('ACS_U5G', 120, @backUpLanguages, '15009', '15009', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Hessen','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Hessen', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig),
+('ACS_U5G', 120, @backUpLanguages, '16009', '16009', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Baden-Württemberg','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Baden-Württemberg', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig),
+('ACS_U5G', 120, @backUpLanguages, '17009', '17009', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_München','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_München', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig),
+('ACS_U5G', 120, @backUpLanguages, '17209', '17209', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Augsburg','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Augsburg', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig),
+('ACS_U5G', 120, @backUpLanguages, '17509', '17509', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Ostbayern','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Ostbayern', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig),
+('ACS_U5G', 120, @backUpLanguages, '17609', '17609', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Nürnberg','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Nürnberg', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig);
+
 SET @subIssuerId = (SELECT id FROM SubIssuer where code = @subIssuerCode);
 
 INSERT INTO `SubIssuerCrypto` (`acsIdForCrypto`, `binKeyIdentifier`, `cavvKeyIndicator`, `cipherKeyIdentifier`,
@@ -120,8 +139,4 @@ INSERT INTO `Network_SubIssuer` (`id_network`, `id_subIssuer`)
 SELECT n.id, si.id
 FROM `Network` n, `SubIssuer` si
 WHERE si.fk_id_issuer = @issuerId and si.id =  @subIssuerId
-  AND n.code in('VISA');
-
-
-/*!40101 SET SQL_MODE = IFNULL(@OLD_SQL_MODE, '') */;
-/*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
+  AND n.code in('VISA','MASTERCARD');
