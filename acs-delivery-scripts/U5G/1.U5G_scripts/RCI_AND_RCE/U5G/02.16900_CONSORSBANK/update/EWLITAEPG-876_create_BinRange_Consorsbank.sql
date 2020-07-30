@@ -10,7 +10,7 @@ INSERT INTO `BinRange` (`activateState`, `createdBy`, `creationDate`, `descripti
 						`name`, `updateState`, `immediateActivation`, `activationDate`, `lowerBound`, `panLength`,
 						`sharedBinRange`, `updateDSDate`, `upperBound`, `toExport`, `fk_id_profileSet`, `fk_id_network`,
 						`coBrandedCardNetwork`) VALUES
-  ('TEST_BIN', @createdBy, NOW(), NULL, NULL, NULL, NULL, 'PUSHED_TO_CONFIG', FALSE, NOW(), '4163698000', 16, FALSE, NULL, '4163698009', FALSE, @ProfileSet, @MaestroVID, NULL);
+  ('ACTIVATED', @createdBy, NOW(), NULL, NULL, NULL, NULL, 'PUSHED_TO_CONFIG', FALSE, NOW(), '4163698000', 16, FALSE, NULL, '4163698009', FALSE, @ProfileSet, @MaestroVID, NULL);
 
 /* BinRange_SubIssuer */
 INSERT INTO `BinRange_SubIssuer` (`id_binRange`, `id_subIssuer`)
