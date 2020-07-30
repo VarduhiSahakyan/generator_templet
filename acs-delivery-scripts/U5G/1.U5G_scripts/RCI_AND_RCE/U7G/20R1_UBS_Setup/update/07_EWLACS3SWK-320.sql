@@ -338,11 +338,6 @@ set value = '<style>
 			</div>
 		</div>
 	</div>
-<div id="i18n-container" class="text-center">
-    <div id="i18n-inner">
-        <i18n></i18n>
-    </div>
-</div>
 	<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
 	<div id="content">
 		<div id="contentHeaderLeft">
