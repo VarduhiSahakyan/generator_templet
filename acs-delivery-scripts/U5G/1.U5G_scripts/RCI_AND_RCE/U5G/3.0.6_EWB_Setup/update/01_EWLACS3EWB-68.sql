@@ -1,4 +1,4 @@
-use U7G_ACS_BO;
+use U5G_ACS_BO;
 
 set @BankB = 'EWB';
 
@@ -36,7 +36,7 @@ set value = '
         margin-bottom: 1.1em;
     }
     .acs-challengeInfoText {
-        white-space: pre-wrap;
+        white-space: normal;
         margin-bottom: 2em;
     }
     .acs-footer {
