@@ -1,11 +1,11 @@
 USE `U5G_ACS_BO`;
 
 INSERT INTO CustomPageLayout (controller, pageType, description) VALUES
-( NULL, 'UNDEFINED_APP_VIEW', 'Choice_App_View (FBK)');
+( NULL, 'UNDEFINED_APP_VIEW_MEAN_SELECT', 'Choice_App_View (FBK)');
 
-SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` ='PS_18501_PB_01');
+SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` ='PS_18502_PB_01');
 
-SET @idAppViewPage=(SELECT id FROM `CustomPageLayout` WHERE `pageType`= 'UNDEFINED_APP_VIEW' and DESCRIPTION = 'Choice_App_View (FBK)') ;
+SET @idAppViewPage=(SELECT id FROM `CustomPageLayout` WHERE `pageType`= 'UNDEFINED_APP_VIEW_MEAN_SELECT' and DESCRIPTION = 'Choice_App_View (FBK)') ;
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
   VALUES( 'div',
@@ -34,7 +34,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 				margin-bottom: 1.1em;
 			}
 			.acs-challengeInfoText {
-				white-space: pre-wrap;
+				white-space: normal;
 				margin-bottom: 2em;
 			}
 			.acs-footer {
@@ -210,4 +210,4 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 INSERT INTO CustomPageLayout_ProfileSet (customPageLayout_id, profileSet_id)
 select cpl.id, ps.id
   from CustomPageLayout cpl, ProfileSet ps
-    where cpl.description = 'Choice_App_View (FBK)' and pageType = 'UNDEFINED_APP_VIEW' and ps.name = 'PS_18502_PB_01';
+    where cpl.description = 'Choice_App_View (FBK)' and pageType = 'UNDEFINED_APP_VIEW_MEAN_SELECT' and ps.name = 'PS_18502_PB_01';
