@@ -843,7 +843,85 @@ div#optGblPage {
     color: #333333;
     font-size: 14px;
 }
-
+#optGblPage #selection-group switch-means-button:nth-child(1) button {
+		margin-right: 16px;	
+	}
+	#optGblPage #selection-group switch-means-button:nth-child(2) button {
+		margin-right: 16px;	
+	}
+	#optGblPage #selection-group switch-means-button:nth-child(2) button span:before {
+		content:'''';
+	}
+	#optGblPage #selection-group switch-means-button:nth-child(1) button span:before {
+		content:'''';
+	}
+	#optGblPage #selection-group switch-means-button:nth-child(1) button:hover:enabled {
+		background-color: #fafafa;
+		border-color: #ff6a10;
+	}
+	#optGblPage #selection-group switch-means-button:nth-child(1) button:active {
+		background-image: linear-gradient(rgba(0,0,0,.05),rgba(0,0,0,.05)); 
+		box-shadow: none;
+		background-color: #f0f0f0;
+		outline: #6e6e6e 1px dotted;
+		border-color: #ff6a10;
+	}	
+	#optGblPage #selection-group switch-means-button:nth-child(2) button:hover:enabled {
+		background-color: #fafafa;
+		border-color: #ff6a10;
+	}
+	#optGblPage #selection-group switch-means-button:nth-child(2) button:active {
+		background-image: linear-gradient(rgba(0,0,0,.05),rgba(0,0,0,.05)); 
+		box-shadow: none;
+		background-color: #f0f0f0;
+		outline: #6e6e6e 1px dotted;
+		border-color: #ff6a10;
+	}
+	#optGblPage #selection-group switch-means-button:nth-child(3) button:hover:enabled {
+		background-color: #fafafa;
+		border-color: #ff6a10;
+	}
+	#optGblPage #selection-group switch-means-button:nth-child(3) button:active {
+		background-image: linear-gradient(rgba(0,0,0,.05),rgba(0,0,0,.05)); 
+		box-shadow: none;
+		background-color: #f0f0f0;
+		outline: #6e6e6e 1px dotted;
+		border-color: #ff6a10;
+	}
+	#switch-means-mobile_app_ext-img {
+		width:60px;
+		height:60px;
+		background-size:contain;
+		display: block;
+		margin-left: 10px;
+		margin-right: 25px;
+		margin-bottom : 8px;
+		margin-top : 8px;
+	}
+	#switch-means-otp_sms_ext_message-img {
+		width:60px;
+		height:60px;
+		background-size:contain;
+		display: block;
+		margin-left: 10px;
+		margin-right: 25px;
+		margin-bottom : 8px;
+		margin-top : 8px;
+	}
+	#switch-means-chip_tan-img {
+		width:60px;
+		height:60px;
+		background-size:contain;
+		display: block;
+		margin-left: 10px;
+		margin-right: 25px;
+		margin-bottom : 8px;
+		margin-top : 8px;
+	}
+	#optGblPage #selection-group switch-means-button:nth-child(1) button:focus {outline:0;border-color: #ff6a10;outline: #6e6e6e 1px dotted;} 
+	#optGblPage #selection-group switch-means-button:nth-child(2) button:focus {outline:0;border-color: #ff6a10;outline: #6e6e6e 1px dotted;}
+	#optGblPage #selection-group switch-means-button:nth-child(3) button:focus {outline:0;border-color: #ff6a10;outline: #6e6e6e 1px dotted;}
+	
 /* Start Bootstrap reset */
 .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7 {
     margin:0;
@@ -1135,7 +1213,7 @@ side-menu .menu-elements div div div span + span {
 				</div>
                 <div class = "meansSelectValue">
                     <div id="meanchoice">
-                        <means-select-menu means-choices="meansChoices"></means-select-menu>
+                        <means-select means-choices="meansChoices"></means-select>
                     </div>
                 </div>
 
@@ -1421,8 +1499,6 @@ div.ng-scope:nth-child(5) > div:nth-child(1) > div:nth-child(1) > span:nth-child
 				<help help-label="''network_means_pageType_41''" id="helpButton"></help>
 				<cancel-button cn-label="''network_means_pageType_40''" id="cancelButton" ></cancel-button>
 			    <val-button val-label="''network_means_pageType_42''" id="valButton" ></val-button>
-
-
 	</div>
 </div>
 ', @layoutId);
@@ -1457,10 +1533,41 @@ div#optGblPage {
 }
 /* End Bootstrap reset */
 
+#helpButton {
+    text-align: left;
+    padding-left: 52.5em;
+    padding-right: 0.5em;
+}
+#helpButton button {
+    display: inline-block;
+    cursor: pointer;
+    text-align: left;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #FF8C00;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px #999;
+}
+#helpButton button:hover {
+    background-color: #FFA500
+}
+#helpButton button:active {
+    background-color: #FF8C00;
+    box-shadow: 0 3px #666;
+    transform: translateY(2px);
+}
+#helpButton button span:before {
+    content:'''';
+}
+#helpButton button custom-text {
+    
+}
 #cancelButton {
-    flex: 1 1 50%;
+    /*flex: 1 1 50%;
     text-align:right;
-    padding-right:0.5em;
+    padding-right:0.5em;*/
 }
 #cancelButton button {
     display: inline-block;
@@ -1664,6 +1771,10 @@ side-menu .menu-elements div div div span + span {
 					<custom-text custom-text-key="''network_means_pageType_4''"></custom-text>
 				</div>
 		</div>
+	</div>
+    <div id="footerDiv">
+				<help help-label="''network_means_pageType_41''" id="helpButton"></help>
+				<cancel-button cn-label="''network_means_pageType_40''" id="cancelButton" ></cancel-button>
 	</div>
 </div>
 ', @layoutId);

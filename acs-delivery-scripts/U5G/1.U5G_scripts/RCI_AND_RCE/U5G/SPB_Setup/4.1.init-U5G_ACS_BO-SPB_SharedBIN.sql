@@ -289,17 +289,22 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 2, @currentPageType, 'Wenn Sie eine mobileTAN anfordern, wird Ihnen diese als SMS auf Ihr Mobilfunkgerät gesandt. Bitte gleichen Sie die in der SMS enthaltenen Zahlungsinformationen ab und geben die mobileTAN ein. Um fortzufahren, bestätigen Sie die Eingabe mit „Senden“. Um die Freigabe der Zahlung abzubrechen, klicken Sie auf „Abbrechen“.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, 'Bitte beachten Sie, dass die mobileTAN nur für diese Transaktion gilt. Sie verfällt, wenn Sie die Bearbeitung an dieser Stelle abbrechen. Die Verwaltung des mobileTAN-Verfahrens können Sie im SpardaOnline-Banking vornehmen.', NULL, NULL, @currentCustomItemSet),
+ 'de', 3, @currentPageType, 'Bitte beachten Sie, dass die mobileTAN nur für diese Transaktion gilt. Sie verfällt, wenn Sie die Bearbeitung an dieser Stelle abbrechen. Die Verwaltung des mobileTAN-Verfahrens können Sie im Sparda Online-Banking vornehmen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
  'de', 174, @currentPageType, 'Schließen', NULL, NULL, @currentCustomItemSet);
 
 SET @currentPageType = 'MEANS_PAGE';
+SET @currentAuthentMean1 = 'OTP_SMS';
+SET @Imageid = (SELECT `id` FROM `Image` im WHERE im.name LIKE CONCAT('%',@currentAuthentMean1,'_Logo','%'));
+
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
- 'de', 9, @currentPageType, 'SMS', NULL, NULL, @currentCustomItemSet);
+ 'de', 9, @currentPageType, 'mobileTAN', NULL, NULL, @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG', 
+ 'de', 9, @currentPageType, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), NULL, @Imageid, @currentCustomItemSet);
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
@@ -327,7 +332,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 1, @currentPageType, '<b>Schritt 1: Eingabe Online-Banking-PIN</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte geben Sie Ihre PIN für das SpardaOnline-Banking zur dargestellten Kundenummer ein, um den Bezahlvorgang zu bestätigen.', NULL, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Bitte geben Sie Ihre PIN für das Sparda Online-Banking zur dargestellten Kundenummer ein, um den Bezahlvorgang zu bestätigen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
  'de', 3, @currentPageType, '<b>Kundennummer:</b> @challenge1', NULL, NULL, @currentCustomItemSet),
@@ -429,7 +434,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 1, @currentPageType, '<b>Hinweise zur Anmeldung</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte geben Sie die zu der angezeigten Kundennummer passende Online-PIN Ihres SpardaOnline-Bankings ein. Um fortzufahren, bestätigen Sie die Eingabe mit "Senden". Um die Freigabe der Zahlung abzubrechen, klicken Sie auf "Abbrechen".', NULL, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Bitte geben Sie die zu der angezeigten Kundennummer passende Online-PIN Ihres Sparda Online-Bankings ein. Um fortzufahren, bestätigen Sie die Eingabe mit "Senden". Um die Freigabe der Zahlung abzubrechen, klicken Sie auf "Abbrechen".', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
  'de', 3, @currentPageType, 'Aus Sicherheitsgründen zeigen wir sowohl die Kartennummer als auch die Kundennummer nur maskiert an.', NULL, NULL, @currentCustomItemSet),
@@ -519,6 +524,9 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
  'de', 103, 'ALL', 'Kartennummer', NULL, NULL, @currentCustomItemSet),
 
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_104'), 'PUSHED_TO_CONFIG',
+ 'de', 104, 'ALL', 'Gerät', NULL, NULL, @currentCustomItemSet),
+
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
  'de', 174, 'ALL', 'Schließen', NULL, NULL, @currentCustomItemSet),
 
@@ -596,17 +604,22 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 2, @currentPageType, 'Bitte öffnen Sie die SpardaSecureApp auf dem entsprechenden Gerät. Hierzu müssen Sie sich mit Ihrem SpardaSecureApp-Passwort oder mit der TouchID/FaceID einloggen. Anschließend werden Ihnen die Zahlungsinformationen angezeigt. Bitte gleichen Sie diese ab und geben die Zahlung frei.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, 'Sie können die Zahlungsfreigabe in der SpardaSecureApp auch ablehnenbrechen.', NULL, NULL, @currentCustomItemSet),
+ 'de', 3, @currentPageType, 'Sie können die Zahlungsfreigabe in der SpardaSecureApp auch ablehnen.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
  'de', 174, @currentPageType, 'Schließen', NULL, NULL, @currentCustomItemSet);
 
 SET @currentPageType = 'MEANS_PAGE';
+SET @currentAuthentMean1 = 'MOBILE_APP';
+SET @Imageid = (SELECT `id` FROM `Image` im WHERE im.name LIKE CONCAT(@currentAuthentMean1,'_Logo','%'));
+
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
- 'de', 9, @currentPageType, 'APP', NULL, NULL, @currentCustomItemSet);
+ 'de', 9, @currentPageType, 'SpardaSecureApp', NULL, NULL, @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG', 
+ 'de', 9, @currentPageType, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), NULL, @Imageid, @currentCustomItemSet);
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
@@ -708,6 +721,9 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
  'de', 103, 'ALL', 'Kreditkartennummer', NULL, NULL, @currentCustomItemSet),
 
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_104'), 'PUSHED_TO_CONFIG',
+ 'de', 104, 'ALL', 'Gerät', NULL, NULL, @currentCustomItemSet),
+
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
  'de', 174, 'ALL', 'Schließen', NULL, NULL, @currentCustomItemSet),
 
@@ -757,11 +773,16 @@ Prüfen Sie die Hinweise und bestätigen Sie diese dann jeweils mit "OK" auf Ihr
  'de', 174, @currentPageType, 'Schließen', NULL, NULL, @currentCustomItemSet);
  
 SET @currentPageType = 'MEANS_PAGE';
+SET @currentAuthentMean1 = 'TUPAS';
+SET @Imageid = (SELECT `id` FROM `Image` im WHERE im.name LIKE CONCAT('%',@currentAuthentMean1,'_Logo','%'));
+
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
- 'de', 9, @currentPageType, 'SMS', NULL, NULL, @currentCustomItemSet);
+ 'de', 9, @currentPageType, 'chipTAN', NULL, NULL, @currentCustomItemSet),
+('I', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG', 
+ 'de', 9, @currentPageType, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), NULL, @Imageid, @currentCustomItemSet);
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
