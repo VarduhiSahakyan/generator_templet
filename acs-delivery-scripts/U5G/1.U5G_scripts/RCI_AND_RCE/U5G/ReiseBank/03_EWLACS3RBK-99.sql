@@ -180,6 +180,7 @@ set @layout = '<style>
 		margin: 10px;
 	}
 	@media (max-width: 1200px) {
+        #main-container{max-width: 1200px}
 		.menu-title {display: none;}
 		#centerPieceLayout {width: 100%; min-height: 120px;}
 		div#centerPieceLayout {min-height: 120px;}
@@ -187,17 +188,45 @@ set @layout = '<style>
 		.paragraph {text-align: center;}
 	}
 	@media screen and (max-width: 480px) {
+		#main-container{max-width: 480px}
 		.btn {font-size: 12px;}
 		#centeredTitle {margin-top: 8px;}
 		#bottomLayout {display: block !important;}
 	}
+	@media screen and (max-width: 390px) {
+		#main-container{max-width: 390px; overflow: hidden;}
+	}
 	@media (max-width: 360px) {
+		#main-container{max-width: 360px; overflow: hidden;}
 		body {font-size: 9px;}
 		.btn {font-size: 9px;}
 		#centeredTitle {margin-top: 4px;}
 	}
+	@media (max-width: 347px) {
+		#main-container{max-width: 347px; overflow: hidden;}
+		body {font-size: 9px;}
+		.btn {font-size: 9px;}
+		#centeredTitle {margin-top: 4px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
+	}
+	@media (max-width: 309px) {
+		#main-container{max-width: 309px; overflow: hidden;}
+		body {font-size: 8px;}
+		.btn {font-size: 8px;}
+		#centeredTitle {margin-top: 3px;}
+		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
+	}
+	@media (max-width: 250px) {
+		#main-container{max-width: 250px; overflow: hidden;}
+		body {font-size: 8px;}
+		.btn {font-size: 8px;}
+		#centeredTitle {margin-top: 3px;}
+		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
+	}
 </style>
-<div class="container-fluid">
+<div id="main-container" class="container-fluid">
 	<div id="headerLayout" class="row">
 		<div id="pageHeader" class="text-center col-xs-12">
 			<div class="row">
@@ -384,23 +413,52 @@ set @layout = '<style>
 		margin: 10px;
 	}
 	@media (max-width: 1200px) {
+		#main-container{max-width: 1200px}
 		.menu-title {display: none;}
 		#rightContainer {width: 100%; display: inline-flex;}
 		div#leftMenuLayout {width: 100%;}
 		.paragraph {text-align: center;}
 	}
 	@media screen and (max-width: 480px) {
+		#main-container{max-width: 480px}
 		.btn {font-size: 12px;}
 		#centeredTitle {margin-top: 8px;}
 		#bottomLayout {display: block !important;}
 	}
+	@media screen and (max-width: 390px) {
+		#main-container{max-width: 390px; overflow: hidden;}
+	}
 	@media (max-width: 360px) {
+		#main-container{max-width: 360px; overflow: hidden;}
 		body {font-size: 9px;}
 		.btn {font-size: 9px;}
 		#centeredTitle {margin-top: 4px;}
 	}
+	@media (max-width: 347px) {
+		#main-container{max-width: 347px; overflow: hidden;}
+		body {font-size: 9px;}
+		.btn {font-size: 9px;}
+		#centeredTitle {margin-top: 4px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
+	}
+	@media (max-width: 309px) {
+		#main-container{max-width: 309px; overflow: hidden;}
+		body {font-size: 8px;}
+		.btn {font-size: 8px;}
+		#centeredTitle {margin-top: 3px;}
+		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
+	}
+	@media (max-width: 250px) {
+		#main-container{max-width: 250px; overflow: hidden;}
+		body {font-size: 8px;}
+		.btn {font-size: 8px;}
+		#centeredTitle {margin-top: 3px;}
+		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
+	}
 </style>
-<div class="container-fluid">
+<div id="main-container" class="container-fluid">
 	<div id="headerLayout" class="row">
 		<div id="pageHeader" class="text-center col-xs-12">
 			<div class="row">
@@ -596,13 +654,40 @@ set @layout = '<style>
 		#centeredTitle {margin-top: 8px;}
 		#bottomLayout {display: block !important;}
 	}
+	@media screen and (max-width: 390px) {
+		#main-container{max-width: 390px; overflow: hidden;}
+	}
 	@media (max-width: 360px) {
+		#main-container{max-width: 360px; overflow: hidden;}
 		body {font-size: 9px;}
 		.btn {font-size: 9px;}
 		#centeredTitle {margin-top: 4px;}
 	}
+	@media (max-width: 347px) {
+		#main-container{max-width: 347px; overflow: hidden;}
+		body {font-size: 9px;}
+		.btn {font-size: 9px;}
+		#centeredTitle {margin-top: 4px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
+	}
+	@media (max-width: 309px) {
+		#main-container{max-width: 309px; overflow: hidden;}
+		body {font-size: 8px;}
+		.btn {font-size: 8px;}
+		#centeredTitle {margin-top: 3px;}
+		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
+	}
+	@media (max-width: 250px) {
+		#main-container{max-width: 250px; overflow: hidden;}
+		body {font-size: 8px;}
+		.btn {font-size: 8px;}
+		#centeredTitle {margin-top: 3px;}
+		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
+	}
 </style>
-<div class="container-fluid">
+<div id = "main-container" class="container-fluid">
 	<div id="headerLayout" class="row">
 		<div id="pageHeader" class="text-center col-xs-12">
 			<div class="row">
