@@ -66,7 +66,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3DS MAIN CONTENT TEXT
 SET @ordinal = 152;
-SET @text = 'Damit Sie noch sicherer mit Ihrer Kreditkarte zahlen, haben wir eine zusätzliche Abfrage eingefügt.Bitte geben Sie Ihr Passwort für den Kreditkarten Online-Service ein. \n\nAbrechnungskonto : @pam \nHändler : @merchant \nBetrag : @amount \nDatum : @formattedDate \nKartennummer : @maskedPan';
+SET @text = 'Damit Sie noch sicherer mit Ihrer Kreditkarte zahlen, haben wir eine zusätzliche Abfrage eingefügt.Bitte geben Sie Ihr Passwort für den Kreditkarten Online-Service ein. \n\nAbrechnungskonto : @pam \nHändler : @merchant \nBetrag : @amount \nDatum : @formattedDate \nKartennummer : @displayedPan';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA, @networkMC);
 
@@ -115,7 +115,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 	
 -- 3DS BAD_OTP_TEXT (Similar to regular one)
 SET @ordinal = 160;
-SET @text = 'Ihre Eingabe war nicht korrekt. \n\nGeben Sie bitte erneut Ihr Passwort für den Kreditkarten Online-Service ein. \n\nAbrechnungskonto : @pam \nHändler : @merchant \nBetrag : @amount \nDatum : @formattedDate \nKartennummer : @maskedPan';
+SET @text = 'Ihre Eingabe war nicht korrekt. \n\nGeben Sie bitte erneut Ihr Passwort für den Kreditkarten Online-Service ein. \n\nAbrechnungskonto : @pam \nHändler : @merchant \nBetrag : @amount \nDatum : @formattedDate \nKartennummer : @displayedPan';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   	SELECT 'T', @username, NOW(), NULL, NULL, NULL, CONCAT(n.code,'_',@amName,'_',@pageType,'_',@ordinal,'_',@locale), 'PUSHED_TO_CONFIG', @locale, @ordinal, @pageType, @text, NULL, NULL, @customItemSetId FROM `Network` n WHERE  n.id in (@networkVISA, @networkMC);
 
