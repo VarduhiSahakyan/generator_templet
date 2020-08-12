@@ -21,8 +21,8 @@ SET @defaultLanguage = 'de';
 /* Provides option to call the authentication HUB at PA or VE step */
 SET @HUBcallMode = 'PA_ONLY_MODE';
 /* Correspond to URL to configure for the BinRanges extraction */
-SET @acsURLVEMastercard = 'https://ssl-qlf-u5g-fo-acs-ve.wlp-acs.com:9743/acs-ve-service/ve/veRequest';
-SET @acsURLVEVisa = 'https://ssl-qlf-u5g-fo-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
+SET @acsURLVEMastercard = 'https://ssl-liv-u5g-fo-acs-ve.wlp-acs.com:9743/acs-ve-service/ve/veRequest';
+SET @acsURLVEVisa = 'https://ssl-liv-u5g-fo-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
 /* Corresponds to the authentication mean to use primarily */
 SET @preferredAuthMean = 'EXT_PASSWORD';
 /* See en_countrycode.json, 250 is France's country code. It is important in order to know if the transaction
@@ -51,7 +51,17 @@ SET @activatedAuthMeans = '[ {
 } ]';
 
 SET @subIssuerCodes = '13606,15519,17509,17609,17009,15009,12509,12069,16009,17209' ;
-
+SET @paChallengePublicUrl = 'https://3dsecure.sparda.de/';
+SET @3DS2AdditionalInfo = '{
+      "VISA": {
+        "operatorId": "acsOperatorVisa",
+        "dsKeyAlias": "dsvisa_call_alias_cert_01"
+      },
+      "MASTERCARD": {
+        "operatorId": "ACS-V210-EQUENSWORLDLINE-34926",
+        "dsKeyAlias": "1"
+      }
+}';
 SET @idCryptoConfig = (SELECT fk_id_cryptoConfig FROM SubIssuer WHERE code = @sharedSubIssuerCode);
 
 INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `code`, `codeSvi`, `currencyCode`,
@@ -61,18 +71,18 @@ INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `c
                          `transactionTimeOut`, `acs_URL1_VE_MC`, `acs_URL2_VE_MC`, `acs_URL1_VE_VISA`, `acs_URL2_VE_VISA`,
                          `automaticDeviceSelection`, `userChoiceAllowed`, `backupAllowed`, `defaultDeviceChoice`, `preferredAuthentMeans`,
                          `issuerCountry`, `hubCallMode`, `fk_id_issuer`, `maskParams`, `dateFormat`, `resendSameOTP`,`combinedAuthenticationAllowed`,
-                         authentMeans, fk_id_cryptoConfig)
+                         `authentMeans`, `fk_id_cryptoConfig`, `paChallengePublicUrl`,`verifyCardStatus`, `3DS2AdditionalInfo`)
 VALUES
-('ACS_U5G', 120, @backUpLanguages, '13606', '13606', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_West','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_West', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig),
-('ACS_U5G', 120, @backUpLanguages, '15519', '15519', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Südwest','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Südwest', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig),
-('ACS_U5G', 120, @backUpLanguages, '17509', '17509', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Ostbayern','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Ostbayern', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig),
-('ACS_U5G', 120, @backUpLanguages, '17609', '17609', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Nürnberg','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Nürnberg', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig),
-('ACS_U5G', 120, @backUpLanguages, '17009', '17009', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_München','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_München', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig),
-('ACS_U5G', 120, @backUpLanguages, '15009', '15009', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Hessen','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Hessen', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig),
-('ACS_U5G', 120, @backUpLanguages, '12509', '12509', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Hannover','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Hannover', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig),
-('ACS_U5G', 120, @backUpLanguages, '12069', '12069', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Hamburg','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Hamburg', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig),
-('ACS_U5G', 120, @backUpLanguages, '16009', '16009', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Baden-Württemberg','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Baden-Württemberg', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig),
-('ACS_U5G', 120, @backUpLanguages, '17209', '17209', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Augsburg','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Augsburg', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig);
+('ACS_U5G', 120, @backUpLanguages, '13606', '13606', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_West','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_West', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig,@paChallengePublicUrl,TRUE, @3DS2AdditionalInfo),
+('ACS_U5G', 120, @backUpLanguages, '15519', '15519', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Südwest','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Südwest', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig,@paChallengePublicUrl,TRUE, @3DS2AdditionalInfo),
+('ACS_U5G', 120, @backUpLanguages, '17509', '17509', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Ostbayern','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Ostbayern', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig,@paChallengePublicUrl,TRUE, @3DS2AdditionalInfo),
+('ACS_U5G', 120, @backUpLanguages, '17609', '17609', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Nürnberg','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Nürnberg', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig,@paChallengePublicUrl,TRUE, @3DS2AdditionalInfo),
+('ACS_U5G', 120, @backUpLanguages, '17009', '17009', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_München','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_München', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig,@paChallengePublicUrl,TRUE, @3DS2AdditionalInfo),
+('ACS_U5G', 120, @backUpLanguages, '15009', '15009', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Hessen','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Hessen', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig,@paChallengePublicUrl,TRUE, @3DS2AdditionalInfo),
+('ACS_U5G', 120, @backUpLanguages, '12509', '12509', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Hannover','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Hannover', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig,@paChallengePublicUrl,TRUE, @3DS2AdditionalInfo),
+('ACS_U5G', 120, @backUpLanguages, '12069', '12069', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Hamburg','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Hamburg', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig,@paChallengePublicUrl,TRUE, @3DS2AdditionalInfo),
+('ACS_U5G', 120, @backUpLanguages, '16009', '16009', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Baden-Württemberg','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Baden-Württemberg', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig,@paChallengePublicUrl,TRUE, @3DS2AdditionalInfo),
+('ACS_U5G', 120, @backUpLanguages, '17209', '17209', '978', @createdBy, NOW(), NULL, NULL, NULL, 'SBK_Augsburg','PUSHED_TO_CONFIG', @defaultLanguage, 600, 'SBK_Augsburg', TRUE, TRUE, NULL, TRUE, TRUE, 300,@acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,@issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, TRUE, TRUE,  @activatedAuthMeans, @idCryptoConfig,@paChallengePublicUrl,TRUE, @3DS2AdditionalInfo);
 
 
 --  /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\ /!\
