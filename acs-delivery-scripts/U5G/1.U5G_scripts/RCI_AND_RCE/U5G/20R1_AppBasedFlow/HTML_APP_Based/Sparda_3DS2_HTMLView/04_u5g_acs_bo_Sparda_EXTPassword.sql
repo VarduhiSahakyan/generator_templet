@@ -191,11 +191,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 							<input type="submit" value="network_means_pageType_154" class="btn btn-primary"
 								   id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
 						</form>
-						<form action="HTTPS://EMV3DS/challenge" method="get">
-							<input type="hidden" name="resend" value="Y">
-							<input type="submit" value="network_means_pageType_155" class="btn btn-default"
-								   id="challenge-resend-submit" data-cy="CHALLENGE_RESEND_FORM_SUBMIT"/>
-						</form>
 					</div>
 				</div>
 			</div>
