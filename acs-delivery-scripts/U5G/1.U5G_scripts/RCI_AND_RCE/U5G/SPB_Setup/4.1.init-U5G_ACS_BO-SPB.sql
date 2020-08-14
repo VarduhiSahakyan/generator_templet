@@ -20,7 +20,7 @@ SET @subIssuerCodes = '12069,13606,15009,16009,17009,17209,17509,17609' ;
 
 /* @backUpLanguage corresponds to a (comma separated) list of locales that should be displayed to the user,
    and @defaultLanguage a default locale which should be selected by default. */
-SET @backUpLanguages = '';
+SET @backUpLanguages = 'de';
 SET @defaultLanguage = 'de';
 /* Provides option to call the authentication HUB at PA or VE step */
 SET @HUBcallMode = 'PA_ONLY_MODE';
