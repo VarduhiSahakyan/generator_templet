@@ -14,7 +14,7 @@ SET @Issuer_09 = 'SBK_Hannover';
 -- SET @Issuer_10 = 'SBK_West';
 
 SET @IssuerCode = '16950';
-SET @SharedIssuerCode = '99999';
+SET @SharedIssuerCode = '16950';
 SET @SubIssuerCode_01 = '15009';
 SET @SubIssuerCode_02 = '12069';
 SET @SubIssuerCode_03 = '17509';
