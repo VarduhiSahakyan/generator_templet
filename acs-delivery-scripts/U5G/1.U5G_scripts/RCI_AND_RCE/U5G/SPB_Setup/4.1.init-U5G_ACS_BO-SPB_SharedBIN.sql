@@ -1932,10 +1932,10 @@ SET @cryptoConfidId = (SELECT id FROM CryptoConfig WHERE description = 'Sparda C
 
 INSERT INTO `BinRange` (`activateState`, `createdBy`, `creationDate`, `updateState`, `immediateActivation`, `activationDate`, `lowerBound`, `panLength`, `sharedBinRange`, `updateDSDate`, `upperBound`, `fk_id_network`, `fk_id_profileSet`, `toExport`, `coBrandedCardNetwork`, `fk_id_cryptoConfig`, `serviceCode`)
 VALUES
-('ACTIVATED', 'A169318', NOW(), 'PUSHED_TO_CONFIG', false, NULL, '4908040000', 16, false, NULL, '4908049999', @idNetworkVISA, @idProfileSet, false, NULL, @cryptoConfidId, NULL),
-('ACTIVATED', 'A169318', NOW(), 'PUSHED_TO_CONFIG', false, NULL, '5232790000', 16, false, NULL, '5232799999', @idNetworkMC, @idProfileSet, false, NULL, @cryptoConfidId, NULL),
-('ACTIVATED', 'A169318', NOW(), 'PUSHED_TO_CONFIG', false, NULL, '5247210000', 16, false, NULL, '5247219999', @idNetworkMC, @idProfileSet, false, NULL, @cryptoConfidId, NULL),
-('ACTIVATED', 'A169318', NOW(), 'PUSHED_TO_CONFIG', false, NULL, '5256150000', 16, false, NULL, '5256159999', @idNetworkMC, @idProfileSet, false, NULL, @cryptoConfidId, NULL);
+('ACTIVATED', 'A169318', NOW(), 'PUSHED_TO_CONFIG', false, NULL, '4908040000', 16, true, NULL, '4908049999', @idNetworkVISA, @idProfileSet, false, NULL, @cryptoConfidId, NULL),
+('ACTIVATED', 'A169318', NOW(), 'PUSHED_TO_CONFIG', false, NULL, '5232790000', 16, true, NULL, '5232799999', @idNetworkMC, @idProfileSet, false, NULL, @cryptoConfidId, NULL),
+('ACTIVATED', 'A169318', NOW(), 'PUSHED_TO_CONFIG', false, NULL, '5247210000', 16, true, NULL, '5247219999', @idNetworkMC, @idProfileSet, false, NULL, @cryptoConfidId, NULL),
+('ACTIVATED', 'A169318', NOW(), 'PUSHED_TO_CONFIG', false, NULL, '5256150000', 16, true, NULL, '5256159999', @idNetworkMC, @idProfileSet, false, NULL, @cryptoConfidId, NULL);
 
 INSERT INTO BinRange_SubIssuer (id_binRange, id_subIssuer)
 SELECT br.id, @subIssuerID FROM BinRange br WHERE lowerBound in ('4908040000', '5232790000', '5247210000', '5256150000');
