@@ -16,6 +16,9 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 			.acs-header {
 				margin-bottom: 0.5em;
 			}
+			.card-logo-container {
+				text-align: right;
+			}
 			.acs-purchase-context {
 				margin-bottom: 2em;
 				margin-top: 0.5em;
@@ -164,7 +167,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 				<div class="col-md-6">
 					<img src="network_means_pageType_251" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6 card-logo-container">
 					<img src="network_means_pageType_254" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
 				</div>
 			</div>
@@ -192,10 +195,12 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 							<input type="submit" value="network_means_pageType_154" class="btn btn-primary"
 								   id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
 						</form>
-						<form action="HTTPS://EMV3DS/challenge" method="get">
-							<input type="hidden" name="resend" value="Y">
-							<input type="submit" value="network_means_pageType_155" class="btn btn-default"
-								   id="challenge-resend-submit" data-cy="CHALLENGE_RESEND_FORM_SUBMIT"/>
+						<form action="HTTPS://EMV3DS/challenge" method="get" id="challenge-resend-form">
+							<div>
+								<!-- The name and value attribute MUST NOT be changed -->
+								<input type="hidden" name="challenge-resend" value="Y"/>
+								<input type="submit" id="challenge-resend-submit" value="network_means_pageType_155"/>
+							</div>
 						</form>
 					</div>
 				</div>
