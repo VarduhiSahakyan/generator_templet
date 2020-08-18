@@ -191,12 +191,12 @@ UPDATE `CustomComponent` SET `value` = '
 								   id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
 						</form>
 						<form action="HTTPS://EMV3DS/challenge" id="challenge-resend-form" method="get">
-        					<div>
-        						<!-- The name and value attribute MUST NOT be changed -->
-        						<input name="challenge-resend" type="hidden" value="Y"/>
-        						<input id="challenge-resend-submit" type="submit" value="network_means_pageType_155" class="btn btn-default" data-cy="CHALLENGE_RESEND_FORM_SUBMIT"/>
-        					</div>
-        				</form>
+							<div>
+								<!-- The name and value attribute MUST NOT be changed -->
+								<input name="challenge-resend" type="hidden" value="Y"/>
+								<input id="challenge-resend-submit" type="submit" value="network_means_pageType_155" class="btn btn-default" data-cy="CHALLENGE_RESEND_FORM_SUBMIT"/>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>

@@ -14,9 +14,9 @@ UPDATE `CustomComponent` SET `value` = '
 			.acs-header {
 				margin-bottom: 0.5em;
 			}
-            .card-logo-container{
-                text-align: right;
-            }
+			.card-logo-container{
+				text-align: right;
+			}
 			.acs-purchase-context {
 				margin-bottom: 2em;
 				margin-top: 0.5em;
@@ -188,18 +188,18 @@ UPDATE `CustomComponent` SET `value` = '
 									network_means_pageType_153
 								</label>
 								<input id="challenge-html-data-entry" name="submitted-otp-value"
-									   type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY"/>
+									type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY"/>
 							</div>
 							<input type="submit" value="network_means_pageType_154" class="btn btn-primary"
-								   id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
+								id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
 						</form>
-                        <form action="HTTPS://EMV3DS/challenge" method="get" id="challenge-resend-form">
-                            <div>
-                                <!-- The name and value attribute MUST NOT be changed -->
-                                <input type="hidden" name="challenge-resend" value="Y"/>
-                                <input type="submit" id="challenge-resend-submit" value="network_means_pageType_155"/>
-                            </div>
-                        </form>
+						<form action="HTTPS://EMV3DS/challenge" method="get" id="challenge-resend-form">
+							<div>
+								<!-- The name and value attribute MUST NOT be changed -->
+								<input type="hidden" name="challenge-resend" value="Y"/>
+								<input type="submit" id="challenge-resend-submit" value="network_means_pageType_155"/>
+							</div>
+						</form>
 					</div>
 
 				</div>
@@ -210,8 +210,8 @@ UPDATE `CustomComponent` SET `value` = '
 					<div class="col-md-10">network_means_pageType_156</div>
 					<div class="acs-footer-icon col-md-2">
 						<a tabindex="0" role="button"
-						   data-container="body" data-toggle="popover" data-placement="top"
-						   data-trigger="focus" data-content="network_means_pageType_157">
+							data-container="body" data-toggle="popover" data-placement="top"
+							data-trigger="focus" data-content="network_means_pageType_157">
 							<i class="fa fa-plus"></i>
 						</a>
 					</div>
@@ -232,9 +232,9 @@ UPDATE `CustomComponent` SET `value` = '
 			.acs-header {
 				margin-bottom: 0.5em;
 			}
-            .card-logo-container{
-                text-align: right;
-            }
+			.card-logo-container{
+				text-align: right;
+			}
 			.acs-purchase-context {
 				margin-bottom: 2em;
 				margin-top: 0.5em;
@@ -406,10 +406,10 @@ UPDATE `CustomComponent` SET `value` = '
 									network_means_pageType_153
 								</label>
 								<input id="challenge-html-data-entry" name="submitted-otp-value"
-									   type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY"/>
+									type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY"/>
 							</div>
 							<input type="submit" value="network_means_pageType_154" class="btn btn-primary"
-								   id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
+								id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
 						</form>
 					</div>
 				</div>
@@ -420,8 +420,8 @@ UPDATE `CustomComponent` SET `value` = '
 					<div class="col-md-10">network_means_pageType_156</div>
 					<div class="acs-footer-icon col-md-2">
 						<a tabindex="0" role="button"
-						   data-container="body" data-toggle="popover" data-placement="top"
-						   data-trigger="focus" data-content="network_means_pageType_157">
+							data-container="body" data-toggle="popover" data-placement="top"
+							data-trigger="focus" data-content="network_means_pageType_157">
 							<i class="fa fa-plus"></i>
 						</a>
 					</div>
