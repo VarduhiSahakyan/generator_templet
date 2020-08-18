@@ -9,17 +9,39 @@ SET @idAppViewPage=(SELECT id FROM `CustomPageLayout` WHERE `pageType`= 'OTP_SMS
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
   VALUES( 'div',
- '<style>
+'<style>
 			.acs-container {
 				padding: 0.5em;
 			}
 			.acs-header {
 				margin-bottom: 0.5em;
 			}
+			#issuerLogo {
+				max-height: 96px;
+				max-width: 100%;
+			}
+			#networkLogo {
+				max-height: 96px;
+				max-width: 100%;
+			}
+			div#bankLogoDiv {
+				width: 50%;
+				float: left;
+				height: 100%;
+				display: flex;
+				align-items: center;
+			}
+			div#networkLogoDiv {
+				width: 50%;
+				float: right;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+			}
 			.acs-purchase-context {
-				margin-bottom: 2em;
-				margin-top: 0.5em;
-				height: 24.5em;
+				margin-bottom: 3em;
+				margin-top: 0em;
 			}
 			.acs-purchase-context button,
 			.acs-purchase-context input {
@@ -34,7 +56,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 				margin-bottom: 1.1em;
 			}
 			.acs-challengeInfoText {
-				white-space: pre-wrap;
 				margin-bottom: 2em;
 			}
 			.acs-footer {
@@ -155,27 +176,38 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 				background-color: #286090;
 				border-color: #204d74;
 			}
+			div#challengeInfoText {
+				width: 100%;
+				margin-bottom: 5px;
+			}
+			div#challengeInfoHeader {
+				margin-bottom: 0px;
+			}
+			div#acs-challenge-info-text {
+				width: 100%;
+				margin-bottom: 5px;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="acs-container col-md-12">
 			<!-- ACS HEADER | Branding zone-->
 			<div class="acs-header row branding-zone">
-				<div class="col-md-6">
-					<img src="network_means_pageType_251" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
+				<div id="bankLogoDiv" class="col-md-6">
+					<img id="issuerLogo" src="network_means_pageType_251" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
 				</div>
-				<div class="col-md-6">
-					<img src="network_means_pageType_254" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
+				<div id="networkLogoDiv" class="col-md-6">
+					<img id="networkLogo" src="network_means_pageType_254" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
 				</div>
 			</div>
 			<!-- ACS BODY | Challenge/Processing zone -->
 			<div class="acs-purchase-context col-md-12 challenge-processing-zone">
 				<div class="row">
-					<div class="acs-challengeInfoHeader col-md-12" data-cy="CHALLENGE_INFO_HEADER">
+					<div id="challengeInfoHeader" class="acs-challengeInfoHeader col-md-12" data-cy="CHALLENGE_INFO_HEADER">
 						network_means_pageType_151
 					</div>
 					<div class="row">
-						<div class="acs-challengeInfoText col-md-10" id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
+						<div  id="challengeInfoText" class="acs-challengeInfoText col-md-10" id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
 							network_means_pageType_152
 						</div>
 					</div>
@@ -192,10 +224,12 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 							<input type="submit" value="network_means_pageType_154" class="btn btn-primary"
 								   id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
 						</form>
-						<form action="HTTPS://EMV3DS/challenge" method="get">
-							<input type="hidden" name="resend" value="Y">
-							<input type="submit" value="network_means_pageType_155" class="btn btn-default"
-								   id="challenge-resend-submit" data-cy="CHALLENGE_RESEND_FORM_SUBMIT"/>
+						<form action="HTTPS://EMV3DS/challenge" method="get" id="challenge-resend-form">
+							<div>
+								<!-- The name and value attribute MUST NOT be changed -->
+								<input type="hidden" name="challenge-resend" value="Y"/>
+								<input type="submit" id="challenge-resend-submit" value="network_means_pageType_155"/>
+							</div>
 						</form>
 					</div>
 				</div>
@@ -213,8 +247,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 					</div>
 				</div>
 			</div>
-		</div>
-  ', @idAppViewPage);
+		</div>', @idAppViewPage);
 
 INSERT INTO CustomPageLayout_ProfileSet (customPageLayout_id, profileSet_id)
 select cpl.id, ps.id

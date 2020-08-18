@@ -17,29 +17,29 @@ SET `value` = '<style>
 			.acs-header {
 				margin-bottom: 0.5em;
 			}
-            #issuerLogo {
-                max-height: 96px;
-                max-width: 100%;
-            }
-            #networkLogo {
-                max-height: 96px;
-                max-width: 100%;
-            }
-            div#bankLogoDiv {
-                width: 50%;
-                float: left;
-                height: 100%;
-                display: flex;
-                align-items: center;
-            }
-            div#networkLogoDiv {
-                width: 50%;
-                float: right;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-            }
+			#issuerLogo {
+				max-height: 96px;
+				max-width: 100%;
+			}
+			#networkLogo {
+				max-height: 96px;
+				max-width: 100%;
+			}
+			div#bankLogoDiv {
+				width: 50%;
+				float: left;
+				height: 100%;
+				display: flex;
+				align-items: center;
+			}
+			div#networkLogoDiv {
+				width: 50%;
+				float: right;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+			}
 			.acs-purchase-context {
 				margin-bottom: 3em;
 				margin-top: 0em;
@@ -177,17 +177,17 @@ SET `value` = '<style>
 				background-color: #286090;
 				border-color: #204d74;
 			}
-            div#challengeInfoText {
-                width: 100%;
-                margin-bottom: 5px;
-            }
-            div#challengeInfoHeader {
-                margin-bottom: 0px;
-            }
-            div#acs-challenge-info-text {
-                width: 100%;
-                margin-bottom: 5px;
-            }
+			div#challengeInfoText {
+				width: 100%;
+				margin-bottom: 5px;
+			}
+			div#challengeInfoHeader {
+				margin-bottom: 0px;
+			}
+			div#acs-challenge-info-text {
+				width: 100%;
+				margin-bottom: 5px;
+			}
 		</style>
 	</head>
 	<body>
@@ -226,12 +226,12 @@ SET `value` = '<style>
 								   id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
 						</form>
 						<form action="HTTPS://EMV3DS/challenge" method="get" id="challenge-resend-form">
-                            <div>
-                                <!-- The name and value attribute MUST NOT be changed -->
-                                <input type="hidden" name="challenge-resend" value="Y"/>
-                                <input type="submit" id="challenge-resend-submit" value="network_means_pageType_155"/>
-                            </div>
-                        </form>
+							<div>
+								<!-- The name and value attribute MUST NOT be changed -->
+								<input type="hidden" name="challenge-resend" value="Y"/>
+								<input type="submit" id="challenge-resend-submit" value="network_means_pageType_155"/>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -268,29 +268,29 @@ SET `value` = '<style>
 			.acs-header {
 				margin-bottom: 0.5em;
 			}
-            #issuerLogo {
-                max-height: 96px;
-                max-width: 100%;
-            }
-            #networkLogo {
-                max-height: 96px;
-                max-width: 100%;
-            }
-            div#bankLogoDiv {
-                width: 50%;
-                float: left;
-                height: 100%;
-                display: flex;
-                align-items: center;
-            }
-            div#networkLogoDiv {
-                width: 50%;
-                float: right;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-            }
+			#issuerLogo {
+				max-height: 96px;
+				max-width: 100%;
+			}
+			#networkLogo {
+				max-height: 96px;
+				max-width: 100%;
+			}
+			div#bankLogoDiv {
+				width: 50%;
+				float: left;
+				height: 100%;
+				display: flex;
+				align-items: center;
+			}
+			div#networkLogoDiv {
+				width: 50%;
+				float: right;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+			}
 			.acs-purchase-context {
 				margin-bottom: 3em;
 				margin-top: 0em;
@@ -428,17 +428,17 @@ SET `value` = '<style>
 				background-color: #286090;
 				border-color: #204d74;
 			}
-            div#challengeInfoText {
-                width: 100%;
-                margin-bottom: 5px;
-            }
-            div#challengeInfoHeader {
-                margin-bottom: 0px;
-            }
-            div#acs-challenge-info-text {
-                width: 100%;
-                margin-bottom: 5px;
-            }
+			div#challengeInfoText {
+				width: 100%;
+				margin-bottom: 5px;
+			}
+			div#challengeInfoHeader {
+				margin-bottom: 0px;
+			}
+			div#acs-challenge-info-text {
+				width: 100%;
+				margin-bottom: 5px;
+			}
 		</style>
 	</head>
 	<body>
@@ -477,12 +477,12 @@ SET `value` = '<style>
 								   id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
 						</form>
 						<form action="HTTPS://EMV3DS/challenge" method="get" id="challenge-resend-form">
-                            <div>
-                                <!-- The name and value attribute MUST NOT be changed -->
-                                <input type="hidden" name="challenge-resend" value="Y"/>
-                                <input type="submit" id="challenge-resend-submit" value="network_means_pageType_155"/>
-                            </div>
-                        </form>
+							<div>
+								<!-- The name and value attribute MUST NOT be changed -->
+								<input type="hidden" name="challenge-resend" value="Y"/>
+								<input type="submit" id="challenge-resend-submit" value="network_means_pageType_155"/>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
