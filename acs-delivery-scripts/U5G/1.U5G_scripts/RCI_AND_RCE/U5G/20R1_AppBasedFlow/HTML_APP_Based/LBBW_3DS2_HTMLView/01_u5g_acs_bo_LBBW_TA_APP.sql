@@ -16,6 +16,9 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 			.acs-header {
 				margin-bottom: 0.5em;
 			}
+			.card-logo-container {
+				text-align: right;
+			}
 			.acs-purchase-context {
 				margin-bottom: 2em;
 				margin-top: 0.5em;
@@ -164,7 +167,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 				<div class="col-md-6">
 					<img src="network_means_pageType_251" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6 card-logo-container">
 					<img src="network_means_pageType_254" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
 				</div>
 			</div>

@@ -1,15 +1,13 @@
 USE `U5G_ACS_BO`;
 
-INSERT INTO CustomPageLayout (controller, pageType, description) VALUES
-( NULL, 'OTP_SMS_APP_VIEW', 'SMS_App_View (LBBW)');
+SET @BankB = 'LBBW';
+SET @appViewPageDescription = CONCAT('SMS_App_View (', @BankB ,')');
+SET @pageType = 'OTP_SMS_APP_VIEW';
 
-SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` ='PS_LBBW_01');
+SET @idAppViewPage=(SELECT id FROM `CustomPageLayout` WHERE `pageType`= @pageType and `description` = @appViewPageDescription) ;
 
-SET @idAppViewPage=(SELECT id FROM `CustomPageLayout` WHERE `pageType`= 'OTP_SMS_APP_VIEW' and DESCRIPTION = 'SMS_App_View (LBBW)') ;
-
-INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
-  VALUES( 'div',
- '<style>
+UPDATE `CustomComponent` SET `value` = '
+<style>
 			.acs-container {
 				padding: 0.5em;
 			}
@@ -37,7 +35,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 				margin-bottom: 1.1em;
 			}
 			.acs-challengeInfoText {
-				white-space: pre-wrap;
+
 				margin-bottom: 2em;
 			}
 			.acs-footer {
@@ -190,10 +188,10 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 									network_means_pageType_153
 								</label>
 								<input id="challenge-html-data-entry" name="submitted-otp-value"
-									   type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY"/>
+										type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY"/>
 							</div>
 							<input type="submit" value="network_means_pageType_154" class="btn btn-primary"
-								   id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
+									id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
 						</form>
 						<form action="HTTPS://EMV3DS/challenge" method="get" id="challenge-resend-form">
 							<div>
@@ -211,17 +209,11 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 					<div class="col-md-10">network_means_pageType_156</div>
 					<div class="acs-footer-icon col-md-2">
 						<a tabindex="0" role="button"
-						   data-container="body" data-toggle="popover" data-placement="top"
-						   data-trigger="focus" data-content="network_means_pageType_157">
+							data-container="body" data-toggle="popover" data-placement="top"
+							data-trigger="focus" data-content="network_means_pageType_157">
 							<i class="fa fa-plus"></i>
 						</a>
 					</div>
 				</div>
 			</div>
-		</div>
-  ', @idAppViewPage);
-
-INSERT INTO CustomPageLayout_ProfileSet (customPageLayout_id, profileSet_id)
-select cpl.id, ps.id
-  from CustomPageLayout cpl, ProfileSet ps
-    where cpl.description = 'SMS_App_View (LBBW)' and pageType = 'OTP_SMS_APP_VIEW' and ps.name = 'PS_LBBW_01';
+		</div>' WHERE `fk_id_layout` = @idAppViewPage;
