@@ -1265,6 +1265,9 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
          'de', 3, @currentPageType, 'Sie sollten bereits eine entsprechende Benachrichtigung auf Ihrem Mobil-Telefon erhalten haben. Andernfalls können Sie direkt in die App einsteigen und die Zahlung dort verifizieren.', @MaestroVID, NULL, @customItemSetMobileApp),
 
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_10'), 'PUSHED_TO_CONFIG',
+         'de', 10, @currentPageType, 'Stattdessen Freigabe durch SMS anfordern', @MaestroVID, NULL, @customItemSetMobileApp),
+
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), 'PUSHED_TO_CONFIG',
          'de', 11, @currentPageType, '<b>Informationen zur Zahlung</b>', @MaestroVID, NULL, @customItemSetMobileApp),
 
@@ -1406,6 +1409,9 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
          'en', 3, @currentPageType, 'You should already have received a corresponding message on your mobile phone. Otherwise, you can open the app directly and approve the payment there.', @MaestroVID, NULL, @customItemSetMobileApp),
+
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_10'), 'PUSHED_TO_CONFIG',
+         'en', 10, @currentPageType, 'Request approval via SMS instead', @MaestroVID, NULL, @customItemSetMobileApp),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), 'PUSHED_TO_CONFIG',
          'en', 11, @currentPageType, '<b>Information about payment</b>', @MaestroVID, NULL, @customItemSetMobileApp),
@@ -1553,6 +1559,9 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), 'PUSHED_TO_CONFIG',
          'fr', 11, @currentPageType, '<b>Informations concernant le paiement.</b>', @MaestroVID, NULL, @customItemSetMobileApp),
 
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_10'), 'PUSHED_TO_CONFIG',
+         'fr', 10, @currentPageType, 'À la place, demander l''activation pas SMS', @MaestroVID, NULL, @customItemSetMobileApp),
+
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_12'), 'PUSHED_TO_CONFIG',
          'fr', 12,@currentPageType, 'L''activation de paiement va être vérifiée', @MaestroVID, NULL, @customItemSetMobileApp),
 
@@ -1692,6 +1701,9 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
          'it', 3, @currentPageType, 'Dovrebbe aver già ricevuto una notifica sul suo cellulare.  In caso contrario può accedere direttamente all''app e verificare il pagamento lì.', @MaestroVID, NULL, @customItemSetMobileApp),
+
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_10'), 'PUSHED_TO_CONFIG',
+         'it', 10, @currentPageType, 'Al posto di questo, richiedere l’autorizzazione tramite SMS', @MaestroVID, NULL, @customItemSetMobileApp),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), 'PUSHED_TO_CONFIG',
          'it', 11, @currentPageType, '<b>Informazioni sul pagamento</b>', @MaestroVID, NULL, @customItemSetMobileApp),

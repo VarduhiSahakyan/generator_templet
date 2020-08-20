@@ -20,6 +20,9 @@ SET @activatedAuthMeans = '[ {
 }, {
   "authentMeans" : "INFO",
   "validate" : true
+}, {
+  "authentMeans" : "UNDEFINED",
+  "validate" : true
 } ]';
 SET @issuerCode = '41001';
 /* SubIssuer */
@@ -61,7 +64,7 @@ INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `c
                          `displayLanguageSelectPage`,`trustedBeneficiariesAllowed`,`authentMeans`) VALUES
 ('ACS_U7G', 120, @backUpLanguages, @subIssuerCode, @subIssuerCode, '978', @createdBy, NOW(), NULL, NULL, NULL, @subIssuerNameAndLabel,
  @updateState, @defaultLanguage, 600, @subIssuerNameAndLabel, TRUE, TRUE, NULL, TRUE, TRUE, 300,
- @acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, FALSE, TRUE, TRUE, @preferredAuthMean,
+ @acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,
  @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, 'https://secure.six-group.com/', '1', @3DS2AdditionalInfo,'3', TRUE, FALSE, b'0', b'0', @activatedAuthMeans);
 /*!40000 ALTER TABLE `SubIssuer` ENABLE KEYS */;
 
@@ -144,6 +147,7 @@ SET @authMeanACCEPT = (SELECT id FROM `AuthentMeans` WHERE `name` = 'ACCEPT');
 SET @authentMeansMobileApp = (SELECT id FROM `AuthentMeans`  WHERE `name` = 'MOBILE_APP');
 SET @authMeanOTPsms = (SELECT id FROM `AuthentMeans` WHERE `name` = 'OTP_SMS_EXT_MESSAGE');
 SET @authMeanINFO = (SELECT id FROM `AuthentMeans` WHERE `name` = 'INFO');
+SET @authMeanUNDEFINED = (SELECT id FROM `AuthentMeans` WHERE `name` = 'UNDEFINED');
 INSERT INTO `Profile` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
                        `updateState`, `maxAttempts`,`dataEntryFormat`, `dataEntryAllowedPattern`, `fk_id_authentMeans`,
                        `fk_id_customItemSetCurrent`, `fk_id_customItemSetOld`, `fk_id_customItemSetNew`,
@@ -153,7 +157,8 @@ INSERT INTO `Profile` (`createdBy`, `creationDate`, `description`, `lastUpdateBy
   (@createdBy, NOW(), 'MOBILE_APP', NULL, NULL, CONCAT(@BankUB,'_TA_01'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authentMeansMobileApp, @customItemSetMOBILEAPP, NULL, NULL, @subIssuerID),
   (@createdBy, NOW(), 'OTP_SMS', NULL, NULL, CONCAT(@BankUB,'_SMS_01'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanOTPsms, @customItemSetSMS, NULL, NULL, @subIssuerID),
   (@createdBy, NOW(), 'REFUSAL (DEFAULT)', NULL, NULL, CONCAT(@BankUB,'_DEFAULT_REFUSAL'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanRefusal, @customItemSetRefusal, NULL, NULL, @subIssuerID),
-  (@createdBy, NOW(), 'INFO', NULL, NULL, CONCAT(@BankUB,'_MISSING_AUTHENTICATION_REFUSAL'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanINFO, @customItemSetINFORefusal, NULL, NULL, @subIssuerID);
+  (@createdBy, NOW(), 'INFO', NULL, NULL, CONCAT(@BankUB,'_MISSING_AUTHENTICATION_REFUSAL'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanINFO, @customItemSetINFORefusal, NULL, NULL, @subIssuerID),
+  (@createdBy, NOW(), 'UNDEFINED', NULL, NULL, CONCAT(@BankUB,'_UNDEFINED_01'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanUNDEFINED, NULL, NULL, NULL, @subIssuerID);
 
 
 /*!40000 ALTER TABLE `Profile` ENABLE KEYS */;
@@ -166,6 +171,7 @@ SET @profileRBADECLINE = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB
 SET @profileMOBILEAPP = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_TA_01'));
 SET @profileSMS = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_SMS_01'));
 SET @profileINFO = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_MISSING_AUTHENTICATION_REFUSAL'));
+SET @profileUNDEFINED = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_UNDEFINED_01'));
 INSERT INTO `Rule` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
                     `updateState`, `orderRule`, `fk_id_profile`) VALUES
   (@createdBy, NOW(), 'REFUSAL_FRAUD', NULL, NULL, 'REFUSAL (FRAUD)', @updateState, 1, @profileRefusal),
@@ -174,7 +180,8 @@ INSERT INTO `Rule` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, 
   (@createdBy, NOW(), 'RBA_DECLINE', NULL, NULL, 'REFUSAL (DECLINE)', @updateState, 4, @profileRBADECLINE),
   (@createdBy, NOW(), 'OTP_APP (NORMAL)', NULL, NULL, 'APP (NORMAL)', @updateState, 5, @profileMOBILEAPP),
   (@createdBy, NOW(), 'OTP_SMS_EXT (FALLBACK)', NULL, NULL, 'OTP_SMS_EXT (FALLBACK)', @updateState, 6, @profileSMS),
-  (@createdBy, NOW(), 'REFUSAL_DEFAULT', NULL, NULL, 'REFUSAL (DEFAULT)', @updateState, 7, @profileRefusal);
+  (@createdBy, NOW(), 'UNDEFINED', NULL, NULL, 'UNDEFINED', @updateState, 7, @profileUNDEFINED),
+  (@createdBy, NOW(), 'REFUSAL_DEFAULT', NULL, NULL, 'REFUSAL (DEFAULT)', @updateState, 8, @profileRefusal);
 /*!40000 ALTER TABLE `Rule` ENABLE KEYS */;
 
 /* RuleCondition */
@@ -186,6 +193,7 @@ SET @ruleMobileAppnormal = (SELECT id FROM `Rule` WHERE `description` = 'OTP_APP
 SET @ruleSMSnormal = (SELECT id FROM `Rule` WHERE `description` = 'OTP_SMS_EXT (FALLBACK)' AND `fk_id_profile` = @profileSMS);
 SET @ruleRefusalDefault = (SELECT id FROM `Rule` WHERE `description` = 'REFUSAL_DEFAULT' AND `fk_id_profile` = @profileRefusal);
 SET @ruleINFOnormal = (SELECT id FROM `Rule` WHERE `description`='MISSING_AUTHENTICATION' AND `fk_id_profile`=@profileINFO);
+SET @ruleUNDEFINED = (SELECT id FROM `Rule` WHERE `description`='UNDEFINED' AND `fk_id_profile`=@profileUNDEFINED);
 INSERT INTO `RuleCondition` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
                              `updateState`, `fk_id_rule`) VALUES
   (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_FRAUD'), @updateState, @ruleRefusalFraud),
@@ -197,8 +205,10 @@ INSERT INTO `RuleCondition` (`createdBy`, `creationDate`, `description`, `lastUp
   (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_RBA_DECLINE'), @updateState, @ruleRBADecline),
   (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_OTP_APP_NORMAL'), @updateState, @ruleMobileAppnormal),
   (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_OTP_SMS_EXT_FALLBACK'), @updateState, @ruleSMSnormal),
+  (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_02_OTP_SMS_EXT_FALLBACK'), @updateState, @ruleSMSnormal),
   (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_DEFAULT'), @updateState, @ruleRefusalDefault),
-  (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_MISSING_AUTHENTICATION_REFUSAL'), @updateState, @ruleINFOnormal);
+  (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_MISSING_AUTHENTICATION_REFUSAL'), @updateState, @ruleINFOnormal),
+  (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_UNDEFINED'), @updateState, @ruleUNDEFINED);
 
 /*!40000 ALTER TABLE `RuleCondition` ENABLE KEYS */;
 
@@ -263,6 +273,11 @@ INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessSt
     AND mps.`fk_id_authentMean` = @authentMeansMobileApp
     AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
 
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+  WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_APP_NORMAL')
+    AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+    AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
   SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
@@ -281,6 +296,30 @@ INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessSt
   WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_SMS_EXT_FALLBACK')
     AND mps.`fk_id_authentMean` = @authMeanOTPsms
     AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+  WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_02_OTP_SMS_EXT_FALLBACK')
+    AND mps.`fk_id_authentMean` = @authMeanOTPsms
+    AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+  WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_02_OTP_SMS_EXT_FALLBACK')
+    AND mps.`fk_id_authentMean` = @authMeanOTPsms
+    AND (mps.`meansProcessStatusType` = 'MEANS_DISABLED' AND mps.`reversed` = TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+  WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_02_OTP_SMS_EXT_FALLBACK')
+    AND mps.`fk_id_authentMean` = @authMeanOTPsms
+    AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+  WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_02_OTP_SMS_EXT_FALLBACK')
+    AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+    AND (mps.`meansProcessStatusType` = 'USER_CHOICE_DEMANDED' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
   SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
@@ -305,13 +344,48 @@ INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessSt
   WHERE c.`name`=CONCAT('C1_P_',@BankUB,'_01_MISSING_AUTHENTICATION_REFUSAL')
     AND mps.`fk_id_authentMean`=@authMeanMobileApp AND (mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=TRUE);
 
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+  WHERE c.`name`=CONCAT('C1_P_',@BankUB,'_01_UNDEFINED')
+    AND mps.`fk_id_authentMean`=@authMeanUNDEFINED AND (mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+  WHERE c.`name`=CONCAT('C1_P_',@BankUB,'_01_UNDEFINED')
+    AND mps.`fk_id_authentMean`=@authentMeansMobileApp AND (mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+  WHERE c.`name`=CONCAT('C1_P_',@BankUB,'_01_UNDEFINED')
+    AND mps.`fk_id_authentMean`=@authentMeansMobileApp AND (mps.`meansProcessStatusType`='MEANS_DISABLED' AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+  WHERE c.`name`=CONCAT('C1_P_',@BankUB,'_01_UNDEFINED')
+    AND mps.`fk_id_authentMean`=@authentMeansMobileApp AND (mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+  WHERE c.`name`=CONCAT('C1_P_',@BankUB,'_01_UNDEFINED')
+    AND mps.`fk_id_authentMean`=@authMeanOTPsms AND (mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+  WHERE c.`name`=CONCAT('C1_P_',@BankUB,'_01_UNDEFINED')
+    AND mps.`fk_id_authentMean`=@authMeanOTPsms AND (mps.`meansProcessStatusType`='MEANS_DISABLED' AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+  WHERE c.`name`=CONCAT('C1_P_',@BankUB,'_01_UNDEFINED')
+    AND mps.`fk_id_authentMean`=@authMeanOTPsms AND (mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
+
 /*!40000 ALTER TABLE `Condition_MeansProcessStatuses` ENABLE KEYS */;
 
 /* ProfileSet_Rule */
 /*!40000 ALTER TABLE `ProfileSet_Rule` DISABLE KEYS */;
 INSERT INTO `ProfileSet_Rule` (`id_profileSet`, `id_rule`)
     SELECT ps.`id`, r.`id` FROM `ProfileSet` ps, `Rule` r
-    WHERE ps.`name` = CONCAT('PS_', @BankUB, '_01') AND r.`id` IN (@ruleRefusalFraud, @ruleRBAAccept, @ruleRBADecline, @ruleMobileAppnormal, @ruleSMSnormal, @ruleRefusalDefault, @ruleINFOnormal);
+    WHERE ps.`name` = CONCAT('PS_', @BankUB, '_01') AND r.`id` IN (@ruleRefusalFraud, @ruleRBAAccept, @ruleRBADecline, @ruleMobileAppnormal, @ruleSMSnormal, @ruleRefusalDefault, @ruleINFOnormal, @ruleUNDEFINED);
 /*!40000 ALTER TABLE `ProfileSet_Rule` ENABLE KEYS */;
 
 /* MerchantPivotList */
