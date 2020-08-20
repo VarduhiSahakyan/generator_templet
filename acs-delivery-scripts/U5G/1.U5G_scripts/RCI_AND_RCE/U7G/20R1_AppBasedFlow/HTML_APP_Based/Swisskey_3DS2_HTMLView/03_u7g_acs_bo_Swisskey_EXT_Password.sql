@@ -1,17 +1,12 @@
 use `U7G_ACS_BO`;
-set @BankUB = 'LLB';
+set @issuerCode = '41001';
+set @customPageLayoutDesc_appView = 'App_View EXT_PASSWORD (SWISSKEY)';
 set @pageType = 'EXT_PASSWORD_APP_VIEW';
-set @customPageLayoutDesc_appView = 'EXT_PASSWORD_App_View (ING)';
-set @profileSetName = concat('PS_', @BankUB, '_01');
 
 insert into CustomPageLayout (controller, pageType, description)
 values (null, @pageType, @customPageLayoutDesc_appView);
 
-set @profileSetID = (select id
-				   from `ProfileSet`
-				   where `name` = @profileSetName);
-
-set @customPageLayoutID = (select id
+set @idAppViewPage = (select id
 					  from `CustomPageLayout`
 					  where `pageType` = @pageType
 						and DESCRIPTION = @customPageLayoutDesc_appView);
@@ -24,10 +19,31 @@ values ('div',
 	}
 	.acs-header {
 		margin-bottom: 0.5em;
+		display: flex;
+		align-items: center;
 	}
 	#issuerLogo {
-		width: 120px;
-		height: 33px;
+		max-height: 96px;
+		max-width: 100%;
+	}
+	#networkLogo {
+		max-height: 96px;
+		max-width: 100%;
+	}
+	div#bankLogoDiv {
+		width: 50%;
+		float: left;
+		height: 100%;
+		display: flex;
+		align-items: center;
+	}
+	div#networkLogoDiv {
+		width: 50%;
+		float: right;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
 	}
 	.acs-purchase-context {
 		margin-bottom: 2em;
@@ -47,7 +63,6 @@ values ('div',
 		margin-bottom: 1.1em;
 	}
 	.acs-challengeInfoText {
-		white-space: normal;
 		margin-bottom: 2em;
 	}
 	.acs-footer {
@@ -174,11 +189,11 @@ values ('div',
 <div class="acs-container col-md-12">
 	<!-- ACS HEADER | Branding zone-->
 	<div class="acs-header row branding-zone">
-		<div class="col-md-6">
-			<img src="network_means_pageType_251" id = "issuerLogo" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
+		<div id="bankLogoDiv" class="col-md-6">
+			<img id="issuerLogo" src="network_means_pageType_251" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
 		</div>
-		<div class="col-md-6">
-			<img src="network_means_pageType_254" id = "networkLogo" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
+		<div id="networkLogoDiv" class="col-md-6">
+			<img id="networkLogo" src="network_means_pageType_254" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
 		</div>
 	</div>
 	<!-- ACS BODY | Challenge/Processing zone -->
@@ -220,12 +235,18 @@ values ('div',
 			</div>
 		</div>
 	</div>
-</div>', @customPageLayoutID);
+</div>', @idAppViewPage);
 
 insert into CustomPageLayout_ProfileSet (customPageLayout_id, profileSet_id)
-select cpl.id, ps.id
+select cpl.id, profileSetIDs.id
 from CustomPageLayout cpl,
-	 ProfileSet ps
+	 (select ProfileSet.id
+	  from `ProfileSet`,
+		   (select SubIssuer.id
+			from `SubIssuer`,
+				 (select Issuer.`id`
+				  from `Issuer`
+				  where `code` = @issuerCode) as issuer
+			where `fk_id_issuer` = issuer.id) as subissuers
+	  where fk_id_subIssuer = subissuers.id) as profileSetIDs
 where cpl.description = @customPageLayoutDesc_appView
-  and pageType = @pageType
-  and ps.name = @profileSetName;

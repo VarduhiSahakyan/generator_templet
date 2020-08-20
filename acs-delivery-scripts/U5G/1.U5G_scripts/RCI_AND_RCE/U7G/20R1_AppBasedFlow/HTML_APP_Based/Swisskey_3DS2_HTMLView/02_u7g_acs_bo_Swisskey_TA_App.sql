@@ -19,10 +19,31 @@ values ('div',
 	}
 	.acs-header {
 		margin-bottom: 0.5em;
+		display: flex;
+		align-items: center;
 	}
 	#issuerLogo {
-		width: 120px;
-		height: 33px;
+		max-height: 96px;
+		max-width: 100%;
+	}
+	#networkLogo {
+		max-height: 96px;
+		max-width: 100%;
+	}
+	div#bankLogoDiv {
+		width: 50%;
+		float: left;
+		height: 100%;
+		display: flex;
+		align-items: center;
+	}
+	div#networkLogoDiv {
+		width: 50%;
+		float: right;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
 	}
 	.acs-purchase-context {
 		margin-bottom: 2em;
@@ -42,7 +63,6 @@ values ('div',
 		margin-bottom: 1.1em;
 	}
 	.acs-challengeInfoText {
-		white-space: inherit;
 		margin-bottom: 2em;
 	}
 	.acs-footer {
@@ -169,11 +189,11 @@ values ('div',
 <div class="acs-container col-md-12">
 	<!-- ACS HEADER | Branding zone-->
 	<div class="acs-header row branding-zone">
-		<div class="col-md-6">
-			<img src="network_means_pageType_251" id = "issuerLogo" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
+		<div id="bankLogoDiv" class="col-md-6">
+			<img id="issuerLogo" src="network_means_pageType_251" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
 		</div>
-		<div class="col-md-6">
-			<img src="network_means_pageType_254" id = "networkLogo" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
+		<div id="networkLogoDiv" class="col-md-6">
+			<img id="networkLogo" src="network_means_pageType_254" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
 		</div>
 	</div>
 	<!-- ACS BODY | Challenge/Processing zone -->
