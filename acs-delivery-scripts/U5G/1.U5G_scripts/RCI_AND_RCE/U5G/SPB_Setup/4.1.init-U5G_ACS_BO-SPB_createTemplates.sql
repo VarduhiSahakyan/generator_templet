@@ -1453,12 +1453,15 @@ side-menu .menu-elements div div div span + span {
     padding-bottom:0.5em;
     display:flex;
 }
-
 div.ng-scope:nth-child(5) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > label:nth-child(1) > custom-text:nth-child(1) > span:nth-child(1) {
 	display:none;
 }
 div.ng-scope:nth-child(5) > div:nth-child(1) > div:nth-child(1) > span:nth-child(2) {
 	display:none;
+}
+#sideLayout {
+	margin-left: 677px;
+	margin-top: -30px;
 }
 </style>
 <div id="optGblPage">
@@ -1485,7 +1488,20 @@ div.ng-scope:nth-child(5) > div:nth-child(1) > div:nth-child(1) > span:nth-child
 				<custom-text custom-text-key="''network_means_pageType_2''" id="paragraph2"></custom-text>
 			</div>
 		</div>
-        <div x-ms-format-detection="none" class="bottomColumn"><side-menu></side-menu></div>
+        <div x-ms-format-detection="none" class="bottomColumn">
+			<side-menu></side-menu>
+			<div id="sideLayout" class="break-word">
+				<span class="col-sm-5 col-xs-6 col-xs-offset-0 col-sm-offset-1 text-right padding-left">
+					<label>
+						<custom-text custom-text-key="''network_means_pageType_104''"></custom-text>
+					</label>
+					<label id="menu-separator">:</label>
+				</span>
+				<span class="col-sm-6 col-xs-6 text-left padding-left">
+					<span><custom-text custom-text-key="''network_means_pageType_4''"></custom-text></span>
+				</span>
+			</div>
+	</div>
         <div class="tanContainer">
 				<div id = "tanLabel">
 					<custom-text custom-text-key="''network_means_pageType_3''"></custom-text>
@@ -2402,9 +2418,9 @@ div#optGblPage {
     
 }
 #cancelButton {
-    flex: 1 1 50%;
+    /*flex: 1 1 50%;
     text-align:right;
-    padding-right:0.5em;
+    padding-right:0.5em;*/
 }
 #cancelButton button {
     display: inline-block;
