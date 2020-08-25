@@ -617,7 +617,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG',
- 'de', 9, @currentPageType, 'SpardaSecureApp', NULL, NULL, @currentCustomItemSet),
+ 'de', 9, @currentPageType, 'SecureApp', NULL, NULL, @currentCustomItemSet),
 ('I', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), 'PUSHED_TO_CONFIG', 
  'de', 9, @currentPageType, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_9'), NULL, @Imageid, @currentCustomItemSet);
 
@@ -647,7 +647,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 1, @currentPageType, '<b>Schritt 2: Eingabe chipTAN</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Bitte geben Sie die Generierte chipTAN ein.', NULL, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Bitte geben Sie die generierte chipTAN ein.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
  'de', 3, @currentPageType, '<b>TAN* :</b>', NULL, NULL, @currentCustomItemSet),
@@ -866,7 +866,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 1, @currentPageType, '<b>Hinweis zur TAN-Verfahrensauswahl</b>', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Sie haben die Möglichkeit eines Ihrer verfügbaren TAN-Verfahren auszuwählen. Öffnen Sie hierzu die Auswahlliste und klicken Sie auf das gewünschte Verfahren. Um die Freigabe der Zahlung abzubrechen, klicken Sie auf „Abbrechen”.', NULL, NULL, @currentCustomItemSet),
+ 'de', 2, @currentPageType, 'Sie haben die Möglichkeit eines Ihrer verfügbaren TAN-Verfahren auszuwählen. Klicken Sie hierzu auf das gewünschte Verfahren. Um die Freigabe der Zahlung abzubrechen, klicken Sie auf „Abbrechen”.', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
  'de', 3, @currentPageType, 'Sofern die SpardaSecureApp eines der verfügbaren Verfahren ist und Sie mehrere Geräte für die SpardaSecureApp angemeldet haben, werden Ihnen diese in der Auswahlliste angezeigt.', NULL, NULL, @currentCustomItemSet),
