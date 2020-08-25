@@ -15,10 +15,14 @@ insert into `CustomComponent` (`type`, `value`, `fk_id_layout`)
 values ('div',
 '<style>
 	.acs-container {
-		padding: 0.5em;
+		padding: 0em;
+	}
+	.scrollbar{
+		overflow: auto;
 	}
 	.acs-header {
 		margin-bottom: 0.5em;
+		margin-top: 0.5em;
 		display: flex;
 		align-items: center;
 	}
@@ -60,10 +64,9 @@ values ('div',
 		text-align: center;
 		font-weight: bold;
 		font-size: 1.15em;
-		margin-bottom: 1.1em;
 	}
 	.acs-challengeInfoText {
-		margin-bottom: 2em;
+		margin-bottom: 0em;
 	}
 	.acs-footer {
 		font-size: 0.9em;
@@ -186,34 +189,36 @@ values ('div',
 </style>
 </head>
 <body>
-<div class="acs-container col-md-12">
-	<!-- ACS HEADER | Branding zone-->
-	<div class="acs-header row branding-zone">
-		<div id="bankLogoDiv" class="col-md-6">
-			<img id="issuerLogo" src="network_means_pageType_251" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
-		</div>
-		<div id="networkLogoDiv" class="col-md-6">
-			<img id="networkLogo" src="network_means_pageType_254" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
-		</div>
-	</div>
-	<!-- ACS BODY | Challenge/Processing zone -->
-	<div class="acs-purchase-context col-md-12 challenge-processing-zone">
-		<div class="row">
-			<div class="acs-challengeInfoHeader col-md-12" data-cy="CHALLENGE_INFO_HEADER">
-				network_means_pageType_151
+<div class="acs-container">
+	<div class="scrollbar col-md-12">
+		<!-- ACS HEADER | Branding zone-->
+		<div class="acs-header row branding-zone">
+			<div id="bankLogoDiv" class="col-md-6">
+				<img id="issuerLogo" src="network_means_pageType_251" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
 			</div>
+			<div id="networkLogoDiv" class="col-md-6">
+				<img id="networkLogo" src="network_means_pageType_254" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
+			</div>
+		</div>
+		<!-- ACS BODY | Challenge/Processing zone -->
+		<div class="acs-purchase-context col-md-12 challenge-processing-zone">
 			<div class="row">
-				<div class="acs-challengeInfoText col-md-10" id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
-					network_means_pageType_152
+				<div class="acs-challengeInfoHeader col-md-12" data-cy="CHALLENGE_INFO_HEADER">
+					network_means_pageType_151
 				</div>
-			</div>
-			<div class="col-md-12">
-				<form action="HTTPS://EMV3DS/challenge" method="get">
-					<input name="submitted-oob-continue-value" type="hidden" value="Y">
-					<input class="btn btn-primary" data-cy="CHALLENGE_OOB_CONTINUE_FORM_SUBMIT"
-						   id="challenge-oob-continue-submit"
-						   type="submit" value="network_means_pageType_165"/>
-				</form>
+				<div class="row">
+					<div class="acs-challengeInfoText col-md-10" id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
+						network_means_pageType_152
+					</div>
+				</div>
+				<div class="col-md-12">
+					<form action="HTTPS://EMV3DS/challenge" method="get">
+						<input name="submitted-oob-continue-value" type="hidden" value="Y">
+						<input class="btn btn-primary" data-cy="CHALLENGE_OOB_CONTINUE_FORM_SUBMIT"
+							   id="challenge-oob-continue-submit"
+							   type="submit" value="network_means_pageType_165"/>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
