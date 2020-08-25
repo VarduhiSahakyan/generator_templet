@@ -855,7 +855,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 174, 'ALL', 'Schließen', NULL, NULL, @currentCustomItemSet),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkVISA,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
- 'de', 175, 'ALL', 'Zurück zum Händler', NULL, NULL, @currentCustomItemSet);
+ 'de', 175, 'ALL', 'Zurück zum Shop', NULL, NULL, @currentCustomItemSet);
  
 SET @currentPageType = 'HELP_PAGE';
 
