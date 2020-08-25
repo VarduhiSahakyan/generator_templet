@@ -1,15 +1,15 @@
-USE `U5G_ACS_BO`;
+USE U5G_ACS_BO;
 
-INSERT INTO CustomPageLayout (controller, pageType, description) VALUES
-( NULL, 'OTP_SMS_APP_VIEW', 'SMS_App_View (Reise)');
+SET @appViewPageDescription = 'SMS_App_View (Reise)';
+SET @pageType = 'OTP_SMS_APP_VIEW';
 
-SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` ='PS_12232_REISEBANK_SMS_01');
+SET @idAppViewPage = (SELECT id
+					  FROM `CustomPageLayout`
+					  WHERE `pageType` = @pageType
+						AND DESCRIPTION = @appViewPageDescription);
 
-SET @idAppViewPage=(SELECT id FROM `CustomPageLayout` WHERE `pageType`= 'OTP_SMS_APP_VIEW' and DESCRIPTION = 'SMS_App_View (Reise)') ;
-
-INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
-  VALUES( 'div',
- '<style>
+UPDATE `CustomComponent`
+SET `value` = '<style>
 			.acs-container {
 				padding: 0em;
 			}
@@ -219,9 +219,5 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 					</div>
 				</div>
 			</div>
-		</div>', @idAppViewPage);
-
-INSERT INTO CustomPageLayout_ProfileSet (customPageLayout_id, profileSet_id)
-select cpl.id, ps.id
-  from CustomPageLayout cpl, ProfileSet ps
-    where cpl.description = 'SMS_App_View (Reise)' and pageType = 'OTP_SMS_APP_VIEW' and ps.name = 'PS_12232_REISEBANK_SMS_01';
+		</div>'
+WHERE `fk_id_layout` = @idAppViewPage;
