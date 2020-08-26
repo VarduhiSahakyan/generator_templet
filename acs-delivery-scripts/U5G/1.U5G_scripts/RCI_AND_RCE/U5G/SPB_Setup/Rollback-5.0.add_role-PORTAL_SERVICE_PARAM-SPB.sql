@@ -1,32 +1,22 @@
 USE PORTAL_SERVICE_PARAM;
 
-SET @roleDescription = 'Administrator SpardaBank'; 
-SET @roleName = 'ADMIN_SPARDA'; 
+SET @roleDescription = 'Administrator SpardaBank' COLLATE utf8_unicode_ci; 
+SET @roleName = 'ADMIN_SPARDA' COLLATE utf8_unicode_ci; 
 
-SET @roleParentId = (SELECT ROLE_ID FROM `ROLE` WHERE ROLE_NAME="ADMIN_WORLDLINE");
 
-INSERT INTO `ROLE` (`ROLE_DESCRIPTION`, `ROLE_NAME`, `ROLE_PROTECTED`, `ROLE_PARENT`)
-VALUES (@roleDescription, @roleName, false, @roleParentId);
-
-DELETE FROM ROLE WHERE ROLE_DESCRIPTION=@roleDescription AND ROLE_NAME=@roleName AND ROLE_PROTECTED=false AND ROLE_PARENT=@roleParentId;
+DELETE FROM ROLE WHERE ROLE_DESCRIPTION=@roleDescription AND ROLE_NAME=@roleName AND ROLE_PROTECTED=false;
 
 
 USE PORTAL_SERVICE_PARAM;
 
-SET @roleDescription = 'Agent SpardaBank'; 
-SET @roleName = 'AGENT_SPARDA'; 
+SET @roleDescription = 'Agent SpardaBank' COLLATE utf8_unicode_ci; 
+SET @roleName = 'AGENT_SPARDA' COLLATE utf8_unicode_ci; 
 
-SET @roleParentId = (SELECT ROLE_ID FROM `ROLE` WHERE ROLE_NAME="ADMIN_WORLDLINE");
-
-DELETE FROM ROLE WHERE ROLE_DESCRIPTION=@roleDescription AND ROLE_NAME=@roleName AND ROLE_PROTECTED=false AND ROLE_PARENT=@roleParentId;
+DELETE FROM ROLE WHERE ROLE_DESCRIPTION=@roleDescription AND ROLE_NAME=@roleName AND ROLE_PROTECTED=false;
 
 
 
 USE PORTAL_SERVICE_PARAM;
 
-SET @roleDescription = 'Super Admin SpardaBank'; 
-SET @roleName = 'SUPER_ADMIN_SPARDA'; 
-
-SET @roleParentId = (SELECT ROLE_ID FROM `ROLE` WHERE ROLE_NAME="ADMIN_WORLDLINE");
-
-DELETE FROM ROLE WHERE ROLE_DESCRIPTION=@roleDescription AND ROLE_NAME=@roleName AND ROLE_PROTECTED=false AND ROLE_PARENT=@roleParentId;
+SET @roleDescription = 'Super Admin SpardaBank' COLLATE utf8_unicode_ci; 
+SET @roleName = 'SUPER_ADMIN_SPARDA' COLLATE utf8_unicode_ci; 

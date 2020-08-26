@@ -1,9 +1,9 @@
 USE PORTAL_SERVICE_PARAM;
 
 -- check existing 
-SET @serviceName = 'ACS_U5G';
-SET @serviceNamePortail = 'PORTAIL';
-SET @roleName = 'ADMIN_SPARDA'; 
+SET @serviceName = 'ACS_U5G' COLLATE utf8_unicode_ci;
+SET @serviceNamePortail = 'PORTAIL' COLLATE utf8_unicode_ci;
+SET @roleName = 'ADMIN_SPARDA' COLLATE utf8_unicode_ci; 
 
 SELECT * FROM PROFIL p 
 WHERE p.SERVICE_ID = (SELECT SERVICE_ID FROM SERVICE WHERE SERVICE_NAME = 'ACS_U5G' LIMIT 1)
@@ -59,9 +59,9 @@ AND p.ROLE_ID IN
 USE PORTAL_SERVICE_PARAM;
 
 -- check existing 
-SET @serviceName = 'ACS_U5G';
-SET @serviceNamePortail = 'PORTAIL';
-SET @roleName = 'AGENT_SPARDA'; 
+SET @serviceName = 'ACS_U5G' COLLATE utf8_unicode_ci;
+SET @serviceNamePortail = 'PORTAIL' COLLATE utf8_unicode_ci;
+SET @roleName = 'AGENT_SPARDA' COLLATE utf8_unicode_ci; 
 
 SELECT * FROM PROFIL p 
 WHERE p.SERVICE_ID = (SELECT SERVICE_ID FROM SERVICE WHERE SERVICE_NAME = 'ACS_U5G' LIMIT 1)
@@ -117,9 +117,9 @@ AND p.ROLE_ID IN
 USE PORTAL_SERVICE_PARAM;
 
 -- check existing 
-SET @serviceName = 'ACS_U5G';
-SET @serviceNamePortail = 'PORTAIL';
-SET @roleName = 'SUPER_ADMIN_SPARDA'; 
+SET @serviceName = 'ACS_U5G' COLLATE utf8_unicode_ci;
+SET @serviceNamePortail = 'PORTAIL' COLLATE utf8_unicode_ci;
+SET @roleName = 'SUPER_ADMIN_SPARDA' COLLATE utf8_unicode_ci; 
 
 SELECT * FROM PROFIL p 
 WHERE p.SERVICE_ID = (SELECT SERVICE_ID FROM SERVICE WHERE SERVICE_NAME = 'ACS_U5G' LIMIT 1)
