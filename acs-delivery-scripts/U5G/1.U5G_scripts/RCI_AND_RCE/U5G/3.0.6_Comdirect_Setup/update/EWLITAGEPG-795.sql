@@ -1,5 +1,5 @@
 USE `U5G_ACS_BO`;
-START TRANSACTION;
+
 SET @createdBy = 'A707825';
 SET @issuerCode = '16600';
 SET @subIssuerCode = '16600';
@@ -538,4 +538,3 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 	('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@networkName, '_', @currentAuthentMean, '_', @currentPageType, '_33'), @updateState,
 	@locale, 33, @currentPageType, 'Es ist ein technischer Fehler aufgetreten. Wir arbeiten schnellstmöglich an der Behebung des Problems. Bei Fragen wenden Sie sich bitte telefonisch an unsere Kundenbetreuung unter 04106– 708 25 00.', @networkId, NULL, @customItemSetMobileApp);
 
-COMMIT

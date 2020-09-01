@@ -1,5 +1,4 @@
 USE `U5G_ACS_BO`;
-START TRANSACTION;
 
 SET @issuerCode = '16600';
 SET @subIssuerCode = '16600';
@@ -61,4 +60,3 @@ DELETE FROM `CustomPageLayout` WHERE id = @customPageLayoutID;
 UPDATE `Issuer` SET `availaibleAuthentMeans`=  @availableAuthMeans WHERE id = @issuerID;
 UPDATE `SubIssuer` SET `authentMeans` = @activatedAuthMeans WHERE code = @subIssuerCode AND fk_id_issuer  = @issuerID;
 
-COMMIT;
