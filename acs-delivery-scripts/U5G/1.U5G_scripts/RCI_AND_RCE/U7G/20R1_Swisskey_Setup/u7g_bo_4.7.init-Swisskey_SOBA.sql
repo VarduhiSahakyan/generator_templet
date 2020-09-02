@@ -324,8 +324,8 @@ INSERT INTO `ProfileSet_Rule` (`id_profileSet`, `id_rule`)
 
 /* MerchantPivotList */
 /*!40000 ALTER TABLE `MerchantPivotList` DISABLE KEYS */;
-INSERT INTO `MerchantPivotList` (`level`, `keyword`, `type`, `amount`, `display`,`forceAuthent`, `fk_id_issuer`, `fk_id_subIssuer`)
-VALUES ('ISSUER', 'TestMerchant', 'NAME', 0, 0, b'0', @issuerId, @subIssuerID);
+INSERT INTO `MerchantPivotList` (`level`, `keyword`, `type`, `amount`, `display`,`forceAuthent`, `fk_id_issuer`, `fk_id_subIssuer`, `expertMode`)
+VALUES ('ISSUER', 'TestMerchant', 'NAME', 0, 0, b'0', @issuerId, @subIssuerID, 0);
 /*!40000 ALTER TABLE `MerchantPivotList` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE = IFNULL(@OLD_SQL_MODE, '') */;
