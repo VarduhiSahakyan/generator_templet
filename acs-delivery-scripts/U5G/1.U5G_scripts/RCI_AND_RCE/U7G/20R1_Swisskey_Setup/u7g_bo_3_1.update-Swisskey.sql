@@ -16,9 +16,9 @@ SET @SubIssuerCodeSGKB = '78100';
 SET @SubIssuerCodeSOBA = '83340';
 SET @SubIssuerCodeLUKB = '77800';
 
-SET @Role1 = 'Swisskey Admin';
-SET @Role2 = 'Swisskey Reporting';
-SET @Role3 = 'Swisskey Helpdesk';
+SET @Role1 = 'ADMIN_SWISSKEY';
+SET @Role2 = 'REPORTING_SWISSKEY';
+SET @Role3 = 'HELPDESK_SWISSKEY';
 
 SET @RoleCS = 'Credit Suisse Admin';
 SET @RoleNAB = 'Neue Aargauer Bank Admin';
@@ -38,8 +38,6 @@ INSERT INTO `Customer` (`code`, `customerType`, `name`, `parent_id`)
 
 -- 2. Add Role
 INSERT INTO `Role` (`name`) VALUES
-    (@Role2),
-    (@Role3),
     (@RoleCS),
     (@RoleNAB),
     (@RoleSGKB),
@@ -50,27 +48,17 @@ INSERT INTO `Role` (`name`) VALUES
 INSERT INTO `Role_Customer` (`id_customer`, `id_role`)
     SELECT c.id, r.id
     FROM `Customer` c, `Role` r
-    WHERE c.customerType = 'ENTITY' AND c.name = @BankB AND r.name IN (@Role2, @Role3);
+    WHERE c.customerType = 'SUB_ISSUER' AND c.name = @subIssuerCS AND r.name IN (@Role1, @Role2, @Role3, @RoleCS);
 
 INSERT INTO `Role_Customer` (`id_customer`, `id_role`)
     SELECT c.id, r.id
     FROM `Customer` c, `Role` r
-    WHERE c.customerType = 'ISSUER' AND c.name = @BankB AND r.name IN (@Role2, @Role3);
+    WHERE c.customerType = 'SUB_ISSUER' AND c.name = @subIssuerNAB AND r.name IN (@Role1,@Role2, @Role3, @RoleNAB);
 
 INSERT INTO `Role_Customer` (`id_customer`, `id_role`)
     SELECT c.id, r.id
     FROM `Customer` c, `Role` r
-    WHERE c.customerType = 'SUB_ISSUER' AND c.name = @subIssuerCS AND r.name IN (@Role2, @Role3, @RoleCS);
-
-INSERT INTO `Role_Customer` (`id_customer`, `id_role`)
-    SELECT c.id, r.id
-    FROM `Customer` c, `Role` r
-    WHERE c.customerType = 'SUB_ISSUER' AND c.name = @subIssuerNAB AND r.name IN (@Role2, @Role3, @RoleNAB);
-
-INSERT INTO `Role_Customer` (`id_customer`, `id_role`)
-    SELECT c.id, r.id
-    FROM `Customer` c, `Role` r
-    WHERE c.customerType = 'SUB_ISSUER' AND c.name = @subIssuerSGKB AND r.name IN (@Role2, @Role3, @RoleSGKB);
+    WHERE c.customerType = 'SUB_ISSUER' AND c.name = @subIssuerSGKB AND r.name IN (@Role1, @Role2, @Role3, @RoleSGKB);
 
 INSERT INTO `Role_Customer` (`id_customer`, `id_role`)
     SELECT c.id, r.id
@@ -82,27 +70,6 @@ INSERT INTO `Role_Customer` (`id_customer`, `id_role`)
     FROM `Customer` c, `Role` r
     WHERE c.customerType = 'SUB_ISSUER' AND c.name = @subIssuerLUKB AND r.name IN (@Role1, @Role2, @Role3, @RoleLUKB);
 
-INSERT INTO `Role_Permission` (`id_role`, `id_permission`)
-    SELECT  r.id, p.id
-    FROM `Role` r , `Permission` p
-    WHERE r.name = @Role2
-        AND  p.name IN (
-                      'Consult_reporting',
-                      'Consult_psd2_reports'
-        );
-
-INSERT INTO `Role_Permission` (`id_role`, `id_permission`)
-    SELECT  r.id, p.id
-    FROM `Role` r , `Permission` p
-    WHERE r.name = @Role3
-        AND  p.name IN (
-                      'Consult_events',
-                      'Consult_reporting',
-                      'Consult_user_xp',
-                      'Consult_transactions_3DS1',
-                      'Consult_transactions_3DS2',
-                      'Consult_RBA_Decision'
-        );
 
 INSERT INTO `Role_Permission` (`id_role`, `id_permission`)
     SELECT  r.id, p.id

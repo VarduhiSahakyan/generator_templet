@@ -16,9 +16,9 @@ SET @SubIssuerCodeSGKB = '78100';
 SET @SubIssuerCodeSOBA = '83340';
 SET @SubIssuerCodeLUKB = '77800';
 
-SET @Role1 = 'Swisskey Admin';
-SET @Role2 = 'Swisskey Reporting';
-SET @Role3 = 'Swisskey Helpdesk';
+SET @Role1 = 'ADMIN_SWISSKEY';
+SET @Role2 = 'REPORTING_SWISSKEY';
+SET @Role3 = 'HELPDESK_SWISSKEY';
 
 SET @RoleCS = 'Credit Suisse Admin';
 SET @RoleNAB = 'Neue Aargauer Bank Admin';
