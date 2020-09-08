@@ -24,7 +24,7 @@ UPDATE `CustomItem` SET `value` = @text
 					AND `fk_id_customItemSet` = @customItemSetId;
 
 SET @ordinal = 165;
-SET @text = 'Weiter nach App-Freigabe';
+SET @text = 'Weiter nach der Freigabe';
 
 UPDATE `CustomItem` SET `value` = @text
 					WHERE `locale` = @locale
