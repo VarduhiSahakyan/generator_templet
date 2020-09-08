@@ -76,10 +76,10 @@ UPDATE CustomComponent SET value = '
 		margin-bottom: 15px;
 	}
 	div#footer #helpButton button span:before {
-		content: '';
+		content: '''';
 	}
 	div#footer #cancelButton button span:before {
-		content: '';
+		content: '''';
 	}
 	div#footer #helpButton button span.fa {
 		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAppJREFUeAHtmr9Kw1AUxptEjASxtA/g4iBU0E0cnRwVxDrpom6CHXyBvkBpCY5uImJXVx2Egj6FxV2aFBVba1u/W5twucR2qDkXzAmk91/a75zfPTn3JjSV4oMJMAEmwASYABNgAkyACSSSgKHL62KxONVoNA6gv2wYxmOlUrlE2ae2Z4paMNCD81eo74h2v98/LhQKq6ieiDbloSUC4Ow8nH6WHcXsf5mmOVculz/k/rjrZtwCUb8PR6Miz0yn01bU9XH2aQGAWX6CU7eyY4iIS+SFN7mPoh41ExS6qWw2u4U8cIrQX4HgQy6Xc0mEWYQJMAEmwASYABNgAkMCZM8C2OVNN5vNdez4nF6vh/2PYYoPtA1sjT+xDb771ztB7PouAH03CD04Lp4CB81ut5vC+D0a68E4VUn5LLA4xqm1MeOxDJM9C1iWdYTQP4UXMzjF1PdwiltgG6U4KCfjRxGfZDkgVJQq1WrVqtVqX8Ouruu6ZBMSmKGFeiCez+dFFASHFlu0iAYei0UgqKPUEo1aAQjnASGMAiyD5PaQC0ozPqgiCYZRgJci5FGgHQAohBHgeR65PeSCagTIANrtNrk95IIqADkH1Ot1cnvIBVUAcgRgs0RuD7mgCkBOgngoIreHXFAFIEeA4zjJWwXkHOD7PvmEkAuOigDAILeHXHAUgMTngKRGQLgV7nQ6yUuC8iqgIwJiJ44/QyzDyT04Nx1x/4v3goc4Z8UYcsA5infpOh+bo7NSqfQi9f1pleINzA0cFP8IGWs4XpkdqRfhewvo21f7/6pNsQq8TmjspN8fKR97BNi2vdFqtTZhhf2LJTZujyXMdB3jnnKNn8lkrpU+bjIBJsAEmAATYAJMgAkwASbABJgAE5iQwDdkTa4cGFRLBAAAAABJRU5ErkJggg==);
@@ -115,10 +115,10 @@ UPDATE CustomComponent SET value = '
 		margin-right: 3px;
 	}
 	#cancelButton button span:before {
-		content: '';
+		content: '''';
 	}
 	#validateButton button span:before {
-		content: '';
+		content: '''';
 	}
 	.paragraph {
 		text-align: left;
@@ -312,7 +312,7 @@ UPDATE CustomComponent SET value = '
 		h1 {font-size: 24px;}
 		#issuerLogo {max-height: 64px; max-width: 100%; }
 		#networkLogo {max-height: 72px;px; max-width: 100%; }
-		div#optGblPage { font-size: 14px; max-width: 1199px;}
+		div#optGblPage { font-size: 14px;}
 		.paragraph { text-align: center;}
 		.leftColumn { display: block; float: none; width: 100%; padding-bottom: 84px;}
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; text-align: center; }
@@ -331,7 +331,7 @@ UPDATE CustomComponent SET value = '
 	}
 	@media all and (max-width: 700px) and (min-width: 481px) {
 		h1 { font-size: 18px; }
-		div#optGblPage { font-size: 14px; max-width: 700px;}
+		div#optGblPage { font-size: 14px;}
 		#issuerLogo {max-height: 54px; max-width: 100%; }
 		#networkLogo {max-height: 67px; max-width: 100%;}
 		.paragraph { text-align: center;}
@@ -347,13 +347,10 @@ UPDATE CustomComponent SET value = '
 		.valbtn { margin: 0px 25px 10px 27px; text-align: justify; }
 		div#otp-fields-container { width: 100%; text-align: center; margin-top: 10px; margin-bottom: 10px; }
 	}
-	@media all and (max-width: 600px) {
-		div#optGblPage { max-width: 600px;}
-	}
 	@media all and (max-width: 480px) {
 		h1 {font-size: 16px;}
 		div.side-menu div.menu-title { display: inline; }
-		div#optGblPage { font-size: 14px; max-width: 480px;}
+		div#optGblPage { font-size: 14px;}
 		#issuerLogo { max-height: 42px; max-width: 100%; }
 		#networkLogo {max-height: 62px; max-width: 100%; }
 		.leftColumn { display: block; float: none; width: 100%; padding-bottom: 115px;}
@@ -777,7 +774,7 @@ UPDATE CustomComponent SET value = '<style>
 		h1 {font-size: 24px;}
 		#issuerLogo {max-height: 64px; max-width: 100%; }
 		#networkLogo {max-height: 72px;px; max-width: 100%; }
-		div#optGblPage { font-size: 14px; max-width: 1199px;}
+		div#optGblPage { font-size: 14px;}
 		.paragraph { text-align: center;}
 		.leftColumn { display: block; float: none; width: 100%; padding-bottom: 84px;}
 		.rightColumn { margin-left: 0px; display: block; float: none; width: 100%; text-align: center; }
@@ -794,7 +791,7 @@ UPDATE CustomComponent SET value = '<style>
 	}
 	@media all and (max-width: 700px) and (min-width: 481px) {
 		h1 { font-size: 18px; }
-		div#optGblPage { font-size: 14px; max-width: 700px;}
+		div#optGblPage { font-size: 14px;}
 		#issuerLogo {max-height: 54px; max-width: 100%; }
 		#networkLogo {max-height: 67px; max-width: 100%;}
 		.paragraph { text-align: center;}
@@ -808,13 +805,10 @@ UPDATE CustomComponent SET value = '<style>
 		#validateButton { display: block; width: 150px; margin-left: auto; margin-right: auto; }
 		#validateButton button { width: 100%; }
 	}
-	@media all and (max-width: 600px) {
-		div#optGblPage { max-width: 600px;}
-	}
 	@media all and (max-width: 480px) {
 		h1 {font-size: 16px;}
 		div.side-menu div.menu-title { display: inline; }
-		div#optGblPage { font-size: 14px; max-width: 480px;}
+		div#optGblPage { font-size: 14px;}
 		#issuerLogo { max-height: 42px; max-width: 100%; }
 		#networkLogo {max-height: 62px; max-width: 100%; }
 		.leftColumn { display: block; float: none; width: 100%; padding-bottom: 115px;}
