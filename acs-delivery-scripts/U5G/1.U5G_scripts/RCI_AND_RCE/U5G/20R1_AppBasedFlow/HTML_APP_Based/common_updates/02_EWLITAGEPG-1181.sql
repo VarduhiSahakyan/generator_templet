@@ -255,6 +255,9 @@ UPDATE `CustomComponent` SET `value` = '
 		width: 90%;
 		margin-bottom: 2em;
 	}
+	.select-radio {
+		max-width: 10%;
+	}
 	.acs-footer {
 		font-size: 0.9em;
 		margin-bottom: 0.5em;
@@ -465,6 +468,9 @@ UPDATE `CustomComponent` SET `value` = '
 	div.acs-challengeInfoText {
 		width: 90%;
 		margin-bottom: 2em;
+	}
+	.select-radio {
+		max-width: 10%;
 	}
 	.acs-footer {
 		font-size: 0.9em;
@@ -2816,6 +2822,9 @@ UPDATE `CustomComponent` SET `value` = '
 	.acs-challengeInfoText {
 		margin-bottom: 2em;
 	}
+	.select-radio {
+		max-width: 10%;
+	}
 	.acs-footer {
 		font-size: 0.9em;
 		margin-bottom: 0.5em;
@@ -4107,6 +4116,9 @@ UPDATE `CustomComponent` SET `value` =
 	}
 	.acs-challengeInfoText {
 		margin-bottom: 2em;
+	}
+	.select-radio {
+		max-width: 10%;
 	}
 	.acs-footer {
 		font-size: 0.9em;
