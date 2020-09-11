@@ -40,6 +40,12 @@ SET @preferredAuthMean = 'OTP_SMS_EXT_MESSAGE';
 SET @issuerCountryCode = '250';
 SET @maskParam = '*,6,4';
 SET @dateFormat = 'DD.MM.YYYY HH:mm|CET';
+SET @currencyFormat = '{
+                            "useAlphaCurrencySymbol":true,
+                            "currencySymbolPosition":"LEFT",
+                            "decimalDelimiter":".",
+                            "thousandDelimiter":"''"
+                        }';
 
 SET @3DS2AdditionalInfo = '{
 	  "VISA": {
@@ -58,11 +64,11 @@ INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `c
 						 `automaticDeviceSelection`, `userChoiceAllowed`, `backupAllowed`, `defaultDeviceChoice`, `preferredAuthentMeans`,
 						 `issuerCountry`, `hubCallMode`, `fk_id_issuer`, `maskParams`, `dateFormat`,`paChallengePublicUrl`,
 						 `verifyCardStatus`,`3DS2AdditionalInfo`,`resendOTPThreshold`, `resendSameOTP`,`combinedAuthenticationAllowed`,
-						 `displayLanguageSelectPage`,`trustedBeneficiariesAllowed`,`authentMeans`, `fk_id_cryptoConfig`) VALUES
+						 `displayLanguageSelectPage`,`trustedBeneficiariesAllowed`,`authentMeans`, `fk_id_cryptoConfig`, `currencyFormat`) VALUES
   ('ACS_U7G', 120, @backUpLanguages, @subIssuerCode, @subIssuerCode, '978', @createdBy, NOW(), NULL, NULL, NULL, @subIssuerNameAndLabel,
    @updateState, @defaultLanguage, 600, @subIssuerNameAndLabel, TRUE, TRUE, NULL, TRUE, TRUE, 300,
    @acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, FALSE, TRUE, TRUE, @preferredAuthMean,
-   @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, 'https://secure.six-group.com/', '1', @3DS2AdditionalInfo,'3', TRUE, FALSE, b'0', b'0', @activatedAuthMeans, @cryptoConfigIDSOBA);
+   @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, 'https://secure.six-group.com/', '1', @3DS2AdditionalInfo,'3', TRUE, FALSE, b'0', b'0', @activatedAuthMeans, @cryptoConfigIDSOBA, @currencyFormat);
 /*!40000 ALTER TABLE `SubIssuer` ENABLE KEYS */;
 
 
