@@ -30,16 +30,16 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3x MC logo same naming convention needs to be used in the mc and visa queries as bank logo (above queries high,vhigh and medium)
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState, @locale, 254, @pageType, 'VISA_SMALL_LOGO', n.id, im.id, @customItemSetId
-  FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_small.png%' AND n.code LIKE '%VISA%';
+  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Mastercard Logo', @updateState, @locale, 254, @pageType, 'MC_SMALL_LOGO', n.id, im.id, @customItemSetId
+  FROM `Image` im, `Network` n WHERE im.name LIKE '%MC_small.png%' AND n.code LIKE '%MASTERCARD%';
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState, @locale, 255, @pageType, 'VISA_MEDIUM_LOGO', n.id, im.id, @customItemSetId
-  FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_medium.png%' AND n.code LIKE '%VISA%';
+  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Mastercard Logo', @updateState, @locale, 255, @pageType, 'MC_MEDIUM_LOGO', n.id, im.id, @customItemSetId
+  FROM `Image` im, `Network` n WHERE im.name LIKE '%MC_medium.png%' AND n.code LIKE '%MASTERCARD%';
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState, @locale, 256, @pageType, 'VISA_LARGE_LOGO', n.id, im.id, @customItemSetId
-  FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_large.png%' AND n.code LIKE '%VISA%';
+  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Mastercard Logo', @updateState, @locale, 256, @pageType, 'MC_LARGE_LOGO', n.id, im.id, @customItemSetId
+  FROM `Image` im, `Network` n WHERE im.name LIKE '%MC_large.png%' AND n.code LIKE '%MASTERCARD%';
 
 
 SET @locale = 'en';
@@ -58,16 +58,16 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3x MC logo same naming convention needs to be used in the mc and visa queries as bank logo (above queries high,vhigh and medium)
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState, @locale, 254, @pageType, 'VISA_SMALL_LOGO', n.id, im.id, @customItemSetId
-  FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_small.png%' AND n.code LIKE '%VISA%';
+  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Mastercard Logo', @updateState, @locale, 254, @pageType, 'MC_SMALL_LOGO', n.id, im.id, @customItemSetId
+  FROM `Image` im, `Network` n WHERE im.name LIKE '%MC_small.png%' AND n.code LIKE '%MASTERCARD%';
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState, @locale, 255, @pageType, 'VISA_MEDIUM_LOGO', n.id, im.id, @customItemSetId
-  FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_medium.png%' AND n.code LIKE '%VISA%';
+  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Mastercard Logo', @updateState, @locale, 255, @pageType, 'MC_MEDIUM_LOGO', n.id, im.id, @customItemSetId
+  FROM `Image` im, `Network` n WHERE im.name LIKE '%MC_medium.png%' AND n.code LIKE '%MASTERCARD%';
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState, @locale, 256, @pageType, 'VISA_LARGE_LOGO', n.id, im.id, @customItemSetId
-  FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_large.png%' AND n.code LIKE '%VISA%';
+  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Mastercard Logo', @updateState, @locale, 256, @pageType, 'MC_LARGE_LOGO', n.id, im.id, @customItemSetId
+  FROM `Image` im, `Network` n WHERE im.name LIKE '%MC_large.png%' AND n.code LIKE '%MASTERCARD%';
 
 
 SET @locale = 'fr';
@@ -86,16 +86,16 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3x MC logo same naming convention needs to be used in the mc and visa queries as bank logo (above queries high,vhigh and medium)
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState, @locale, 254, @pageType, 'VISA_SMALL_LOGO', n.id, im.id, @customItemSetId
-  FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_small.png%' AND n.code LIKE '%VISA%';
+  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Mastercard Logo', @updateState, @locale, 254, @pageType, 'MC_SMALL_LOGO', n.id, im.id, @customItemSetId
+  FROM `Image` im, `Network` n WHERE im.name LIKE '%MC_small.png%' AND n.code LIKE '%MASTERCARD%';
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState, @locale, 255, @pageType, 'VISA_MEDIUM_LOGO', n.id, im.id, @customItemSetId
-  FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_medium.png%' AND n.code LIKE '%VISA%';
+  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Mastercard Logo', @updateState, @locale, 255, @pageType, 'MC_MEDIUM_LOGO', n.id, im.id, @customItemSetId
+  FROM `Image` im, `Network` n WHERE im.name LIKE '%MC_medium.png%' AND n.code LIKE '%MASTERCARD%';
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState, @locale, 256, @pageType, 'VISA_LARGE_LOGO', n.id, im.id, @customItemSetId
-  FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_large.png%' AND n.code LIKE '%VISA%';
+  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Mastercard Logo', @updateState, @locale, 256, @pageType, 'MC_LARGE_LOGO', n.id, im.id, @customItemSetId
+  FROM `Image` im, `Network` n WHERE im.name LIKE '%MC_large.png%' AND n.code LIKE '%MASTERCARD%';
 
 
 SET @locale = 'it';
@@ -114,16 +114,16 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 -- 3x MC logo same naming convention needs to be used in the mc and visa queries as bank logo (above queries high,vhigh and medium)
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState, @locale, 254, @pageType, 'VISA_SMALL_LOGO', n.id, im.id, @customItemSetId
-  FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_small.png%' AND n.code LIKE '%VISA%';
+  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Mastercard Logo', @updateState, @locale, 254, @pageType, 'MC_SMALL_LOGO', n.id, im.id, @customItemSetId
+  FROM `Image` im, `Network` n WHERE im.name LIKE '%MC_small.png%' AND n.code LIKE '%MASTERCARD%';
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState, @locale, 255, @pageType, 'VISA_MEDIUM_LOGO', n.id, im.id, @customItemSetId
-  FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_medium.png%' AND n.code LIKE '%VISA%';
+  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Mastercard Logo', @updateState, @locale, 255, @pageType, 'MC_MEDIUM_LOGO', n.id, im.id, @customItemSetId
+  FROM `Image` im, `Network` n WHERE im.name LIKE '%MC_medium.png%' AND n.code LIKE '%MASTERCARD%';
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState, @locale, 256, @pageType, 'VISA_LARGE_LOGO', n.id, im.id, @customItemSetId
-  FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_large.png%' AND n.code LIKE '%VISA%';
+  SELECT 'I', @username, NOW(), NULL, NULL, NULL, 'Mastercard Logo', @updateState, @locale, 256, @pageType, 'MC_LARGE_LOGO', n.id, im.id, @customItemSetId
+  FROM `Image` im, `Network` n WHERE im.name LIKE '%MC_large.png%' AND n.code LIKE '%MASTERCARD%';
 
 -- ADD CB logo
 
