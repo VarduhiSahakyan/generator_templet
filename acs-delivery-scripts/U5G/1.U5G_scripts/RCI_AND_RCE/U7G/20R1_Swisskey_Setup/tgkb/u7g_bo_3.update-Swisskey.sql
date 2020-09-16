@@ -31,7 +31,7 @@ WHERE c.customerType = 'SUB_ISSUER' AND c.name = @subIssuerTGKB AND r.name IN (@
 INSERT INTO `Role_Permission` (`id_role`, `id_permission`)
 SELECT  r.id, p.id
 FROM `Role` r , `Permission` p
-WHERE r.name = @Role1
+WHERE r.name = @RoleTGKB
   AND  p.name IN (
                   'Consult_events',
                   'Consult_reporting',
