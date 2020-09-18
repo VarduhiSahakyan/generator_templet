@@ -277,122 +277,130 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 	SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, @customItemSetRefusal_TGKB FROM `CustomItem` n WHERE fk_id_customItemSet = @customItemSetRefusalFraud_TGKB;
 
+
+SET @customItemSetMissingRefusal_CS = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankCS, '_MISSING_AUTHENTICATION_REFUSAL'));
+SET @customItemSetMissingRefusal_NAB = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankNAB, '_MISSING_AUTHENTICATION_REFUSAL'));
+SET @customItemSetMissingRefusal_SGKB = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankSGKB, '_MISSING_AUTHENTICATION_REFUSAL'));
+SET @customItemSetMissingRefusal_SOBA = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankSOBA, '_MISSING_AUTHENTICATION_REFUSAL'));
+SET @customItemSetMissingRefusal_LUKB = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankLUKB, '_MISSING_AUTHENTICATION_REFUSAL'));
+SET @customItemSetMissingRefusal_BALI = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankBALI, '_MISSING_AUTHENTICATION_REFUSAL'));
+SET @customItemSetMissingRefusal_BEKB = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankBEKB, '_MISSING_AUTHENTICATION_REFUSAL'));
+SET @customItemSetMissingRefusal_GRKB = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankGRKB, '_MISSING_AUTHENTICATION_REFUSAL'));
+SET @customItemSetMissingRefusal_LLB = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankLLB, '_MISSING_AUTHENTICATION_REFUSAL'));
+SET @customItemSetMissingRefusal_TGKB = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankTGKB, '_MISSING_AUTHENTICATION_REFUSAL'));
+
 SET @currentPageType = 'REFUSAL_PAGE';
 set @text = 'Zahlung nicht ausgeführt';
 UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 22
 										AND pageTypes = @currentPageType
 										AND locale = 'de'
-										AND `fk_id_customItemSet` IN (@customItemSetRefusal_CS,
-																	  @customItemSetRefusal_NAB,
-																	  @customItemSetRefusal_SGKB,
-																	  @customItemSetRefusal_SOBA,
-																	  @customItemSetRefusal_LUKB,
-																	  @customItemSetRefusal_BALI,
-																	  @customItemSetRefusal_BEKB,
-																	  @customItemSetRefusal_GRKB,
-																	  @customItemSetRefusal_LLB,
-																	  @customItemSetRefusal_TGKB);
+										AND `fk_id_customItemSet` IN (@customItemSetMissingRefusal_CS,
+																	  @customItemSetMissingRefusal_NAB,
+																	  @customItemSetMissingRefusal_SGKB,
+																	  @customItemSetMissingRefusal_SOBA,
+																	  @customItemSetMissingRefusal_LUKB,
+																	  @customItemSetMissingRefusal_BALI,
+																	  @customItemSetMissingRefusal_BEKB,
+																	  @customItemSetMissingRefusal_GRKB,
+																	  @customItemSetMissingRefusal_LLB,
+																	  @customItemSetMissingRefusal_TGKB);
 
 set @text = 'Payment not completed';
 UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 22
 										AND pageTypes = @currentPageType
 										AND locale = 'en'
-										AND `fk_id_customItemSet` IN (@customItemSetRefusal_CS,
-																	  @customItemSetRefusal_NAB,
-																	  @customItemSetRefusal_SGKB,
-																	  @customItemSetRefusal_SOBA,
-																	  @customItemSetRefusal_LUKB,
-																	  @customItemSetRefusal_BALI,
-																	  @customItemSetRefusal_BEKB,
-																	  @customItemSetRefusal_GRKB,
-																	  @customItemSetRefusal_LLB,
-																	  @customItemSetRefusal_TGKB);
-
+										AND `fk_id_customItemSet` IN (@customItemSetMissingRefusal_CS,
+																	  @customItemSetMissingRefusal_NAB,
+																	  @customItemSetMissingRefusal_SGKB,
+																	  @customItemSetMissingRefusal_SOBA,
+																	  @customItemSetMissingRefusal_LUKB,
+																	  @customItemSetMissingRefusal_BALI,
+																	  @customItemSetMissingRefusal_BEKB,
+																	  @customItemSetMissingRefusal_GRKB,
+																	  @customItemSetMissingRefusal_LLB,
+																	  @customItemSetMissingRefusal_TGKB);
 set @text = 'Le paiement n''a pas été effectué';
 UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 22
 										AND pageTypes = @currentPageType
 										AND locale = 'fr'
-										AND `fk_id_customItemSet` IN (@customItemSetRefusal_CS,
-																	  @customItemSetRefusal_NAB,
-																	  @customItemSetRefusal_SGKB,
-																	  @customItemSetRefusal_SOBA,
-																	  @customItemSetRefusal_LUKB,
-																	  @customItemSetRefusal_BALI,
-																	  @customItemSetRefusal_BEKB,
-																	  @customItemSetRefusal_GRKB,
-																	  @customItemSetRefusal_LLB,
-																	  @customItemSetRefusal_TGKB);
+										AND `fk_id_customItemSet` IN (@customItemSetMissingRefusal_CS,
+																	  @customItemSetMissingRefusal_NAB,
+																	  @customItemSetMissingRefusal_SGKB,
+																	  @customItemSetMissingRefusal_SOBA,
+																	  @customItemSetMissingRefusal_LUKB,
+																	  @customItemSetMissingRefusal_BALI,
+																	  @customItemSetMissingRefusal_BEKB,
+																	  @customItemSetMissingRefusal_GRKB,
+																	  @customItemSetMissingRefusal_LLB,
+																	  @customItemSetMissingRefusal_TGKB);
 set @text = 'Pagamento non eseguito';
 UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 22
 										AND pageTypes = @currentPageType
 										AND locale = 'it'
-										AND `fk_id_customItemSet` IN (@customItemSetRefusal_CS,
-																	  @customItemSetRefusal_NAB,
-																	  @customItemSetRefusal_SGKB,
-																	  @customItemSetRefusal_SOBA,
-																	  @customItemSetRefusal_LUKB,
-																	  @customItemSetRefusal_BALI,
-																	  @customItemSetRefusal_BEKB,
-																	  @customItemSetRefusal_GRKB,
-																	  @customItemSetRefusal_LLB,
-																	  @customItemSetRefusal_TGKB);
+										AND `fk_id_customItemSet` IN (@customItemSetMissingRefusal_CS,
+																	  @customItemSetMissingRefusal_NAB,
+																	  @customItemSetMissingRefusal_SGKB,
+																	  @customItemSetMissingRefusal_SOBA,
+																	  @customItemSetMissingRefusal_LUKB,
+																	  @customItemSetMissingRefusal_BALI,
+																	  @customItemSetMissingRefusal_BEKB,
+																	  @customItemSetMissingRefusal_GRKB,
+																	  @customItemSetMissingRefusal_LLB,
+																	  @customItemSetMissingRefusal_TGKB);
 
 set @text = 'Ihre Karte ist aus Sicherheitsgründen während einer kurzen Zeitdauer für Online-Zahlungen blockiert.';
 UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 23
 										AND pageTypes = @currentPageType
 										AND locale = 'de'
-										AND `fk_id_customItemSet` IN (@customItemSetRefusal_CS,
-																	  @customItemSetRefusal_NAB,
-																	  @customItemSetRefusal_SGKB,
-																	  @customItemSetRefusal_SOBA,
-																	  @customItemSetRefusal_LUKB,
-																	  @customItemSetRefusal_BALI,
-																	  @customItemSetRefusal_BEKB,
-																	  @customItemSetRefusal_GRKB,
-																	  @customItemSetRefusal_LLB,
-																	  @customItemSetRefusal_TGKB);
-
+										AND `fk_id_customItemSet` IN (@customItemSetMissingRefusal_CS,
+																	  @customItemSetMissingRefusal_NAB,
+																	  @customItemSetMissingRefusal_SGKB,
+																	  @customItemSetMissingRefusal_SOBA,
+																	  @customItemSetMissingRefusal_LUKB,
+																	  @customItemSetMissingRefusal_BALI,
+																	  @customItemSetMissingRefusal_BEKB,
+																	  @customItemSetMissingRefusal_GRKB,
+																	  @customItemSetMissingRefusal_LLB,
+																	  @customItemSetMissingRefusal_TGKB);
 set @text = 'Your card is temporarily blocked for online payments for security reasons.';
 UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 23
 										AND pageTypes = @currentPageType
 										AND locale = 'en'
-										AND `fk_id_customItemSet` IN (@customItemSetRefusal_CS,
-																	  @customItemSetRefusal_NAB,
-																	  @customItemSetRefusal_SGKB,
-																	  @customItemSetRefusal_SOBA,
-																	  @customItemSetRefusal_LUKB,
-																	  @customItemSetRefusal_BALI,
-																	  @customItemSetRefusal_BEKB,
-																	  @customItemSetRefusal_GRKB,
-																	  @customItemSetRefusal_LLB,
-																	  @customItemSetRefusal_TGKB);
-
+										AND `fk_id_customItemSet` IN (@customItemSetMissingRefusal_CS,
+																	  @customItemSetMissingRefusal_NAB,
+																	  @customItemSetMissingRefusal_SGKB,
+																	  @customItemSetMissingRefusal_SOBA,
+																	  @customItemSetMissingRefusal_LUKB,
+																	  @customItemSetMissingRefusal_BALI,
+																	  @customItemSetMissingRefusal_BEKB,
+																	  @customItemSetMissingRefusal_GRKB,
+																	  @customItemSetMissingRefusal_LLB,
+																	  @customItemSetMissingRefusal_TGKB);
 set @text = 'Pour des raisons de sécurité, votre carte est bloquée, pour une courte durée,  pour les paiements en ligne.';
 UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 23
 										AND pageTypes = @currentPageType
 										AND locale = 'fr'
-										AND `fk_id_customItemSet` IN (@customItemSetRefusal_CS,
-																	  @customItemSetRefusal_NAB,
-																	  @customItemSetRefusal_SGKB,
-																	  @customItemSetRefusal_SOBA,
-																	  @customItemSetRefusal_LUKB,
-																	  @customItemSetRefusal_BALI,
-																	  @customItemSetRefusal_BEKB,
-																	  @customItemSetRefusal_GRKB,
-																	  @customItemSetRefusal_LLB,
-																	  @customItemSetRefusal_TGKB);
-
+										AND `fk_id_customItemSet` IN (@customItemSetMissingRefusal_CS,
+																	  @customItemSetMissingRefusal_NAB,
+																	  @customItemSetMissingRefusal_SGKB,
+																	  @customItemSetMissingRefusal_SOBA,
+																	  @customItemSetMissingRefusal_LUKB,
+																	  @customItemSetMissingRefusal_BALI,
+																	  @customItemSetMissingRefusal_BEKB,
+																	  @customItemSetMissingRefusal_GRKB,
+																	  @customItemSetMissingRefusal_LLB,
+																	  @customItemSetMissingRefusal_TGKB);
 set @text = 'Per motivi di sicurezza la sua carta è bloccata per i pagamenti online per un breve periodo di tempo.';
 UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 23
 										AND pageTypes = @currentPageType
 										AND locale = 'it'
-										AND `fk_id_customItemSet` IN (@customItemSetRefusal_CS,
-																	  @customItemSetRefusal_NAB,
-																	  @customItemSetRefusal_SGKB,
-																	  @customItemSetRefusal_SOBA,
-																	  @customItemSetRefusal_LUKB,
-																	  @customItemSetRefusal_BALI,
-																	  @customItemSetRefusal_BEKB,
-																	  @customItemSetRefusal_GRKB,
-																	  @customItemSetRefusal_LLB,
-																	  @customItemSetRefusal_TGKB);
+										AND `fk_id_customItemSet` IN (@customItemSetMissingRefusal_CS,
+																	  @customItemSetMissingRefusal_NAB,
+																	  @customItemSetMissingRefusal_SGKB,
+																	  @customItemSetMissingRefusal_SOBA,
+																	  @customItemSetMissingRefusal_LUKB,
+																	  @customItemSetMissingRefusal_BALI,
+																	  @customItemSetMissingRefusal_BEKB,
+																	  @customItemSetMissingRefusal_GRKB,
+																	  @customItemSetMissingRefusal_LLB,
+																	  @customItemSetMissingRefusal_TGKB);
