@@ -46,38 +46,43 @@ SET @preferredAuthMean = 'MOBILE_APP';
 SET @issuerCountryCode = '250';
 SET @maskParam = '*,6,4';
 SET @dateFormat = 'DD.MM.YYYY HH:mm|CET';
+SET @currencyFormat = '{
+                            "useAlphaCurrencySymbol":true,
+                            "currencySymbolPosition":"LEFT",
+                            "decimalDelimiter":".",
+                            "thousandDelimiter":"''"
+                        }';
 
 SET @3DS2AdditionalInfo = '{
-      "VISA": {
-        "operatorId": "acsOperatorVisa",
-        "dsKeyAlias": "3DS2-VISA-CERTIFICATION"
-      },
-      "MASTERCARD": {
-        "operatorId": "acsOperatorMasterCard",
-        "dsKeyAlias": "key-masterCard"
-      }
+"VISA": {
+	"operatorId": "acsOperatorVisa",
+	"dsKeyAlias": "3DS2-VISA-CERTIFICATION"
+},
+"MASTERCARD": {
+	"operatorId": "acsOperatorMasterCard",
+	"dsKeyAlias": "key-masterCard"
+}
 }';
 
 SET @subIssuerIDNAB = (SELECT id FROM SubIssuer where code = 58810 AND name = 'Neue Aargauer Bank');
 SET @cryptoConfigIDNAB = (SELECT fk_id_cryptoConfig FROM SubIssuer where code = 58810 AND name = 'Neue Aargauer Bank');
-
 INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `code`, `codeSvi`, `currencyCode`,
-                         `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`,
-                         `defaultLanguage`, `freshnessPeriod`, `label`, `manageBackupsCombinedAmounts`, `manageChoicesCombinedAmounts`,
-                         `personnalDataStorage`, `resetBackupsIfSuccess`, `resetChoicesIfSuccess`,
-                         `transactionTimeOut`, `acs_URL1_VE_MC`, `acs_URL2_VE_MC`, `acs_URL1_VE_VISA`, `acs_URL2_VE_VISA`,
-                         `automaticDeviceSelection`, `userChoiceAllowed`, `backupAllowed`, `defaultDeviceChoice`, `preferredAuthentMeans`,
-                         `issuerCountry`, `hubCallMode`, `fk_id_issuer`, `maskParams`, `dateFormat`,`paChallengePublicUrl`,
-                         `verifyCardStatus`,`3DS2AdditionalInfo`,`resendOTPThreshold`, `resendSameOTP`,`combinedAuthenticationAllowed`,
-                         `displayLanguageSelectPage`,`trustedBeneficiariesAllowed`,`authentMeans`, fk_id_cryptoConfig) VALUES
-('ACS_U7G', 120, @backUpLanguages, @subIssuerCode, @subIssuerCode, '978', @createdBy, NOW(), NULL, NULL, NULL, @subIssuerNameAndLabel,
- @updateState, @defaultLanguage, 600, @subIssuerNameAndLabel, TRUE, TRUE, NULL, TRUE, TRUE, 300,
- @acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,
- @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, 'https://secure.six-group.com/', '1', @3DS2AdditionalInfo,'3', TRUE, FALSE, b'0', b'0', @activatedAuthMeans, @cryptoConfigIDNAB);
+						 `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`,
+						 `defaultLanguage`, `freshnessPeriod`, `label`, `manageBackupsCombinedAmounts`, `manageChoicesCombinedAmounts`,
+						 `personnalDataStorage`, `resetBackupsIfSuccess`, `resetChoicesIfSuccess`,
+						 `transactionTimeOut`, `acs_URL1_VE_MC`, `acs_URL2_VE_MC`, `acs_URL1_VE_VISA`, `acs_URL2_VE_VISA`,
+						 `automaticDeviceSelection`, `userChoiceAllowed`, `backupAllowed`, `defaultDeviceChoice`, `preferredAuthentMeans`,
+						 `issuerCountry`, `hubCallMode`, `fk_id_issuer`, `maskParams`, `dateFormat`,`paChallengePublicUrl`,
+						 `verifyCardStatus`,`3DS2AdditionalInfo`,`resendOTPThreshold`, `resendSameOTP`,`combinedAuthenticationAllowed`,
+						 `displayLanguageSelectPage`,`trustedBeneficiariesAllowed`,`authentMeans`, `fk_id_cryptoConfig`, `currencyFormat`) VALUES
+  ('ACS_U7G', 120, @backUpLanguages, @subIssuerCode, @subIssuerCode, '978', @createdBy, NOW(), NULL, NULL, NULL, @subIssuerNameAndLabel,
+   @updateState, @defaultLanguage, 600, @subIssuerNameAndLabel, TRUE, TRUE, NULL, TRUE, TRUE, 300,
+   @acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,
+   @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, 'https://secure.six-group.com/', '1', @3DS2AdditionalInfo,'3', TRUE, FALSE, b'0', b'0', @activatedAuthMeans, @cryptoConfigIDNAB, @currencyFormat);
 /*!40000 ALTER TABLE `SubIssuer` ENABLE KEYS */;
 
-SET @subIssuerID = (SELECT id FROM `SubIssuer` WHERE `code` = @subIssuerCode AND `name` = @subIssuerNameAndLabel);
 
+SET @subIssuerID = (SELECT id FROM `SubIssuer` WHERE `code` = @subIssuerCode AND `name` = @subIssuerNameAndLabel);
 --  /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\ /!\
 --  /!\ SubIssuerCrypto                                                               /!\
 --  /!\ This is a very specific configuration, in production environment only,        /!\
@@ -89,6 +94,7 @@ INSERT INTO `SubIssuerCrypto` (`acsIdForCrypto`, `binKeyIdentifier`, `cavvKeyInd
 SELECT `acsIdForCrypto`, `binKeyIdentifier`, `cavvKeyIndicator`, `cipherKeyIdentifier`, `desCipherKeyIdentifier`, `desKeyId`, `hubAESKey`, `secondFactorAuthentication`,  @subIssuerID
 FROM `SubIssuerCrypto` si WHERE si.fk_id_subIssuer = @subIssuerIDNAB ;
 /*!40000 ALTER TABLE `SubIssuerCrypto` ENABLE KEYS */;
+
 
 /* ProfileSet */
 /*!40000 ALTER TABLE `ProfileSet` DISABLE KEYS */;
@@ -402,8 +408,8 @@ INSERT INTO `ProfileSet_Rule` (`id_profileSet`, `id_rule`)
 
 /* MerchantPivotList */
 /*!40000 ALTER TABLE `MerchantPivotList` DISABLE KEYS */;
-INSERT INTO `MerchantPivotList` (`level`, `keyword`, `type`, `amount`, `display`,`forceAuthent`, `fk_id_issuer`, `fk_id_subIssuer`)
-VALUES ('ISSUER', 'TestMerchant', 'NAME', 0, 0, b'0', @issuerId, @subIssuerID);
+INSERT INTO `MerchantPivotList` (`level`, `keyword`, `type`, `amount`, `display`,`forceAuthent`, `fk_id_issuer`, `fk_id_subIssuer`, `expertMode`)
+VALUES ('ISSUER', 'TestMerchant', 'NAME', 0, 0, b'0', @issuerId, @subIssuerID, 0);
 /*!40000 ALTER TABLE `MerchantPivotList` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE = IFNULL(@OLD_SQL_MODE, '') */;
