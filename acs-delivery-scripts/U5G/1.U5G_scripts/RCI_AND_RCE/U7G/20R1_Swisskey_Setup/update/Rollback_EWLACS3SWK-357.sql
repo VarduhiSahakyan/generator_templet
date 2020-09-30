@@ -18,5 +18,8 @@ UPDATE `Profile` SET `maxAttempts` = 3 WHERE `name` IN ('CS_ACCEPT',
 														'GRKB_DECLINE',
 														'TGKB_ACCEPT',
 														'TGKB_DECLINE',
+														'LLB_ACCEPT',
+														'LLB_DECLINE',
+														'LLB_PASSWORD_01',
 														'BALI_ACCEPT',
 														'BALI_DECLINE');
