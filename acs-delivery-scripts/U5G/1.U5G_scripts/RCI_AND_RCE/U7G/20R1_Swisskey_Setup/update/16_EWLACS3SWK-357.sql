@@ -1,0 +1,22 @@
+USE U7G_ACS_BO;
+
+UPDATE `Profile` SET `maxAttempts` = 4 WHERE `name` IN ('CS_ACCEPT',
+                                                        'CS_DECLINE',
+                                                        'NAB_ACCEPT',
+                                                        'NAB_DECLINE',
+                                                        'SGKB_ACCEPT',
+                                                        'SGKB_DECLINE',
+                                                        'SGKB_TA_01',
+                                                        'SGKB_SMS_01',
+                                                        'SOBA_ACCEPT',
+                                                        'SOBA_DECLINE',
+                                                        'LUKB_ACCEPT',
+                                                        'LUKB_DECLINE',
+                                                        'BEKB_ACCEPT',
+                                                        'BEKB_DECLINE',
+                                                        'GRKB_ACCEPT',
+                                                        'GRKB_DECLINE',
+                                                        'TGKB_ACCEPT',
+                                                        'TGKB_DECLINE',
+                                                        'BALI_ACCEPT',
+                                                        'BALI_DECLINE');
