@@ -8,7 +8,7 @@ SET @pageType_custom = 'CUSTOM_PAGE';
 SET @pageType_callback = 'CALLBACK_PAGE';
 
 SET @ordinal = 1;
-SET @text = 'Confirm Payment';
+SET @text = 'Confirm payment';
 
 UPDATE `CustomItem` SET `value` = @text
 					WHERE `locale` = @locale
