@@ -9,24 +9,39 @@ SET @customItemSetChipTan_id = (SELECT id FROM CustomItemSet where fk_id_subIssu
 SET @customItemSetChipTanChoice_name = 'customitemset_SPB_sharedBIN_CHIP_TAN_CHOICE';
 SET @customItemSetChipTanChoice_id = (SELECT id FROM CustomItemSet where fk_id_subIssuer = @subIssuerId AND name = @customItemSetChipTanChoice_name);
 
+INSERT INTO CustomItem
+(`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `backgroundColor`, `borderStyle`, `textColor`, `fk_id_network`, `fk_id_image`, `fk_id_font`, `fk_id_customItemSet`)
+VALUES ('T', 'A709391', NOW(), NULL, NULL, NULL, 'VISA_CHIP_TAN_OTP_FORM_PAGE_9', 'PUSHED_TO_CONFIG', 'de', '9', 'OTP_FORM_PAGE', '<ol><li>Drücken Sie die Taste "TAN", sodass im Display "Start-Code" erscheint.</li><li>Geben Sie den Start-Code 267160 ein.</li><li>Drücken Sie die Taste "OK".</li><li>Geben Sie die geforderten Daten in den TAN-Generator ein und bestatigen Sie diese mit "OK".</li></ol>', NULL, NULL, NULL, NULL, NULL, NULL, @customItemSetChipTan_id);
 
 INSERT INTO CustomItem
 (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `backgroundColor`, `borderStyle`, `textColor`, `fk_id_network`, `fk_id_image`, `fk_id_font`, `fk_id_customItemSet`)
-VALUES ('T', 'A709391', NOW(), NULL, NULL, NULL, 'VISA_CHIP_TAN_OTP_FORM_PAGE_9', 'PUSHED_TO_CONFIG', 'de', '9', 'OTP_FORM_PAGE', '<ol><li>Drücken Sie die Taste "TAN", Sodass im Display "Start-Code" erscheint.</li><li>Geben Sie den Start-Code 267160 ein.</li><li>Drücken Siedie Taste "OK".</li><li>Geben Sie den geforderten Daten in den TAN-Generator ein und bestatigen Sie di ese mit "OK".</li></ol>', NULL, NULL, NULL, NULL, NULL, NULL, @customItemSetChipTan_id);
+VALUES ('T', 'A709391', NOW(), NULL, NULL, NULL, 'VISA_CHIP_TAN_OTP_FORM_PAGE_9', 'PUSHED_TO_CONFIG', 'de', '9', 'OTP_FORM_PAGE', '<ol><li>Drücken Sie die Taste "TAN", sodass im Display "Start-Code" erscheint.</li><li>Geben Sie den Start-Code 267160 ein.</li><li>Drücken Sie die Taste "OK".</li><li>Geben Sie die geforderten Daten in den TAN-Generator ein und bestatigen Sie diese mit "OK".</li></ol>', NULL, NULL, NULL, NULL, NULL, NULL, @customItemSetChipTanChoice_id);
 
-INSERT INTO CustomItem
-(`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `backgroundColor`, `borderStyle`, `textColor`, `fk_id_network`, `fk_id_image`, `fk_id_font`, `fk_id_customItemSet`)
-VALUES ('T', 'A709391', NOW(), NULL, NULL, NULL, 'VISA_CHIP_TAN_OTP_FORM_PAGE_9', 'PUSHED_TO_CONFIG', 'de', '9', 'OTP_FORM_PAGE', '<ol><li>Drücken Sie die Taste "TAN", Sodass im Display "Start-Code" erscheint.</li><li>Geben Sie den Start-Code 267160 ein.</li><li>Drücken Siedie Taste "OK".</li><li>Geben Sie den geforderten Daten in den TAN-Generator ein und bestatigen Sie di ese mit "OK".</li></ol>', NULL, NULL, NULL, NULL, NULL, NULL, @customItemSetChipTanChoice_id);
 
+SET @ordinal = 2;
+SET @pageType_OTP = 'OTP_FORM_PAGE';
+SET @name = 'VISA_CHIP_TAN_OTP_FORM_PAGE_2';
+UPDATE CustomItem SET value = 'Bitte geben Sie die generierte chipTAN ein.'
+WHERE name = @name AND ordinal = @ordinal AND pageTypes = @pageType_OTP
+  AND fk_id_customItemSet in (@customItemSetChipTan_id, @customItemSetChipTanChoice_id);
+
+SET @ordinal = 6;
+SET @name = 'VISA_CHIP_TAN_OTP_FORM_PAGE_6';
+UPDATE CustomItem SET value = 'Manuelle Eingabe der Daten'
+WHERE name = @name AND ordinal = @ordinal AND pageTypes = @pageType_OTP AND fk_id_customItemSet in (@customItemSetChipTan_id, @customItemSetChipTanChoice_id);
+
+SET @ordinal = 7;
+SET @name = 'VISA_CHIP_TAN_OTP_FORM_PAGE_7';
+UPDATE CustomItem SET value = 'Eingabe per Flicker-Code'
+WHERE name = @name AND ordinal = @ordinal AND pageTypes = @pageType_OTP AND fk_id_customItemSet in (@customItemSetChipTan_id, @customItemSetChipTanChoice_id);
 
 
 SET @bankName = 'Spardabank';
 SET @pageDescription = CONCAT('Chiptan OTP Form Page (', @bankName ,')');
-SET @pageType = 'CHIP_TAN_OTP_FORM_PAGE';
-SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `pageType`= @pageType and `description` = @pageDescription);
+SET @pageType_CHIP_TAN = 'CHIP_TAN_OTP_FORM_PAGE';
+SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `pageType`= @pageType_CHIP_TAN and `description` = @pageDescription);
 
 UPDATE `CustomComponent` SET `value` = '
-
 <style>
 	div#optGblPage {
 		font-family: Arial, bold;
@@ -298,8 +313,8 @@ UPDATE `CustomComponent` SET `value` = '
 		<div class="display-challenge">
 			<chiptan speed-label="''network_means_pageType_4''"
 					 zoom-label="''network_means_pageType_5''"
-					 manual-link-label="''network_means_pageType_7''"
-					 manual-text="''network_means_pageType_6''"
+                     manual-link-label1="''network_means_pageType_6''"
+                     manual-link-label2="''network_means_pageType_7''"
 					 manual-description="''network_means_pageType_9''">
 			</chiptan>
 		</div>
@@ -315,6 +330,6 @@ UPDATE `CustomComponent` SET `value` = '
 	<div  id="footerDiv">
 			<help help-label="''network_means_pageType_41''" id="helpButton"></help>
 			<cancel-button cn-label="''network_means_pageType_40''" id="cancelButton" ></cancel-button>
-			<val-button cn-label="''network_means_pageType_42''" id="validateButton" ></val-button>
+			<val-button val-label="''network_means_pageType_42''" id="valButton" ></val-button>
 	</div>
 </div>'  WHERE `fk_id_layout` = @layoutId;

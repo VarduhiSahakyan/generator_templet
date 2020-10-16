@@ -18,6 +18,15 @@ DELETE FROM `CustomItem` WHERE fk_id_customItemSet = @customItemSetChipTanChoice
 							   ordinal = 9 AND
 							   `pageTypes` = @pageType;
 
+SET @ordinal = 6;
+SET @name = 'VISA_CHIP_TAN_OTP_FORM_PAGE_6';
+UPDATE CustomItem SET value = 'Beschreibung für manuelle Challenge'
+WHERE name = @name AND ordinal = @ordinal AND pageTypes = @pageType_OTP AND fk_id_customItemSet in (@customItemSetChipTan_id, @customItemSetChipTanChoice_id);
+
+SET @ordinal = 7;
+SET @name = 'VISA_CHIP_TAN_OTP_FORM_PAGE_7';
+UPDATE CustomItem SET value = 'Umschalten auf manuelle Challenge'
+WHERE name = @name AND ordinal = @ordinal AND pageTypes = @pageType_OTP AND fk_id_customItemSet in (@customItemSetChipTan_id, @customItemSetChipTanChoice_id);
 
 SET @bankName = 'Spardabank';
 SET @pageDescription = CONCAT('Chiptan OTP Form Page (', @bankName ,')');
