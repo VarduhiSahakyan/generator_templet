@@ -2,7 +2,7 @@
 /*!50503 SET NAMES utf8mb4 */;
 USE `U7G_ACS_BO`;
 
-SET @amName = 'EXT_PASSWORD';
+SET @amName = 'PASSWORD';
 SET @username = 'A707825';
 SET @BankB = 'LLB';
 SET @Banklb = LOWER(@BankB);

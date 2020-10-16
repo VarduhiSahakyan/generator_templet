@@ -2,7 +2,7 @@
 /*!50503 SET NAMES utf8mb4 */;
 USE `U7G_ACS_BO`;
 
-SET @amName = 'OTP_SMS_EXT_MESSAGE';
+SET @amName = 'OTP_SMS';
 SET @username = 'A707825';
 SET @BankB = 'LLB';
 SET @Banklb = LOWER(@BankB);
