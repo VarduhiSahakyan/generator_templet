@@ -1,23 +1,10 @@
-use `U5G_ACS_BO`;
-set @customPageLayoutDesc_appView = 'App_View pushTAN (Comdirect)';
-set @profileSetName = 'PS_Comdirect_01';
-set @pageType = 'MOBILE_APP_EXT_APP_VIEW';
+USE U5G_ACS_BO;
 
-insert into CustomPageLayout (controller, pageType, description)
-values (null, @pageType, @customPageLayoutDesc_appView);
+SET @appViewPageDescription = 'App_View pushTAN (Comdirect)';
+SET @pageType = 'MOBILE_APP_EXT_APP_VIEW';
+SET @idAppViewPage=(SELECT id FROM `CustomPageLayout` WHERE `pageType`= @pageType and `description` = @appViewPageDescription);
 
-set @ProfileSet = (select id
-				   from `ProfileSet`
-				   where `name` = @profileSetName);
-
-set @idAppViewPage = (select id
-					  from `CustomPageLayout`
-					  where `pageType` = @pageType
-						and DESCRIPTION = @customPageLayoutDesc_appView);
-
-insert into `CustomComponent` (`type`, `value`, `fk_id_layout`)
-values ('div',
-'<style>
+UPDATE `CustomComponent` SET `value` = '<style>
     .acs-container {
         padding: 0em;
     }
@@ -222,11 +209,11 @@ values ('div',
 				</div>
 			</div>
 		</div>
-  ', @idAppViewPage);
+  ' WHERE `fk_id_layout` = @idAppViewPage;
 
-insert into CustomPageLayout_ProfileSet (customPageLayout_id, profileSet_id)
-select cpl.id, ps.id
-from CustomPageLayout cpl,
-	 ProfileSet ps
-where cpl.description = @customPageLayoutDesc_appView
-  and ps.name = @profileSetName;
+SET @customItemSetId = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_16600_APP_1');
+SET @pageType = 'APP_VIEW';
+UPDATE `CustomItem` SET `value` = 'Öffnen Sie jetzt die photoTAN App und geben Sie dort die Zahlung frei. Nach der Freigabe klicken Sie unten bitte auf "Fortfahren":\n\nHändler: @merchant \nBetrag: @amount \nDatum: @formattedDate \nKartennummer: @maskedPan'
+     WHERE `fk_id_customItemSet` = @customItemSetId AND
+           `ordinal` = 152 AND
+           `pageTypes` = @pageType;
