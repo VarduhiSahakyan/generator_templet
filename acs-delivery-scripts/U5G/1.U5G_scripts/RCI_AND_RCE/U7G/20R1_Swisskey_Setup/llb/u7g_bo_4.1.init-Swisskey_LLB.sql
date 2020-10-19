@@ -15,7 +15,7 @@ INSERT IGNORE INTO `AuthentMeans` (createdBy, creationDate, description, lastUpd
 
 SET @pwdOtpId = (SELECT id FROM AuthentMeans WHERE name = 'PWD_OTP');
 SET @mobileAppExtID = (SELECT id FROM AuthentMeans WHERE name = 'MOBILE_APP_EXT');
-SET @passwordID = (SELECT id FROM AuthentMeans WHERE name = 'PASSWORD');
+SET @passwordId = (SELECT id FROM AuthentMeans WHERE name = 'PASSWORD');
 
 INSERT IGNORE INTO `MeansProcessStatuses` (meansProcessStatusType, reversed, fk_id_authentMean)
  SELECT `meansProcessStatusType`, `reversed`, @pwdOtpId FROM MeansProcessStatuses WHERE `fk_id_authentMean` = @mobileAppExtID;
@@ -25,7 +25,7 @@ INSERT IGNORE INTO `MeansProcessStatuses` (meansProcessStatusType, reversed, fk_
     ('PARENT_AUTHENTICATION_MEAN_AVAILABLE', FALSE, @pwdOtpId);
 
 INSERT IGNORE INTO `MeansProcessStatuses` (meansProcessStatusType, reversed, fk_id_authentMean)
- SELECT `meansProcessStatusType`, `reversed`, @passwordID FROM MeansProcessStatuses WHERE `fk_id_authentMean` = @pwdOtpId;
+ SELECT `meansProcessStatusType`, `reversed`, @passwordId FROM MeansProcessStatuses WHERE `fk_id_authentMean` = @pwdOtpId;
 
 /* PASSWORD and OTP_SMS used for PWD_OTP Authentication mean like child . PWD_OTP works only with OTP_SMS and PASSWORD.
    In code PWD_OTP will map to EXTOTP_PWD */
@@ -129,7 +129,7 @@ INSERT INTO `ProfileSet` (`createdBy`, `creationDate`, `description`, `lastUpdat
 
 /* CustomPageLayout - Insert the predefined layouts (in order to see the templates) */
 INSERT INTO `CustomPageLayout` (`controller`,`pageType`,`description`)
-VALUES (NULL,'PASSWORD_OTP_FORM_PAGE', CONCAT('Password OTP Form Page (', @BankB, ')'));
+VALUES (NULL,'EXT_PASSWORD_OTP_FORM_PAGE', CONCAT('EXT Password OTP Form Page (', @BankB, ')'));
 
 SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` = CONCAT('PS_', @BankUB, '_01'));
 
@@ -140,7 +140,7 @@ INSERT INTO `CustomPageLayout_ProfileSet` (`customPageLayout_id`, `profileSet_id
 	FROM `CustomPageLayout` cpl, `ProfileSet` p
 	WHERE cpl.description like CONCAT('%(', @BankB, '%') and p.id = @ProfileSet;
 /*!40000 ALTER TABLE `CustomPageLayout_ProfileSet` ENABLE KEYS */;
-SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Password OTP Form Page (', @BankB, ')') );
+SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('EXT Password OTP Form Page (', @BankB, ')') );
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	VALUES( 'div', '
@@ -652,11 +652,11 @@ INSERT INTO `Profile` (`createdBy`, `creationDate`, `description`, `lastUpdateBy
 					   `updateState`, `maxAttempts`,`dataEntryFormat`, `dataEntryAllowedPattern`, `fk_id_authentMeans`,
 					   `fk_id_customItemSetCurrent`, `fk_id_customItemSetOld`, `fk_id_customItemSetNew`,
 					   `fk_id_subIssuer`) VALUES
-  (@createdBy, NOW(), 'RBA_ACCEPT', NULL, NULL, CONCAT(@BankUB,'_ACCEPT'), @updateState, 3,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanACCEPT, @customItemSetRBAACCEPT, NULL, NULL, @subIssuerID),
-  (@createdBy, NOW(), 'RBA_DECLINE', NULL, NULL, CONCAT(@BankUB,'_DECLINE'), @updateState, 3,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanACCEPT, @customItemSetRBADECLINE, NULL, NULL, @subIssuerID),
-  (@createdBy, NOW(), 'PWD_OTP', NULL, NULL, CONCAT(@BankUB,'_OTP_PWD'), @updateState, 3, '6:(:DIGIT:1)', '^[^OIi]*$', @authentMeansPasswordOTP, NULL,
+  (@createdBy, NOW(), 'RBA_ACCEPT', NULL, NULL, CONCAT(@BankUB,'_ACCEPT'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanACCEPT, @customItemSetRBAACCEPT, NULL, NULL, @subIssuerID),
+  (@createdBy, NOW(), 'RBA_DECLINE', NULL, NULL, CONCAT(@BankUB,'_DECLINE'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanACCEPT, @customItemSetRBADECLINE, NULL, NULL, @subIssuerID),
+  (@createdBy, NOW(), 'PWD_OTP', NULL, NULL, CONCAT(@BankUB,'_OTP_PWD'), @updateState, 4, '6:(:DIGIT:1)', '^[^OIi]*$', @authentMeansPasswordOTP, NULL,
    NULL, NULL, @subIssuerID),
-   (@createdBy, NOW(), 'PASSWORD(OVERRIDE)', NULL, NULL, CONCAT(@BankUB,'_PASSWORD_Override'), @updateState, 3, '6:(:DIGIT:1)', '^[^OIi]*$', @authentMeansPassword, @customItemSetPassword,
+   (@createdBy, NOW(), 'PASSWORD(OVERRIDE)', NULL, NULL, CONCAT(@BankUB,'_PASSWORD_Override'), @updateState, 4, '6:(:DIGIT:1)', '^[^OIi]*$', @authentMeansPassword, @customItemSetPassword,
    NULL, NULL, @subIssuerID),
   (@createdBy, NOW(), 'OTP_SMS(OVERRIDE)', NULL, NULL, CONCAT(@BankUB,'_SMS_Override'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanOTPsms, @customItemSetSMS, NULL, NULL, @subIssuerID),
   (@createdBy, NOW(), 'REFUSAL (FRAUD)', NULL, NULL, CONCAT(@BankUB,'_REFUSAL_FRAUD'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanRefusal, @customItemSetRefusalFraud, NULL, NULL, @subIssuerID),
@@ -682,7 +682,7 @@ INSERT INTO `Rule` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, 
   (@createdBy, NOW(), 'MISSING_AUTHENTICATION', NULL, NULL, 'REFUSAL(Missing Authentication)', @updateState,2, @profileINFO),
   (@createdBy, NOW(), 'RBA_ACCEPT', NULL, NULL, 'NONE (ACCEPT)', @updateState, 3, @profileRBAACCEPT),
   (@createdBy, NOW(), 'RBA_DECLINE', NULL, NULL, 'REFUSAL (DECLINE)', @updateState, 4, @profileRBADECLINE),
-  (@createdBy, NOW(), 'OTP_PWD_NORMAL', NULL, NULL, 'PWD_OTP(NORMAL)', @updateState, 5, @profilePasswordOTP),
+  (@createdBy, NOW(), 'PWD_OTP_NORMAL', NULL, NULL, 'PWD_OTP(NORMAL)', @updateState, 5, @profilePasswordOTP),
   (@createdBy, NOW(), 'PASSWORD_OVERRIDE', NULL, NULL, 'PASSWORD(OVERRIDE)', @updateState, 6, @profilePassword),
   (@createdBy, NOW(), 'OTP_SMS_OVERRIDE', NULL, NULL, 'OTP_SMS(OVERRIDE)', @updateState, 7, @profileSMS),
   (@createdBy, NOW(), 'REFUSAL_DEFAULT', NULL, NULL, 'REFUSAL (DEFAULT)', @updateState, 8, @profileRefusal);
@@ -693,7 +693,7 @@ INSERT INTO `Rule` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, 
 SET @ruleRefusalFraud = (SELECT id FROM `Rule` WHERE `description` = 'REFUSAL_FRAUD' AND `fk_id_profile` = @profileRefusalFraud);
 SET @ruleRBAAccept = (SELECT id FROM `Rule` WHERE `description` = 'RBA_ACCEPT' AND `fk_id_profile` = @profileRBAACCEPT);
 SET @ruleRBADecline = (SELECT id FROM `Rule` WHERE `description` = 'RBA_DECLINE' AND `fk_id_profile` = @profileRBADECLINE);
-SET @rulePasswordOTP = (SELECT id FROM `Rule` WHERE `description` = 'OTP_PWD_NORMAL' AND `fk_id_profile` = @profilePasswordOTP);
+SET @rulePasswordOTP = (SELECT id FROM `Rule` WHERE `description` = 'PWD_OTP_NORMAL' AND `fk_id_profile` = @profilePasswordOTP);
 SET @rulePasswordOverride = (SELECT id FROM `Rule` WHERE `description` = 'PASSWORD_OVERRIDE' AND `fk_id_profile` = @profilePassword);
 SET @ruleSMSnormalOverride = (SELECT id FROM `Rule` WHERE `description` = 'OTP_SMS_OVERRIDE' AND `fk_id_profile` = @profileSMS);
 SET @ruleRefusalDefault = (SELECT id FROM `Rule` WHERE `description` = 'REFUSAL_DEFAULT' AND `fk_id_profile` = @profileRefusal);
@@ -707,7 +707,7 @@ INSERT INTO `RuleCondition` (`createdBy`, `creationDate`, `description`, `lastUp
   (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_05_FRAUD'), @updateState, @ruleRefusalFraud),
   (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_RBA_ACCEPT'), @updateState, @ruleRBAAccept),
   (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_RBA_DECLINE'), @updateState, @ruleRBADecline),
-  (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_OTP_PWD_NORMAL'), @updateState, @rulePasswordOTP),
+  (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_PWD_OTP_NORMAL'), @updateState, @rulePasswordOTP),
   (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_PASSWORD_OVERRIDE'), @updateState, @rulePasswordOverride),
   (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_OTP_SMS_OVERRIDE'), @updateState, @ruleSMSnormalOverride),
   (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_DEFAULT'), @updateState, @ruleRefusalDefault),
@@ -751,7 +751,7 @@ INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStat
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
   SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-  WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_PWD_NORMAL') AND (ts.`transactionStatusType` = 'PHONE_NUMBER_IN_NEGATIVE_LIST' AND ts.`reversed` = TRUE);
+  WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_PWD_OTP_NORMAL') AND (ts.`transactionStatusType` = 'PHONE_NUMBER_IN_NEGATIVE_LIST' AND ts.`reversed` = TRUE);
 /*
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
   SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
@@ -782,35 +782,35 @@ INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStat
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
   SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_PWD_NORMAL')
+  WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_PWD_OTP_NORMAL')
 	AND mps.`fk_id_authentMean` = @authentMeansPasswordOTP
 	AND (mps.`meansProcessStatusType` = 'MEANS_AVAILABLE' AND mps.`reversed` = FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
   SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_PWD_NORMAL')
+  WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_PWD_OTP_NORMAL')
 	AND mps.`fk_id_authentMean` = @authentMeansPasswordOTP
 	AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
   SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_PWD_NORMAL')
+  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PWD_OTP_NORMAL')
     AND mps.`fk_id_authentMean`=@authentMeansPasswordOTP AND (mps.`meansProcessStatusType`='USER_CHOICE_DEMANDED' AND mps.`reversed`=TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
   SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_PWD_NORMAL')
+  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PWD_OTP_NORMAL')
     AND mps.`fk_id_authentMean`=@authentMeansPasswordOTP
     AND (mps.`meansProcessStatusType` IN ('MEANS_PROCESS_ERROR') AND mps.`reversed`=TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
   SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_PWD_NORMAL')
+  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PWD_OTP_NORMAL')
     AND mps.`fk_id_authentMean`=@authentMeansPasswordOTP AND (mps.`meansProcessStatusType`='PARENT_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
   SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_PWD_NORMAL')
+  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PWD_OTP_NORMAL')
     AND mps.`fk_id_authentMean`=@authentMeansPasswordOTP AND (mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
 
 
@@ -947,6 +947,10 @@ INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessSt
 	AND mps.`fk_id_authentMean`=@authMeanINFO AND (mps.`meansProcessStatusType`='MEANS_DISABLED' AND mps.`reversed`=TRUE);
 
 /*!40000 ALTER TABLE `Condition_MeansProcessStatuses` ENABLE KEYS */;
+
+SET @rulePasswordOTPCondtn = (SELECT id FROM RuleCondition WHERE name = CONCAT('C1_P_', @BankUB, '_01_PWD_OTP_NORMAL') AND fk_id_rule = @rulePasswordOTP);
+INSERT INTO Thresholds (isAmountThreshold, reversed, thresholdType, value, fk_id_condition)
+VALUES (b'0', b'0', 'UNDER_TRIAL_NUMBER_THRESHOLD', 4, @rulePasswordOTPCondtn);
 
 /* ProfileSet_Rule */
 /*!40000 ALTER TABLE `ProfileSet_Rule` DISABLE KEYS */;
