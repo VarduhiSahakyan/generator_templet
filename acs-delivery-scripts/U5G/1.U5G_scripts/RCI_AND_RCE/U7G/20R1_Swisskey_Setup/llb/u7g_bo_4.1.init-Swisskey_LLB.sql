@@ -129,7 +129,7 @@ INSERT INTO `ProfileSet` (`createdBy`, `creationDate`, `description`, `lastUpdat
 
 /* CustomPageLayout - Insert the predefined layouts (in order to see the templates) */
 INSERT INTO `CustomPageLayout` (`controller`,`pageType`,`description`)
-VALUES (NULL,'EXT_PASSWORD_OTP_FORM_PAGE', CONCAT('EXT Password OTP Form Page (', @BankB, ')'));
+VALUES (NULL,'PASSWORD_OTP_FORM_PAGE', CONCAT('Password OTP Form Page (', @BankB, ')'));
 
 SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` = CONCAT('PS_', @BankUB, '_01'));
 
@@ -140,7 +140,7 @@ INSERT INTO `CustomPageLayout_ProfileSet` (`customPageLayout_id`, `profileSet_id
 	FROM `CustomPageLayout` cpl, `ProfileSet` p
 	WHERE cpl.description like CONCAT('%(', @BankB, '%') and p.id = @ProfileSet;
 /*!40000 ALTER TABLE `CustomPageLayout_ProfileSet` ENABLE KEYS */;
-SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('EXT Password OTP Form Page (', @BankB, ')') );
+SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Password OTP Form Page (', @BankB, ')') );
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	VALUES( 'div', '
