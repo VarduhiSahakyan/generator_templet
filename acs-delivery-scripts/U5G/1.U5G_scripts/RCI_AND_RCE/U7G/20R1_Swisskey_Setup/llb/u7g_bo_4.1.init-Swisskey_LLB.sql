@@ -584,7 +584,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 				</div>
 				<div id="otp-fields-container">
 					<div x-ms-format-detection="none" id="otp-fields">
-						<pwd-form hide-input="true"></pwd-form>
+						<pwd-form hide-input="true" min-length="8"></pwd-form>
 					</div>
 				</div>
 				<div class="paragraph">
@@ -656,7 +656,7 @@ INSERT INTO `Profile` (`createdBy`, `creationDate`, `description`, `lastUpdateBy
   (@createdBy, NOW(), 'RBA_DECLINE', NULL, NULL, CONCAT(@BankUB,'_DECLINE'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanACCEPT, @customItemSetRBADECLINE, NULL, NULL, @subIssuerID),
   (@createdBy, NOW(), 'PWD_OTP', NULL, NULL, CONCAT(@BankUB,'_OTP_PWD'), @updateState, 4, '6:(:DIGIT:1)', '^[^OIi]*$', @authentMeansPasswordOTP, NULL,
    NULL, NULL, @subIssuerID),
-   (@createdBy, NOW(), 'PASSWORD(OVERRIDE)', NULL, NULL, CONCAT(@BankUB,'_PASSWORD_Override'), @updateState, 4, '6:(:DIGIT:1)', '^[^OIi]*$', @authentMeansPassword, @customItemSetPassword,
+   (@createdBy, NOW(), 'PASSWORD(OVERRIDE)', NULL, NULL, CONCAT(@BankUB,'_PASSWORD_Override'), @updateState, 4, '28:(:ALPHA_MAJ:1)&(:ALPHA_MIN:1)&(:DIGIT:1)', NULL, @authentMeansPassword, @customItemSetPassword,
    NULL, NULL, @subIssuerID),
   (@createdBy, NOW(), 'OTP_SMS(OVERRIDE)', NULL, NULL, CONCAT(@BankUB,'_SMS_Override'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanOTPsms, @customItemSetSMS, NULL, NULL, @subIssuerID),
   (@createdBy, NOW(), 'REFUSAL (FRAUD)', NULL, NULL, CONCAT(@BankUB,'_REFUSAL_FRAUD'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanRefusal, @customItemSetRefusalFraud, NULL, NULL, @subIssuerID),
