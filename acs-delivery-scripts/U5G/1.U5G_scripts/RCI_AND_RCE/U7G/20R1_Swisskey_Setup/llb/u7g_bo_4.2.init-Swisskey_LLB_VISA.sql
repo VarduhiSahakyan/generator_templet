@@ -1312,10 +1312,10 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 		 'de', 27,@currentPageType, 'Sie haben die Zahlung erfolgreich freigegeben und werden automatisch zum Händler weitergeleitet.', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_28'), 'PUSHED_TO_CONFIG',
-		 'de', 28, @currentPageType, 'Passwort nicht korrekt', @MaestroVID, NULL, @customItemSetPassword),
+		 'de', 28, @currentPageType, 'Ungültige Eingabe', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_29'), 'PUSHED_TO_CONFIG',
-		 'de', 29, @currentPageType, 'Das eingegebene Passwort ist nicht korrekt. Die Zahlung wurde nicht ausgeführt und Ihre Karte wurde nicht belastet. Sofern Sie den Kauf fortsetzen wollen, versuchen Sie es bitte erneut.', @MaestroVID, NULL, @customItemSetPassword),
+		 'de', 29, @currentPageType, 'Das eingegebene Passwort oder Eingabe-Code ist nicht korrekt. Bitte versuchen Sie es erneut.', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_30'), 'PUSHED_TO_CONFIG',
 		 'de', 30,@currentPageType, 'Zahlung nicht ausgeführt - Sitzung abgelaufen', @MaestroVID, NULL, @customItemSetPassword),
@@ -1354,7 +1354,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 		 'de', 104, 'ALL', 'Telefonnummer', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
-		 'de', 174, @currentPageType, 'Hilfe schließen', @MaestroVID, NULL, @customItemSetPassword),
+		 'de', 174, @currentPageType, 'Schliessen', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
 		 'de', 175, @currentPageType, 'Zurück zum Online Shop', @MaestroVID, NULL, @customItemSetPassword);
@@ -1460,10 +1460,10 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 		 'en', 27,@currentPageType, 'You have successfully approved the payment and will be automatically routed back to the merchant.', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_28'), 'PUSHED_TO_CONFIG',
-		 'en', 28, @currentPageType, 'Incorrect password', @MaestroVID, NULL, @customItemSetPassword),
+		 'en', 28, @currentPageType, 'Invalid input', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_29'), 'PUSHED_TO_CONFIG',
-		 'en', 29, @currentPageType, 'The password entered is incorrect. The payment was not conducted and your card was not debited. Please try again if you wish to continue the purchase.', @MaestroVID, NULL, @customItemSetPassword),
+		 'en', 29, @currentPageType, 'The entered password or approval code is incorrect. Please try again.', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_30'), 'PUSHED_TO_CONFIG',
 		 'en', 30,@currentPageType, 'Payment not completed – session expired', @MaestroVID, NULL, @customItemSetPassword),
@@ -1502,7 +1502,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 		 'en', 104, 'ALL', 'Phone number', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
-		 'en', 174, @currentPageType, 'Close Help', @MaestroVID, NULL, @customItemSetPassword),
+		 'en', 174, @currentPageType, 'Close', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
 		 'en', 175, @currentPageType, 'Back to the online shop', @MaestroVID, NULL, @customItemSetPassword);
@@ -1609,10 +1609,10 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 		 'fr', 27,@currentPageType, 'Vous avez réussi à activer le paiement et vous serez redirigé automatiquement vers le site du commerçant.', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_28'), 'PUSHED_TO_CONFIG',
-		 'fr', 28, @currentPageType, 'Le mot de passe n''est pas correct', @MaestroVID, NULL, @customItemSetPassword),
+		 'fr', 28, @currentPageType, 'Entrée invalide', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_29'), 'PUSHED_TO_CONFIG',
-		 'fr', 29, @currentPageType, 'Le mot de passe saisi n''est pas correct. Le paiement n''a pas été effectué et votre carte n''a pas été débitée. Si vous voulez continuer l''achat, essayez à nouveau.', @MaestroVID, NULL, @customItemSetPassword),
+		 'fr', 29, @currentPageType, 'Le mot de passe ou le code d''activation saisi est incorrect. Veuillez réessayer.', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_30'), 'PUSHED_TO_CONFIG',
 		 'fr', 30,@currentPageType, 'Paiement non effectué - La session a expiré', @MaestroVID, NULL, @customItemSetPassword),
@@ -1651,7 +1651,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 		 'fr', 104, 'ALL', 'Numéro de téléphone', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
-		 'fr', 174, @currentPageType, 'Fermer l''aide', @MaestroVID, NULL, @customItemSetPassword),
+		 'fr', 174, @currentPageType, 'Fermer', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
 		 'fr', 175, @currentPageType, 'Retour vers la boutique en ligne', @MaestroVID, NULL, @customItemSetPassword);
@@ -1758,10 +1758,10 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 		 'it', 27,@currentPageType, 'Ha autorizzato correttamente il pagamento e viene automaticamente inoltrato al commerciante.', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_28'), 'PUSHED_TO_CONFIG',
-		 'it', 28, @currentPageType, 'La password non è corretta', @MaestroVID, NULL, @customItemSetPassword),
+		 'it', 28, @currentPageType, 'Inserimento non valido', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_29'), 'PUSHED_TO_CONFIG',
-		 'it', 29, @currentPageType, 'La password inserita non è corretta. Il pagamento non è stato eseguito e la sua carta non è stata addebitata. Se desidera continuare l’acquisto, la preghiamo di provare nuovamente.', @MaestroVID, NULL, @customItemSetPassword),
+		 'it', 29, @currentPageType, 'La password o il codice di autenticazione inseriti non sono corretti. Per favore riprova.', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_30'), 'PUSHED_TO_CONFIG',
 		 'it', 30,@currentPageType, 'Pagamento non effettuato - Sessione scaduta', @MaestroVID, NULL, @customItemSetPassword),
@@ -1800,7 +1800,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 		 'it', 104, 'ALL', 'Numero di telefono', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
-		 'it', 174, @currentPageType, 'Chiudere l’aiuto', @MaestroVID, NULL, @customItemSetPassword),
+		 'it', 174, @currentPageType, 'Chiudere', @MaestroVID, NULL, @customItemSetPassword),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
 		 'it', 175, @currentPageType, 'Indietro al negozio online', @MaestroVID, NULL, @customItemSetPassword);

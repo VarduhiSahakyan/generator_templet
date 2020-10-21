@@ -1,7 +1,7 @@
 USE U7G_ACS_BO;
 
 SET @BankB = 'SWISSKEY';
-SET @BankUB = 'LLB'
+SET @BankUB = 'LLB';
 SET @profilePassword = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_PASSWORD_Override'));
 
 UPDATE `Profile` SET `dataEntryFormat` = '28:(:ALPHA_MAJ:1)&(:ALPHA_MIN:1)&(:DIGIT:1)' WHERE `id` = @profilePassword;
