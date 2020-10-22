@@ -79,16 +79,16 @@ SET @customItemSetId = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customite
 
 SET @locale = 'de';
 UPDATE CustomItem SET value = 'Das eingegebene Passwort oder Eingabe-Code ist nicht korrekt. Bitte versuchen Sie es erneut.'
-WHERE ordinal = @ordinal AND pageTypes = @pageType AND fk_id_customItemSet = @customItemSetId;
+WHERE ordinal = @ordinal AND pageTypes = @pageType AND fk_id_customItemSet = @customItemSetId AND locale = @locale;
 
 SET @locale = 'en';
 UPDATE CustomItem SET value = 'The entered password or approval code is incorrect. Please try again.'
-WHERE ordinal = @ordinal AND pageTypes = @pageType AND fk_id_customItemSet = @customItemSetId;
+WHERE ordinal = @ordinal AND pageTypes = @pageType AND fk_id_customItemSet = @customItemSetId AND locale = @locale;
 
 SET @locale = 'fr';
 UPDATE CustomItem SET value = 'Le mot de passe ou le code d''activation saisi est incorrect. Veuillez réessayer.'
-WHERE ordinal = @ordinal AND pageTypes = @pageType AND fk_id_customItemSet = @customItemSetId;
+WHERE ordinal = @ordinal AND pageTypes = @pageType AND fk_id_customItemSet = @customItemSetId AND locale = @locale;
 
 SET @locale = 'it';
 UPDATE CustomItem SET value = 'La password o il codice di autenticazione inseriti non sono corretti. Per favore riprova.'
-WHERE ordinal = @ordinal AND pageTypes = @pageType AND fk_id_customItemSet = @customItemSetId;
+WHERE ordinal = @ordinal AND pageTypes = @pageType AND fk_id_customItemSet = @customItemSetId AND locale = @locale;
