@@ -715,7 +715,7 @@ side-menu .menu-elements div div div span + span {
 	</div>
     <div  id="footerDiv">
             <help help-label="''network_means_pageType_41''" id="helpButton"></help>
-		   	<cancel-button cn-label="'"network_means_pageType_40''" id="cancelButton" ></cancel-button>
+		   	<cancel-button cn-label="''network_means_pageType_40''" id="cancelButton" ></cancel-button>
 	</div>
 </div>'
 WHERE fk_id_layout =@layoutId;
