@@ -1,8 +1,8 @@
 use U7G_ACS_BO;
 set @issuerCode = '41001';
-set @customPageLayoutDesc_appView_Password = 'App_View EXT_PASSWORD (SWISSKEY)';
+set @customPageLayoutDesc_appView_Password = 'App_View PASSWORD (SWISSKEY)';
 
-set @pageType_Password = 'EXT_PASSWORD_APP_VIEW';
+set @pageType_Password = 'PASSWORD_APP_VIEW';
 
 
 set @profileSetID = (select group_concat(ProfileSet.id)

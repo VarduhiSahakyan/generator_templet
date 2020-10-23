@@ -1,7 +1,7 @@
 use `U7G_ACS_BO`;
 set @issuerCode = '41001';
-set @customPageLayoutDesc_appView = 'App_View EXT_PASSWORD (SWISSKEY)';
-set @pageType = 'EXT_PASSWORD_APP_VIEW';
+set @customPageLayoutDesc_appView = 'App_View PASSWORD (SWISSKEY)';
+set @pageType = 'PASSWORD_APP_VIEW';
 
 insert into CustomPageLayout (controller, pageType, description)
 values (null, @pageType, @customPageLayoutDesc_appView);
