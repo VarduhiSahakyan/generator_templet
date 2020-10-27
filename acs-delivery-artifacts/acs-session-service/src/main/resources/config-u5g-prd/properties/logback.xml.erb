@@ -59,9 +59,8 @@
         <file>${LOGS_FOLDER}/flash_fallback.log
         </file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOGS_FOLDER}/flash_fallback.%d{yyyy-MM-dd}.log
+            <fileNamePattern>${LOGS_FOLDER}/flash_fallback/flash_fallback.%d{yyyy-MM-dd}.log
             </fileNamePattern>
-            <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
             <pattern>%msg%n</pattern>
