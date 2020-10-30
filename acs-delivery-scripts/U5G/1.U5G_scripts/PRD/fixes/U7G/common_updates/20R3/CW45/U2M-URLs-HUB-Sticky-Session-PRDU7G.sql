@@ -12,11 +12,11 @@ INSERT INTO `SERVICE_INFO` (`SERVICE_NAME`, `SITE_NAME`, `ACS_ID`, `ADDITIONAL_I
 		"hub.proxy.host": "proxy-prod-acs.brs.svc.meshcore.net",
 		"hub.proxy.port": "3128"
 		},
-		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.stg.as8677.net/proxy/rest/",
+		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.as8677.net/proxy/rest/",
 		"servicePort": null,
 		"proxyHost": null,
 		"proxyPort": null,
-		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.stg.as8677.net/proxy/rest/",
+		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.as8677.net/proxy/rest/",
 		"serviceStatus": "OK",
 		"serviceStatusInfo": null,
 		"serviceDependencies": [
@@ -32,11 +32,11 @@ INSERT INTO `SERVICE_INFO` (`SERVICE_NAME`, `SITE_NAME`, `ACS_ID`, `ADDITIONAL_I
 		"hub.proxy.host": "proxy-prod-acs.brs.svc.meshcore.net",
 		"hub.proxy.port": "3128"
 		},
-		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.stg.as8677.net/proxy/rest/",
+		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.as8677.net/proxy/rest/",
 		"servicePort": null,
 		"proxyHost": null,
 		"proxyPort": null,
-		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.stg.as8677.net/proxy/rest/",
+		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.as8677.net/proxy/rest/",
 		"serviceStatus": "OK",
 		"serviceStatusInfo": null,
 		"serviceDependencies": [
@@ -52,11 +52,11 @@ INSERT INTO `SERVICE_INFO` (`SERVICE_NAME`, `SITE_NAME`, `ACS_ID`, `ADDITIONAL_I
 		"hub.proxy.host": "proxy-prod-acs.brs.svc.meshcore.net",
 		"hub.proxy.port": "3128"
 		},
-		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.stg.as8677.net/proxy/rest/",
+		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.as8677.net/proxy/rest/",
 		"servicePort": null,
 		"proxyHost": null,
 		"proxyPort": null,
-		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.stg.as8677.net/proxy/rest/",
+		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.as8677.net/proxy/rest/",
 		"serviceStatus": "OK",
 		"serviceStatusInfo": null,
 		"serviceDependencies": [
@@ -72,11 +72,11 @@ INSERT INTO `SERVICE_INFO` (`SERVICE_NAME`, `SITE_NAME`, `ACS_ID`, `ADDITIONAL_I
 		"hub.proxy.host": "proxy-prod-acs.brs.svc.meshcore.net",
 		"hub.proxy.port": "3128"
 		},
-		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.stg.as8677.net/proxy/rest/",
+		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.as8677.net/proxy/rest/",
 		"servicePort": null,
 		"proxyHost": null,
 		"proxyPort": null,
-		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.stg.as8677.net/proxy/rest/",
+		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.as8677.net/proxy/rest/",
 		"serviceStatus": "OK",
 		"serviceStatusInfo": null,
 		"serviceDependencies": [
@@ -97,11 +97,11 @@ INSERT INTO `SERVICE_INFO` (`SERVICE_NAME`, `SITE_NAME`, `ACS_ID`, `ADDITIONAL_I
 		"hub.proxy.host": "proxy-prod-acs.vdm.svc.meshcore.net",
 		"hub.proxy.port": "3128"
 		},
-		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.stg.as8677.net/proxy/rest/",
+		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.as8677.net/proxy/rest/",
 		"servicePort": null,
 		"proxyHost": null,
 		"proxyPort": null,
-		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.stg.as8677.net/proxy/rest/",
+		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.as8677.net/proxy/rest/",
 		"serviceStatus": "OK",
 		"serviceStatusInfo": null,
 		"serviceDependencies": [
@@ -117,11 +117,11 @@ INSERT INTO `SERVICE_INFO` (`SERVICE_NAME`, `SITE_NAME`, `ACS_ID`, `ADDITIONAL_I
 		"hub.proxy.host": "proxy-prod-acs.vdm.svc.meshcore.net",
 		"hub.proxy.port": "3128"
 		},
-		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.stg.as8677.net/proxy/rest/",
+		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.as8677.net/proxy/rest/",
 		"servicePort": null,
 		"proxyHost": null,
 		"proxyPort": null,
-		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.stg.as8677.net/proxy/rest/",
+		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.as8677.net/proxy/rest/",
 		"serviceStatus": "OK",
 		"serviceStatusInfo": null,
 		"serviceDependencies": [
@@ -137,11 +137,11 @@ INSERT INTO `SERVICE_INFO` (`SERVICE_NAME`, `SITE_NAME`, `ACS_ID`, `ADDITIONAL_I
 		"hub.proxy.host": "proxy-prod-acs.vdm.svc.meshcore.net",
 		"hub.proxy.port": "3128"
 		},
-		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.stg.as8677.net/proxy/rest/",
+		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.as8677.net/proxy/rest/",
 		"servicePort": null,
 		"proxyHost": null,
 		"proxyPort": null,
-		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.stg.as8677.net/proxy/rest/",
+		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.as8677.net/proxy/rest/",
 		"serviceStatus": "OK",
 		"serviceStatusInfo": null,
 		"serviceDependencies": [
@@ -157,11 +157,11 @@ INSERT INTO `SERVICE_INFO` (`SERVICE_NAME`, `SITE_NAME`, `ACS_ID`, `ADDITIONAL_I
 		"hub.proxy.host": "proxy-prod-acs.vdm.svc.meshcore.net",
 		"hub.proxy.port": "3128"
 		},
-		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.stg.as8677.net/proxy/rest/",
+		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.as8677.net/proxy/rest/",
 		"servicePort": null,
 		"proxyHost": null,
 		"proxyPort": null,
-		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.stg.as8677.net/proxy/rest/",
+		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-scl.ita.as8677.net/proxy/rest/",
 		"serviceStatus": "OK",
 		"serviceStatusInfo": null,
 		"serviceDependencies": [
@@ -182,11 +182,11 @@ INSERT INTO `SERVICE_INFO` (`SERVICE_NAME`, `SITE_NAME`, `ACS_ID`, `ADDITIONAL_I
 			"hub.proxy.host": "proxy-prod-acs.vdm.svc.meshcore.net",
 			"hub.proxy.port": "3128"
 		},
-		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.stg.as8677.net/proxy/rest/",
+		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.as8677.net/proxy/rest/",
 		"servicePort": null,
 		"proxyHost": null,
 		"proxyPort": null,
-		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.stg.as8677.net/proxy/rest/",
+		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.as8677.net/proxy/rest/",
 		"serviceStatus": "OK",
 		"serviceStatusInfo": null,
 		"serviceDependencies": [
@@ -202,11 +202,11 @@ INSERT INTO `SERVICE_INFO` (`SERVICE_NAME`, `SITE_NAME`, `ACS_ID`, `ADDITIONAL_I
 			"hub.proxy.host": "proxy-prod-acs.vdm.svc.meshcore.net",
 			"hub.proxy.port": "3128"
 		},
-		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.stg.as8677.net/proxy/rest/",
+		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.as8677.net/proxy/rest/",
 		"servicePort": null,
 		"proxyHost": null,
 		"proxyPort": null,
-		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.stg.as8677.net/proxy/rest/",
+		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.as8677.net/proxy/rest/",
 		"serviceStatus": "OK",
 		"serviceStatusInfo": null,
 		"serviceDependencies": [
@@ -222,11 +222,11 @@ INSERT INTO `SERVICE_INFO` (`SERVICE_NAME`, `SITE_NAME`, `ACS_ID`, `ADDITIONAL_I
 			"hub.proxy.host": "proxy-prod-acs.vdm.svc.meshcore.net",
 			"hub.proxy.port": "3128"
 		},
-		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.stg.as8677.net/proxy/rest/",
+		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.as8677.net/proxy/rest/",
 		"servicePort": null,
 		"proxyHost": null,
 		"proxyPort": null,
-		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.stg.as8677.net/proxy/rest/",
+		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.as8677.net/proxy/rest/",
 		"serviceStatus": "OK",
 		"serviceStatusInfo": null,
 		"serviceDependencies": [
@@ -242,11 +242,11 @@ INSERT INTO `SERVICE_INFO` (`SERVICE_NAME`, `SITE_NAME`, `ACS_ID`, `ADDITIONAL_I
 			"hub.proxy.host": "proxy-prod-acs.vdm.svc.meshcore.net",
 			"hub.proxy.port": "3128"
 		},
-		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.stg.as8677.net/proxy/rest/",
+		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.as8677.net/proxy/rest/",
 		"servicePort": null,
 		"proxyHost": null,
 		"proxyPort": null,
-		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.stg.as8677.net/proxy/rest/",
+		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.as8677.net/proxy/rest/",
 		"serviceStatus": "OK",
 		"serviceStatusInfo": null,
 		"serviceDependencies": [
@@ -268,11 +268,11 @@ INSERT INTO `SERVICE_INFO` (`SERVICE_NAME`, `SITE_NAME`, `ACS_ID`, `ADDITIONAL_I
 			"hub.proxy.host": "proxy-prod-acs.brs.svc.meshcore.net",
 			"hub.proxy.port": "3128"
 		},
-		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.stg.as8677.net/proxy/rest/",
+		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.as8677.net/proxy/rest/",
 		"servicePort": null,
 		"proxyHost": null,
 		"proxyPort": null,
-		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.stg.as8677.net/proxy/rest/",
+		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.as8677.net/proxy/rest/",
 		"serviceStatus": "OK",
 		"serviceStatusInfo": null,
 		"serviceDependencies": [
@@ -288,11 +288,11 @@ INSERT INTO `SERVICE_INFO` (`SERVICE_NAME`, `SITE_NAME`, `ACS_ID`, `ADDITIONAL_I
 			"hub.proxy.host": "proxy-prod-acs.brs.svc.meshcore.net",
 			"hub.proxy.port": "3128"
 		},
-		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.stg.as8677.net/proxy/rest/",
+		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.as8677.net/proxy/rest/",
 		"servicePort": null,
 		"proxyHost": null,
 		"proxyPort": null,
-		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.stg.as8677.net/proxy/rest/",
+		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.as8677.net/proxy/rest/",
 		"serviceStatus": "OK",
 		"serviceStatusInfo": null,
 		"serviceDependencies": [
@@ -308,11 +308,11 @@ INSERT INTO `SERVICE_INFO` (`SERVICE_NAME`, `SITE_NAME`, `ACS_ID`, `ADDITIONAL_I
 			"hub.proxy.host": "proxy-prod-acs.brs.svc.meshcore.net",
 			"hub.proxy.port": "3128"
 		},
-		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.stg.as8677.net/proxy/rest/",
+		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.as8677.net/proxy/rest/",
 		"servicePort": null,
 		"proxyHost": null,
 		"proxyPort": null,
-		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.stg.as8677.net/proxy/rest/",
+		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.as8677.net/proxy/rest/",
 		"serviceStatus": "OK",
 		"serviceStatusInfo": null,
 		"serviceDependencies": [
@@ -328,11 +328,11 @@ INSERT INTO `SERVICE_INFO` (`SERVICE_NAME`, `SITE_NAME`, `ACS_ID`, `ADDITIONAL_I
 			"hub.proxy.host": "proxy-prod-acs.brs.svc.meshcore.net",
 			"hub.proxy.port": "3128"
 		},
-		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.stg.as8677.net/proxy/rest/",
+		"serviceUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.as8677.net/proxy/rest/",
 		"servicePort": null,
 		"proxyHost": null,
 		"proxyPort": null,
-		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.stg.as8677.net/proxy/rest/",
+		"serverUrl": "https://ssl-prd-h0g-fo-hub-cpr-sticky-vdm.ita.as8677.net/proxy/rest/",
 		"serviceStatus": "OK",
 		"serviceStatusInfo": null,
 		"serviceDependencies": [
