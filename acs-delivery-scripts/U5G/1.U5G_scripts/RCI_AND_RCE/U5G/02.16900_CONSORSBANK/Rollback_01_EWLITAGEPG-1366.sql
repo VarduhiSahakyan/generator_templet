@@ -1,8 +1,8 @@
 USE PORTAL_SERVICE_PARAM;
 
 -- check existing 
-SET @serviceName = 'ACS_U5G';
-SET @roleName = 'INTERNAL_CONSORS'; 
+SET @serviceName = 'ACS_U5G' COLLATE utf8_unicode_ci;
+SET @roleName = 'INTERNAL_CONSORS' COLLATE utf8_unicode_ci; 
 
 SELECT * FROM PROFIL p 
 WHERE p.SERVICE_ID = (SELECT SERVICE_ID FROM SERVICE WHERE SERVICE_NAME = 'ACS_U5G' LIMIT 1)
