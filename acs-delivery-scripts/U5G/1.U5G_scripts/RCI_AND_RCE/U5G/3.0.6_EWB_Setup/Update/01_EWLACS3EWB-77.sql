@@ -14,7 +14,7 @@ SET @username = 'W100851';
 SET @customItemSetREFUSAL = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_EWB_1_REFUSAL');
 SET @pageType_HELP_PAGE = 'HELP_PAGE';
 SET @textName = 'VISA_REFUSAL_HELP_PAGE_1' ;
-SET @text = 'EastWest has chosen the solution VISA Secure, the security program of VISA, designed to enhance the security of your internet purchases. Intended for VISA cardholders, it protects against possible fraudulent use of your credit card in online shops that display the VISA logo.';
+SET @text = 'EastWest has chosen the solution VISA Secure, the security program of VISA, designed to enhance the security of your internet purchases. Intended for VISA cardholders, it protects against possible fraudulent use of your credit card in online shops that display the Verified by VISA logo.';
 
 UPDATE `CustomItem` SET `value` = @text
 					WHERE `name` = @textName
@@ -39,7 +39,7 @@ SET @username = 'W100851';
 SET @customItemSetEWB_SMS = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_EWB_SMS');
 SET @pageType_HELP_PAGE = 'HELP_PAGE';
 SET @textName = 'VISA_OTP_SMS_HELP_PAGE_1' ;
-SET @text = 'EastWest has chosen the solution VISA Secure, the security program of VISA, designed to enhance the security of your internet purchases. Intended for VISA cardholders, it protects against possible fraudulent use of your credit card in online shops that display the VISA logo.';
+SET @text = 'EastWest has chosen the solution VISA Secure, the security program of VISA, designed to enhance the security of your internet purchases. Intended for VISA cardholders, it protects against possible fraudulent use of your credit card in online shops that display the Verified by VISA logo.';
 
 UPDATE `CustomItem` SET `value` = @text
 					WHERE `name` = @textName
