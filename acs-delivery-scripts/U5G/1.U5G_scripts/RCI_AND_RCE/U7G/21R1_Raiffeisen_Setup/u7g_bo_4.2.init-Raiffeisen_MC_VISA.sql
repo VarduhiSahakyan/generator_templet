@@ -584,8 +584,51 @@ SET @customItemSetRefusalMissing = (SELECT id FROM `CustomItemSet` WHERE `name` 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, @customItemSetRefusalMissing FROM `CustomItem` n WHERE fk_id_customItemSet = @customItemSetREFUSAL;
 
-SET @customItemSetRefusalFraud = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_REFUSAL_FRAUD'));
 SET @currentPageType = 'REFUSAL_PAGE';
+
+SET @locale = 'en';
+SET @text = 'Payment not completed';
+UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 22 AND pageTypes = @currentPageType AND locale = @locale AND fk_id_customItemSet =  @customItemSetRefusalMissing;
+
+SET @text = 'Your card is temporarily blocked for online payments for security reasons. ';
+UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 23 AND pageTypes = @currentPageType AND locale = @locale AND fk_id_customItemSet =  @customItemSetRefusalMissing;
+
+SET @text = 'Back to online shop';
+UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 175 AND pageTypes = @currentPageType AND locale = @locale AND fk_id_customItemSet =  @customItemSetRefusalMissing;
+
+SET @locale = 'de';
+SET @text = 'Zahlung nicht ausgeführt';
+UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 22 AND pageTypes = @currentPageType AND locale = @locale AND fk_id_customItemSet =  @customItemSetRefusalMissing;
+
+SET @text = 'Ihre Karte ist aus Sicherheitsgründen während einer kurzen Zeitdauer für Online-Zahlungen blockiert. ';
+UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 23 AND pageTypes = @currentPageType AND locale = @locale AND fk_id_customItemSet =  @customItemSetRefusalMissing;
+
+SET @text = 'Zurück zum Online Shop';
+UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 175 AND pageTypes = @currentPageType AND locale = @locale AND fk_id_customItemSet =  @customItemSetRefusalMissing;
+
+SET @locale = 'fr';
+SET @text = 'Le paiement n''a pas été effectué';
+UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 22 AND pageTypes = @currentPageType AND locale = @locale AND fk_id_customItemSet =  @customItemSetRefusalMissing;
+
+SET @text = 'Pour des raisons de sécurité, votre carte est bloquée, pour une courte durée,  pour les paiements en ligne.';
+UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 23 AND pageTypes = @currentPageType AND locale = @locale AND fk_id_customItemSet =  @customItemSetRefusalMissing;
+
+SET @text = 'Retour vers la boutique en ligne';
+UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 175 AND pageTypes = @currentPageType AND locale = @locale AND fk_id_customItemSet =  @customItemSetRefusalMissing;
+
+SET @locale = 'it';
+SET @text = 'Pagamento non eseguito';
+UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 22 AND pageTypes = @currentPageType AND locale = @locale AND fk_id_customItemSet =  @customItemSetRefusalMissing;
+
+SET @text = 'Per motivi di sicurezza la sua carta è bloccata per i pagamenti online per un breve periodo di tempo.';
+UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 23 AND pageTypes = @currentPageType AND locale = @locale AND fk_id_customItemSet =  @customItemSetRefusalMissing;
+
+SET @text = 'Indietro al negozio online';
+UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 175 AND pageTypes = @currentPageType AND locale = @localeAND fk_id_customItemSet =  @customItemSetRefusalMissing;
+
+
+SET @customItemSetRefusalFraud = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_REFUSAL_FRAUD'));
+
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, @customItemSetRefusalFraud FROM `CustomItem` n WHERE fk_id_customItemSet = @customItemSetREFUSAL;

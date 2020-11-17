@@ -2164,15 +2164,6 @@ VALUES( 'div', '
 			<side-menu menu-title="\'network_means_pageType_11\'"></side-menu>
 		</div>
 		<div class="rightColumn">
-			<div class="paragraph">
-                <custom-text custom-text-key="\'network_means_pageType_1\'"></custom-text>
-			</div>
-			<div class="paragraphDescription">
-                <custom-text custom-text-key="\'network_means_pageType_2\'"></custom-text>
-			</div>
-			<div class="paragraphDescription">
-                <custom-text custom-text-key="\'network_means_pageType_3\'"></custom-text>
-			</div>
 		</div>
 	</div>
 	<div id="footer">
