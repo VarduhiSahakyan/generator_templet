@@ -11,7 +11,7 @@ SET @pageType = 'APP_VIEW';
 set @customItemsIds = (select group_concat(id)
                        from `CustomItemSet`
                        where name in (CONCAT('customitemset_', @BankRCH, '_MOBILE_APP'),
-                                      CONCAT('customitemset_', @BankB, '_MOBILE_APP_EXT'),
+                                      CONCAT('customitemset_', @BankRCH, '_MOBILE_APP_EXT'),
                                       CONCAT('customitemset_', @BankRCH, '_SMS')
                            ));
 

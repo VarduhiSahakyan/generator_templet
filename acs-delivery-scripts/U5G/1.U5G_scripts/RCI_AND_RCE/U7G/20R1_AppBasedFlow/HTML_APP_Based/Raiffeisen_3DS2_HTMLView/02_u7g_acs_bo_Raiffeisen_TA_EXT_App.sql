@@ -728,4 +728,4 @@ from CustomPageLayout cpl,
                   where `code` = @issuerCode) as issuer
             where `fk_id_issuer` = issuer.id) as subissuers
       where fk_id_subIssuer = subissuers.id) as profileSetIDs
-where cpl.description = @customPageLayoutDesc_appExtView
+where cpl.description = @customPageLayoutDesc_appExtView;

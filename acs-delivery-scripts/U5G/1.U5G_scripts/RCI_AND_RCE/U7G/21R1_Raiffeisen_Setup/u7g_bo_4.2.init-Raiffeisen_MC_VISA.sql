@@ -624,7 +624,7 @@ SET @text = 'Per motivi di sicurezza la sua carta è bloccata per i pagamenti on
 UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 23 AND pageTypes = @currentPageType AND locale = @locale AND fk_id_customItemSet =  @customItemSetRefusalMissing;
 
 SET @text = 'Indietro al negozio online';
-UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 175 AND pageTypes = @currentPageType AND locale = @localeAND fk_id_customItemSet =  @customItemSetRefusalMissing;
+UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 175 AND pageTypes = @currentPageType AND locale = @locale AND fk_id_customItemSet =  @customItemSetRefusalMissing;
 
 
 SET @customItemSetRefusalFraud = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_REFUSAL_FRAUD'));
