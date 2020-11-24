@@ -23,7 +23,6 @@ SET @SubIssuerCodeGRKB = '77400';
 SET @SubIssuerCodeLLB = '88000';
 SET @SubIssuerCodeTGKB = '78400';
 
-START TRANSACTION;
 
 set @id_issuer = (SELECT ID from Issuer where CODE = @issuerCode);
 set @id_subIssuer_1 = (SELECT ID from SubIssuer where FK_ID_ISSUER = @id_issuer and code = @SubIssuerCodeCS);
