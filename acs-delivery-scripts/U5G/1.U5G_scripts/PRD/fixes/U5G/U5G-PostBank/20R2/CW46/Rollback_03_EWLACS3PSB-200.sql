@@ -1,9 +1,9 @@
-USE  U5G_ACS_BO;
 
+USE  `U5G_ACS_BO`;
 
-SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` = 'Info Refusal Page (Postbank FBK)');
+SET @layoutId = (SELECT `id` FROM `CustomPageLayout` WHERE `DESCRIPTION` = 'Info Refusal Page (Postbank FBK)');
 
-UPDATE CustomComponent SET value = '
+UPDATE `CustomComponent` SET `value` = '
 <style>
 	div#optGblPage {
 		font-family: Arial,bold;
@@ -223,11 +223,13 @@ UPDATE CustomComponent SET value = '
     <div class="rightColumn">
         <alternative-display attribute="''currentProfileName''" value="''18502_PB_MISSING_AUTHENT_MEANS_REFUSAL''"
          enabled="''MISSING_AUTHENT_MEANS''"
+         disabled="''MISSING_PWD_AUTHENT_MEANS''"
          default-fallback="''defaultContent''">
          </alternative-display>
 
         <alternative-display attribute="''currentProfileName''" value="''18502_PB_MISSING_PWD_AUTHENT_MEANS_REFUSAL''"
          enabled="''MISSING_PWD_AUTHENT_MEANS''"
+         disabled="''MISSING_AUTHENT_MEANS''"
          default-fallback="''defaultContent''">
          </alternative-display>
         <div class="MISSING_AUTHENT_MEANS" style="display: none;" >
@@ -257,30 +259,28 @@ UPDATE CustomComponent SET value = '
     </div>
 
 	<div id="footer"></div>
-</div>
-
-
-
-' WHERE `fk_id_layout` = @layoutId;
+</div>' WHERE `fk_id_layout` = @layoutId;
 
 SET @cisID = (SELECT `id` FROM `CustomItemSet` WHERE `name` = 'customitemset_18502_PB_3_REFUSAL');
+SET @cisID1 = (SELECT `id` FROM `CustomItemSet` WHERE `name` = 'customitemset_18502_PB_2_REFUSAL');
 
 UPDATE `CustomItem` SET `ordinal` = 201,
-                        `name` = 'VISA_UNDEFINED_REFUSAL_PAGE_201'
+                        `name` = 'VISA_INFO_REFUSAL_PAGE_201'
                             WHERE `ordinal` = 1 AND
                                   `fk_id_customItemSet` = @cisID AND
                                   `DTYPE` = 'T';
 UPDATE `CustomItem` SET `ordinal` = 202,
-                        `name` = 'VISA_UNDEFINED_REFUSAL_PAGE_202'
+                        `name` = 'VISA_INFO_REFUSAL_PAGE_202'
                             WHERE `ordinal` = 2 AND
                                   `fk_id_customItemSet` = @cisID AND
                                   `DTYPE` = 'T';
 UPDATE `CustomItem` SET `ordinal` = 203,
-                        `name` = 'VISA_UNDEFINED_REFUSAL_PAGE_203'
+                        `name` = 'VISA_INFO_REFUSAL_PAGE_203'
                             WHERE `ordinal` = 3 AND
                                   `fk_id_customItemSet` = @cisID AND
                                   `DTYPE` = 'T';
 
+UPDATE `CustomItem` set `name` = REPLACE(`name`, 'VISA_UNDEFINED_REFUSAL_PAGE', 'VISA_INFO_REFUSAL_PAGE') where `name` like '%VISA_UNDEFINED_REFUSAL_PAGE%' and `fk_id_customItemSet` in (@cisID,@cisID1) and `DTYPE` = 'T';
 
 SET @BankUB = '18502_PB';
 SET @authMeanPassword = (SELECT `id` FROM `AuthentMeans` WHERE `name` = 'PASSWORD');
