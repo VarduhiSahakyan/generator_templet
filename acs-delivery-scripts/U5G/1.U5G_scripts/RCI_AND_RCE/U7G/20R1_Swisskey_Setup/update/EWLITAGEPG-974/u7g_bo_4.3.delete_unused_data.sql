@@ -282,4 +282,3 @@ delete from ProfileSet where id in (@id_profile_set_1,
                                    );
 
 SET FOREIGN_KEY_CHECKS = 1;
-COMMIT;
