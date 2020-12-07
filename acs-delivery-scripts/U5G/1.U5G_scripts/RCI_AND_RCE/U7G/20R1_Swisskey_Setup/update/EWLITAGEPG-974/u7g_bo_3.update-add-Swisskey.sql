@@ -14,10 +14,6 @@ SET @Role3 = 'HELPDESK_SWISSKEY';
 
 SET FOREIGN_KEY_CHECKS = 0;
 
-UPDATE `Role` SET `name` = @Role1 WHERE `name` = 'Swisskey Admin';
-UPDATE `Role` SET `name` = @Role2 WHERE `name` = 'Swisskey Reporting';
-UPDATE `Role` SET `name` = @Role3 WHERE `name` = 'Swisskey Helpdesk';
-
 SET @IdRole1 = (SELECT id FROM `Role` WHERE `name` = 'ADMIN_SWISSKEY');
 SET @IdRole2 = (SELECT id FROM `Role` WHERE `name` = 'REPORTING_SWISSKEY');
 SET @IdRole3 = (SELECT id FROM `Role` WHERE `name` = 'HELPDESK_SWISSKEY');
