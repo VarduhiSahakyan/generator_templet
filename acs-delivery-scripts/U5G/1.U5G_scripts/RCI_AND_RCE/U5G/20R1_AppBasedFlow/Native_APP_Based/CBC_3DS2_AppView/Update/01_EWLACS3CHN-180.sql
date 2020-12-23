@@ -373,3 +373,20 @@ UPDATE `CustomItem` SET `value` = @text
 					AND `ordinal` = 156
 					AND `pageTypes` = @pageType_APP_VIEW
 					AND `fk_id_customItemSet` = @customItemSetOTP_SMS;
+					
+UPDATE `CustomItem` SET `value` = ''
+					WHERE `locale` = @locale
+					AND `DTYPE`='T'
+					AND `ordinal` = 158
+					AND `pageTypes` = @pageType_APP_VIEW
+					AND `fk_id_customItemSet` = @customItemSetOTP_SMS;
+					
+					
+UPDATE `CustomItem` SET `value` = ''
+					WHERE `locale` = @locale
+					AND `DTYPE`='T'
+					AND `ordinal` = 159
+					AND `pageTypes` = @pageType_APP_VIEW
+					AND `fk_id_customItemSet` = @customItemSetOTP_SMS;
+					
+					
