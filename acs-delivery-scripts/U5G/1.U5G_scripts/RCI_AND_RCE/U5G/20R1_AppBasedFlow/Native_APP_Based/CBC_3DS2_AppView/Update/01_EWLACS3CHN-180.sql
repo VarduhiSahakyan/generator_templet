@@ -347,3 +347,29 @@ SET `value` = '<style>
 		</div>'
 WHERE `fk_id_layout` = @idAppViewPage;
 
+
+
+SET @locale = 'en';
+SET @customItemSetOTP_SMS = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_00070_SMS');
+SET @pageType_APP_VIEW = 'APP_VIEW';
+
+
+SET @text = 'For your enhanced security, you will receive a One-Time Password (OTP) via your mobile number on record when transacting in Mastercard Identity Check™ websites. To ensure receipt of your OTP, always keep your mobile number updated by calling +63288855888.';
+
+UPDATE `CustomItem` SET `value` = @text
+					WHERE `locale` = @locale
+					AND `DTYPE`='T'
+					AND `ordinal` = 157
+					AND `pageTypes` = @pageType_APP_VIEW
+					AND `fk_id_customItemSet` = @customItemSetOTP_SMS;
+					
+
+
+SET @text = 'Help';
+
+UPDATE `CustomItem` SET `value` = @text
+					WHERE `locale` = @locale
+					AND `DTYPE`='T'
+					AND `ordinal` = 156
+					AND `pageTypes` = @pageType_APP_VIEW
+					AND `fk_id_customItemSet` = @customItemSetOTP_SMS;
