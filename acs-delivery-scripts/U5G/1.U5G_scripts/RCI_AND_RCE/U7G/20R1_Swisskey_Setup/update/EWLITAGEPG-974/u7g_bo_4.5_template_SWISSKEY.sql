@@ -2085,9 +2085,8 @@ div#alternative-layout img.custom-image {max-height: 64px; max-width: 100%}
 
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Help Page (', @BankB, ')%') );
 
-INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
-  VALUES( 'div','
 
+UPDATE CustomComponent SET value = '
 <style>
 	help-page {
 		font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -2138,7 +2137,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		</div>
 	</div>
 </div>
-', @layoutId);
+' WHERE `fk_id_layout` = @layoutId;
 
 
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Password OTP Form Page (', @BankB, ')%') );
