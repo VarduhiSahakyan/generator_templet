@@ -48,6 +48,15 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		margin-bottom: 1em;
 	}
 	#issuerLogo,
+    #headingTxt {
+        font-size: large;
+        font-weight: bold;
+        width: 80%;
+        margin: auto;
+        display: block;
+        text-align: center;
+        padding: 4px 1px 1px 1px;
+	}
 	#networkLogo {
 		max-height: 46px;
 		max-width: 100%;
