@@ -926,6 +926,10 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 28, @currentPageType, 'Ungültige Eingabe(n)', @MaestroVID, NULL, @customItemSetSMS),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_29'), 'PUSHED_TO_CONFIG',
  'de', 29, @currentPageType, 'Das eingegebene Passwort und/oder die mTAN war(en) nicht korrekt. Bitte prüfen Sie die Eingaben und versuchen Sie es erneut.', @MaestroVID, NULL, @customItemSetSMS),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_34'), 'PUSHED_TO_CONFIG',
+ 'de', 34, @currentPageType, 'SMS wird versendet.', @MaestroVID, NULL, @customItemSetSMS),
+ ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_35'), 'PUSHED_TO_CONFIG',
+ 'de', 35, @currentPageType, 'Bitte haben Sie einen kleinen Moment Geduld. In Kürze erhalten Sie eine neue mTAN. Alle vorherigen mTANs sind nicht mehr gültig.', @MaestroVID, NULL, @customItemSetSMS),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
  'de', 174, @currentPageType, 'Zurück zum Shop', @MaestroVID, NULL, @customItemSetSMS),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
@@ -971,7 +975,3 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 3, @currentPageType, 'Um eine Zahlung freizugeben bestätigen Sie diese mit Ihrem Passwort, welches Sie bei der Registrierung für BW-Secure vergeben haben. Für Änderungen Ihres Passworts loggen Sie sich im BW-Secure Portal ein:', @MaestroVID, NULL, @customItemSetSMS),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), 'PUSHED_TO_CONFIG',
  'de', 11, @currentPageType, 'Hilfe schließen', @MaestroVID, NULL, @customItemSetSMS);
-
-
-
--- MASTERCARD --
