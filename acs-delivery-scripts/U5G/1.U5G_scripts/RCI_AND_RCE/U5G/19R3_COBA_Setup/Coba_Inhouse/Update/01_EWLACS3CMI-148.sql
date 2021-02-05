@@ -20,7 +20,7 @@ SET @ordinalRefusalMessage = 23;
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT 'T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(n.code,@authentMean,@pageTypes,'_',@ordinalMessage), @updateState, @locale, @ordinalMessage,  @pageTypes, 'Bitte registrieren Sie Ihre Kreditkarte für das sichere Einkaufen unter commerzbank.de/sicher-einkaufen', n.id, NULL, @customItemSetRefusal FROM `Network` n WHERE  n.id in (@networkVISA, @networkMC);
+SELECT 'T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(n.code,@authentMean,@pageTypes,'_',@ordinalMessage), @updateState, @locale, @ordinalMessage,  @pageTypes, 'Bitte registrieren Sie Ihre Kreditkarte für das sichere Einkaufen unter commerzbank.de/sicher-einkaufen', NULL, NULL, @customItemSetRefusal FROM `Network` n WHERE  n.id in (@networkVISA);
 
 
 UPDATE `CustomItem` SET `value`='Bitte aktivieren Sie Ihre Kreditkarte im Online Banking oder wenden Sie sich an den Ansprechpartner in Ihrer Filiale.' WHERE  fk_id_customItemSet IN (@customItemSetRefusal) AND `ordinal` = @ordinalRefusalMessage;
