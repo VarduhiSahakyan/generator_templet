@@ -11,10 +11,6 @@ SET @value10Text = '<ul><li>Seit April 2021 wird das mTAN-Verfahren von uns nich
 SET @networkVISA = (SELECT id FROM `Network` WHERE `code` = 'VISA');
 
 
-ALTER TABLE `CustomItem`
-	CHANGE COLUMN `value` `value` VARCHAR(512) NULL DEFAULT NULL AFTER `pageTypes`;
-
-
 DELETE FROM `CustomItem` WHERE `ordinal` in (8,10) AND `pageTypes` = @currentPageType AND `value` in (@value8Text, @value10Text) AND `fk_id_customItemSet` = @customITemSetRefusal;
   
 set @id_layout = (SELECT id from `CustomPageLayout` where `description` IN ('for ING 16500') and `pageType` = 'REFUSAL_PAGE');

@@ -11,10 +11,6 @@ SET @value10Text = '<ul><li>Seit April 2021 wird das mTAN-Verfahren von uns nich
 SET @networkVISA = (SELECT id FROM `Network` WHERE `code` = 'VISA');
 
 
-ALTER TABLE `CustomItem`
-	CHANGE COLUMN `value` `value` VARCHAR(530) NULL DEFAULT NULL AFTER `pageTypes`;
-
-
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, 
 						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
   SELECT 'T', 'InitPhase', NOW(), NULL, NULL, NULL, 'VISA_OTP_REFUSAL_8_de', 'PUSHED_TO_CONFIG', @locale, 8, @currentPageType, @value8Text, NULL, NULL, @customITemSetRefusal FROM `Network` n WHERE  n.id in (@networkVISA);
