@@ -26,7 +26,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		font-size:14px;
 	}
 	#footer #cancelButton button span:before {
-		content:'';
+		content:'''';
 	}
 	#footer {
 		padding-top: 12px;
