@@ -498,15 +498,14 @@ INSERT INTO `CustomItemSet` (`createdBy`, `creationDate`, `description`, `lastUp
                              `updateState`, `status`, `versionNumber`, `validationDate`, `deploymentDate`, `fk_id_subIssuer`)
 VALUES
 (@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_PASSWORD_UNIFIED_Current'), NULL, NULL,
- CONCAT('customitemset_', @BankUB, '_PASSWORD_UNIFIED'), @updateState, @status, 1, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_OTP_SMS_UNIFIED_Current'), NULL, NULL,
- CONCAT('customitemset_', @BankUB, '_OTP_SMS_UNIFIED'), @updateState, @status, 1, NULL, NULL, @subIssuerID);
+ CONCAT('customitemset_', @BankUB, '_PASSWORD_UNIFIED'), @updateState, @status, 1, NULL, NULL, @subIssuerID);
 
 
 -- Profile --
 
 SET @customItemSetPassword = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_PASSWORD_UNIFIED'));
-SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_OTP_SMS_UNIFIED'));
+SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_OTP_SMS'));
+update CustomItemSet set name = CONCAT('customitemset_', @BankUB, '_OTP_SMS_UNIFIED') where id = @customItemSetSMS;
 
 SET @authentMeansPWD_OTP = (SELECT id FROM `AuthentMeans`  WHERE `name` = 'PWD_OTP');
 SET @authentMeansPassword = (SELECT id FROM `AuthentMeans`  WHERE `name` = 'PASSWORD');
@@ -517,40 +516,38 @@ INSERT INTO `Profile` (`createdBy`, `creationDate`, `description`, `lastUpdateBy
                        `fk_id_customItemSetCurrent`, `fk_id_customItemSetOld`, `fk_id_customItemSetNew`,
                        `fk_id_subIssuer`) VALUES
 (@createdBy, NOW(), 'PWD_OTP', NULL, NULL, CONCAT(@BankUB,'_PWD_OTP'), @updateState, 3, '6:(:DIGIT:1)', '^[^OIi]*$', @authentMeansPWD_OTP, NULL, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'PASSWORD (UNIFIED)', NULL, NULL, CONCAT(@BankUB,'_PASSWORD_UNIFIED_01'), @updateState, 3, '25:(:ALPHA_MAJ:1)&(:ALPHA_MIN:1)&(:DIGIT:1)', NULL, @authentMeansPassword, @customItemSetPassword, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'OTP_SMS_UNIFIED (UNIFIED)', NULL, NULL, CONCAT(@BankUB,'_SMS_UNIFIED_01'), @updateState, 3,'6:(:DIGIT:1)','^[^OIi]*$', @authentMeansOTP_SMS, @customItemSetSMS, NULL, NULL, @subIssuerID);
+(@createdBy, NOW(), 'PASSWORD (UNIFIED)', NULL, NULL, CONCAT(@BankUB,'_PASSWORD_UNIFIED_01'), @updateState, 3, '25:(:ALPHA_MAJ:1)&(:ALPHA_MIN:1)&(:DIGIT:1)', NULL, @authentMeansPassword, @customItemSetPassword, NULL, NULL, @subIssuerID);
 
+update Profile set name = 'LBBW_SMS_UNIFIED_01' where fk_id_customItemSetCurrent = @customItemSetSMS;
 
 -- Rule --
 
 SET @profilePWD_OTP = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_PWD_OTP'));
 SET @profilePassword = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_PASSWORD_UNIFIED_01'));
 SET @profileSMS = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_SMS_UNIFIED_01'));
+SET @profileDefaultRefusal = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_DEFAULT_REFUSAL'));
 
 INSERT INTO `Rule` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
                     `updateState`, `orderRule`, `fk_id_profile`) VALUES
 (@createdBy, NOW(), 'PWD_OTP (UNIFIED)', NULL, NULL, 'PWD_OTP (UNIFIED)', @updateState, 8, @profilePWD_OTP),
-(@createdBy, NOW(), 'PASSWORD (UNIFIED)', NULL, NULL, 'PASSWORD (UNIFIED)', @updateState, 9, @profilePassword),
-(@createdBy, NOW(), 'OTP_SMS_UNIFIED (UNIFIED)', NULL, NULL, 'OTP_SMS (UNIFIED)', @updateState, 10, @profileSMS);
+(@createdBy, NOW(), 'PASSWORD (UNIFIED)', NULL, NULL, 'PASSWORD (UNIFIED)', @updateState, 9, @profilePassword);
 
-SET @profileSMSNormal = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_SMS_01'));
-UPDATE Rule SET orderRule = 11 WHERE fk_id_profile = @profileSMSNormal AND name = 'OTP_SMS (NORMAL)';
-
-SET @profileDefaultRefusal = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_DEFAULT_REFUSAL'));
-UPDATE Rule SET orderRule = 12 WHERE fk_id_profile = @profileDefaultRefusal AND name = 'REFUSAL (DEFAULT)';
+UPDATE Rule SET description = 'OTP_SMS (UNIFIED)',  name = 'OTP_SMS (UNIFIED)' WHERE fk_id_profile = @profileSMS;
+UPDATE Rule SET orderRule = 10 WHERE fk_id_profile = @profileSMS;
+UPDATE Rule SET orderRule = 11 WHERE fk_id_profile = @profileDefaultRefusal AND name = 'REFUSAL (DEFAULT)';
 
 -- Rule condition --
 
 SET @rulePWD_OTP = (SELECT id FROM `Rule` WHERE `description` = 'PWD_OTP (UNIFIED)' AND `fk_id_profile` = @profilePWD_OTP);
 SET @rulePassword = (SELECT id FROM `Rule` WHERE `description` = 'PASSWORD (UNIFIED)' AND `fk_id_profile` = @profilePassword);
-SET @ruleSMS = (SELECT id FROM `Rule` WHERE `description` = 'OTP_SMS_UNIFIED (UNIFIED)' AND `fk_id_profile` = @profileSMS);
+SET @ruleSMS = (SELECT id FROM `Rule` WHERE `description` = 'OTP_SMS (UNIFIED)' AND `fk_id_profile` = @profileSMS);
 
 INSERT INTO `RuleCondition` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
                              `updateState`, `fk_id_rule`) VALUES
 (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_PWD_OTP_UNIFIED'), @updateState, @rulePWD_OTP),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_PASSWORD_UNIFIED'), @updateState, @rulePassword),
-(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_OTP_SMS_UNIFIED'), @updateState, @ruleSMS);
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_', @BankUB, '_01_PASSWORD_UNIFIED'), @updateState, @rulePassword);
 
+update RuleCondition set name = 'C1_P_LBBW_01_OTP_SMS_UNIFIED' where fk_id_rule = @ruleSMS;
 
 -- Condition Transaction Statuses --
 
@@ -566,16 +563,29 @@ INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStat
 SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
 WHERE c.`name`=CONCAT('C1_P_', @BankUB, '_01_PASSWORD_UNIFIED') AND (ts.`transactionStatusType`='KNOWN_PHONE_NUMBER' AND ts.`reversed`=FALSE);
 
-INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
-SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name`=CONCAT('C1_P_', @BankUB, '_01_OTP_SMS_UNIFIED') AND (ts.`transactionStatusType`='KNOWN_PHONE_NUMBER' AND ts.`reversed`=FALSE);
-
-INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
-SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-WHERE c.`name` = CONCAT('C1_P_', @BankUB, '_01_OTP_SMS_UNIFIED') AND (ts.`transactionStatusType` = 'PHONE_NUMBER_IN_NEGATIVE_LIST' AND ts.`reversed` = TRUE);
-
 
 -- Condition Means Process Statuses --
+
+-- delete existing OTP-SMS auth. rule as we are using PWD-OTP auth.
+delete from Condition_MeansProcessStatuses
+where id_condition = (SELECT c.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+                      WHERE c.`name`= 'C1_P_LBBW_01_OTP_SMS_UNIFIED'
+                        AND mps.`fk_id_authentMean`= @authentMeansOTP_SMS
+                        AND (mps.`meansProcessStatusType` IN ('MEANS_AVAILABLE') AND mps.`reversed`=FALSE))
+  and  id_meansProcessStatuses = (SELECT mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+                                  WHERE c.`name`= 'C1_P_LBBW_01_OTP_SMS_UNIFIED'
+                                    AND mps.`fk_id_authentMean`= @authentMeansOTP_SMS
+                                    AND (mps.`meansProcessStatusType` IN ('MEANS_AVAILABLE') AND mps.`reversed`=FALSE));
+
+delete from Condition_MeansProcessStatuses
+where id_condition = (SELECT c.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+                      WHERE c.`name`= 'C1_P_LBBW_01_OTP_SMS_UNIFIED'
+                        AND mps.`fk_id_authentMean`= @authentMeansOTP_SMS
+                        AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed`=TRUE))
+  and  id_meansProcessStatuses = (SELECT mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+                                  WHERE c.`name`= 'C1_P_LBBW_01_OTP_SMS_UNIFIED'
+                                    AND mps.`fk_id_authentMean`= @authentMeansOTP_SMS
+                                    AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed`=TRUE));
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
@@ -613,138 +623,137 @@ WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PWD_OTP_UNIFIED')
   AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
   AND (mps.`meansProcessStatusType` IN ('HUB_AUTHENTICATION_MEAN_AVAILABLE') AND mps.`reversed`=FALSE);
 
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
-  AND (mps.`meansProcessStatusType` IN ('HUB_AUTHENTICATION_MEAN_AVAILABLE') AND mps.`reversed`=FALSE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
-  AND (mps.`meansProcessStatusType` IN ('MEANS_AVAILABLE') AND mps.`reversed`=FALSE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
-  AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
-  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansOTP_SMS
-  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansPassword
-  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
-  AND (mps.`meansProcessStatusType` IN ('MEANS_PROCESS_ERROR') AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansOTP_SMS
-  AND (mps.`meansProcessStatusType` IN ('MEANS_PROCESS_ERROR') AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansPassword
-  AND (mps.`meansProcessStatusType` IN ('MEANS_PROCESS_ERROR') AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
-  AND (mps.`meansProcessStatusType` IN ('PARENT_AUTHENTICATION_MEAN_AVAILABLE') AND mps.`reversed`=FALSE);
-
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
-  AND (mps.`meansProcessStatusType` IN ('HUB_AUTHENTICATION_MEAN_AVAILABLE') AND mps.`reversed`=FALSE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
-  AND (mps.`meansProcessStatusType` IN ('MEANS_AVAILABLE') AND mps.`reversed`=FALSE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
-  AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
-  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansOTP_SMS
-  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansPassword
-  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
-  AND (mps.`meansProcessStatusType` IN ('MEANS_PROCESS_ERROR') AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansOTP_SMS
-  AND (mps.`meansProcessStatusType` IN ('MEANS_PROCESS_ERROR') AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansPassword
-  AND (mps.`meansProcessStatusType` IN ('MEANS_PROCESS_ERROR') AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
-  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
-  AND (mps.`meansProcessStatusType` IN ('PARENT_AUTHENTICATION_MEAN_AVAILABLE') AND mps.`reversed`=FALSE);
-
-
 SET @ruleConditionPWD_OTP = (SELECT id FROM RuleCondition WHERE name = CONCAT('C1_P_', @BankUB, '_01_PWD_OTP_UNIFIED') AND fk_id_rule = @rulePWD_OTP);
 INSERT INTO Thresholds (isAmountThreshold, reversed, thresholdType, value, fk_id_condition)
 VALUES (b'0', b'0', 'UNDER_TRIAL_NUMBER_THRESHOLD', 3, @ruleConditionPWD_OTP);
+
+-- Password --
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
+  AND (mps.`meansProcessStatusType` IN ('HUB_AUTHENTICATION_MEAN_AVAILABLE') AND mps.`reversed`=FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
+  AND (mps.`meansProcessStatusType` IN ('MEANS_AVAILABLE') AND mps.`reversed`=FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
+  AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
+  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansOTP_SMS
+  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansPassword
+  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
+  AND (mps.`meansProcessStatusType` IN ('MEANS_PROCESS_ERROR') AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansOTP_SMS
+  AND (mps.`meansProcessStatusType` IN ('MEANS_PROCESS_ERROR') AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansPassword
+  AND (mps.`meansProcessStatusType` IN ('MEANS_PROCESS_ERROR') AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
+  AND (mps.`meansProcessStatusType` IN ('PARENT_AUTHENTICATION_MEAN_AVAILABLE') AND mps.`reversed`=FALSE);
+
+-- SMS --
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
+  AND (mps.`meansProcessStatusType` IN ('HUB_AUTHENTICATION_MEAN_AVAILABLE') AND mps.`reversed`=FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
+  AND (mps.`meansProcessStatusType` IN ('MEANS_AVAILABLE') AND mps.`reversed`=FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
+  AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
+  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansOTP_SMS
+  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansPassword
+  AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
+  AND (mps.`meansProcessStatusType` IN ('MEANS_PROCESS_ERROR') AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansOTP_SMS
+  AND (mps.`meansProcessStatusType` IN ('MEANS_PROCESS_ERROR') AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansPassword
+  AND (mps.`meansProcessStatusType` IN ('MEANS_PROCESS_ERROR') AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_UNIFIED')
+  AND mps.`fk_id_authentMean`= @authentMeansPWD_OTP
+  AND (mps.`meansProcessStatusType` IN ('PARENT_AUTHENTICATION_MEAN_AVAILABLE') AND mps.`reversed`=FALSE);
 
 -- ProfileSet Rule --
 
 INSERT INTO `ProfileSet_Rule` (`id_profileSet`, `id_rule`)
 SELECT ps.`id`, r.`id` FROM `ProfileSet` ps, `Rule` r
-WHERE ps.`name` = CONCAT('PS_', @BankUB, '_01') AND r.`id` IN (@rulePWD_OTP, @rulePassword, @ruleSMS);
+WHERE ps.`name` = CONCAT('PS_', @BankUB, '_01') AND r.`id` IN (@rulePWD_OTP, @rulePassword);
 
 
 -- VISA --
@@ -805,6 +814,10 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 14,@currentPageType, 'Der Zahlungsvorgang wurde abgebrochen!', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_15'), 'PUSHED_TO_CONFIG',
  'de', 15,@currentPageType, 'Ihr Kauf wird storniert, Sie werden automatisch zur Händler-Webseite weitergeleitet. ', @MaestroVID, NULL, @customItemSetPassword),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_28'), 'PUSHED_TO_CONFIG',
+ 'de', 28, @currentPageType, 'Ungültige Eingabe(n)', @MaestroVID, NULL, @customItemSetPassword),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_29'), 'PUSHED_TO_CONFIG',
+ 'de', 29, @currentPageType, 'Das eingegebene Passwort und/oder die mTAN war(en) nicht korrekt. Bitte prüfen Sie die Eingaben und versuchen Sie es erneut.', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_30'), 'PUSHED_TO_CONFIG',
  'de', 30,@currentPageType, 'Automatischer Abbruch', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_31'), 'PUSHED_TO_CONFIG',
@@ -813,6 +826,10 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 32,@currentPageType, 'Technischer Fehler', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
  'de', 33,@currentPageType, 'Auf Grund eines technischen Fehlers wurde die Transaktion abgebrochen. Der Kauf wurde nicht durchgeführt. Bitte versuchen Sie es erneut.', @MaestroVID, NULL, @customItemSetPassword),
+('T',  @createdBy, NOW(), null, null, null, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_34'), 'PUSHED_TO_CONFIG',
+ 'de', 34, @currentPageType, 'SMS wird versendet.', @MaestroVID, null, @customItemSetPassword),
+('T',  @createdBy, NOW(), null, null, null, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_35'), 'PUSHED_TO_CONFIG',
+ 'de', 35, @currentPageType, 'Bitte haben Sie einen kleinen Moment Geduld. In Kürze erhalten Sie eine neue mTAN. Alle vorherigen mTANs sind nicht mehr gültig.', @MaestroVID, null, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_40'), 'PUSHED_TO_CONFIG',
  'de', 40, @currentPageType, 'Abbrechen', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_41'), 'PUSHED_TO_CONFIG',
@@ -838,11 +855,11 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_7'), 'PUSHED_TO_CONFIG',
  'de', 7, @currentPageType, 'Hilfe', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
-'de', 32,@currentPageType, 'Technischer Fehler', @MaestroVID, NULL, @customItemSetPassword),
+ 'de', 32,@currentPageType, 'Technischer Fehler', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
-'de', 33,@currentPageType, 'Auf Grund eines technischen Fehlers wurde die Transaktion abgebrochen. Der Kauf wurde nicht durchgeführt. Bitte versuchen Sie es erneut.', @MaestroVID, NULL, @customItemSetPassword),
+ 'de', 33,@currentPageType, 'Auf Grund eines technischen Fehlers wurde die Transaktion abgebrochen. Der Kauf wurde nicht durchgeführt. Bitte versuchen Sie es erneut.', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
-'de', 175, @currentPageType, 'Zurück zum Shop', @MaestroVID, NULL, @customItemSetPassword);
+ 'de', 175, @currentPageType, 'Zurück zum Shop', @MaestroVID, NULL, @customItemSetPassword);
 
 /* Elements for the HELP page, for PASSWORD Profile */
 
@@ -859,117 +876,3 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 3, @currentPageType, 'Um eine Zahlung freizugeben bestätigen Sie diese mit Ihrem Passwort, welches Sie bei der Registrierung für BW-Secure vergeben haben. Für Änderungen Ihres Passworts loggen Sie sich im BW-Secure Portal ein:', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), 'PUSHED_TO_CONFIG',
  'de', 11, @currentPageType, 'Hilfe schließen', @MaestroVID, NULL, @customItemSetPassword);
-
-
-
-/* Elements for the profile SMS : */
-
-SET @currentAuthentMean = 'OTP_SMS';
-SET @currentPageType = 'OTP_FORM_PAGE';
-
-/* Here are the images for all pages associated to the SMS Profile */
-SET @issuerLogoName = 'LBBW_LOGO';
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', 'PUSHED_TO_CONFIG',
-       'de', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetSMS
-FROM `Image` im WHERE im.name LIKE CONCAT('%',@issuerLogoName,'%');
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', 'PUSHED_TO_CONFIG',
-       'de', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetSMS
-FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
-
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Mastercard Logo', 'PUSHED_TO_CONFIG', 'de', 2, 'ALL', 'se_MasterCard SecureCode™', n.id, im.id, @customItemSetSMS
-FROM `Image` im, `Network` n WHERE im.name LIKE '%MC_ID_LOGO%' AND n.code LIKE '%MASTERCARD%';
-
-/* Here is what the content of the SMS will be */
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-VALUES ('T', @createdBy, NOW(), NULL, NULL, NULL, 'OTP_SMS_MESSAGE_BODY', 'PUSHED_TO_CONFIG', 'de', 0, 'MESSAGE_BODY',
-        'Ihre SMS-TAN für die Zahlung bei @merchant über @amount lautet: @otp', @MaestroVID, NULL, @customItemSetSMS);
-
-
-/* Elements for the OTP page, for SMS Profile */
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_42'), 'PUSHED_TO_CONFIG',
- 'de', 42, @currentPageType, 'Transaktion', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_43'), 'PUSHED_TO_CONFIG',
- 'de', 43, @currentPageType, 'BW-Secure mTan eingeben', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, 'Geben Sie die gerade erhaltene mTAN in das Feld "mTAN" ein, um den Vorgang fortzuführen. Diese Information wird dem Händler nicht mitgeteilt.', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'mTan', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, 'Bestätigen', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_4'), 'PUSHED_TO_CONFIG',
- 'de', 4, @currentPageType, '<span class="fa fa-refresh" aria-hidden="true"> </span>mTan neu anfordern', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL,  CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_6'), 'PUSHED_TO_CONFIG',
- 'de', 6,  @currentPageType, 'Abbrechen',  @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy,  NOW(), NULL, NULL, NULL,  CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_7'), 'PUSHED_TO_CONFIG',
-'de', 7,  @currentPageType, 'Hilfe', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_26'), 'PUSHED_TO_CONFIG',
- 'de', 26, @currentPageType, 'Vorgang erfolgreich bestätigt mit BW-Secure', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_27'), 'PUSHED_TO_CONFIG',
- 'de', 27, @currentPageType, 'Die Zahlung wird nun geprüft und abschließend vom Händler weiterberarbeitet.', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_28'), 'PUSHED_TO_CONFIG',
- 'de', 28, @currentPageType, 'Ungültige Eingabe(n)', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_29'), 'PUSHED_TO_CONFIG',
- 'de', 29, @currentPageType, 'Das eingegebene Passwort und/oder die mTAN war(en) nicht korrekt. Bitte prüfen Sie die Eingaben und versuchen Sie es erneut.', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_34'), 'PUSHED_TO_CONFIG',
- 'de', 34, @currentPageType, 'SMS wird versendet.', @MaestroVID, NULL, @customItemSetSMS),
- ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_35'), 'PUSHED_TO_CONFIG',
- 'de', 35, @currentPageType, 'Bitte haben Sie einen kleinen Moment Geduld. In Kürze erhalten Sie eine neue mTAN. Alle vorherigen mTANs sind nicht mehr gültig.', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
- 'de', 175, @currentPageType, 'Zurück zum Shop', @MaestroVID, NULL, @customItemSetSMS);
-
-
-
-/* Elements for the FAILURE page, for SMS Profile */
-
-SET @currentPageType = 'FAILURE_PAGE';
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_42'), 'PUSHED_TO_CONFIG',
- 'de', 42, @currentPageType, 'Transaktion', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, ' Unseren 24-Stunden Service erreichen Sie jederzeit unter +49 69-66571333', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Mit dem Klick auf "Zurück zum Shop" werden Sie in den Shop zurück geleitet.', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_7'), 'PUSHED_TO_CONFIG',
- 'de', 7, @currentPageType, 'Hilfe', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
- 'de', 32,@currentPageType, 'Zahlungsabbruch', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
- 'de', 33,@currentPageType, 'Sie haben zu oft ungültige Daten eingegeben. Zu Ihrer Sicherheit wird der Zahlungsvorgang daher abgebrochen. Bitte versuchen Sie es erneut.', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
-    'de', 175, @currentPageType, 'Zurück zum Shop', @MaestroVID, NULL, @customItemSetSMS);
-
-
-/* Elements for the HELP page, for SMS Profile */
-
-SET @currentPageType = 'HELP_PAGE';
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1'), 'PUSHED_TO_CONFIG',
- 'de', 1, @currentPageType, '<b>Hilfe</b>', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_2'), 'PUSHED_TO_CONFIG',
- 'de', 2, @currentPageType, 'Ihre Kreditkartenzahlung muss aus Sicherheitsgründen mit 3D-Secure bestätigt werden. ', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), 'PUSHED_TO_CONFIG',
- 'de', 3, @currentPageType, 'Um eine Zahlung freizugeben bestätigen Sie diese mit Ihrem Passwort, welches Sie bei der Registrierung für BW-Secure vergeben haben. Für Änderungen Ihres Passworts loggen Sie sich im BW-Secure Portal ein:', @MaestroVID, NULL, @customItemSetSMS),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), 'PUSHED_TO_CONFIG',
- 'de', 11, @currentPageType, 'Hilfe schließen', @MaestroVID, NULL, @customItemSetSMS);
