@@ -36,7 +36,7 @@ snapshot_deploy:
     - git config user.name "$TECHUSER_NAME"
     - git config user.email "$TECHUSER_MAIL"
     - git config user.password "$TECHUSER_PWD"
-    - mvn -f pom.xml clean install -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+    - mvn -f pom.xml clean deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
   tags:
     - kazan-S
     - docker-S
@@ -93,7 +93,7 @@ release_deploy:
     - export MAVEN_RELEASE_VERSION=`echo $MAVEN_CURRENT_VERSION | sed 's/-SNAPSHOT//g'`
     - export MAVEN_SNAPSHOT_VERSION=`echo $MAVEN_RELEASE_VERSION | sed -r 's/^([0-9]+\.)?([0-9]+)(-SNAPSHOT)?/echo "\1$((\2+1))-SNAPSHOT"/ge'`
   script:
-    - mvn -f pom.xml clean install -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+    - mvn -f pom.xml clean deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
   only: 
   - tags
 
