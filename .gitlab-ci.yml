@@ -37,7 +37,7 @@ snapshot_deploy:
     - git config user.password "$TECHUSER_PWD"
     - git remote set-url origin "https://${TECHUSER_NAME}:${TECHUSER_PWD}@gitlab.kazan.priv.atos.fr/acs-delivery-ge/acs-delivery-ge-gitlab-1.git"
     - mvn versions:set -DnewVersion=$SNAPSHOT-SNAPSHOT versions:commit
-    - mvn -f pom.xml clean deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+    - mvn -f pom.xml clean deploy -U -Dusername=$TECHNICAL_USER_NAME -Dpassword=$TECHNICAL_USER_PWD -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
   when: manual
   tags:
     - kazan-S
@@ -90,7 +90,7 @@ release_deploy:
     - export MAVEN_RELEASE_VERSION=`echo $MAVEN_CURRENT_VERSION | sed 's/-SNAPSHOT//g'`
     - export MAVEN_SNAPSHOT_VERSION=`echo $MAVEN_RELEASE_VERSION | sed -r 's/^([0-9]+\.)?([0-9]+)(-SNAPSHOT)?/echo "\1$((\2+1))-SNAPSHOT"/ge'`
   script:
-    - mvn -f pom.xml clean deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+    - mvn -f pom.xml clean deploy -U -Dusername=$TECHNICAL_USER_NAME -Dpassword=$TECHNICAL_USER_PWD -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
   only: 
   - tags
 
