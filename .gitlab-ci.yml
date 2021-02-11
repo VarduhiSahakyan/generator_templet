@@ -23,7 +23,7 @@ build:
     - docker-S
 
 snapshot_deploy:
-  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
+  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-latest
   stage: deploy
   before_script:
     - mvn help:evaluate -Dexpression=project.version -q -DforceStdout > version.tmp
@@ -33,7 +33,10 @@ snapshot_deploy:
     - echo "build version $SNAPSHOT-SNAPSHOT"
     - mvn versions:set -DnewVersion=$SNAPSHOT-SNAPSHOT versions:commit
   script:
-    - mvn -f pom.xml clean deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+    - git config user.name "$TECHUSER_NAME"
+    - git config user.email "$TECHUSER_MAIL"
+    - git config user.password "$TECHUSER_PWD"
+    - mvn -f pom.xml clean install -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
   tags:
     - kazan-S
     - docker-S
@@ -48,7 +51,7 @@ snapshot_deploy:
     - /^[HU][0-9X][BFGMAH]$/
   
 make_release: 
-  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
+  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-latest
   stage: release
   before_script:
     - export MAVEN_CURRENT_VERSION=`mvn help:evaluate -Dexpression=project.version -q -DforceStdout`
@@ -73,9 +76,6 @@ make_release:
   when: manual
   only:
   - master
-  tags:
-    - kazan-S
-    - docker-S
   except: 
     - tags
 
@@ -96,9 +96,6 @@ release_deploy:
     - mvn -f pom.xml clean install -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
   only: 
   - tags
-  tags:
-    - kazan-S
-    - docker-S
 
 
 #notify: 
