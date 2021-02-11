@@ -8,7 +8,7 @@ variables:
   MAVEN_CLI_OPTS: "-T 2C -s settings.xml"
   MAVEN_OPTS : "-Dsettings.security=settings-security.xml"
   MM_MSG_USER: "GitLab Tech User"
-  GIT_REPO_URL: https://${TECHUSER_NAME}:${TECHUSER_PWD}@gitlab.kazan.priv.atos.fr/acs-dlfr/acs-dlfr-gitlab-1.git
+  GIT_REPO_URL: https://${TECHUSER_NAME}:${TECHUSER_PWD}@gitlab.kazan.priv.atos.fr/acs-delivery-ge/acs-delivery-ge-gitlab-1.git
   MM_MSG_ICON: "https://gitlab.kazan.priv.atos.fr/uploads/-/system/user/avatar/13412/avatar.png"
   MM_MSG_TEXT: "###  **New release ` $MAVEN_RELEASE ` available on Nexus for *$CI_PROJECT_NAME* project [ branch `$CI_COMMIT_REF_NAME` ].**\n_The new snapshot version : `$MAVEN_SNAPSHOT`. :triumph:_\nHappy coding @channel"
   # MM_MSG_WEBHOOK: "https://mattermost.kazan.priv.atos.fr/hooks/1645okpkr3gdpgghshmb799cxw"
