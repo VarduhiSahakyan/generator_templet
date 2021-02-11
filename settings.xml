@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd"
+          xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!--<proxies>
+        <proxy>
+               <id>proxy-prod</id>
+               <port>3128</port>
+               <host>proxy-prod-scl.svc.meshcore.net</host>
+               <nonProxyHosts>127.0.0.1|localhost|*.priv.atos.fr|*.meshcore.net
+               </nonProxyHosts>
+           </proxy>
+    </proxies>-->
+
+    <servers>
+
+            <server>
+                <id>acs-delivery-ge-nexus-1-releases</id>
+                <username>acs-delivery-ge-technical-user</username>
+                <password>{Rx2aeibsY0oHX69hn6Nkl3cM8psMt3xQU+mIb/dLM902YkxiUeUiuyAlzVF0harR}</password>
+                <configuration>
+                    <!-- Optimize authentication time when downloading.
+                    Find out more: http://maven.apache.org/guides/mini/guide-http-settings.html#Example:_Using_Preemptive_Authentication -->
+                    <wagonProvider>httpclient</wagonProvider>
+                    <httpConfiguration>
+                        <all>
+                            <usePreemptive>true</usePreemptive>
+                        </all>
+                    </httpConfiguration>
+                </configuration>
+            </server>
+            <server>
+                <id>acs-delivery-ge-nexus-1-snapshots</id>
+                <username>acs-delivery-ge-technical-user</username>
+                <password>{Rx2aeibsY0oHX69hn6Nkl3cM8psMt3xQU+mIb/dLM902YkxiUeUiuyAlzVF0harR}</password>
+                <configuration>
+                    <wagonProvider>httpclient</wagonProvider>
+                    <httpConfiguration>
+                        <all>
+                            <usePreemptive>true</usePreemptive>
+                        </all>
+                    </httpConfiguration>
+                </configuration>
+            </server>
+            <server>
+                <id>acs-delivery-ge-nexus-1-group</id>
+                <username>acs-delivery-ge-technical-user</username>
+                <password>{Rx2aeibsY0oHX69hn6Nkl3cM8psMt3xQU+mIb/dLM902YkxiUeUiuyAlzVF0harR}</password>
+                <configuration>
+                    <wagonProvider>httpclient</wagonProvider>
+                    <httpConfiguration>
+                        <all>
+                            <usePreemptive>true</usePreemptive>
+                        </all>
+                    </httpConfiguration>
+                </configuration>
+            </server>
+    </servers>
+
+        <mirrors>
+            <mirror>
+                <mirrorOf>*</mirrorOf>
+                <url>https://nexus.kazan.priv.atos.fr/repository/acs-delivery-ge-nexus-1-group</url>
+                <id>acs-delivery-ge-nexus-1-group</id>
+            </mirror>
+        </mirrors>
+
+    <profiles>
+        <profile>
+            <repositories>
+                <repository>
+                    <!-- Find out more: https://help.sonatype.com/repomanager3/formats/maven-repositories -->
+                    <id>central</id>
+                    <url>http://central</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <!-- Find out more: https://help.sonatype.com/repomanager3/formats/maven-repositories -->
+                    <id>central</id>
+                    <url>http://central</url>
+                </pluginRepository>
+            </pluginRepositories>
+            <id>kazan-nexus</id>
+        </profile>
+        <profile>
+            <id>kazan-sonar</id>
+            <properties>
+                <sonar.host.url>https://kazan.myworldline.com/sonarqube</sonar.host.url>
+                <sonar.login>{Ytb9oCpoP+4HlZunvLK7Ssn9cWq0Y9P3dv51ea7BV1OhKwaw01PnmYBNMrB28guvYfsGLSyLGw6868ytt/vctQ&#61;&#61;}</sonar.login>
+            </properties>
+        </profile>
+    </profiles>
+
+        <activeProfiles>
+            <activeProfile>kazan-nexus</activeProfile>
+            <activeProfile>kazan-sonar</activeProfile>
+        </activeProfiles>
+</settings>
