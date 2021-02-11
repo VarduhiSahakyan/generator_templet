@@ -13,7 +13,7 @@ variables:
 
 
 build:
-  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
+  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-latest
   stage: build
   script:
   - mvn -f pom.xml clean package -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
@@ -39,6 +39,9 @@ snapshot_deploy:
     - mvn versions:set -DnewVersion=$SNAPSHOT-SNAPSHOT versions:commit
     - mvn -f pom.xml clean deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
   when: manual
+  tags:
+    - kazan-S
+    - docker-S
   only:
     - /^snapshots/.+$/
     - /^issue/.+$/
