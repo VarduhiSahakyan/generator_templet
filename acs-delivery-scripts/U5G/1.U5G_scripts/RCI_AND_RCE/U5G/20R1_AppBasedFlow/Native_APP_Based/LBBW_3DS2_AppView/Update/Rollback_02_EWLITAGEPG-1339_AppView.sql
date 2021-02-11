@@ -4,11 +4,6 @@ SET @customItemSet_PWD = (SELECT id FROM CustomItemSet WHERE name = 'customitems
 
 delete from CustomItem where fk_id_customItemSet = @customItemSet_PWD and pageTypes = 'APP_VIEW';
 
-SET @customItemSet_SMS = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_LBBW_OTP_SMS_UNIFIED');
-
-delete from CustomItem where fk_id_customItemSet = @customItemSet_SMS and pageTypes = 'APP_VIEW';
-
-
 set @customPageLayoutDesc_PWD = 'PASSWORD_App_View (LBBW)';
 
 set @pageType_appView = 'PASSWORD_APP_VIEW';
