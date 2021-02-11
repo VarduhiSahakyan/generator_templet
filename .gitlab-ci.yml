@@ -59,7 +59,7 @@ make_release:
     - git config user.email "$TECHUSER_MAIL"
     - git config user.password "$TECHUSER_PWD"
     - echo "## Release $MAVEN_RELEASE_VERSION on $CI_COMMIT_REF_NAME branch"
-    - git remote set-url origin "https://${TECHUSER_NAME}:${TECHUSER_PWD}@gitlab.kazan.priv.atos.fr/pltdvy-deploy/xlr-implem-plan-export.git"
+    - git remote set-url origin "https://${TECHUSER_NAME}:${TECHUSER_PWD}@gitlab.kazan.priv.atos.fr/acs-delivery-ge/acs-delivery-ge-gitlab-1.git"
     - git checkout $CI_COMMIT_REF_NAME
     - git pull
     - mvn versions:set -DnewVersion=$MAVEN_RELEASE_VERSION versions:commit
