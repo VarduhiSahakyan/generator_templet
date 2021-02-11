@@ -31,15 +31,13 @@ snapshot_deploy:
     - export SNAPSHOT="`cat version.tmp`"
     - rm version.tmp
     - echo "build version $SNAPSHOT-SNAPSHOT"
-    - mvn versions:set -DnewVersion=$SNAPSHOT-SNAPSHOT versions:commit
   script:
     - git config user.name "$TECHUSER_NAME"
     - git config user.email "$TECHUSER_MAIL"
     - git config user.password "$TECHUSER_PWD"
+    - git remote set-url origin "https://${TECHUSER_NAME}:${TECHUSER_PWD}@gitlab.kazan.priv.atos.fr/acs-delivery-ge/acs-delivery-ge-gitlab-1.git"
+    - mvn versions:set -DnewVersion=$SNAPSHOT-SNAPSHOT versions:commit
     - mvn -f pom.xml clean deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
-  tags:
-    - kazan-S
-    - docker-S
   when: manual
   only:
     - /^snapshots/.+$/
@@ -84,10 +82,6 @@ release_deploy:
   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-latest
   stage: release
   when: always
-  artifacts:
-    paths:
-      - target/xlr-parser*.jar
-    expire_in: '99 yrs'
   before_script:
     - export MAVEN_CURRENT_VERSION=`mvn help:evaluate -Dexpression=project.version -q -DforceStdout`
     - export MAVEN_RELEASE_VERSION=`echo $MAVEN_CURRENT_VERSION | sed 's/-SNAPSHOT//g'`
