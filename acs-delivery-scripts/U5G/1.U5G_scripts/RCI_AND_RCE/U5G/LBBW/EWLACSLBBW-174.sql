@@ -12,14 +12,13 @@ SET @text = 'Ihre Mobilfunknummer hat sich geändert?
 Registrieren Sie die neue Mobilfunknummer direkt auf der Seite:
 https://sicheres-bezahlen.bw-bank.de/';
 
-SET @NetworkVid = (SELECT `id` FROM `Network` WHERE `code` = 'VISA');
 SET @NetworkVName = (SELECT `name` FROM `Network` WHERE `code` = 'VISA');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
 							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
 							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@NetworkVName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), @updateState,
-	@locale, 3, @pageType_OTP_FORM_PAGE, @text, @NetworkVid, NULL, @customItemSet_LBBW_OTP_SMS);
+	@locale, 3, @pageType_OTP_FORM_PAGE, @text, NULL , NULL, @customItemSet_LBBW_OTP_SMS);
 
 SET @customPageLayoutDesc_appView = 'Password OTP Form Page for Landesbank Baden-Württemberg';
 SET @pageType = 'PASSWORD_OTP_FORM_PAGE';
@@ -471,18 +470,12 @@ SET @updateState =	'PUSHED_TO_CONFIG';
 SET @currentPageType = 'OTP_FORM_PAGE';
 SET @currentAuthentMean = 'OTP_SMS';
 
-SET @text = 'Ihre Mobilfunknummer hat sich geändert?
-Registrieren Sie die neue Mobilfunknummer direkt auf der Seite:
-https://sicheres-bezahlen.bw-bank.de/';
-
-SET @NetworkVid = (SELECT `id` FROM `Network` WHERE `code` = 'VISA');
-SET @NetworkVName = (SELECT `name` FROM `Network` WHERE `code` = 'VISA');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
 						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
 						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@NetworkVName,'_',@currentAuthentMean,'_',@currentPageType,'_5'), @updateState,
-	@locale, 5, @pageType_OTP_FORM_PAGE, @text, @NetworkVid, NULL, @customItemSet_LBBW_OTP_SMS);
+	@locale, 5, @pageType_OTP_FORM_PAGE, @text, NULL , NULL, @customItemSet_LBBW_OTP_SMS);
 
 SET @customPageLayoutDesc_appView = 'OTP Form Page for Landesbank Baden-Württemberg';
 SET @pageType = 'OTP_FORM_PAGE';

@@ -8,11 +8,6 @@ SET @updateState =	'PUSHED_TO_CONFIG';
 SET @currentPageType = 'OTP_FORM_PAGE';
 SET @currentAuthentMean = 'PASSWORD';
 
-SET @text = 'Ihre Mobilfunknummer hat sich geändert?
-Registrieren Sie die neue Mobilfunknummer direkt auf der Seite:
-https://sicheres-bezahlen.bw-bank.de/';
-
-SET @NetworkVid = (SELECT `id` FROM `Network` WHERE `code` = 'VISA');
 SET @NetworkVName = (SELECT `name` FROM `Network` WHERE `code` = 'VISA');
 
 DELETE FROM CustomItem WHERE fk_id_customItemSet = @customItemSet_LBBW_OTP_SMS AND
@@ -463,9 +458,6 @@ SET @pageType_OTP_FORM_PAGE ='OTP_FORM_PAGE';
 SET @updateState =	'PUSHED_TO_CONFIG';
 SET @currentPageType = 'OTP_FORM_PAGE';
 SET @currentAuthentMean = 'OTP_SMS';
-
-SET @NetworkVid = (SELECT `id` FROM `Network` WHERE `code` = 'VISA');
-SET @NetworkVName = (SELECT `name` FROM `Network` WHERE `code` = 'VISA');
 
 DELETE FROM CustomItem WHERE fk_id_customItemSet = @customItemSet_LBBW_OTP_SMS AND
 name = CONCAT(@NetworkVName,'_',@currentAuthentMean,'_',@currentPageType,'_5');
