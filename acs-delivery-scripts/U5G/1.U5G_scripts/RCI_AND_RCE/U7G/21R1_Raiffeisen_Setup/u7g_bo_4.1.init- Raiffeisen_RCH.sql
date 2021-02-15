@@ -50,8 +50,19 @@ SET @defaultLanguage = 'de';
 /* Provides option to call the authentication HUB at PA or VE step */
 SET @HUBcallMode = 'PA_ONLY_MODE';
 /* Correspond to URL to configure for the BinRanges extraction */
+/*IAT*/
 SET @acsURLVEMastercard = 'https://ssl-qlf-u7g-fo-acs-ve.wlp-acs.com:9743/acs-ve-service/ve/veRequest';
 SET @acsURLVEVisa = 'https://ssl-qlf-u7g-fo-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
+
+/*CAT*/
+#SET @acsURLVEMastercard = 'https://ssl-liv-u7g-fo-acs-ve.wlp-acs.com:9743/acs-ve-service/ve/veRequest';
+#SET @acsURLVEVisa = 'https://ssl-qlf-liv-fo-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
+
+/*PRD*/
+#SET @acsURLVEMastercard = 'https://ssl-prd-u7g-fo-acs-ve.wlp-acs.com:9743/acs-ve-service/ve/veRequest';
+#SET @acsURLVEVisa = 'https://ssl-qlf-prd-fo-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
+
+
 /* Corresponds to the authentication mean to use primarily */
 SET @preferredAuthMean = 'MOBILE_APP_EXT';
 /* See en_countrycode.json, 250 is France's country code. It is important in order to know if the transaction
@@ -65,7 +76,7 @@ SET @currencyFormat = '{
                             "decimalDelimiter":".",
                             "thousandDelimiter":"''"
                         }';
-
+/* IAT/CAT */
 SET @3DS2AdditionalInfo = '{
 	  "VISA": {
 		"operatorId": "acsOperatorVisa",
@@ -76,6 +87,28 @@ SET @3DS2AdditionalInfo = '{
 		"dsKeyAlias": "key-masterCard"
 	  }
 }';
+
+/* PRD */
+/*
+SET @3DS2AdditionalInfo = '{
+      "VISA": {
+        "operatorId": "acsOperatorVisa",
+        "dsKeyAlias": "dsvisa_call_alias_cert_01"
+      },
+      "MASTERCARD": {
+        "operatorId": "ACS-V210-EQUENSWORLDLINE-34926",
+        "dsKeyAlias": "1"
+      }
+}';
+*/
+/* IAT */
+SET @paChallengeURL = '{ "Vendome" : "https://ssl-qlf-u7g-fo-acs-pa.wlp-acs.com/", "Seclin" : "https://ssl-qlf-u7g-fo-acs-pa.wlp-acs.com/", "Unknown" : "https://ssl-qlf-u7g-fo-acs-pa.wlp-acs.com/" }';
+
+/* CAT */
+#SET @paChallengeURL = '{ "Vendome" : "https://ssl-liv-u7g-fo-acs-pa.wlp-acs.com/", "Seclin" : "https://ssl-liv-u7g-fo-acs-pa.wlp-acs.com/", "Unknown" : "https://ssl-liv-u7g-fo-acs-pa.wlp-acs.com/" }';
+
+/* PRD */
+#SET @paChallengeURL = '{ "Vendome" : "https://authentication1.six-group.com/", "Brussels" : "https://authentication2.six-group.com/", "Unknown" : "https://secure.six-group.com/" }';
 
 SET @subIssuerIDNAB = (SELECT id FROM SubIssuer where code = 58810 AND name = 'Neue Aargauer Bank');
 SET @cryptoConfigIDNAB = (SELECT fk_id_cryptoConfig FROM SubIssuer where code = 58810 AND name = 'Neue Aargauer Bank');
@@ -91,7 +124,7 @@ INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `c
   ('ACS_U7G', 120, @backUpLanguages, @subIssuerCode, @subIssuerCode, '978', @createdBy, NOW(), NULL, NULL, NULL, @subIssuerNameAndLabel,
    @updateState, @defaultLanguage, 600, @subIssuerNameAndLabel, TRUE, TRUE, NULL, TRUE, TRUE, 300,
    @acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,
-   @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, 'https://secure.six-group.com/', '1', @3DS2AdditionalInfo,'3', TRUE, FALSE, b'0', b'0', @activatedAuthMeans, @cryptoConfigIDNAB, @currencyFormat);
+   @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, @paChallengeURL, '1', @3DS2AdditionalInfo,'3', TRUE, FALSE, b'0', b'0', @activatedAuthMeans, @cryptoConfigIDNAB, @currencyFormat);
 /*!40000 ALTER TABLE `SubIssuer` ENABLE KEYS */;
 
 
