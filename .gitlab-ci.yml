@@ -60,27 +60,25 @@ make_release:
   before_script:
     - export MAVEN_CURRENT_VERSION=`mvn help:evaluate -Dexpression=project.version -q -DforceStdout`
     - export MAVEN_RELEASE_VERSION=`echo $MAVEN_CURRENT_VERSION | sed 's/-SNAPSHOT//g'`
-    - echo "build version $MAVEN_RELEASE_VERSION"
     - export MAVEN_SNAPSHOT_VERSION=`echo $MAVEN_RELEASE_VERSION | sed -r 's/^([0-9]+\.)?([0-9]+)(-SNAPSHOT)?/echo "\1$((\2+1))-SNAPSHOT"/ge'`
     - cat "$SETTINGS" > "$(pwd)/settings.xml"
     - cat "$SETTINGS_SECURITY" > "$(pwd)/settings-security.xml"
   script:
-    - mvn versions:set -DnewVersion=$MAVEN_RELEASE_VERSION versions:commit 
-    - mvn -f pom.xml clean package -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true $MAVEN_CLI_OPTS
     - git config user.name "$TECHUSER_NAME"
     - git config user.email "$TECHUSER_MAIL"
     - git config user.password "$TECHUSER_PWD"
-    - git add .
-    - git commit -m "Release $MAVEN_RELEASE_VERSION"
-    - git tag -a $MAVEN_RELEASE_VERSION -m "Release $MAVEN_RELEASE_VERSION"
-    - git push --tags $GIT_REPO_URL HEAD:$CI_COMMIT_REF_NAME
-  after_script:
-    - echo "new version $MAVEN_SNAPSHOT_VERSION"
-    - mvn versions:set -DnewVersion=$MAVEN_SNAPSHOT_VERSION versions:commit $MAVEN_CLI_OPTS
-    - git add .
-    - git commit -m "Next Snapshot $MAVEN_SNAPSHOT_VERSION"
-    - git push $GIT_REPO_URL HEAD:$CI_COMMIT_REF_NAME
-
+    - echo "## Release $MAVEN_RELEASE_VERSION on $CI_COMMIT_REF_NAME branch"
+    - git remote set-url origin $GIT_REPO_URL
+    - git checkout $CI_COMMIT_REF_NAME
+    - git pull
+    - mvn versions:set -DnewVersion=$MAVEN_RELEASE_VERSION versions:commit
+    - git commit -a -m "Release $MAVEN_RELEASE_VERSION"
+    - git tag -f -a $MAVEN_RELEASE_VERSION -m "$MAVEN_RELEASE_VERSION"
+    - echo "## Snapshot $MAVEN_SNAPSHOT_VERSION on $CI_COMMIT_REF_NAME branch"
+    - mvn versions:set -DnewVersion=$MAVEN_SNAPSHOT_VERSION versions:commit
+    - git commit -a -m "Snapshot $MAVEN_SNAPSHOT_VERSION"
+    - git push origin $CI_COMMIT_REF_NAME
+    - git push --tags
   when: manual
   only:
   - master
@@ -92,6 +90,9 @@ release_deploy:
   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:jdk8-latest
   stage: release
   before_script:
+    - export MAVEN_CURRENT_VERSION=`mvn help:evaluate -Dexpression=project.version -q -DforceStdout`
+    - export MAVEN_RELEASE_VERSION=`echo $MAVEN_CURRENT_VERSION | sed 's/-SNAPSHOT//g'`
+    - export MAVEN_SNAPSHOT_VERSION=`echo $MAVEN_RELEASE_VERSION | sed -r 's/^([0-9]+\.)?([0-9]+)(-SNAPSHOT)?/echo "\1$((\2+1))-SNAPSHOT"/ge'`
     - cat "$SETTINGS" > "$(pwd)/settings.xml"
     - cat "$SETTINGS_SECURITY" > "$(pwd)/settings-security.xml"
   script:
