@@ -12,7 +12,7 @@
 
     <groupId>com.worldline.acs.rbu2.delivery</groupId>
     <artifactId>acs-delivery-configuration</artifactId>
-    <version>21R1-0.2-SNAPSHOT</version>
+    <version>21R1-GE-0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>RBU2 Delivery configuration</name>
