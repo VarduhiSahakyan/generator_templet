@@ -196,10 +196,10 @@ SET `value` = '<style>
 			opacity 0.2s ease-in-out,
 			visibility 0.2s ease-in-out,
 			transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-		-webkit-transform: translate3d(0, 0, 0);
-		-moz-transform:	 translate3d(0, 0, 0);
-		transform:		 translate3d(0, 0, 0);
-		pointer-events: none;
+	  -webkit-transform: translate3d(0, 0, 0);
+	  -moz-transform:	 translate3d(0, 0, 0);
+	  transform:		 translate3d(0, 0, 0);
+	  pointer-events: none;
 	}
 
 	[data-tooltip]:hover:before,
@@ -218,10 +218,10 @@ SET `value` = '<style>
 
 	.tooltip:before,
 	[data-tooltip]:before {
-	  z-index: 1001;
-	  border: 6px solid transparent;
-	  background: transparent;
-	  content: "";
+		z-index: 1001;
+		border: 6px solid transparent;
+		background: transparent;
+		content: "";
 	}
 
 	.tooltip:after,
@@ -280,9 +280,9 @@ SET `value` = '<style>
 	.tooltip-top:hover:after,
 	.tooltip-top:focus:before,
 	.tooltip-top:focus:after {
-		-webkit-transform: translateY(-12px);
-		-moz-transform:	 translateY(-12px);
-		transform:		 translateY(-12px);
+	  -webkit-transform: translateY(-12px);
+	  -moz-transform:	 translateY(-12px);
+	  transform:		 translateY(-12px);
 	}
 
 
@@ -684,3 +684,27 @@ SET `value` = '<style>
 			</div>
 		</div>'
 WHERE `fk_id_layout` = @idAppViewPage;
+
+SET @pageType = 'HELP_PAGE';
+SET @BankUB = '12000';
+SET @pageOrdinal = 1;
+SET @customItemSetMobileApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_MOBILE_APP'));
+
+SET @locale = 'de';
+SET @textValue = 'Mastercard hat das Verfahren Mastercard® Identity Check™ eingeführt, um Online-Shopping einfacher und sicherer zu gestalten. Sie können Online-Zahlungen auf Ihrem Mobil-Telefon in Ihrer RBMC Secure App freigeben.';
+
+UPDATE CustomItem SET value = @textValue
+WHERE locale = @locale
+AND ordinal = @pageOrdinal
+AND pageTypes = @pageType
+AND fk_id_customItemSet = @customItemSetMobileApp;
+
+
+SET @locale = 'en';
+SET @textValue = 'Mastercard introduced Mastercard® Identity Check™ in order to increase simplicity and security of online shopping. You can enable online payments on your mobile phone in your RBMC Secure App.';
+
+UPDATE CustomItem SET value = @textValue
+WHERE locale = @locale
+AND ordinal = @pageOrdinal
+AND pageTypes = @pageType
+AND fk_id_customItemSet = @customItemSetMobileApp;

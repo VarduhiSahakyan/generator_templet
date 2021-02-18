@@ -170,8 +170,8 @@ SET `value` = '<style>
 
 	[data-tooltip],
 	.tooltip {
-		position: relative;
-		cursor: pointer;
+	  position: relative;
+	  cursor: pointer;
 	}
 
 	[data-tooltip]:before,
@@ -209,10 +209,10 @@ SET `value` = '<style>
 	.tooltip:hover:after,
 	.tooltip:focus:before,
 	.tooltip:focus:after {
-		visibility: visible;
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-		filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-		opacity: 1;
+	  visibility: visible;
+	  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+	  opacity: 1;
 	}
 
 	.tooltip:before,
@@ -248,8 +248,8 @@ SET `value` = '<style>
 	.tooltip:after,
 	.tooltip-top:before,
 	.tooltip-top:after {
-	  bottom: 100%;
-	  left: 50%;
+		bottom: 100%;
+		left: 50%;
 	}
 
 	[data-tooltip]:before,
@@ -279,9 +279,9 @@ SET `value` = '<style>
 	.tooltip-top:hover:after,
 	.tooltip-top:focus:before,
 	.tooltip-top:focus:after {
-		-webkit-transform: translateY(-12px);
-		-moz-transform:	 translateY(-12px);
-		transform:		 translateY(-12px);
+	  -webkit-transform: translateY(-12px);
+	  -moz-transform:	 translateY(-12px);
+	  transform:		 translateY(-12px);
 	}
 
 
@@ -312,8 +312,8 @@ SET `value` = '<style>
 						</div>
 						<div class="col-md-12">
 							<form action="HTTPS://EMV3DS/challenge" method="get">
-								<input type="hidden" name="submitted-oob-continue-value" value="Y">
-								<input type="submit" value="network_means_pageType_165" class="btn btn-primary" id="challenge-oob-continue-submit" data-cy="CHALLENGE_OOB_CONTINUE_FORM_SUBMIT"/>
+							  <input type="hidden" name="submitted-oob-continue-value" value="Y">
+							  <input type="submit" value="network_means_pageType_165" class="btn btn-primary" id="challenge-oob-continue-submit" data-cy="CHALLENGE_OOB_CONTINUE_FORM_SUBMIT"/>
 							</form>
 						</div>
 					</div>
@@ -682,3 +682,27 @@ SET `value` = '<style>
 			</div>
 		</div>'
 WHERE `fk_id_layout` = @idAppViewPage;
+
+SET @pageType = 'HELP_PAGE';
+SET @BankUB = '12000';
+SET @pageOrdinal = 1;
+SET @customItemSetMobileApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_MOBILE_APP'));
+
+SET @locale = 'de';
+SET @textValue = 'Mastercard hat das Verfahren Mastercard ® Identity Check™ eingeführt, um Online-Shopping einfacher und sicherer zu gestalten. Sie können Online-Zahlungen auf Ihrem Mobil-Telefon in Ihrer RBMC Secure App freigeben.';
+
+UPDATE CustomItem SET value = @textValue
+WHERE locale = @locale
+AND ordinal = @pageOrdinal
+AND pageTypes = @pageType
+AND fk_id_customItemSet = @customItemSetMobileApp;
+
+
+SET @locale = 'en';
+SET @textValue = 'Mastercard introduced Mastercard ® Identity Check™ in order to increase simplicity and security of online shopping. You can enable online payments on your mobile phone in your RBMC Secure App.';
+
+UPDATE CustomItem SET value = @textValue
+WHERE locale = @locale
+AND ordinal = @pageOrdinal
+AND pageTypes = @pageType
+AND fk_id_customItemSet = @customItemSetMobileApp;

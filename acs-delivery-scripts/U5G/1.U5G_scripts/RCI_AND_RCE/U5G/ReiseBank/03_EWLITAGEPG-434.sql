@@ -551,12 +551,12 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
 						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1'), @updateState,
-	'de', 1, @currentPageType, 'Mastercard hat das Verfahren Mastercard ® Identity Check™ eingeführt, um Online-Shopping einfacher und sicherer zu gestalten. Sie können Online-Zahlungen auf Ihrem Mobil-Telefon in Ihrer RBMC Secure App freigeben.', @MaestroVID, NULL, @customItemSetMobileApp),
+	'de', 1, @currentPageType, 'Mastercard hat das Verfahren Mastercard® Identity Check™ eingeführt, um Online-Shopping einfacher und sicherer zu gestalten. Sie können Online-Zahlungen auf Ihrem Mobil-Telefon in Ihrer RBMC Secure App freigeben.', @MaestroVID, NULL, @customItemSetMobileApp),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_2'), @updateState,
 	'de', 2, @currentPageType, 'Bei Fragen oder Unklarheiten kontaktieren Sie bitte unseren Kundenservice unter 0721 47666 3580.', @MaestroVID, NULL, @customItemSetMobileApp),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1'), @updateState,
-	'en', 1, @currentPageType, 'Mastercard introduced Mastercard ® Identity Check™ in order to increase simplicity and security of online shopping. You can enable online payments on your mobile phone in your RBMC Secure App. ', @MaestroVID, NULL, @customItemSetMobileApp),
+	'en', 1, @currentPageType, 'Mastercard introduced Mastercard® Identity Check™ in order to increase simplicity and security of online shopping. You can enable online payments on your mobile phone in your RBMC Secure App. ', @MaestroVID, NULL, @customItemSetMobileApp),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_2'), @updateState,
 	'en', 2, @currentPageType, 'If you have any questions or concerns, please contact our customer service at 0721 47666 3580.', @MaestroVID, NULL, @customItemSetMobileApp);
 
