@@ -12,8 +12,10 @@ SET @Bank_B = '18502_';
 /* ProfileSet_Rule */
 SET @profilePWDChoice = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_PASSWORD_01'));
 SET @profileSMSChoice = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_SMS_01'));
+SET @profileUndefinedRefusal = (SELECT `id` FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_MISSING_AUTHENT_MEANS_REFUSAL'));
 SET @rulePWDchoice = (SELECT id FROM `Rule` WHERE `description`='PASSWORD_AVAILABLE_CHOICE' AND `fk_id_profile`=@profilePWDChoice);
 SET @ruleSMSnormalchoice = (SELECT id FROM `Rule` WHERE `description`='SMS_AVAILABLE_CHOICE' AND `fk_id_profile`=@profileSMSChoice);
+SET @ruleUndefinedRefusal = (SELECT `id` FROM `Rule` WHERE `description`='REFUSAL_MISSING_AUTHENTMEANS' AND `fk_id_profile`=@profileUndefinedRefusal);
 
 delete from ProfileSet_Rule where `id_rule` = @rulePWDchoice;
 
@@ -33,6 +35,7 @@ SET @authMeanOTPsms = (SELECT id FROM `AuthentMeans` WHERE `name` = 'OTP_SMS');
 DELETE FROM `Condition_MeansProcessStatuses` WHERE `id_condition` = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_',@BankUB,'_01_PASSWORD_CHOICE'));
 DELETE FROM `Condition_MeansProcessStatuses` WHERE `id_condition` = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_',@BankUB,'_02_PASSWORD_CHOICE'));
 DELETE FROM `Condition_MeansProcessStatuses` WHERE `id_condition` = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_',@BankUB,'_03_PASSWORD_CHOICE'));
+DELETE FROM `Condition_MeansProcessStatuses` WHERE `id_condition` = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_',@BankUB,'_02_MISSING_AUTHENTMEAN'));
 
 DELETE FROM `Condition_MeansProcessStatuses` WHERE `id_condition` = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_CHOICE'))
                                              AND `id_meansProcessStatuses` = (SELECT `id` FROM `MeansProcessStatuses` WHERE `fk_id_authentMean`=@authMeanUndefined AND (`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND `reversed`=TRUE));
@@ -68,11 +71,6 @@ SET @meansProcessStatusIDFALSE = (SELECT `id` FROM `MeansProcessStatuses` WHERE 
 UPDATE `Condition_MeansProcessStatuses` SET `id_meansProcessStatuses` = @meansProcessStatusIDFALSE
                                         WHERE `id_condition` = @conditionID
                                         AND `id_meansProcessStatuses` = @meansProcessStatusIDTRUE;
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_MISSING_AUTHENTMEAN')
-    AND mps.`fk_id_authentMean`=@authMeanPassword AND (mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
   SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
@@ -123,9 +121,13 @@ INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessSt
 DELETE FROM `Condition_TransactionStatuses` WHERE `id_condition` = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_',@BankUB,'_01_PASSWORD_CHOICE'));
 DELETE FROM `Condition_TransactionStatuses` WHERE `id_condition` = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_',@BankUB,'_02_PASSWORD_CHOICE'));
 DELETE FROM `Condition_TransactionStatuses` WHERE `id_condition` = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_',@BankUB,'_03_PASSWORD_CHOICE'));
+DELETE FROM `Condition_TransactionStatuses` WHERE `id_condition` = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_',@BankUB,'_02_MISSING_AUTHENTMEAN'));
 
 DELETE FROM `Condition_TransactionStatuses` WHERE `id_condition` = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_CHOICE'))
                                             AND `id_transactionStatuses` = (SELECT `id` FROM  `TransactionStatuses` WHERE `transactionStatusType`='COMBINED_AUTHENTICATION_ALLOWED' AND `reversed`=FALSE);
+
+DELETE FROM `Condition_TransactionStatuses` WHERE `id_condition` = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_',@BankUB,'_01_MISSING_PWD_AUTHENTMEAN'))
+                                            AND `id_transactionStatuses` = (SELECT `id` FROM  `TransactionStatuses` WHERE `transactionStatusType`='KNOWN_PHONE_NUMBER' AND `reversed`=FALSE);
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
   SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
@@ -152,12 +154,12 @@ INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStat
 DELETE FROM `RuleCondition` WHERE `fk_id_rule` = @rulePWDchoice AND `name` = CONCAT('C1_P_',@BankUB,'_01_PASSWORD_CHOICE');
 DELETE FROM `RuleCondition` WHERE `fk_id_rule` = @rulePWDchoice AND `name` = CONCAT('C1_P_',@BankUB,'_02_PASSWORD_CHOICE');
 DELETE FROM `RuleCondition` WHERE `fk_id_rule` = @rulePWDchoice AND `name` = CONCAT('C1_P_',@BankUB,'_03_PASSWORD_CHOICE');
+DELETE FROM `RuleCondition` WHERE `fk_id_rule` = @ruleUndefinedRefusal AND `name` = CONCAT('C1_P_',@BankUB,'_02_MISSING_AUTHENTMEAN');
 
 
 /* Rule */
 SET @profileSMSChoice = (SELECT `id` FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_SMS_01'));
 SET @profileRefusal = (SELECT `id` FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_DEFAULT_REFUSAL'));
-SET @profileUndefinedRefusal = (SELECT `id` FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_MISSING_AUTHENT_MEANS_REFUSAL'));
 SET @profileUndefinedPWDRefusal = (SELECT `id` FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_MISSING_PWD_AUTHENT_MEANS_REFUSAL'));
 SET @profileMEANSCHOICE = (SELECT `id` FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_AUTHENT_MEANS_CHOICE_01'));
 SET @profilePassword = (SELECT `id` FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_PASSWORD_02'));
@@ -166,7 +168,6 @@ SET @profileSMS = (SELECT `id` FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_SM
 SET @profilePWDChoice = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_PASSWORD_01'));
 
 SET @ruleSMSnormalchoice = (SELECT `id` FROM `Rule` WHERE `description`='SMS_AVAILABLE_CHOICE' AND `fk_id_profile`=@profileSMSChoice);
-SET @ruleUndefinedRefusal = (SELECT `id` FROM `Rule` WHERE `description`='REFUSAL_MISSING_AUTHENTMEANS' AND `fk_id_profile`=@profileUndefinedRefusal);
 SET @ruleUndefinedPWDRefusal = (SELECT `id` FROM `Rule` WHERE `description`='REFUSAL_MISSING_PWD_AUTHENTMEANS' AND `fk_id_profile`=@profileUndefinedPWDRefusal);
 SET @ruleAuthentMeansChoice = (SELECT `id` FROM `Rule` WHERE `description`='MEANS_CHOICE_NORMAL' AND `fk_id_profile`=@profileMEANSCHOICE);
 SET @rulePasswordnormal = (SELECT `id` FROM `Rule` WHERE `description`='PASSWORD_AVAILABLE_NORMAL' AND `fk_id_profile`=@profilePassword);
