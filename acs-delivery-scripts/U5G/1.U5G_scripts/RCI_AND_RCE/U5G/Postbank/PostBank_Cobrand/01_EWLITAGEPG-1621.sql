@@ -83,7 +83,6 @@ INSERT INTO `RuleCondition` (`createdBy`, `creationDate`, `description`, `lastUp
                              `updateState`, `fk_id_rule`) VALUES
   (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_',@BankUB,'_01_PASSWORD_CHOICE'), 'PUSHED_TO_CONFIG', @rulePWDchoice),
   (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_',@BankUB,'_02_PASSWORD_CHOICE'), 'PUSHED_TO_CONFIG', @rulePWDchoice),
-  (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_',@BankUB,'_03_PASSWORD_CHOICE'), 'PUSHED_TO_CONFIG', @rulePWDchoice),
   (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C1_P_',@BankUB,'_02_MISSING_AUTHENTMEAN'), 'PUSHED_TO_CONFIG', @ruleUndefinedRefusal);
 /*!40000 ALTER TABLE `RuleCondition` ENABLE KEYS */;
 
@@ -126,15 +125,6 @@ INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStat
 
 INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
   SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_03_PASSWORD_CHOICE') AND (ts.`transactionStatusType`='USER_CHOICE_ALLOWED' AND ts.`reversed`=FALSE);
-
-INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
-  SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_03_PASSWORD_CHOICE') AND (ts.`transactionStatusType`='COMBINED_AUTHENTICATION_ALLOWED' AND ts.`reversed`=FALSE);
-
-
-INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
-  SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
   WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_OTP_SMS_CHOICE') AND (ts.`transactionStatusType`='COMBINED_AUTHENTICATION_ALLOWED' AND ts.`reversed`=FALSE);
 /*!40000 ALTER TABLE `Condition_TransactionStatuses` ENABLE KEYS */;
 
@@ -149,9 +139,6 @@ DELETE FROM `Condition_MeansProcessStatuses` WHERE `id_condition` = (SELECT `id`
                                              AND `id_meansProcessStatuses` = (SELECT `id` FROM `MeansProcessStatuses` WHERE `fk_id_authentMean`=@authMeanUndefined AND (`meansProcessStatusType`='USER_CHOICE_DEMANDED' AND `reversed`=FALSE));
 
 DELETE FROM `Condition_MeansProcessStatuses` WHERE `id_condition` = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_',@BankUB,'_02_OTP_SMS_CHOICE'));
-
-DELETE FROM `Condition_MeansProcessStatuses` WHERE `id_condition` = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_',@BankUB,'_01_MEANS_CHOICE_NORMAL'))
-                                             AND `id_meansProcessStatuses` = (SELECT `id` FROM `MeansProcessStatuses` WHERE `fk_id_authentMean`=@authMeanMobileApp AND (`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND `reversed`=FALSE));
 
 DELETE FROM `Condition_MeansProcessStatuses` WHERE `id_condition` = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C1_P_',@BankUB,'_01_MEANS_CHOICE_NORMAL'))
                                              AND `id_meansProcessStatuses` = (SELECT `id` FROM `MeansProcessStatuses` WHERE `fk_id_authentMean`=@authMeanUndefined AND (`meansProcessStatusType`='MEANS_AVAILABLE' AND `reversed`=FALSE));
@@ -182,11 +169,6 @@ WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_02_MISSING_AUTHENTMEAN')
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
   SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
   WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_CHOICE')
-    AND mps.`fk_id_authentMean`=@authMeanPassword AND (mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_CHOICE')
     AND mps.`fk_id_authentMean`=@authMeanUndefined
     AND (mps.`meansProcessStatusType` IN ('USER_CHOICE_DEMANDED') AND mps.`reversed`=FALSE);
 
@@ -213,8 +195,29 @@ INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessSt
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
   SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_02_PASSWORD_CHOICE')
+  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_CHOICE')
     AND mps.`fk_id_authentMean`=@authMeanPassword AND (mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_PASSWORD_CHOICE')
+  AND mps.`fk_id_authentMean`=@authMeanPassword AND (mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
+
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_02_PASSWORD_CHOICE')
+    AND mps.`fk_id_authentMean`=@authMeanOTPsms AND (mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_02_PASSWORD_CHOICE')
+    AND mps.`fk_id_authentMean`=@authMeanMobileApp AND (mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_02_PASSWORD_CHOICE')
+    AND mps.`fk_id_authentMean`=@authMeanPassword AND (mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
   SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
@@ -225,56 +228,18 @@ INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessSt
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
   SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
   WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_02_PASSWORD_CHOICE')
-    AND mps.`fk_id_authentMean`=@authMeanOTPsms AND (mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_02_PASSWORD_CHOICE')
-    AND mps.`fk_id_authentMean`=@authMeanMobileApp AND (mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_02_PASSWORD_CHOICE')
-    AND mps.`fk_id_authentMean`=@authMeanPassword AND (mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_02_PASSWORD_CHOICE')
-    AND mps.`fk_id_authentMean`=@authMeanPassword
-    AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_03_PASSWORD_CHOICE')
     AND mps.`fk_id_authentMean`=@authMeanPassword AND (mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
   SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_03_PASSWORD_CHOICE')
-    AND mps.`fk_id_authentMean`=@authMeanUndefined AND (mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=FALSE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_03_PASSWORD_CHOICE')
-    AND mps.`fk_id_authentMean`=@authMeanOTPsms AND (mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_03_PASSWORD_CHOICE')
-    AND mps.`fk_id_authentMean`=@authMeanMobileApp AND (mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_03_PASSWORD_CHOICE')
-    AND mps.`fk_id_authentMean`=@authMeanPassword AND (mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_03_PASSWORD_CHOICE')
+  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_02_PASSWORD_CHOICE')
     AND mps.`fk_id_authentMean`=@authMeanPassword
     AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed`=TRUE);
 
-
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_02_PASSWORD_CHOICE')
+  AND mps.`fk_id_authentMean`=@authMeanPassword AND (mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
 
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
@@ -298,12 +263,6 @@ INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessSt
     AND mps.`fk_id_authentMean`=@authMeanPassword AND (mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=FALSE);
 
 
-
-INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
-  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
-  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_MEANS_CHOICE_NORMAL')
-    AND mps.`fk_id_authentMean`=@authMeanPassword AND (mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
-
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
   SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
   WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_MEANS_CHOICE_NORMAL')
@@ -319,6 +278,16 @@ INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessSt
   WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_MEANS_CHOICE_NORMAL')
     AND mps.`fk_id_authentMean`=@authMeanPassword
     AND (mps.`meansProcessStatusType` IN ('MEANS_DISABLED') AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+  SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+  WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_MEANS_CHOICE_NORMAL')
+    AND mps.`fk_id_authentMean`=@authMeanPassword AND (mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name`= CONCAT('C1_P_',@BankUB,'_01_MEANS_CHOICE_NORMAL')
+  AND mps.`fk_id_authentMean`=@authMeanPassword AND (mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
 
 
 SET @conditionID = (SELECT `id` FROM `RuleCondition`   WHERE `name`= CONCAT('C1_P_',@BankUB,'_01_MEANS_CHOICE_NORMAL'));
