@@ -907,6 +907,7 @@ UPDATE `CustomComponent` SET `value` = '
 	div#optGblPage {
 		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 		font-size: 14px;
+		overflow: auto;
 	}
 	#optGblPage .warn {
 		background-color: #3399ff
@@ -984,8 +985,6 @@ UPDATE `CustomComponent` SET `value` = '
 		padding: 0px;
 		padding-top: 1em;
 		clear: both;
-		font-size: 12px;
-		color: #000000;
 	}
 	side-menu div.text-center {
 		text-align: center;
@@ -1335,7 +1334,6 @@ UPDATE `CustomComponent` SET `value` = '
 
 
 -- merge EWLACSLBBW-174 --
-
 SET @locale = 'de';
 SET @createdBy = 'W100851';
 SET @customItemSet_LBBW_OTP_SMS = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_LBBW_PASSWORD_UNIFIED');
@@ -1417,6 +1415,7 @@ SET `value` = '<style>
 		width: 100%;
 	}
 	.paragraph {
+		width: 70%;
 		text-align: left;
 		margin-bottom: 10px;
 	}
@@ -1801,6 +1800,9 @@ SET `value` = '<style>
 WHERE `fk_id_layout` = @idAppViewPage;
 
 SET @customItemSet_LBBW_OTP_SMS = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_LBBW_OTP_SMS_UNIFIED');
+SET @pageType_OTP_FORM_PAGE ='OTP_FORM_PAGE';
+SET @updateState =	'PUSHED_TO_CONFIG';
+SET @currentPageType = 'OTP_FORM_PAGE';
 SET @currentAuthentMean = 'OTP_SMS';
 
 
@@ -2288,4 +2290,3 @@ SET `value` = '
 	</div>
 </div>'
 WHERE `fk_id_layout` = @idAppViewPage;
-

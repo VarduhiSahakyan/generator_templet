@@ -33,6 +33,7 @@ SET `value` = '<style>
 	div#optGblPage {
 		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 		font-size: 14px;
+		overflow: auto;
 	}
 	#optGblPage .warn {
 		background-color: #3399ff
@@ -81,6 +82,7 @@ SET `value` = '<style>
 		width: 100%;
 	}
 	.paragraph {
+		width: 70%;
 		text-align: left;
 		margin-bottom: 10px;
 	}
@@ -110,8 +112,6 @@ SET `value` = '<style>
 		padding: 0px;
 		padding-top: 1em;
 		clear: both;
-		font-size: 12px;
-		color: #000000;
 	}
 	side-menu div.text-center {
 		text-align: center;
@@ -955,4 +955,3 @@ SET `value` = '
 	</div>
 </div>'
 WHERE `fk_id_layout` = @idAppViewPage;
-
