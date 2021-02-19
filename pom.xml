@@ -12,7 +12,7 @@
 
     <groupId>com.worldline.acs.rbu2.delivery</groupId>
     <artifactId>acs-delivery-configuration</artifactId>
-    <version>20R1-0.50-SNAPSHOT</version>
+    <version>21R1-GE-0.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>RBU2 Delivery configuration</name>
@@ -21,6 +21,29 @@
         <module>acs-delivery-artifacts</module>
         <!--<module>acs-delivery-scripts</module>-->
     </modules>
+    
+	<url>
+		https://kazan.priv.atos.fr/portal/#/projects/acs-delivery-ge
+	</url>
+    <scm>
+        <connection>scm:git:https://gitlab.kazan.priv.atos.fr/acs-delivery-ge/acs-delivery-ge-gitlab-1.git</connection>
+        <developerConnection>scm:git:https://gitlab.kazan.priv.atos.fr/acs-delivery-ge/acs-delivery-ge-gitlab-1.git</developerConnection>
+        <url>https://gitlab.kazan.priv.atos.fr/acs-delivery-ge/acs-delivery-ge-gitlab-1.git</url>
+        <tag>HEAD</tag>
+    </scm>
+	<!-- TO UPLOAD MAVEN ARTIFACTS -->
+	<distributionManagement>
+	    <repository>
+	        <id>acs-delivery-ge-nexus-1-releases</id>
+	        <name>My private Kazan Release Repository</name>
+	        <url>https://nexus.kazan.priv.atos.fr/repository/acs-delivery-ge-nexus-1-releases</url>
+	    </repository>
+	    <snapshotRepository>
+	        <id>acs-delivery-ge-nexus-1-snapshots</id>
+	        <name>My private Kazan Snapshot Repository</name>
+	        <url>https://nexus.kazan.priv.atos.fr/repository/acs-delivery-ge-nexus-1-snapshots</url>
+	    </snapshotRepository>
+	</distributionManagement>
 
     <properties>
         <java-version>1.8</java-version>
