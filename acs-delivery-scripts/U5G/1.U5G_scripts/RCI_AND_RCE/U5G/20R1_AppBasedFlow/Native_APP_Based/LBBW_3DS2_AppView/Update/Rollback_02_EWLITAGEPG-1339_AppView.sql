@@ -1,5 +1,11 @@
 USE U5G_ACS_BO;
 
+SET @createdBy = 'A709391';
+
+SET @customItemSet_SMS = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_LBBW_OTP_SMS');
+
+delete from CustomItem where fk_id_customItemSet = @customItemSet_SMS and pageTypes = 'APP_VIEW' and createdBy = @createdBy;
+
 SET @customItemSet_PWD = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_LBBW_PASSWORD_UNIFIED');
 
 delete from CustomItem where fk_id_customItemSet = @customItemSet_PWD and pageTypes = 'APP_VIEW';
