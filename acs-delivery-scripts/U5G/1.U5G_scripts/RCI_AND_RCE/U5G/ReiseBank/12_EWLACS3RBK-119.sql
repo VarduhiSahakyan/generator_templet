@@ -108,9 +108,9 @@ AND (mps.transactionStatusType = 'KNOWN_PHONE_NUMBER' AND mps.`reversed` = FALSE
  
 SET @profileFraud = (SELECT id FROM `Profile` WHERE `name` = '12000_REISEBANK_FRAUD_REFUSAL');
 SET @ruleFraud = (SELECT id FROM `Rule` WHERE `fk_id_profile`=@profileFraud);
-SET @fraudRuleConditionName = 'C1_P_12000_REISEBANK_05_REFUSAL_FRAUD';
-SET @createdBy = 'W100851';
-SET @updateState =	'PUSHED_TO_CONFIG';
+SET @fraudRuleConditionName = ('C1_P_12000_REISEBANK_05_REFUSAL_FRAUD');
+SET @createdBy = ('W100851');
+SET @updateState =	('PUSHED_TO_CONFIG');
 
 INSERT INTO `RuleCondition` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
 							 `updateState`, `fk_id_rule`) VALUES
