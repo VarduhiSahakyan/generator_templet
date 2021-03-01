@@ -245,14 +245,16 @@ UPDATE CustomComponent SET value = '
 		display:inline-block;
 		white-space: nowrap;
 		text-align: center;
-		height: 40px;
+		height: 26px;
 		background: #FFFFFF;
 		border-color: #FFFFFF;
 		border: 1px solid rgba(0,0,0,.25);
 		min-width: 25rem;
 		border-radius: 4px;
-		font-size: 16px;
-		padding-left: 0px !important;
+		font-size: 14px;
+		padding-left: 2px !important;
+        padding-right: 2px !important;
+        padding: inherit;
 	}
 	message-banner {
 		display: block;
@@ -272,7 +274,7 @@ UPDATE CustomComponent SET value = '
 	}
 	#centerPieceLayout {
 		padding: 5px 10px 0px;
-		min-height: 200px;
+		min-height: 150px;
 		width: fit-content;
 		width: auto;
 		width: -moz-fit-content;
@@ -348,23 +350,40 @@ UPDATE CustomComponent SET value = '
 	@media (max-width: 1200px) {
 		#main-container{max-width: 1200px}
 		.menu-title {display: none;}
-		#rightContainer {width: 100%; display: inline-flex;}
+		#rightContainer {display:block; float:none; width:100%; margin-left:0px;}
+		.paragraph{ margin: 0px 0px 10px;text-align: left;}
 		div#leftMenuLayout {width: 100%;}
+        div#centerPieceLayout {min-height: 100px;}
+        #switchId {padding-left: 10px;}
+        #bottomLayout {display: block !important;}
 	}
 	@media screen and (max-width: 480px) {
 		#main-container{max-width: 480px}
 		.btn {font-size: 12px;}
+        div#leftMenuLayout {width: 80%;}
 		#centeredTitle {margin-top: 8px;}
 		#bottomLayout {display: block !important;}
+		#rightContainer {display:block;float:none;width:100%;margin-left:0px;  margin-top: 75px; }
+        div.hideable-text {display: block !important;}
+		.paragraph {text-align: left;}
+        div#centerPieceLayout {min-height: 100px;}
+        #switchId {padding-left: 10px;}
 	}
 	@media screen and (max-width: 390px) {
 		#main-container{max-width: 390px; overflow: hidden;}
+		#rightContainer {width: 100%;}
+        div.hideable-text {display: block !important;}
 	}
 	@media (max-width: 360px) {
 		#main-container{max-width: 360px; overflow: hidden;}
 		body {font-size: 9px;}
 		.btn {font-size: 9px;}
+        div#leftMenuLayout {width: 83%;}
 		#centeredTitle {margin-top: 4px;}
+		#rightContainer {width: 100%;}
+        div.hideable-text {display: block !important;}
+        div#centerPieceLayout {min-height: 100px;}
+        #switchId button {min-width: 22rem;}
 	}
 	@media (max-width: 347px) {
 		#main-container{max-width: 347px; overflow: hidden;}
@@ -372,6 +391,11 @@ UPDATE CustomComponent SET value = '
 		.btn {font-size: 9px;}
 		#centeredTitle {margin-top: 4px;}
 		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
+		#rightContainer { margin-top: 75px; width: 100%; }
+        div.hideable-text {display: block !important;}
+        .paragraph {text-align: left;}
+        div#centerPieceLayout {min-height: 100px;}
+        #switchId button {min-width: 22rem;}
 	}
 	@media (max-width: 309px) {
 		#main-container{max-width: 309px; overflow: hidden;}
@@ -380,6 +404,10 @@ UPDATE CustomComponent SET value = '
 		#centeredTitle {margin-top: 3px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
 		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
+		#rightContainer {width: 100%;}
+        div.hideable-text {display: block !important;}
+        .paragraph {text-align: left;}
+        #switchId button {min-width: 20rem;}
 	}
 	@media (max-width: 250px) {
 		#main-container{max-width: 250px; overflow: hidden;}
@@ -388,6 +416,11 @@ UPDATE CustomComponent SET value = '
 		#centeredTitle {margin-top: 3px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
 		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
+		#rightContainer {width: 100%;}
+        div.hideable-text {display: block !important;}
+        #switchId {padding-right: 0px;}
+        #switchId button {min-width: 16rem;}
+        #bottomMenu {width: 100%;}
 	}
 </style>
 <div id="main-container" class="container-fluid">
@@ -455,4 +488,5 @@ UPDATE CustomComponent SET value = '
 			<help help-label="''network_means_pageType_41''" id="helpButton"></help>
 		</div>
 	</div>
-</div>' WHERE `fk_id_layout` = @layoutId;
+</div>
+' WHERE `fk_id_layout` = @layoutId;

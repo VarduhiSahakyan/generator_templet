@@ -42,21 +42,13 @@ INSERT INTO `CustomPageLayout_ProfileSet` (`customPageLayout_id`, `profileSet_id
 SET @layoutIdRefusalPage =(SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('INFO Refusal Page (', @BankUB, ')%') );
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
-	VALUES( 'div', ' <style>
+	VALUES( 'div', '
+ <style>
 	#pageHeader {
 		margin-top: 1em;
 		margin-bottom: 1em;
 	}
 	#issuerLogo,
-    #headingTxt {
-        font-size: large;
-        font-weight: bold;
-        width: 80%;
-        margin: auto;
-        display: block;
-        text-align: center;
-        padding: 4px 1px 1px 1px;
-	}
 	#networkLogo {
 		max-height: 46px;
 		max-width: 100%;
@@ -70,6 +62,15 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		font-size: 150%;
 		margin-top: 10px;
 	}
+	#headingTxt {
+		font-size: large;
+		font-weight: bold;
+		width: 80%;
+		margin: auto;
+		display: block;
+		text-align: center;
+		padding: 4px 1px 1px 1px;
+	}
 	#i18n-container {
 		width: 100%;
 		text-align: center;
@@ -79,7 +80,10 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	#i18n-inner {
 		display: inline-block;
 	}
-    div#message-controls {
+	div#message-container.info {
+			background-color:#C9302C;
+	}
+	div#message-controls {
 		text-align: center;
 		padding-bottom: 10px;
 		padding-top: 0px;
@@ -223,21 +227,10 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 			</div>
 		</div>
 	</div>
-	<div id="message-container" ng-class="[style, {unfold: unfolded}]" ng-click="foldUnfold()" click-outside="fold()" class="ng-scope error unfold" style="">
-		<div id="message-content">
-			<span id="info-icon" class="fa fa-info-circle"></span>
-			<custom-text id="headingTxt" custom-text-key="''network_means_pageType_22''"></custom-text>
-			<custom-text id="message" custom-text-key="''network_means_pageType_23''"></custom-text>
-		</div>
-		<div id="message-controls">
-            <div id="return-button-row" class="message-button">
-				<button class="btn btn-default" >
-					<span class="fa fa-reply menu-button-icon" aria-hidden="true"></span>
-                    <custom-text custom-text-key="''network_means_pageType_175''"></custom-text>
-				</button>
-			</div>
-		</div>
-	</div>
+
+	<message-banner display-type="''1''" heading-attr="''network_means_pageType_22''" message-attr="''network_means_pageType_23''"
+	back-button="''network_means_pageType_175''" show=true></message-banner>
+
 	<div id="i18n-container">
 		<div id="i18n-inner">
 			<i18n></i18n>
@@ -268,8 +261,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 			<help help-label="''network_means_pageType_41''" id="helpButton"></help>
 		</div>
 	</div>
-</div>
-', @layoutIdRefusalPage);
+</div>', @layoutIdRefusalPage);
 
 /* CustomItemSet */
 INSERT INTO `CustomItemSet` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
