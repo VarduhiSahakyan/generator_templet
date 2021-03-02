@@ -10,14 +10,14 @@ WHERE NOT EXISTS(SELECT id FROM AuthentMeans where name = 'STRONG_PASSWORD');
 INSERT INTO MeansProcessStatuses (meansProcessStatusType, reversed, fk_id_authentMean)
 SELECT *
 FROM (SELECT DISTINCT(meansProcessStatusType) as stat FROM MeansProcessStatuses) as mp,
-	 (SELECT flag
-	  from (SELECT 0 as flag UNION SELECT 1) as temp) as b,
-	 (SELECT a.id as aid FROM AuthentMeans a where a.name in ('STRONG_PASSWORD')) as c
+		(SELECT flag
+		from (SELECT 0 as flag UNION SELECT 1) as temp) as b,
+		(SELECT a.id as aid FROM AuthentMeans a where a.name in ('STRONG_PASSWORD')) as c
 WHERE NOT EXISTS(SELECT id
-				 FROM MeansProcessStatuses
-				 WHERE meansProcessStatusType = mp.stat
-				   AND b.flag = reversed
-				   and aid = fk_id_authentMean);
+					FROM MeansProcessStatuses
+					WHERE meansProcessStatusType = mp.stat
+					AND b.flag = reversed
+					and aid = fk_id_authentMean);
 
 
 SET @avalableAuthMean =
@@ -77,49 +77,143 @@ SET @customItemDescription = 'customitemset_18502_PB_PASSWORD_Current';
 SET @subissuerId = (SELECT id
 					FROM SubIssuer
 					WHERE code = @subissuerCode
-					  AND fk_id_issuer = @issuerId);
+					AND fk_id_issuer = @issuerId);
 
 
-SET @profileName = '18502_PB_PASSWORD_01';
+SET @profileName01 = '18502_PB_PASSWORD_01';
+SET @profileName02 = '18502_PB_PASSWORD_02';
 SET @profileDescription = '18502_PASSWORD (NORMAL)';
 SET @autMean = (SELECT id FROM AuthentMeans WHERE name ='STRONG_PASSWORD');
 
 UPDATE Profile
 SET fk_id_AuthentMeans = @autMean
 WHERE fk_id_subIssuer = @subissuerId
-	AND name = '18502_PB_PASSWORD_01';
+	AND name = @profileName01;
+
+UPDATE Profile
+SET fk_id_AuthentMeans = @autMean
+WHERE fk_id_subIssuer = @subissuerId
+	AND name = @profileName02;
 
 SET @customItemSet = (SELECT id
-					  FROM CustomItemSet
-					  WHERE fk_id_subIssuer = @subissuerId AND name = @customItemName);
+						FROM CustomItemSet
+						WHERE fk_id_subIssuer = @subissuerId AND name = @customItemName);
 
-SET @profileId = (SELECT id
-				  FROM Profile
-				  WHERE fk_id_subIssuer = @subissuerId AND name = @profileName);
+SET @profileId01 = (SELECT id
+					FROM Profile
+					WHERE fk_id_subIssuer = @subissuerId AND name = @profileName01);
+SET @profileId02 = (SELECT id
+					FROM Profile
+					WHERE fk_id_subIssuer = @subissuerId AND name = @profileName02);
 SET @ruleName = 'PASSWORD (NORMAL)';
-SET @ruleDescription = 'PASSWORD_AVAILABLE_NORMAL';
 
-SET @ruleId = (SELECT id
-			   FROM Rule
-			   WHERE fk_id_profile = @profileId);
+SET @ruleId01 = (SELECT id
+				FROM Rule
+				WHERE fk_id_profile = @profileId01);
 
-SET @ruleConditionName = 'C1_P_18502_PB_01_PASSWORD_NORMAL';
-UPDATE RuleCondition
-SET name = @ruleConditionName
-WHERE fk_id_rule = @ruleId;
+SET @ruleConditionNameNormal = 'C1_P_18502_PB_01_PASSWORD_NORMAL';
+SET @ruleConditionNameChoice01 = 'C1_P_18502_PB_01_PASSWORD_CHOICE';
+SET @ruleConditionNameChoice02 = 'C1_P_18502_PB_02_PASSWORD_CHOICE';
+
+SET @ruleConditionNameNormal_ID = (SELECT id FROM RuleCondition WHERE name = @ruleConditionNameNormal);
 
 SET @authMeanPassword = (SELECT id FROM `AuthentMeans`	 WHERE `name` = 'PASSWORD');
 SET @newAuthMeanPassword = (SELECT id FROM `AuthentMeans`	 WHERE `name` = 'STRONG_PASSWORD');
-SET @ruleConditionId = (SELECT id FROM RuleCondition WHERE fk_id_rule = @ruleId AND name = @ruleConditionName);
+
 
 SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
 SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
 
-UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionId;
-
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionNameNormal_ID ;
 
 SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
 SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionNameNormal_ID;
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionNameNormal_ID;
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='MEANS_DISABLED' AND mps.`reversed`=TRUE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='MEANS_DISABLED' AND mps.`reversed`=TRUE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionNameNormal_ID;
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='USER_CHOICE_DEMANDED' AND mps.`reversed`=TRUE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='USER_CHOICE_DEMANDED' AND mps.`reversed`=TRUE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionNameNormal_ID;
+
+
+SET @ruleConditionNameChoice01_ID = (SELECT id FROM RuleCondition WHERE name = @ruleConditionNameChoice01);
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionNameChoice01_ID;
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionNameChoice01_ID;
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='MEANS_DISABLED' AND mps.`reversed`=TRUE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='MEANS_DISABLED' AND mps.`reversed`=TRUE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionNameChoice01_ID;
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionNameChoice01_ID;
+
+
+SET @ruleConditionNameChoice02_ID = (SELECT id FROM RuleCondition WHERE name = @ruleConditionNameChoice02);
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionNameChoice02_ID;
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionNameChoice02_ID;
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='MEANS_DISABLED' AND mps.`reversed`=TRUE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='MEANS_DISABLED' AND mps.`reversed`=TRUE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionNameChoice02_ID;
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='USER_CHOICE_DEMANDED' AND mps.`reversed`=FALSE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='USER_CHOICE_DEMANDED' AND mps.`reversed`=FALSE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionNameChoice02_ID;
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionNameChoice02_ID;
+
+
+
+SET @ruleConditionName = 'C1_P_18502_PB_01_OTP_SMS_CHOICE';
+SET @ruleConditionId = (SELECT id FROM RuleCondition WHERE name = @ruleConditionName);
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=FALSE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=FALSE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionId;
+
+
+
+SET @ruleConditionName = '18502_PB_AUTHENT_MEANS_CHOICE_01';
+SET @ruleConditionId = (SELECT id FROM RuleCondition WHERE name = @ruleConditionName);
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
 
 UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionId;
 
@@ -141,6 +235,15 @@ SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk
 
 UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionId;
 
+SET @ruleConditionName = 'C1_P_18502_PB_02_MISSING_AUTHENTMEAN';
+SET @ruleConditionId = (SELECT id FROM RuleCondition WHERE name = @ruleConditionName);
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=TRUE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=TRUE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionId;
+
+
 SET @ruleConditionName = 'C1_P_18502_PB_01_MISSING_PWD_AUTHENTMEAN';
 SET @ruleConditionId = (SELECT id FROM RuleCondition WHERE name = @ruleConditionName);
 
@@ -152,8 +255,23 @@ UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansPro
 SET @ruleConditionName = 'C1_P_18502_PB_01_MEANS_CHOICE_NORMAL';
 SET @ruleConditionId = (SELECT id FROM RuleCondition WHERE name = @ruleConditionName);
 
-SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=FALSE);
-SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=FALSE);
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionId;
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='MEANS_DISABLED' AND mps.`reversed`=TRUE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='MEANS_DISABLED' AND mps.`reversed`=TRUE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionId;
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='COMBINED_MEANS_REQUIRED' AND mps.`reversed`=TRUE);
+
+UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionId;
+
+SET @meansProcessId = (SELECT  id FROM	MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @authMeanPassword  AND mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
+SET @newMeansProcessId = (SELECT  id FROM  MeansProcessStatuses mps WHERE mps.fk_id_authentMean = @newAuthMeanPassword	AND mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
 
 UPDATE Condition_MeansProcessStatuses SET id_meansProcessStatuses = @newMeansProcessId WHERE id_meansProcessStatuses = @meansProcessId AND id_condition = @ruleConditionId;
 
