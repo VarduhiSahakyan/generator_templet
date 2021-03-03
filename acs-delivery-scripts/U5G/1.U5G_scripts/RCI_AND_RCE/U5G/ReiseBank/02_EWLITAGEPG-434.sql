@@ -905,42 +905,40 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		border-color: #204d74;
 	}
 
-
-
-
 	 #show,#content{display:none;}
 
 	[data-tooltip],
-	.tooltip {
-	  position: relative;
-	  cursor: pointer;
+		.tooltip {
+			position: relative;
+			cursor: pointer;
+			text-align:start;
 	}
 
 	[data-tooltip]:before,
 	[data-tooltip]:after,
 	.tooltip:before,
 	.tooltip:after {
-	  position: absolute;
-	  visibility: hidden;
-	  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-	  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-	  opacity: 0;
-	  -webkit-transition:
-		  opacity 0.2s ease-in-out,
-			visibility 0.2s ease-in-out,
-			-webkit-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-		-moz-transition:
-			opacity 0.2s ease-in-out,
-			visibility 0.2s ease-in-out,
-			-moz-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-		transition:
-			opacity 0.2s ease-in-out,
-			visibility 0.2s ease-in-out,
-			transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-	  -webkit-transform: translate3d(0, 0, 0);
-	  -moz-transform:	 translate3d(0, 0, 0);
-	  transform:		 translate3d(0, 0, 0);
-	  pointer-events: none;
+	position: absolute;
+	visibility: hidden;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+	opacity: 0;
+	-webkit-transition:
+		opacity 0.2s ease-in-out,
+		visibility 0.2s ease-in-out,
+		-webkit-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+	-moz-transition:
+		opacity 0.2s ease-in-out,
+		visibility 0.2s ease-in-out,
+		-moz-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+	transition:
+		opacity 0.2s ease-in-out,
+		visibility 0.2s ease-in-out,
+		transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+		-webkit-transform: translate3d(0, 0, 0);
+		-moz-transform:	 translate3d(0, 0, 0);
+		transform:		 translate3d(0, 0, 0);
+		pointer-events: none;
 	}
 
 	[data-tooltip]:hover:before,
@@ -951,33 +949,33 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	.tooltip:hover:after,
 	.tooltip:focus:before,
 	.tooltip:focus:after {
-	  visibility: visible;
-	  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-	  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-	  opacity: 1;
+		visibility: visible;
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+		filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+		opacity: 1;
 	}
 
 	.tooltip:before,
 	[data-tooltip]:before {
-	  z-index: 1001;
-	  border: 6px solid transparent;
-	  background: transparent;
-	  content: "";
+		z-index: 1001;
+		border: 6px solid transparent;
+		background: transparent;
+		content: "";
 	}
 
 	.tooltip:after,
 	[data-tooltip]:after {
-	  z-index: 1001;
-	  padding: 8px;
-	  width: 250px;
-	  border-radius: 4px;
-	  border: 1px solid #d3d3d3;
-	  background-color: #fff;
-	  background-color: #fff;;
-	  color: #333;
-	  content: attr(data-tooltip);
-	  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-	  font-size: 14px;
+		z-index: 1001;
+		padding: 8px;
+		width: 250px;
+		border-radius: 4px;
+		border: 1px solid #d3d3d3;
+		background-color: #fff;
+		background-color: #fff;;
+		color: #333;
+		content: attr(data-tooltip);
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size: 14px;
 			font-weight: normal;
 			line-height: 1.42857143;
 			vertical-align: middle;
@@ -990,17 +988,17 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	.tooltip:after,
 	.tooltip-top:before,
 	.tooltip-top:after {
-	  bottom: 100%;
-	  left: 50%;
+		bottom: 100%;
+		left: 50%;
 	}
 
 	[data-tooltip]:before,
 	.tooltip:before,
 	.tooltip-top:before {
-	  margin-left: -6px;
-	  margin-bottom: -12px;
-	  color: #000;
-	  border-top-color: #fff;
+		margin-left: -6px;
+		margin-bottom: -12px;
+		color: #000;
+		border-top-color: #fff;
 	}
 
 	[data-tooltip]:after,
@@ -1067,8 +1065,8 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 					<div class="col-md-10">network_means_pageType_156</div>
 					<div class="acs-footer-icon col-md-2">
 						<input type=checkbox id="show" class="div-right">
-			<label for="show"><a data-tooltip="network_means_pageType_157"><i class="fa fa-plus"></i></a></label>
-			<span id="content">network_means_pageType_157 </span>
+						<label for="show"><a data-tooltip="network_means_pageType_157"><i class="fa fa-plus"></i></a></label>
+						<span id="content">network_means_pageType_157 </span>
 					</div>
 				</div>
 			</div>
