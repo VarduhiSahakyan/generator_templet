@@ -3,7 +3,7 @@ USE U5G_ACS_BO;
 SET @createdBy ='A709391';
 SET @MaestroVID = NULL;
 SET @MaestroVName = (SELECT `name` FROM `Network` WHERE `code` = 'VISA');
-
+SET @dtype = 'T';
 /* Elements for the profile DEFAULT_REFUSAL : */
 SET @currentPageType = 'REFUSAL_PAGE';
 SET @currentAuthentMean = 'REFUSAL';
@@ -11,14 +11,14 @@ SET @customItemSetREFUSAL = (SELECT id FROM `CustomItemSet` WHERE `name` = 'cust
 
 SET @ordinal = 23;
 update CustomItem set value = 'Bitte aktivieren Sie Ihre Kreditkarte im Commerzbank Online Banking unter „Persönlicher Bereich“ – „Zusatzdienste“ oder rufen Sie uns unter der Nr. 069 / 5 8000 8000 an. Gerne können Sie auch Ihre Filiale zum Online Banking ansprechen.'
-where fk_id_customItemSet = @customItemSetREFUSAL and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetREFUSAL and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 1;
 SET @itemNameVisa = 'VISA_REFUSAL_REFUSAL_PAGE_1';
 SET @itemNameMaster = 'MASTERCARD_REFUSAL_REFUSAL_PAGE_1';
 
 update CustomItem set value = 'Nähere Informationen zu diesem Bezahl-Verfahren finden Sie in Ihrem Online Banking unter der Rubrik „Sicherheit“.'
-where fk_id_customItemSet = @customItemSetREFUSAL and ordinal = @ordinal and name in (@itemNameVisa, @itemNameMaster);
+where fk_id_customItemSet = @customItemSetREFUSAL and ordinal = @ordinal and DTYPE = @dtype and name in (@itemNameVisa, @itemNameMaster);
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
@@ -33,27 +33,27 @@ SET @customItemSetMOBILEAPP = (SELECT id FROM `CustomItemSet` WHERE `name` = 'cu
 
 SET @ordinal = 12;
 update CustomItem set value = ''
-where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 13;
 update CustomItem set value = 'Bitte öffnen Sie die Commerzbank photoTAN-App und geben Sie dort folgende Zahlung frei: '
-where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 2;
 update CustomItem set value = 'Zahlungsdetails'
-where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 1;
 update CustomItem set value = 'Freigabe mit photoTAN-Push in der Commerzbank photoTAN-App.'
-where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 26;
 update CustomItem set value = 'Authentifizierung erfolgreich – Sie werden automatisch zum Händler weitergeleitet.'
-where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 27;
 update CustomItem set value = 'Bitte lassen Sie das Browserfenster geöffnet!'
-where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 /* Elements for the profile PASSWORD : */
 SET @currentPageType = 'OTP_FORM_PAGE';
@@ -62,23 +62,23 @@ SET @customItemSetPASSWORD = (SELECT id FROM `CustomItemSet` WHERE `name` = 'cus
 
 SET @ordinal = 2;
 update CustomItem set value = 'Zahlungsdetails'
-where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 1;
 update CustomItem set value = 'Bitte geben Sie Ihre Commerzbank Online Banking PIN ein.'
-where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 42;
 update CustomItem set value = 'Weiter'
-where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 29;
 update CustomItem set value = 'Sie haben eine ungültige Online Banking PIN eingegeben. Bitte versuchen Sie es erneut. Anzahl verbleibender Versuche: @trialsLeft'
-where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 26;
 update CustomItem set value = 'Authentifizierung wird fortgesetzt. Bitte warten Sie einige Sekunden.'
-where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
@@ -97,7 +97,7 @@ SET @currentPageType = 'FAILURE_PAGE';
 
 SET @ordinal = 17;
 update CustomItem set value = 'Die Zahlung konnte nicht abgeschlossen werden. Zur Freischaltung Ihrer Online Banking PIN rufen Sie bitte die Nr. 069 / 5 8000 8000 an.'
-where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
@@ -112,19 +112,19 @@ SET @customItemSetPhotoTAN = (SELECT id FROM `CustomItemSet` WHERE `name` = 'cus
 
 SET @ordinal = 1;
 update CustomItem set value = 'Freigabe mit photoTAN-Scan.<br>Bitte die Grafik scannen und die angezeigte photoTAN hier eingeben.'
-where fk_id_customItemSet = @customItemSetPhotoTAN and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetPhotoTAN and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 2;
 update CustomItem set value = 'Bitte bestätigen Sie folgende Zahlung'
-where fk_id_customItemSet = @customItemSetPhotoTAN and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetPhotoTAN and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 26;
 update CustomItem set value = 'Authentifizierung erfolgreich – Sie werden automatisch zum Händler weitergeleitet.'
-where fk_id_customItemSet = @customItemSetPhotoTAN and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetPhotoTAN and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 27;
 update CustomItem set value = 'Bitte lassen Sie das Browserfenster geöffnet!'
-where fk_id_customItemSet = @customItemSetPhotoTAN and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetPhotoTAN and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
@@ -136,7 +136,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 SET @currentPageType = 'FAILURE_PAGE';
 SET @ordinal = 17;
 update CustomItem set value = 'Die Zahlung konnte nicht abgeschlossen werden. Zur Freischaltung Ihres TAN-Verfahrens rufen Sie bitte die Nr. 069 / 5 8000 8000 an.'
-where fk_id_customItemSet = @customItemSetPhotoTAN and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetPhotoTAN and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 -- SMS --
 SET @currentPageType = 'OTP_FORM_PAGE';
@@ -145,23 +145,23 @@ SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customit
 
 SET @ordinal = 1;
 update CustomItem set value = 'Zur Freigabe die mobileTAN eingeben, die Sie per SMS erhalten haben.'
-where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 2;
 update CustomItem set value = 'Bitte bestätigen Sie folgende Zahlung'
-where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 34;
 update CustomItem set value = 'mobileTAN wird per SMS versendet.'
-where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 26;
 update CustomItem set value = 'Authentifizierung erfolgreich – Sie werden automatisch zum Händler weitergeleitet.'
-where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 27;
 update CustomItem set value = 'Bitte lassen Sie das Browserfenster geöffnet!'
-where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal;
+where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
