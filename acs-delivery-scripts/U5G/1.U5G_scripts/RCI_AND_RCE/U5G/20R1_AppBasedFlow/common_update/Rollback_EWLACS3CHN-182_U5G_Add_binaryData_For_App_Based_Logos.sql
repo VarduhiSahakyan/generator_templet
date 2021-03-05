@@ -50,6 +50,12 @@ SET @SPARDAL = 'sparda_large.png';
 SET @CHINABANKS = 'chinabank_small.png';
 SET @CHINABANKM = 'chinabank_medium.png';
 SET @CHINABANKL = 'chinabank_large.png';
+SET @VWS = 'vw_small.png';
+SET @VWM = 'vw_medium.png';
+SET @VWL = 'vw_large.png';
+SET @AUDIS = 'audi_small.png';
+SET @AUDIM = 'audi_medium.png';
+SET @AUDIL = 'audi_large.png';
 UPDATE `Image` SET `binaryData` = '' WHERE `name` IN (@VisaS, @VisaM, @VisaL, @MCS, @MCM, @MCL,
                                                     @EWBS, @EWBM, @EWBL, @LBBWS, @LBBWM, @LBBWL,
                                                     @INGS, @INGM, @INGL, @COZS, @COZM, @COZL,
@@ -58,4 +64,5 @@ UPDATE `Image` SET `binaryData` = '' WHERE `name` IN (@VisaS, @VisaM, @VisaL, @M
                                                     @PAYBOXS, @PAYBOXM, @PAYBOXL, @OPS, @OPM, @OPL,
                                                     @REISES, @REISEM, @REISEL, @POSTBANKS, @POSTBANKM, @POSTBANKL,
                                                     @BNPWMS, @BNPWMM, @BNPWML, @SPARDAS, @SPARDAM, @SPARDAL,
-                                                    @CHINABANKS, @CHINABANKM, @CHINABANKL);
+                                                    @CHINABANKS, @CHINABANKM, @CHINABANKL, @VWS, @VWM, @VWL,
+                                                    @AUDIS, @AUDIM, @AUDIL);
