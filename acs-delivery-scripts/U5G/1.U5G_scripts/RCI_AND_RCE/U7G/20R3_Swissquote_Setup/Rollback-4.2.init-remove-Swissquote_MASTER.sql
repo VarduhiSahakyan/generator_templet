@@ -34,7 +34,5 @@ delete from BinRange where FK_ID_PROFILESET in (@id_profile_set_1) and fk_id_net
 
 delete from Network_SubIssuer where ID_SUBISSUER in (@id_subissuer_1) and id_network = @NetworkMID;
 
-delete from SubIssuerNetworkCrypto where FK_ID_SUBISSUER in (@id_subissuer_1) and fk_id_network = @NetworkMID;
-
 SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;

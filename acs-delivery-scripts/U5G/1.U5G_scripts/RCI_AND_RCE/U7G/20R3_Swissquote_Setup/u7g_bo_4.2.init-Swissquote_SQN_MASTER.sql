@@ -34,23 +34,6 @@ INSERT INTO `Network_SubIssuer` (`id_network`, `id_subIssuer`)
 	AND n.code = 'MASTERCARD';
 /*!40000 ALTER TABLE `Network_SubIssuer` ENABLE KEYS */;
 
---  /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\ /!\
---  /!\ SubIssuerNetworkCrypto                                                     /!\
---  /!\ This is a very specific configuration, in production environment only,     /!\
---  /!\ for internal and external acceptance, use the one given here               /!\
---  /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\ /!\
-/*!40000 ALTER TABLE `SubIssuerNetworkCrypto` DISABLE KEYS */;
-INSERT INTO `SubIssuerNetworkCrypto` (`authorityCertificate`, `authorityCertificateExpiryDate`, `cardNetworkAlgorithm`,
-									  `cardNetworkIdentifier`, `cardNetworkSeqGenerationMethod`, `cardNetworkSignatureKey`,
-									  `rootCertificate`, `rootCertificateExpiryDate`, `signingCertificate`, `signingCertificateExpiryDate`,
-									  `fk_id_network`, `fk_id_subIssuer`)
-SELECT `authorityCertificate`, `authorityCertificateExpiryDate`, `cardNetworkAlgorithm`,
-	   `cardNetworkIdentifier`, `cardNetworkSeqGenerationMethod`, `cardNetworkSignatureKey`,
-	   `rootCertificate`, `rootCertificateExpiryDate`, `signingCertificate`, `signingCertificateExpiryDate`,
-	   `fk_id_network`, @subIssuerID
-FROM SubIssuerNetworkCrypto where fk_id_subIssuer = @subIssuerIDNAB;
-/*!40000 ALTER TABLE `SubIssuerNetworkCrypto` ENABLE KEYS */;
-
 /* BinRange */
 /* In this table, in the case of co-branding the primary network will be present as a foreign key (fk_id_network) and
    the 'alternative' network will be present through the field 'coBrandedCardNetwork' which contains a string that matches

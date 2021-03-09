@@ -91,8 +91,6 @@ delete from ProfileSet where id in (@id_profile_set_1);
 delete from MerchantPivotList where FK_ID_ISSUER = @id_issuer;
 
 -- delete subissuer and issuer
-delete from SubIssuerCrypto where FK_ID_SUBISSUER in (@id_subIssuer_1);
-
 delete from SubIssuer where ID in (@id_subIssuer_1);
 
 delete from Issuer where ID = @id_issuer;
