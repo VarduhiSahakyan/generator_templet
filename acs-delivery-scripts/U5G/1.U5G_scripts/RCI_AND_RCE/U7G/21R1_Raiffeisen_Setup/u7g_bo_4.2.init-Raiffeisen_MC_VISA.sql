@@ -41,23 +41,6 @@ WHERE si.fk_id_issuer = @issuerId and si.id = @subIssuerID
 
 SET @subIssuerIDSOBA = (SELECT id FROM SubIssuer where code = 83340 AND name = 'Baloise Bank SoBa AG');
 
---  /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\ /!\
---  /!\ SubIssuerNetworkCrypto                                                     /!\
---  /!\ This is a very specific configuration, in production environment only,     /!\
---  /!\ for internal and external acceptance, use the one given here               /!\
---  /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\ /!\
-/*!40000 ALTER TABLE `SubIssuerNetworkCrypto` DISABLE KEYS */;
-INSERT INTO `SubIssuerNetworkCrypto` (`authorityCertificate`, `authorityCertificateExpiryDate`, `cardNetworkAlgorithm`,
-                                      `cardNetworkIdentifier`, `cardNetworkSeqGenerationMethod`, `cardNetworkSignatureKey`,
-                                      `rootCertificate`, `rootCertificateExpiryDate`, `signingCertificate`, `signingCertificateExpiryDate`,
-                                      `fk_id_network`, `fk_id_subIssuer`)
-SELECT `authorityCertificate`, `authorityCertificateExpiryDate`, `cardNetworkAlgorithm`,
-       `cardNetworkIdentifier`, `cardNetworkSeqGenerationMethod`, `cardNetworkSignatureKey`,
-       `rootCertificate`, `rootCertificateExpiryDate`, `signingCertificate`, `signingCertificateExpiryDate`,
-       `fk_id_network`, @subIssuerID
-FROM SubIssuerNetworkCrypto where fk_id_subIssuer = @subIssuerIDSOBA;
-/*!40000 ALTER TABLE `SubIssuerNetworkCrypto` ENABLE KEYS */;
-
 /* BinRange */
 /* In this table, in the case of co-branding the primary network will be present as a foreign key (fk_id_network) and
    the 'alternative' network will be present through the field 'coBrandedCardNetwork' which contains a string that matches

@@ -129,17 +129,6 @@ INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `c
 
 
 SET @subIssuerID = (SELECT id FROM `SubIssuer` WHERE `code` = @subIssuerCode AND `name` = @subIssuerNameAndLabel);
---  /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\ /!\
---  /!\ SubIssuerCrypto                                                               /!\
---  /!\ This is a very specific configuration, in production environment only,        /!\
---  /!\ for internal and external acceptance, use the one given here                  /!\
---  /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\ /!\
-/*!40000 ALTER TABLE `SubIssuerCrypto` DISABLE KEYS */;
-INSERT INTO `SubIssuerCrypto` (`acsIdForCrypto`, `binKeyIdentifier`, `cavvKeyIndicator`, `cipherKeyIdentifier`,
-                               `desCipherKeyIdentifier`, `desKeyId`, `hubAESKey`, `secondFactorAuthentication`, `fk_id_subIssuer`)
-SELECT `acsIdForCrypto`, `binKeyIdentifier`, `cavvKeyIndicator`, `cipherKeyIdentifier`, `desCipherKeyIdentifier`, `desKeyId`, `hubAESKey`, `secondFactorAuthentication`,  @subIssuerID
-FROM `SubIssuerCrypto` si WHERE si.fk_id_subIssuer = @subIssuerIDNAB ;
-/*!40000 ALTER TABLE `SubIssuerCrypto` ENABLE KEYS */;
 
 /* ProfileSet */
 /*!40000 ALTER TABLE `ProfileSet` DISABLE KEYS */;
@@ -2491,3 +2480,84 @@ VALUES ('ISSUER', 'TestMerchant', 'NAME', 0, 0, b'0', @issuerId, @subIssuerID, 0
 /*!40101 SET SQL_MODE = IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS = IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
+
+
+
+SET @profileUndef = (SELECT id FROM `Profile` WHERE `name` ='RCH_UNDEFINED_01');
+SET @ruleUndef = (SELECT id FROM `Rule` WHERE `fk_id_profile`=@profileUndef);
+SET @undef_2_RuleConditionName = 'C1_P_RCH_02_UNDEFINED';
+SET @authMeanMOBILE_APP_EXT = (SELECT id FROM `AuthentMeans` WHERE `name` = 'MOBILE_APP_EXT');
+SET @authMeanSMS_EXT = (SELECT id FROM `AuthentMeans` WHERE `name` = 'OTP_SMS_EXT_MESSAGE');
+SET @authMeanUndef = (SELECT id FROM `AuthentMeans` WHERE `name` = 'UNDEFINED');
+
+SET @profileOTPSMS_01 = (SELECT id FROM `Profile` WHERE `name` ='RCH_SMS_01');
+SET @ruleOTP_SMS_01 = (SELECT id FROM `Rule` WHERE `fk_id_profile`=@profileOTPSMS_01);
+SET @otp_sms_03_RuleConditionName = 'C1_P_RCH_03_OTP_SMS_EXT';
+
+
+
+INSERT INTO `RuleCondition` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
+							 `updateState`, `fk_id_rule`) VALUES
+	(@createdBy, NOW(), NULL, NULL, NULL,@undef_2_RuleConditionName , @updateState, @ruleUndef);
+
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+	SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+	WHERE c.`name`= @undef_2_RuleConditionName
+	AND mps.`fk_id_authentMean`=@authMeanUndef AND (mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+	SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+	WHERE c.`name`= @undef_2_RuleConditionName
+	AND mps.`fk_id_authentMean`=@authMeanMOBILE_APP_EXT AND (mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+	SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+	WHERE c.`name`= @undef_2_RuleConditionName
+	AND mps.`fk_id_authentMean`=@authMeanMOBILE_APP_EXT AND (mps.`meansProcessStatusType`='MEANS_DISABLED' AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+	SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+	WHERE c.`name`= @undef_2_RuleConditionName
+	AND mps.`fk_id_authentMean`=@authMeanMOBILE_APP_EXT AND (mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
+
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+	SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+	WHERE c.`name`= @undef_2_RuleConditionName
+	AND mps.`fk_id_authentMean`=@authMeanSMS_EXT AND (mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+	SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+	WHERE c.`name`= @undef_2_RuleConditionName
+	AND mps.`fk_id_authentMean`=@authMeanSMS_EXT AND (mps.`meansProcessStatusType`='MEANS_DISABLED' AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+	SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+	WHERE c.`name`= @undef_2_RuleConditionName
+	AND mps.`fk_id_authentMean`=@authMeanSMS_EXT AND (mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
+
+
+INSERT INTO `RuleCondition` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
+							 `updateState`, `fk_id_rule`) VALUES
+	(@createdBy, NOW(), NULL, NULL, NULL,@otp_sms_03_RuleConditionName , @updateState, @ruleOTP_SMS_01);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+	SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+	WHERE c.`name`= @otp_sms_03_RuleConditionName
+	AND mps.`fk_id_authentMean`=@authMeanSMS_EXT AND (mps.`meansProcessStatusType`='MEANS_AVAILABLE' AND mps.`reversed`=FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+	SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+	WHERE c.`name`= @otp_sms_03_RuleConditionName
+	AND mps.`fk_id_authentMean`=@authMeanSMS_EXT AND (mps.`meansProcessStatusType`='MEANS_DISABLED' AND mps.`reversed`=TRUE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+	SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+	WHERE c.`name`= @otp_sms_03_RuleConditionName
+	AND mps.`fk_id_authentMean`=@authMeanSMS_EXT AND (mps.`meansProcessStatusType`='HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed`=FALSE);
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+	SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+	WHERE c.`name`= @otp_sms_03_RuleConditionName
+	AND mps.`fk_id_authentMean`=@authMeanMOBILE_APP_EXT AND (mps.`meansProcessStatusType`='USER_CHOICE_DEMANDED' AND mps.`reversed`=FALSE);
