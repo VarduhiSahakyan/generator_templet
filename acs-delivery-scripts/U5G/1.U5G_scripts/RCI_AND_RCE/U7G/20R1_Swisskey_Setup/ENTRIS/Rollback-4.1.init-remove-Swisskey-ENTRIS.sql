@@ -18,11 +18,10 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- delete CustomItem
 delete from CustomItem where name = 'Bank Logo' and ordinal = @SubIssuerCodeENTRIS and value = @BankUB_ENTRIS and pageTypes = 'ALL';
 
--- delete Network_SubIssuer and SubIssuerNetworkCrypto
+-- delete Network_SubIssuer
 delete from Network_SubIssuer where ID_SUBISSUER in (@id_subIssuer_entris)
                                 and id_network = @NetworkMID;
-delete from SubIssuerNetworkCrypto where FK_ID_SUBISSUER in (@id_subIssuer_entris)
-                                     and fk_id_network = @NetworkMID;
+
 
 -- delete BinRange_SubIssuer and BinRange
 delete from BinRange_SubIssuer where ID_BINRANGE in (select id from BinRange where lowerBound = '5352220000' and upperBound = '5352220099'
@@ -32,8 +31,6 @@ delete from BinRange where lowerBound = '5352220000' and upperBound = '535222009
                        and fk_id_network = @NetworkMID;
 
 -- delete subissuer and issuer
-delete from SubIssuerCrypto where FK_ID_SUBISSUER in
-                                  (@id_subIssuer_entris);
 delete from SubIssuer where ID in
                             (@id_subIssuer_entris);
 
