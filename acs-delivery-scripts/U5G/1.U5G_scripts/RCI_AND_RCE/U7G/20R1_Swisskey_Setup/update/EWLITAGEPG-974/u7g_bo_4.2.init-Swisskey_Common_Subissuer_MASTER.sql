@@ -39,37 +39,6 @@ INSERT INTO `Network_SubIssuer` (`id_network`, `id_subIssuer`)
 	AND n.code = 'VISA';
 /*!40000 ALTER TABLE `Network_SubIssuer` ENABLE KEYS */;
 
---  /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\ /!\
---  /!\ SubIssuerNetworkCrypto                                                     /!\
---  /!\ This is a very specific configuration, in production environment only,     /!\
---  /!\ for internal and external acceptance, use the one given here               /!\
---  /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\ /!\
-/*!40000 ALTER TABLE `SubIssuerNetworkCrypto` DISABLE KEYS */;
-SET @subIssuerIDNAB = (SELECT id FROM SubIssuer where code = 58810 AND name = 'Neue Aargauer Bank');
-
-INSERT INTO `SubIssuerNetworkCrypto` (`authorityCertificate`, `authorityCertificateExpiryDate`, `cardNetworkAlgorithm`,
-                                      `cardNetworkIdentifier`, `cardNetworkSeqGenerationMethod`, `cardNetworkSignatureKey`,
-                                      `rootCertificate`, `rootCertificateExpiryDate`, `signingCertificate`, `signingCertificateExpiryDate`,
-                                      `fk_id_network`, `fk_id_subIssuer`)
-SELECT `authorityCertificate`, `authorityCertificateExpiryDate`, `cardNetworkAlgorithm`,
-       `cardNetworkIdentifier`, `cardNetworkSeqGenerationMethod`, `cardNetworkSignatureKey`,
-       `rootCertificate`, `rootCertificateExpiryDate`, `signingCertificate`, `signingCertificateExpiryDate`,
-       `fk_id_network`, @subIssuerID
-FROM SubIssuerNetworkCrypto where fk_id_subIssuer = @subIssuerIDNAB;
-
-SET @subIssuerIDUBS = (SELECT id FROM SubIssuer where code = 23000 AND name = 'UBS Switzerland AG');
-INSERT INTO `SubIssuerNetworkCrypto` (`authorityCertificate`, `authorityCertificateExpiryDate`, `cardNetworkAlgorithm`,
-																			`cardNetworkIdentifier`, `cardNetworkSeqGenerationMethod`, `cardNetworkSignatureKey`,
-																			`rootCertificate`, `rootCertificateExpiryDate`, `signingCertificate`, `signingCertificateExpiryDate`,
-																			`fk_id_network`, `fk_id_subIssuer`)
-SELECT `authorityCertificate`, `authorityCertificateExpiryDate`, `cardNetworkAlgorithm`,
-		`cardNetworkIdentifier`, `cardNetworkSeqGenerationMethod`, `cardNetworkSignatureKey`,
-		`rootCertificate`, `rootCertificateExpiryDate`, `signingCertificate`, `signingCertificateExpiryDate`,
-		`fk_id_network`, @subIssuerID
-FROM SubIssuerNetworkCrypto where fk_id_subIssuer = @subIssuerIDUBS AND `fk_id_network` = (SELECT n.id FROM `Network` n WHERE n.code = 'VISA');
-
-/*!40000 ALTER TABLE `SubIssuerNetworkCrypto` ENABLE KEYS */;
-
 /* BinRange */
 /* In this table, in the case of co-branding the primary network will be present as a foreign key (fk_id_network) and
    the 'alternative' network will be present through the field 'coBrandedCardNetwork' which contains a string that matches
