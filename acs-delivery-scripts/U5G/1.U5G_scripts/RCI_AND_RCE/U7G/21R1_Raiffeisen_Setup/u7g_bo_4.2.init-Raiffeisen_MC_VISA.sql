@@ -2593,4 +2593,112 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
  'it', 175, @currentPageType, 'Indietro al negozio online', @MaestroVID, NULL, @customItemSetMobileAppExt);
 
+
+
+SET @customItemSetMissingauth = (SELECT `id` FROM CustomItemSet WHERE `name` = 'customitemset_RCH_MISSING_AUTHENTICATION_REFUSAL');
+
+SET @local  = 'en';
+SET @title = (SELECT `value` FROM CustomItem WHERE `fk_id_customItemSet` = @customItemSetMissingauth AND
+        `pageTypes` = 'FAILURE_PAGE' AND
+        `ordinal` = 16 AND
+        `locale` = @local AND
+        `DTYPE` = 'T');
+
+SET @description = (SELECT `value` FROM CustomItem WHERE `fk_id_customItemSet` = @customItemSetMissingauth AND
+        `pageTypes` = 'FAILURE_PAGE' AND
+        `ordinal` = 17 AND
+        `locale` = @local AND
+        `DTYPE` = 'T');
+
+UPDATE `CustomItem` SET `value` = @title WHERE `fk_id_customItemSet` = @customItemSetMissingauth AND
+        `pageTypes` = 'REFUSAL_PAGE' AND
+        `ordinal` = 32 AND
+        `locale` = @local AND
+        `DTYPE` = 'T';
+
+UPDATE `CustomItem` SET `value` = @description WHERE `fk_id_customItemSet` = @customItemSetMissingauth AND
+        `pageTypes` = 'REFUSAL_PAGE' AND
+        `ordinal` = 33 AND
+        `locale` = @local AND
+        `DTYPE` = 'T';
+
+
+SET @local  = 'de';
+SET @title = (SELECT `value` FROM CustomItem WHERE `fk_id_customItemSet` = @customItemSetMissingauth AND
+        `pageTypes` = 'FAILURE_PAGE' AND
+        `ordinal` = 16 AND
+        `locale` = @local AND
+        `DTYPE` = 'T');
+
+SET @description = (SELECT `value` FROM CustomItem WHERE `fk_id_customItemSet` = @customItemSetMissingauth AND
+        `pageTypes` = 'FAILURE_PAGE' AND
+        `ordinal` = 17 AND
+        `locale` = @local AND
+        `DTYPE` = 'T');
+
+UPDATE `CustomItem` SET `value` = @title WHERE `fk_id_customItemSet` = @customItemSetMissingauth AND
+        `pageTypes` = 'REFUSAL_PAGE' AND
+        `ordinal` = 32 AND
+        `locale` = @local AND
+        `DTYPE` = 'T';
+
+UPDATE `CustomItem` SET `value` = @description WHERE `fk_id_customItemSet` = @customItemSetMissingauth AND
+        `pageTypes` = 'REFUSAL_PAGE' AND
+        `ordinal` = 33 AND
+        `locale` = @local AND
+        `DTYPE` = 'T';
+
+SET @local  = 'fr';
+SET @title = (SELECT `value` FROM CustomItem WHERE `fk_id_customItemSet` = @customItemSetMissingauth AND
+        `pageTypes` = 'FAILURE_PAGE' AND
+        `ordinal` = 16 AND
+        `locale` = @local AND
+        `DTYPE` = 'T');
+
+SET @description = (SELECT `value` FROM CustomItem WHERE `fk_id_customItemSet` = @customItemSetMissingauth AND
+        `pageTypes` = 'FAILURE_PAGE' AND
+        `ordinal` = 17 AND
+        `locale` = @local AND
+        `DTYPE` = 'T');
+
+UPDATE `CustomItem` SET `value` = @title WHERE `fk_id_customItemSet` = @customItemSetMissingauth AND
+        `pageTypes` = 'REFUSAL_PAGE' AND
+        `ordinal` = 32 AND
+        `locale` = @local AND
+        `DTYPE` = 'T';
+
+UPDATE `CustomItem` SET `value` = @description WHERE `fk_id_customItemSet` = @customItemSetMissingauth AND
+        `pageTypes` = 'REFUSAL_PAGE' AND
+        `ordinal` = 33 AND
+        `locale` = @local AND
+        `DTYPE` = 'T';
+
+
+SET @local  = 'it';
+SET @title = (SELECT `value` FROM CustomItem WHERE `fk_id_customItemSet` = @customItemSetMissingauth AND
+        `pageTypes` = 'FAILURE_PAGE' AND
+        `ordinal` = 16 AND
+        `locale` = @local AND
+        `DTYPE` = 'T');
+
+SET @description = (SELECT `value` FROM CustomItem WHERE `fk_id_customItemSet` = @customItemSetMissingauth AND
+        `pageTypes` = 'FAILURE_PAGE' AND
+        `ordinal` = 17 AND
+        `locale` = @local AND
+        `DTYPE` = 'T');
+
+UPDATE `CustomItem` SET `value` = @title WHERE `fk_id_customItemSet` = @customItemSetMissingauth AND
+        `pageTypes` = 'REFUSAL_PAGE' AND
+        `ordinal` = 32 AND
+        `locale` = @local AND
+        `DTYPE` = 'T';
+
+UPDATE `CustomItem` SET `value` = @description WHERE `fk_id_customItemSet` = @customItemSetMissingauth AND
+        `pageTypes` = 'REFUSAL_PAGE' AND
+        `ordinal` = 33 AND
+        `locale` = @local AND
+        `DTYPE` = 'T';
+
+
+
 /*!40000 ALTER TABLE `CustomItem` ENABLE KEYS */;
