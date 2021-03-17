@@ -1729,3 +1729,12 @@ WHERE `locale` = @locale
   AND  `ordinal` = @ordinal
   AND `pageTypes` = @pageType
   AND `fk_id_customItemSet` = @customItemSetSMSNormal;
+
+-- merge EWLACSLBBW-206 --
+SET @pageType = 'FAILURE_PAGE';
+SET @ordinal = 1;
+UPDATE `CustomItem` SET `value` = ''
+WHERE `locale` = @locale
+  AND  `ordinal` = @ordinal
+  AND `pageTypes` = @pageType
+  AND `fk_id_customItemSet` in (@customItemSetSMSNormal, @customItemSetPassword);
