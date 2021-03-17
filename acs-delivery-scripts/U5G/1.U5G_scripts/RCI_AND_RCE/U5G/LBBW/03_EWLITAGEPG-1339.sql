@@ -1717,3 +1717,15 @@ where fk_id_customItemSet = @customItemSetSMSNormal and ordinal = @ordinal and p
 SET @ordinal = 17;
 update CustomItem set value = 'Sie haben zu oft ungültige Daten eingegeben. Zu Ihrer Sicherheit wird der Zahlungsvorgang daher abgebrochen. Bitte versuchen Sie es erneut.'
 where fk_id_customItemSet = @customItemSetSMSNormal and ordinal = @ordinal and pageTypes = @currentPageType;
+
+-- merge EWLACSLBBW-205 --
+SET @locale = 'de';
+SET @pageType ='OTP_FORM_PAGE';
+
+SET @ordinal = 31;
+SET @text = 'Aus Sicherheitsgründen wurde die Zahlung abgebrochen, da die Bestätigung nicht in der erforderlichen Zeit erfolgt ist. Der Kauf wurde nicht durchgeführt. Bitte versuchen Sie es erneut.';
+UPDATE `CustomItem` SET `value` = @text
+WHERE `locale` = @locale
+  AND  `ordinal` = @ordinal
+  AND `pageTypes` = @pageType
+  AND `fk_id_customItemSet` = @customItemSetSMSNormal;
