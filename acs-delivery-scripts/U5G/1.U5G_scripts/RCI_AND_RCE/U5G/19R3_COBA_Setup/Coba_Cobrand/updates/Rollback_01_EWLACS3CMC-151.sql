@@ -7,7 +7,7 @@ SET @ordinal = 23;
 update CustomItem set value = 'Bitte registrieren Sie Ihre Kreditkarte für das sichere Einkaufen unter commerzbank.de/sicher-einkaufen'
 where fk_id_customItemSet = @customItemSetREFUSAL and pageTypes = @currentPageType and ordinal = @ordinal;
 
-delete from CustomItem where fk_id_customItemSet = @customItemSetREFUSAL and ordinal = 175 and pageTypes = @currentPageType;
+delete from CustomItem where fk_id_customItemSet = @customItemSetREFUSAL and ordinal in (32,33,175) and pageTypes = @currentPageType;
 
 SET @ordinal = 1;
 SET @itemNameVisa = 'VISA_REFUSAL_REFUSAL_PAGE_1';

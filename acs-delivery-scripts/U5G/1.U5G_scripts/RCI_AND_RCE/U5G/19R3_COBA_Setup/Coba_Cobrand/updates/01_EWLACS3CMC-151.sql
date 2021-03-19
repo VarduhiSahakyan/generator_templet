@@ -19,9 +19,18 @@ SET @itemNameMaster = 'MASTERCARD_REFUSAL_REFUSAL_PAGE_1';
 update CustomItem set value = '<b>Infos zum sicheren Einkaufen im Internet finden Sie ebenfalls unter www.commerzbank.de/sicher-einkaufen</b>'
 where fk_id_customItemSet = @customItemSetREFUSAL and ordinal = @ordinal and name in (@itemNameVisa, @itemNameMaster);
 
-SET @ordinal = 33;
-update CustomItem set value = 'Ein technischer Fehler ist aufgetreten. Ihre Zahlung konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.'
-where fk_id_customItemSet = @customItemSetREFUSAL and pageTypes = @currentPageType and ordinal = @ordinal;
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
+ 'de', 32, @currentPageType, 'Technischer Fehler', @MaestroVID, NULL, @customItemSetREFUSAL);
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
+ 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten. Ihre Zahlung konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', @MaestroVID, NULL, @customItemSetREFUSAL);
+
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
@@ -30,16 +39,29 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 175, @currentPageType, 'Zurück zum Händler', @MaestroVID, NULL, @customItemSetREFUSAL);
 
 /* Elements for the profile PASSWORD : */
+
 SET @currentPageType = 'OTP_FORM_PAGE';
 SET @currentAuthentMean = 'PASSWORD';
 SET @customItemSetPASSWORD = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_COB_PASSWORD');
 
 SET @ordinal = 1;
-update CustomItem set value = 'Bitte geben Sie zunächst Ihr 3-D Secure Passwort ein:'
+update CustomItem set value = 'Bitte geben Sie zunächst Ihr 3-D Secure Passwort ein.'
 where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
 
 SET @ordinal = 2;
-update CustomItem set value = 'Zahlungsdetails:'
+update CustomItem set value = 'Zahlungsdetails'
+where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
+
+SET @ordinal = 13;
+update CustomItem set value = 'Bitte warten Sie einige Sekunden. Ihre Eingabe wird geprüft. '
+where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
+
+SET @ordinal = 26;
+update CustomItem set value = '<b>Authentifizierung erfolgreich -</b>'
+where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
+
+SET @ordinal = 27;
+update CustomItem set value = 'Sie werden automatisch zum Händler weitergeleitet. Bitte lassen Sie das Browserfenster geöffnet!'
 where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
 
 SET @ordinal = 42;
@@ -63,15 +85,19 @@ SET @currentAuthentMean = 'OTP_SMS';
 SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_COB_SMS');
 
 SET @ordinal = 1;
-update CustomItem set value = '<b>Zur Freigabe die mobileTAN eingeben, die Sie SMS erhalten haben.</b>'
+update CustomItem set value = '<b>Zur Freigabe bitte die mobileTAN eingeben, die Sie per SMS erhalten haben.</b>'
+where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal;
+
+SET @ordinal = 2;
+update CustomItem set value = 'Bitte bestätigen Sie folgende Zahlung'
 where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal;
 
 SET @ordinal = 26;
-update CustomItem set value = 'Authentifizierung erfolgreich - Sie werden automatisch zum Händler weitergeleitet.'
+update CustomItem set value = '<b>Authentifizierung erfolgreich -</b>'
 where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal;
 
 SET @ordinal = 27;
-update CustomItem set value = 'Bitte lassen Sie das Browserfenster geöffnet!'
+update CustomItem set value = 'Sie werden automatisch zum Händler weitergeleitet. Bitte lassen Sie das Browserfenster geöffnet!'
 where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal;
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
@@ -85,7 +111,7 @@ update CustomItem set value = 'Ungültige Eingabe'
 where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal;
 
 SET @ordinal = 29;
-update CustomItem set value = 'Sie haben  ein ungültiges 3-D Secure Passwort  oder eine ungültige mobileTAN eingegeben. Bitte versuchen Sie es erneut. Anzahl verbleibender Versuche: X'
+update CustomItem set value = 'Sie haben  ein ungültiges 3-D Secure Passwort  oder eine ungültige mobileTAN eingegeben. Bitte versuchen Sie es erneut. Anzahl verbleibender Versuche: @trialsLeft'
 where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal;
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
@@ -106,13 +132,3 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
  'de', 175, @currentPageType, 'Zurück zum Händler', @MaestroVID, NULL, @customItemSetSMS);
-
-
-
-
-
-
-
-
-
-
