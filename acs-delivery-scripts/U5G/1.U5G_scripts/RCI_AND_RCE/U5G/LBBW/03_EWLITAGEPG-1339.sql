@@ -1666,7 +1666,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_5'), @updateState,
  'de', 5, @currentPageType, 'Dazu erhalten Sie eine mTAN per SMS auf Ihr Mobiltelefon. ', @MaestroVID, NULL, @customItemSetSMSNormal),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_6'), @updateState,
- 'de', 6, @currentPageType, 'Das SMS mTAN Verfahren wird zum 31.05.2021 von uns deaktiviert. Bitte registrieren Sie sich für das neue Sicherheitsverfahren BW&#8209;Secure. Diese ist in wenigen Minuten schnell und einfach erledigt. Gleich anmelden im BW&#8209;Secure Portal:<br><a href="https://sicheres-bezahlen.bw-bank.de/" target="_blank">https://sicheres-bezahlen.bw-bank.de/</a>', @MaestroVID, NULL, @customItemSetSMSNormal);
+ 'de', 6, @currentPageType, 'Das SMS mTAN Verfahren wird zum 31.08.2021 von uns deaktiviert. Bitte registrieren Sie sich für das neue Sicherheitsverfahren BW&#8209;Secure. Diese ist in wenigen Minuten schnell und einfach erledigt. Gleich anmelden im BW&#8209;Secure Portal:<br><a href="https://sicheres-bezahlen.bw-bank.de/" target="_blank">https://sicheres-bezahlen.bw-bank.de/</a>', @MaestroVID, NULL, @customItemSetSMSNormal);
 
 -- merge EWLACSLBBW-177 --
 
