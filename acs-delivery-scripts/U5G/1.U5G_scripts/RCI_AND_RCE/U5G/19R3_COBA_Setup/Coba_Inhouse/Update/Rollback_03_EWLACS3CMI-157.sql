@@ -18,7 +18,7 @@ SET @itemNameMaster = 'MASTERCARD_REFUSAL_REFUSAL_PAGE_1';
 update CustomItem set value = 'Nähere Informationen zu diesem Bezahl-Verfahren finden Sie in Ihrem Online Banking.'
 where fk_id_customItemSet = @customItemSetREFUSAL and ordinal = @ordinal and name in (@itemNameVisa, @itemNameMaster);
 
-delete from CustomItem where fk_id_customItemSet = @customItemSetREFUSAL and ordinal = 175 and pageTypes = @currentPageType;
+delete from CustomItem where fk_id_customItemSet = @customItemSetREFUSAL and ordinal in (32,33,175) and pageTypes = @currentPageType;
 
 /* Elements for the profile MOBILE_APP : */
 
