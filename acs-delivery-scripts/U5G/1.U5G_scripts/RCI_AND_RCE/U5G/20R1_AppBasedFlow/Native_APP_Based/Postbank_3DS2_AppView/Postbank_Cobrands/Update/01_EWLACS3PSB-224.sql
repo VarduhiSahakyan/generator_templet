@@ -286,9 +286,9 @@ SET `value` = '
 WHERE `fk_id_layout` = @customPageLayoutId;
 
 SET @customPageLayoutDesc_AppView = 'PASSWORD_APP_VIEW (FBK)';
-SET @pageType = 'PASSWORD_APP_VIEW';
+SET @pageType = '%PASSWORD_APP_VIEW';
 
-SET @customPageLayoutId = (SELECT  `id` FROM `CustomPageLayout` WHERE description = @customPageLayoutDesc_AppView AND pageType = @pageType);
+SET @customPageLayoutId = (SELECT  `id` FROM `CustomPageLayout` WHERE description = @customPageLayoutDesc_AppView AND pageType LIKE @pageType);
 
 UPDATE `CustomComponent`
 SET `value` = '<style>

@@ -3,9 +3,9 @@ USE U5G_ACS_BO;
 
 
 SET @customPageLayoutDesc_AppView = 'PASSWORD_APP_VIEW (FBK)';
-SET @pageType = 'PASSWORD_APP_VIEW';
+SET @pageType = '%PASSWORD_APP_VIEW';
 
-SET @customPageLayoutId = (SELECT  `id` FROM `CustomPageLayout` WHERE description = @customPageLayoutDesc_AppView AND pageType = @pageType);
+SET @customPageLayoutId = (SELECT  `id` FROM `CustomPageLayout` WHERE description = @customPageLayoutDesc_AppView AND pageType LIKE @pageType);
 
 UPDATE `CustomComponent`
 SET `value` = '
