@@ -610,6 +610,13 @@ SET @text = 'Indietro al negozio online';
 UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 175 AND pageTypes = @currentPageType AND locale = @locale AND fk_id_customItemSet =  @customItemSetRefusalMissing;
 
 
+
+SET @customItemSetBackupRefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_BACKUP_REFUSAL'));
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, @customItemSetBackupRefusal FROM `CustomItem` n WHERE fk_id_customItemSet = @customItemSetREFUSAL;
+
+
 SET @customItemSetRefusalFraud = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_REFUSAL_FRAUD'));
 
 
