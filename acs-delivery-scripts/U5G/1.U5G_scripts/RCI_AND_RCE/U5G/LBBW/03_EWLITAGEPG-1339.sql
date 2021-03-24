@@ -1391,7 +1391,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 VALUES ('T', @createdBy, NOW(), NULL, NULL, NULL, 'OTP_SMS_MESSAGE_BODY', @updateState, 'de', 0, 'MESSAGE_BODY',
-        'Ihre SMS-TAN für die Zahlung bei @merchant über @amount lautet: @otp', @MaestroVID, NULL, @customItemSetPassword);
+        'Ihre SMS-mTAN für die Zahlung bei @merchant über @amount lautet: @otp', @MaestroVID, NULL, @customItemSetPassword);
 
 /*PASSWORD_PAGE*/
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
@@ -1504,9 +1504,9 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 VALUES ('T', @createdBy, NOW(), NULL, NULL, NULL, 'OTP_SMS_MESSAGE_BODY', @updateState, 'de', 0, 'MESSAGE_BODY',
-        'Ihre SMS-TAN für die Zahlung bei @merchant über @amount lautet: @otp', @MaestroVID, NULL, @customItemSetSMSNormal);
+        'Ihre SMS-mTAN für die Zahlung bei @merchant über @amount lautet: @otp', @MaestroVID, NULL, @customItemSetSMSNormal);
 
-UPDATE `CustomItem` SET `value` = 'Ihre SMS-TAN für die Zahlung bei @merchant über @amount lautet: @otp' WHERE `fk_id_customItemSet` = @customItemSetSMSNormal AND
+UPDATE `CustomItem` SET `value` = 'Ihre SMS-mTAN für die Zahlung bei @merchant über @amount lautet: @otp' WHERE `fk_id_customItemSet` = @customItemSetSMSNormal AND
                                                                                                             `ordinal` = 0 AND
                                                                                                                pageTypes = 'MESSAGE_BODY' ;
 
