@@ -29,7 +29,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
- 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten. Ihre Zahlung konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', @MaestroVID, NULL, @customItemSetREFUSAL);
+ 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten, Ihr Auftrag konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', @MaestroVID, NULL, @customItemSetREFUSAL);
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
@@ -49,11 +49,15 @@ update CustomItem set value = 'Bitte geben Sie zunächst Ihr 3-D Secure Passwort
 where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
 
 SET @ordinal = 2;
-update CustomItem set value = 'Zahlungsdetails'
+update CustomItem set value = 'Details'
 where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
 
 SET @ordinal = 13;
 update CustomItem set value = 'Bitte warten Sie einige Sekunden. Ihre Eingabe wird geprüft. '
+where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
+
+SET @ordinal = 17;
+update CustomItem set value = 'Der Auftrag konnte nicht ausgeführt werden. Bitte versuchen Sie es später erneut. '
 where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
 
 SET @ordinal = 26;
@@ -68,8 +72,12 @@ SET @ordinal = 42;
 update CustomItem set value = 'Weiter'
 where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
 
+SET @ordinal = 31;
+update CustomItem set value = 'Sie haben einige Zeit keine Eingaben vorgenommen, daher wurde die Transaktion abgebrochen. Starten Sie den Vorgang erneut, wenn Sie die Transaktion durchführen möchten.'
+where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
+
 SET @ordinal = 33;
-update CustomItem set value = 'Ein technischer Fehler ist aufgetreten und Ihre Zahlung konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.'
+update CustomItem set value = 'Ein technischer Fehler ist aufgetreten, Ihr Auftrag konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.'
 where fk_id_customItemSet = @customItemSetPASSWORD  and ordinal = @ordinal;
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
@@ -89,7 +97,11 @@ update CustomItem set value = '<b>Zur Freigabe bitte die mobileTAN eingeben, die
 where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal;
 
 SET @ordinal = 2;
-update CustomItem set value = 'Bitte bestätigen Sie folgende Zahlung'
+update CustomItem set value = 'Bitte bestätigen Sie folgenden Auftrag'
+where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal;
+
+SET @ordinal = 17;
+update CustomItem set value = 'Der Auftrag konnte nicht ausgeführt werden. Bitte versuchen Sie es später erneut. '
 where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal;
 
 SET @ordinal = 26;
@@ -120,8 +132,12 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_174'), 'PUSHED_TO_CONFIG',
  'de', 174, @currentPageType, 'Schließen', @MaestroVID, NULL, @customItemSetSMS);
 
+SET @ordinal = 31;
+update CustomItem set value = 'Sie haben einige Zeit keine Eingaben vorgenommen, daher wurde die Transaktion abgebrochen. Starten Sie den Vorgang erneut, wenn Sie die Transaktion durchführen möchten.'
+where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal;
+
 SET @ordinal = 33;
-update CustomItem set value = 'Ein technischer Fehler ist aufgetreten und Ihre Zahlung konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.'
+update CustomItem set value = 'Ein technischer Fehler ist aufgetreten, Ihr Auftrag konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.'
 where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal;
 
 /* Elements for the FAILURE page, for SMS Profile */
