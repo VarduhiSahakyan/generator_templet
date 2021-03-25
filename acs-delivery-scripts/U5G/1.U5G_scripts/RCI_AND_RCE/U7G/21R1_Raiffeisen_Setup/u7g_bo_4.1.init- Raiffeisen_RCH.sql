@@ -1359,7 +1359,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 			<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
 		</div>
 		<div id="pageHeaderCenter" ng-style="style" class="ng-scope">
-
 		</div>
 		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
 			<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"  image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
@@ -1390,17 +1389,25 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 			<div class="paragraphDescription">
 				<custom-text custom-text-key="''network_means_pageType_3''"></custom-text>
 			</div>
-			 <div id="form-controls">
+			<div id="form-controls">
 				<div class="row">
-					<div class="back-link">
-						<switch-means-button change-means-label="''network_means_pageType_10''" id="switchId"></switch-means-button>
+					<alternative-display attribute="''currentProfileName''" value="''RCH_APP_01''"
+					enabled="''TASwitchButton''"
+					disabled="''defaultContent''"
+					default-fallback="''defaultContent''">
+					</alternative-display>
+
+					<div class="defaultContent" style="display: none;">
+					</div>
+					<div class="TASwitchButton" style="display: none;">
+						<div class="back-link">
+							<switch-means-button change-means-label="''network_means_pageType_10''" id="switchId"></switch-means-button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
 	<div id="footer">
 		<div ng-style="style" class="style">
 			<cancel-button cn-label="''network_means_pageType_40''" id="cancelButton"></cancel-button>
