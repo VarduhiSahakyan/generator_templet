@@ -1500,18 +1500,10 @@ UPDATE `CustomItem` SET `fk_id_network` = NULL WHERE `fk_id_customItemSet` = @cu
         `DTYPE` = 'T';
 
 /* Here is what the content of the SMS will be */
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-VALUES ('T', @createdBy, NOW(), NULL, NULL, NULL, 'OTP_SMS_MESSAGE_BODY', @updateState, 'de', 0, 'MESSAGE_BODY',
-        'Ihre SMS-mTAN für die Zahlung bei @merchant über @amount lautet: @otp', @MaestroVID, NULL, @customItemSetSMSNormal);
-
-UPDATE `CustomItem` SET `value` = 'Ihre SMS-mTAN für die Zahlung bei @merchant über @amount lautet: @otp' WHERE `fk_id_customItemSet` = @customItemSetSMSNormal AND
-                                                                                                            `ordinal` = 0 AND
-                                                                                                               pageTypes = 'MESSAGE_BODY' ;
+UPDATE `CustomItem` SET `value` = 'Ihre SMS-mTAN für die Zahlung bei @merchant über @amount lautet: @otp'
+WHERE `fk_id_customItemSet` = @customItemSetSMSNormal AND `ordinal` = 0 AND pageTypes = 'MESSAGE_BODY' ;
 
 /* Elements for the OTP page, for SMS Profile */
-
 
 UPDATE `CustomItem` SET `value` = 'Transaktion' WHERE `fk_id_customItemSet` = @customItemSetSMSNormal AND
         `ordinal` = 42 AND
