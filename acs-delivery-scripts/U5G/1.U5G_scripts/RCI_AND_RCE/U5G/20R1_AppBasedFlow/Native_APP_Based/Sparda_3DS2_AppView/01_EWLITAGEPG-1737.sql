@@ -7,3 +7,8 @@ SET @text = 'Bitte geben Sie die zu der angezeigten Kundennummer passende Online
 UPDATE `CustomItem` SET `value` = @text WHERE `fk_id_customItemSet` = @cisPWD AND
                                               `ordinal` = @ordinal AND
                                               `pageTypes` = @pageType;
+
+SET @pageType = 'OTP_FORM_PAGE';
+SET @ordinal = 2;
+UPDATE `CustomItem` SET `value` = @text
+ WHERE `fk_id_customItemSet` = @cisPWD AND `ordinal` = @ordinal AND `pageTypes` = @pageType;
