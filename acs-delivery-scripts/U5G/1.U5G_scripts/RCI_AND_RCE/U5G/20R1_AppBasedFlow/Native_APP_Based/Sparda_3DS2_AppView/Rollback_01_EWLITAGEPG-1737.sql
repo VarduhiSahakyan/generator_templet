@@ -7,3 +7,9 @@ SET @text = 'Bitte geben Sie Ihre PIN für das Sparda Online-Banking zur dargest
 UPDATE `CustomItem` SET `value` = @text WHERE `fk_id_customItemSet` = @cisPWD AND
                                               `ordinal` = @ordinal AND
                                               `pageTypes` = @pageType;
+
+
+SET @pageType = 'OTP_FORM_PAGE';
+SET @ordinal = 2;
+UPDATE `CustomItem` SET `value` = @text
+WHERE `fk_id_customItemSet` = @cisPWD AND `ordinal` = @ordinal AND `pageTypes` = @pageType;
