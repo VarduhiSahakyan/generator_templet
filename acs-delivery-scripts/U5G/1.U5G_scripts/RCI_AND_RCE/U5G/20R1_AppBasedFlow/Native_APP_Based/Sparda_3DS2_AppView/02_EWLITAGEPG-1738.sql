@@ -12,7 +12,7 @@ UPDATE `CustomItem` SET `value` = @text WHERE `fk_id_customItemSet` = @cisSMSAPP
 SET @cisMobAppExt = (SELECT `id` FROM `CustomItemSet` where name = 'customitemset_SPB_sharedBIN_MOBILE_APP_EXT');
 SET @pageType = 'APP_VIEW_DEVICE_SELECT';
 SET @ordinal = 153;
-SET @text = 'TAN-Verfahren:';
+SET @text = 'Geräteauswahl:';
 UPDATE `CustomItem` SET `value` = @text WHERE `fk_id_customItemSet` = @cisMobAppExt AND
 											  `ordinal` = @ordinal AND
 											  `pageTypes` = @pageType;
@@ -20,7 +20,7 @@ UPDATE `CustomItem` SET `value` = @text WHERE `fk_id_customItemSet` = @cisMobApp
 SET @cisMobAppExtChoice = (SELECT `id` FROM `CustomItemSet` where name = 'customitemset_SPB_sharedBIN_MOBILE_APP_EXT_CHOICE');
 SET @pageType = 'APP_VIEW_DEVICE_SELECT';
 SET @ordinal = 153;
-SET @text = 'TAN-Verfahren:';
+SET @text = 'Geräteauswahl:';
 UPDATE `CustomItem` SET `value` = @text WHERE `fk_id_customItemSet` = @cisMobAppExtChoice AND
 											  `ordinal` = @ordinal AND
 											  `pageTypes` = @pageType;
