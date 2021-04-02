@@ -42,13 +42,49 @@ SET @subissuerAuthMeans = '[ {
 	"authentMeans" : "KBA",
 	"validate" : false
 } ]';
+SET @sharedSubissuerAuthMeans = '[ {
+  "authentMeans" : "OTP_SMS",
+  "validate" : true
+}, {
+  "authentMeans" : "REFUSAL",
+  "validate" : true
+}, {
+  "authentMeans" : "UNDEFINED",
+  "validate" : true
+}, {
+  "authentMeans" : "MOBILE_APP_EXT",
+  "validate" : true
+}, {
+  "authentMeans" : "INFO",
+  "validate" : true
+}, {
+  "authentMeans" : "MOBILE_APP",
+  "validate" : true
+}, {
+  "authentMeans" : "OTP_SMS_EXT_MESSAGE",
+  "validate" : true
+}, {
+  "authentMeans" : "PASSWORD",
+  "validate" : true
+}, {
+  "authentMeans" : "KBA",
+  "validate" : true
+} ]';
+
 SET @subissuerCode = '18502';
+SET @sharedSubissuerCode = '18500';
 
 
 UPDATE SubIssuer
 SET authentMeans = @subissuerAuthMeans
 WHERE code = @subissuerCode
 	and fk_id_issuer = @issuerId;
+
+
+UPDATE SubIssuer
+SET authentMeans = @sharedSubissuerAuthMeans
+WHERE code = @sharedSubissuerCode
+  and fk_id_issuer = @issuerId;
 
 
 SET @customItemName = 'customitemset_18502_PB_PASSWORD';
