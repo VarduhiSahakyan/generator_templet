@@ -558,7 +558,7 @@ AND locale = 'de'
 AND pageTypes = @otpFormPageType
 AND fk_id_customItemSet = @passwordCustomItemSet;
 
-SET @textValue = 'Bitte geben Sie *zweimal* nacheinander die 299 Stelle Ihrer 5-stelligen Consorsbank Online PIN ohne Komma und Leerzeichen ein (z. B. "1k1k!).';
+SET @textValue = 'Bitte geben Sie *zweimal* nacheinander die <b>@challenge1</b> Stelle Ihrer 5-stelligen Consorsbank Online PIN ohne Komma und Leerzeichen ein (z. B. "1k1k!).';
 
 UPDATE CustomItem
 SET value = @textValue
