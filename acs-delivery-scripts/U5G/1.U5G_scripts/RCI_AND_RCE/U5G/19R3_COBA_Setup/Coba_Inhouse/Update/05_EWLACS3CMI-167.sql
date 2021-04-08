@@ -101,7 +101,7 @@ AND locale = 'de'
 AND pageTypes = @appViewPageType
 AND fk_id_customItemSet = @smsCustomItemSet;
 
-SET @textValue = 'Die mobileTAN senden wir Ihnen per SMS an Ihre hinterlegte Mobilnummer.  Eine Aktualisierung können Sie im Online-Banking unter www.commerzbank.de > &quot;Persönlicher Bereich&quot;, &quot;Verwaltung: PIN, TAN, Benutzername&quot;, &quot;TAN-Einstellungen verwalten&quot; vornehmen.';
+SET @textValue = 'Die mobileTAN senden wir Ihnen per SMS an Ihre hinterlegte Mobilnummer.  Eine Aktualisierung können Sie im Online-Banking unter www.commerzbank.de > "Persönlicher Bereich“, „Verwaltung: PIN, TAN, Benutzername“, "TAN-Einstellungen verwalten" vornehmen.';
 
 UPDATE CustomItem
 SET value = @textValue
@@ -122,7 +122,7 @@ AND pageTypes = @appViewPageType
 AND fk_id_customItemSet = @mobileAppCustomItemSet;
 
 
-SET @textValue = 'Bitte öffnen Sie die Commerzbank photoTAN-App und geben Sie dort folgenden Auftrag frei. Nach der Freigabe klicken Sie unten bitte auf &quot;Fortfahren&quot;.
+SET @textValue = 'Bitte öffnen Sie die Commerzbank photoTAN-App und geben Sie dort folgenden Auftrag frei. Nach der Freigabe klicken Sie unten bitte auf "Fortfahren".
 Händler: @merchant
 Betrag: @amount
 Datum: @formattedDate
@@ -146,7 +146,7 @@ AND pageTypes = @appViewPageType
 AND fk_id_customItemSet = @mobileAppCustomItemSet;
 
 
-SET @textValue = 'Wir haben Ihnen einen Auftrag zur Freigabe an Ihre photoTAN-App gesendet. Bitte öffnen Sie die Commerzbank photoTAN-App auf Ihrem Smartphone und geben die Zahlung dort frei. Klicken Sie erst anschließend hier auf &quot;Fortfahren&quot;.';
+SET @textValue = 'Wir haben Ihnen einen Auftrag zur Freigabe an Ihre photoTAN-App gesendet. Bitte öffnen Sie die Commerzbank photoTAN-App auf Ihrem Smartphone und geben die Zahlung dort frei. Klicken Sie erst anschließend hier auf "Fortfahren".';
 
 UPDATE CustomItem
 SET value = @textValue
