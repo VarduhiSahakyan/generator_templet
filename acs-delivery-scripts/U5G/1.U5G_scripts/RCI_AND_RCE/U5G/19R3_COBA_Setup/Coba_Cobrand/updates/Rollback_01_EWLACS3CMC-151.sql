@@ -39,6 +39,10 @@ where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageT
 SET @ordinal = 175;
 delete from CustomItem where fk_id_customItemSet = @customItemSetPASSWORD and ordinal = @ordinal and pageTypes = @currentPageType;
 
+SET @currentPageType = 'FAILURE_PAGE';
+
+delete from CustomItem where fk_id_customItemSet = @customItemSetPASSWORD and ordinal in (32, 33) and pageTypes = @currentPageType;
+
 /* Elements for the profile SMS : */
 
 SET @currentAuthentMean = 'OTP_SMS';
@@ -73,6 +77,5 @@ delete from CustomItem where fk_id_customItemSet = @customItemSetSMS and ordinal
 /* Elements for the FAILURE page, for SMS Profile */
 
 SET @currentPageType = 'FAILURE_PAGE';
-SET @ordinal = 175;
-delete from CustomItem where fk_id_customItemSet = @customItemSetSMS and ordinal = @ordinal and pageTypes = @currentPageType;
 
+delete from CustomItem where fk_id_customItemSet = @customItemSetSMS and ordinal in (32, 33, 175) and pageTypes = @currentPageType;
