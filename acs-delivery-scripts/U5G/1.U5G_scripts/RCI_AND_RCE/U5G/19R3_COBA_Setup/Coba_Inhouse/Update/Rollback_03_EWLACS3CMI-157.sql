@@ -81,7 +81,7 @@ SET @ordinal = 17;
 update CustomItem set value = 'Die Zahlung konnte nicht abgeschlossen werden. Zur Freischaltung Ihrer PIN rufen Sie bitte die Nr. 069 / 5 8000 8000 an.'
 where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal;
 
-delete from CustomItem where fk_id_customItemSet = @customItemSetPASSWORD and ordinal = 175 and pageTypes = @currentPageType;
+delete from CustomItem where fk_id_customItemSet = @customItemSetPASSWORD and ordinal in (32, 33, 175) and pageTypes = @currentPageType;
 
 /* Elements for the profile PHOTOTAN : */
 
@@ -131,3 +131,9 @@ where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType a
 delete from CustomItem where fk_id_customItemSet = @customItemSetSMS and ordinal = 174 and pageTypes = @currentPageType;
 
 delete from CustomItem where fk_id_customItemSet = @customItemSetSMS and ordinal = 175 and pageTypes = @currentPageType;
+
+/* Elements for the FAILURE page, for SMS Profile */
+
+SET @currentPageType = 'FAILURE_PAGE';
+
+delete from CustomItem where fk_id_customItemSet = @customItemSetSMS and ordinal in (32, 33) and pageTypes = @currentPageType;

@@ -39,6 +39,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 /* Elements for the profile MOBILE_APP : */
+
 SET @currentPageType = 'POLLING_PAGE';
 SET @customItemSetMOBILEAPP = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_COZ_MOBILE_APP');
 
@@ -47,7 +48,7 @@ update CustomItem set value = 'Freigabe mit photoTAN-Push in der Commerzbank pho
 where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 2;
-update CustomItem set value = 'Details'
+update CustomItem set value = '<b>Details</b>'
 where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 12;
@@ -55,7 +56,7 @@ update CustomItem set value = ''
 where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 13;
-update CustomItem set value = 'Bitte öffnen Sie die Commerzbank photoTAN-App und geben Sie dort folgende Zahlung frei: '
+update CustomItem set value = 'Bitte öffnen Sie die Commerzbank photoTAN-App und geben Sie dort folgenden Auftrag frei: '
 where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 14;
@@ -82,13 +83,31 @@ SET @ordinal = 33;
 update CustomItem set value = 'Ein technischer Fehler ist aufgetreten, Ihr Auftrag konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.'
 where fk_id_customItemSet = @customItemSetMOBILEAPP and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
+/* FAILURE page, for Mobile App Profile */
+
+SET @currentPageType = 'FAILURE_PAGE';
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
+ 'de', 32, @currentPageType, 'Technischer Fehler', @MaestroVID, NULL, @customItemSetMOBILEAPP);
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
+ 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten, Ihr Auftrag konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', @MaestroVID, NULL, @customItemSetMOBILEAPP);
+
+
 /* Elements for the profile PASSWORD : */
+
 SET @currentPageType = 'OTP_FORM_PAGE';
 SET @currentAuthentMean = 'EXT_PASSWORD';
 SET @customItemSetPASSWORD = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_COZ_PASSWORD');
 
 SET @ordinal = 2;
-update CustomItem set value = 'Details'
+update CustomItem set value = '<b>Details</b>'
 where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 1;
@@ -145,6 +164,18 @@ where fk_id_customItemSet = @customItemSetPASSWORD and pageTypes = @currentPageT
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
+ 'de', 32, @currentPageType, 'Technischer Fehler', @MaestroVID, NULL, @customItemSetPASSWORD);
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
+ 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten, Ihr Auftrag konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', @MaestroVID, NULL, @customItemSetPASSWORD);
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), 'PUSHED_TO_CONFIG',
  'de', 175, @currentPageType, 'Zurück zum Händler', @MaestroVID, NULL, @customItemSetPASSWORD);
 
@@ -158,7 +189,7 @@ update CustomItem set value = 'Freigabe mit photoTAN-Scan.<br>Bitte die Grafik s
 where fk_id_customItemSet = @customItemSetPhotoTAN and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 2;
-update CustomItem set value = 'Bitte bestätigen Sie folgenden Auftrag'
+update CustomItem set value = '<b>Bitte bestätigen Sie folgenden Auftrag</b>'
 where fk_id_customItemSet = @customItemSetPhotoTAN and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 14;
@@ -197,6 +228,19 @@ SET @ordinal = 17;
 update CustomItem set value = 'Die Transaktion konnte nicht abgeschlossen werden. Zur Freischaltung Ihrer Online Banking PIN rufen Sie bitte die Nr. 069 / 5 8000 8000 an.'
 where fk_id_customItemSet = @customItemSetPhotoTAN and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
+ 'de', 32, @currentPageType, 'Technischer Fehler', @MaestroVID, NULL, @customItemSetPhotoTAN);
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
+ 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten, Ihr Auftrag konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', @MaestroVID, NULL, @customItemSetPhotoTAN);
+
+
 -- SMS --
 SET @currentPageType = 'OTP_FORM_PAGE';
 SET @currentAuthentMean = 'OTP_SMS_EXT_MESSAGE';
@@ -207,7 +251,7 @@ update CustomItem set value = 'Zur Freigabe die mobileTAN eingeben, die Sie per 
 where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 2;
-update CustomItem set value = 'Bitte bestätigen Sie folgenden Auftrag'
+update CustomItem set value = '<b>Bitte bestätigen Sie folgenden Auftrag</b>'
 where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
 
 SET @ordinal = 14;
@@ -251,7 +295,21 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 175, @currentPageType, 'Zurück zum Händler', @MaestroVID, NULL, @customItemSetSMS);
 
 /* FAILURE page, for SMS Profile */
+
 SET @currentPageType = 'FAILURE_PAGE';
+
 SET @ordinal = 17;
 update CustomItem set value = 'Der Auftrag konnte nicht ausgeführt werden. Zur Freischaltung Ihrer Online Banking PIN rufen Sie bitte die Nr. 069 / 5 8000 8000 an.'
 where fk_id_customItemSet = @customItemSetSMS and pageTypes = @currentPageType and ordinal = @ordinal and DTYPE = @dtype;
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_32'), 'PUSHED_TO_CONFIG',
+ 'de', 32, @currentPageType, 'Technischer Fehler', @MaestroVID, NULL, @customItemSetSMS);
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_33'), 'PUSHED_TO_CONFIG',
+ 'de', 33, @currentPageType, 'Ein technischer Fehler ist aufgetreten, Ihr Auftrag konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.', @MaestroVID, NULL, @customItemSetSMS);
