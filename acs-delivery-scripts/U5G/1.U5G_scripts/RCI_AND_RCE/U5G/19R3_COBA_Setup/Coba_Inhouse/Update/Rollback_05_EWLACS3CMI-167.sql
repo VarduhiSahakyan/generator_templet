@@ -172,3 +172,30 @@ WHERE ordinal = 165
 AND locale = 'de'
 AND pageTypes = @appViewPageType
 AND fk_id_customItemSet = @mobileAppCustomItemSet;
+
+SET @textValue = 'Ungültige Eingabe \n\nSie haben  eine ungültige PIN eingegeben.\r\nBitte versuchen Sie es erneut. Anzahl verbleibender Versuche:@trialsLeft';
+
+UPDATE CustomItem
+SET value = @textValue
+WHERE ordinal = 160
+AND locale = 'de'
+AND pageTypes = @appViewPageType
+AND fk_id_customItemSet = @passwordCustomItemSet;
+
+SET @textValue = 'Ungültige Eingabe \n\nSie haben eine ungültige mobileTAN eingegeben.\r\nBitte versuchen Sie es erneut.Anzahl verbleibender Versuche: @trialsLeft';
+
+UPDATE CustomItem
+SET value = @textValue
+WHERE ordinal = 160
+AND locale = 'de'
+AND pageTypes = @appViewPageType
+AND fk_id_customItemSet = @smsCustomItemSet;
+
+SET @textValue = 'Bitte starten Sie die photoTAN-App und geben Sie die Zahlung dort frei. Im Anschluss bitte hier fortfahren.';
+
+UPDATE CustomItem
+SET value = @textValue
+WHERE ordinal = 160
+AND locale = 'de'
+AND pageTypes = @appViewPageType
+AND fk_id_customItemSet = @mobileAppCustomItemSet;

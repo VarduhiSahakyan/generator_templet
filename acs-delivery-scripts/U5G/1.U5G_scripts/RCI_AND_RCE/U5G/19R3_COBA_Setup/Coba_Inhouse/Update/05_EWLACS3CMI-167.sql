@@ -122,7 +122,7 @@ AND pageTypes = @appViewPageType
 AND fk_id_customItemSet = @mobileAppCustomItemSet;
 
 
-SET @textValue = 'Bitte öffnen Sie die Commerzbank photoTAN-App und geben Sie dort folgenden Auftrag frei. Nach der Freigabe klicken Sie unten bitte auf "Fortfahren".
+SET @textValue = 'Bitte öffnen Sie die Commerzbank photoTAN-App und geben Sie dort folgenden Auftrag frei. Nach der Freigabe klicken Sie unten bitte auf „Fortfahren“.\n
 Händler: @merchant
 Betrag: @amount
 Datum: @formattedDate
@@ -161,6 +161,33 @@ SET @textValue = 'Fortfahren';
 UPDATE CustomItem
 SET value = @textValue
 WHERE ordinal = 165
+AND locale = 'de'
+AND pageTypes = @appViewPageType
+AND fk_id_customItemSet = @mobileAppCustomItemSet;
+
+SET @textValue = 'Ungültige Eingabe \n\nSie haben eine ungültige Online Banking PIN eingegeben.\r\n Bitte versuchen Sie es erneut. Anzahl verbleibender Versuche:@trialsLeft';
+
+UPDATE CustomItem
+SET value = @textValue
+WHERE ordinal = 160
+AND locale = 'de'
+AND pageTypes = @appViewPageType
+AND fk_id_customItemSet = @passwordCustomItemSet;
+
+SET @textValue = 'Ungültige Eingabe \n\nSie haben eine ungültige mobileTAN eingegeben.\r\n Bitte versuchen Sie es erneut. Anzahl verbleibender Versuche: @trialsLeft';
+
+UPDATE CustomItem
+SET value = @textValue
+WHERE ordinal = 160
+AND locale = 'de'
+AND pageTypes = @appViewPageType
+AND fk_id_customItemSet = @smsCustomItemSet;
+
+SET @textValue = 'Bitte öffnen Sie zunächst die photoTAN-App auf Ihrem Smartphone und geben Sie den Auftrag dort frei. Bitte erst nach der Freigabe hier auf "Fortfahren" klicken.';
+
+UPDATE CustomItem
+SET value = @textValue
+WHERE ordinal = 160
 AND locale = 'de'
 AND pageTypes = @appViewPageType
 AND fk_id_customItemSet = @mobileAppCustomItemSet;
