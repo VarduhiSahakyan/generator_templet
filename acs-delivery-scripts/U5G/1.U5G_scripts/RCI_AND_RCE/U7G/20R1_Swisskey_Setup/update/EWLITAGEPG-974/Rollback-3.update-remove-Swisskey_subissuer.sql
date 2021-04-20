@@ -4,7 +4,7 @@ use `U0P_ACS_WS`;
 
 set @BankB = 'Swisskey AG';
 set @subIssuerSWISSKEY = 'Swisskey AG';
-set @SubIssuerCodeBEKB = '41001';
+set @SubIssuerCodeSWISSKEY = '41001';
 
 set FOREIGN_KEY_CHECKS = 0;
 
@@ -14,12 +14,11 @@ set @parentId = (select c.id
 				   and c.customerType = 'ISSUER');
 set @id_customer = (select id
 					from Customer
-					where code = @SubIssuerCodeBEKB
+					where code = @SubIssuerCodeSWISSKEY
 					  and customerType = 'SUB_ISSUER'
 					  and name = @subIssuerSWISSKEY
 					  and parent_id = @parentID);
-
-
+## Roles are for Swisskey issuer , no need to remove roles and permissions .
 
 delete from Role_Customer where id_customer = (@id_customer);
 
