@@ -25,7 +25,7 @@ SET @activatedAuthMeans = '[ {
   "validate" : true
 }, {
   "authentMeans" : "UNDEFINED",
-  "validate" : false
+  "validate" : true
 }  ]';
 
 SET @issuerCode = '41001';

@@ -28,7 +28,7 @@ SET @activatedAuthMeans = '[ {
   "validate" : true
 } ]';
 
-SET @availableAuthMeans = 'REFUSAL|OTP_SMS_EXT_MESSAGE|MOBILE_APP|MOBILE_APP_EXT|INFO';
+SET @availableAuthMeans = 'REFUSAL|OTP_SMS_EXT_MESSAGE|MOBILE_APP|MOBILE_APP_EXT|INFO|UNDEFINED';
 SET @issuerNameAndLabel = 'Raiffeisenbank Schweiz';
 SET @issuerCode = '80808';
 /*!40000 ALTER TABLE `Issuer` DISABLE KEYS */;
