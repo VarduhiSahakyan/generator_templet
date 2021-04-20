@@ -1,5 +1,7 @@
 USE `U5G_ACS_BO`;
 SET @BankUB = 'BNP_WM';
+
+## 259
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Failure Page (', @BankUB, ')%') );
 
 UPDATE CustomComponent SET value = '
@@ -287,3 +289,16 @@ UPDATE CustomComponent SET value = '
 			</div>
 		</div>
 	</div>' WHERE `fk_id_layout` = @layoutId;
+
+
+## 260
+SET @photoTanCustomItemSet = (SELECT id FROM CustomItemSet WHERE name = CONCAT('customitemset_',@BankUB,'_PHOTO_TAN'));
+SET @otpFormPageType = 'OTP_FORM_PAGE';
+
+SET @textValue = 'Bestätigen';
+UPDATE CustomItem
+SET value = @textValue
+WHERE ordinal = 19
+  AND locale = 'de'
+  AND pageTypes = @otpFormPageType
+  AND fk_id_customItemSet = @photoTanCustomItemSet;
