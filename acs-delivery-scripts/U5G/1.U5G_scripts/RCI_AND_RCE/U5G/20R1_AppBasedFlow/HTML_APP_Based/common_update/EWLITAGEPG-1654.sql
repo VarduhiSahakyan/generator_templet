@@ -7282,7 +7282,6 @@ img.warn-image {
     padding-left: 5px;
 }
  div.acs-challengeInfoText {
-     width: 90%;
      margin-bottom: 2em;
 }
  .acs-footer {
@@ -7571,7 +7570,6 @@ img.warn-image {
     padding-left: 5px;
 }
  div.acs-challengeInfoText {
-     width: 90%;
      margin-bottom: 2em;
 }
  .acs-footer {
@@ -7859,7 +7857,6 @@ img.warn-image {
     padding-left: 5px;
 }
  div.acs-challengeInfoText {
-     width: 90%;
      margin-bottom: 2em;
 }
  .acs-footer {
@@ -8143,7 +8140,6 @@ img.warn-image {
     padding-left: 5px;
 }
  div.acs-challengeInfoText {
-     width: 90%;
      margin-bottom: 2em;
 }
  .acs-footer {
@@ -8424,7 +8420,6 @@ img.warn-image {
     padding-left: 5px;
 }
  div.acs-challengeInfoText {
-     width: 90%;
      margin-bottom: 2em;
 }
  .acs-footer {
@@ -8708,7 +8703,6 @@ img.warn-image {
     padding-left: 5px;
 }
  div.acs-challengeInfoText {
-     width: 90%;
      margin-bottom: 2em;
 }
  .acs-footer {
@@ -9689,7 +9683,6 @@ img.warn-image {
     padding-left: 5px;
 }
  div.acs-challengeInfoText {
-     width: 90%;
      margin-bottom: 2em;
 }
  .acs-footer {
@@ -9978,7 +9971,6 @@ img.warn-image {
     padding-left: 5px;
 }
  div.acs-challengeInfoText {
-     width: 90%;
      margin-bottom: 2em;
 }
  .acs-footer {
@@ -10259,7 +10251,6 @@ img.warn-image {
     padding-left: 5px;
 }
  div.acs-challengeInfoText {
-     width: 90%;
      margin-bottom: 2em;
 }
  .acs-footer {
@@ -10547,7 +10538,6 @@ img.warn-image {
     padding-left: 5px;
 }
  div.acs-challengeInfoText {
-     width: 90%;
      margin-bottom: 2em;
 }
  .acs-footer {
