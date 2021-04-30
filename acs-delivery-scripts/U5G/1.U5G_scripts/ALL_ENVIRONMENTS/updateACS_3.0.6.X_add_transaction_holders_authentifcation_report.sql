@@ -1,3 +1,0 @@
-INSERT INTO SpecificReports (name, dateFormat, displayType) VALUES ('TRANSACTIONS_HOLDERS_AUTHENTICATION', 'DD MMMM YYYY', 'CHOICES_LIST');
-
-INSERT INTO SpecificReports_Issuer (id_specificReport, id_issuer) VALUES ((SELECT id FROM SpecificReports WHERE name = 'TRANSACTIONS_HOLDERS_AUTHENTICATION'), (SELECT id FROM Issuer WHERE code = '20041')), ((SELECT id FROM SpecificReports WHERE name = 'TRANSACTIONS_HOLDERS_AUTHENTICATION'), (SELECT id FROM Issuer WHERE code = '20999'));

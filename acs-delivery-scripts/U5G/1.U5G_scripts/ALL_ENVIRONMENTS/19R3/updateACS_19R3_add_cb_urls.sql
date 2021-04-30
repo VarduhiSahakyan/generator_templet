@@ -1,4 +1,0 @@
-ALTER TABLE `SubIssuer`
-    ADD COLUMN `acs_URL1_VE_CB` VARCHAR(255) NOT NULL DEFAULT 'https://acs-url-1.com' AFTER `acs_URL2_VE_MC`;
-ALTER TABLE `SubIssuer`
-    ADD COLUMN `acs_URL2_VE_CB` VARCHAR(255) NOT NULL DEFAULT 'https://acs-url-2.com' AFTER `acs_URL1_VE_CB`;

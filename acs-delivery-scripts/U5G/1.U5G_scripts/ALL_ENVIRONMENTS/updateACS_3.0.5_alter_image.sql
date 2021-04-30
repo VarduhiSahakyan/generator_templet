@@ -1,7 +1,0 @@
-ALTER TABLE `Image`
-	CHANGE COLUMN `binaryData` `binaryData` LONGBLOB NULL AFTER `updateState`;
-
-ALTER TABLE Image DROP PRIMARY KEY, ADD PRIMARY KEY (id);
-
-ALTER TABLE `Image`
-	ADD UNIQUE INDEX `name` (`name`);

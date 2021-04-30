@@ -1,1 +1,0 @@
-UPDATE CustomItem SET CustomItem.value =  REPLACE(CustomItem.value, 'Votre Transaction', 'Votre transaction');
