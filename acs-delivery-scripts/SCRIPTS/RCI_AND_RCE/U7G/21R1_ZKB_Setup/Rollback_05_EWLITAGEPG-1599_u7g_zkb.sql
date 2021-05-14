@@ -18,11 +18,11 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- delete all the custom components
 delete from CustomComponent
 where ID in (select id
-             from (select CC.ID
-                   from CustomComponent CC,
-                        CustomPageLayout CP
-                   where CC.FK_ID_LAYOUT = CP.ID
-                     and (CP.DESCRIPTION like CONCAT('%(', @BankB, ')%'))) as temp);
+			 from (select CC.ID
+				   from CustomComponent CC,
+						CustomPageLayout CP
+				   where CC.FK_ID_LAYOUT = CP.ID
+					 and (CP.DESCRIPTION like CONCAT('%(', @BankB, ')%'))) as temp);
 
 -- delete the profile set / custompage layout mapping
 delete from CustomPageLayout_ProfileSet where PROFILESET_ID in (@id_profile_set_rch);
@@ -31,13 +31,13 @@ delete from CustomPageLayout where DESCRIPTION like CONCAT('%(', @BankB, ')%');
 
 -- delete profiles for sub issuer
 set @id_customitemsets = (select group_concat(cis.id) from CustomItemSet cis,
-                                                           Profile p,
-                                                           Rule r ,
-                                                           ProfileSet_Rule pr
-                          where  p.FK_ID_CUSTOMITEMSETCURRENT = cis.id
-                            and r.FK_ID_PROFILE = p.ID
-                            and pr.ID_RULE = r.ID
-                            and pr.ID_PROFILESET in (@id_profile_set_rch));
+															Profile p,
+															Rule r ,
+															ProfileSet_Rule pr
+						  where	 p.FK_ID_CUSTOMITEMSETCURRENT = cis.id
+							and r.FK_ID_PROFILE = p.ID
+							and pr.ID_RULE = r.ID
+							and pr.ID_PROFILESET in (@id_profile_set_rch));
 
 update Profile p set p.FK_ID_CUSTOMITEMSETCURRENT = null where find_in_set(FK_ID_CUSTOMITEMSETCURRENT, @id_customitemsets);
 
@@ -45,16 +45,16 @@ delete from CustomItemSet where find_in_set(id, @id_customitemsets);
 delete from CustomItemSet where name like CONCAT('customitemset_', @BankUB_RCH, '%');
 
 set @id_profile = (select group_concat(p.id) from Profile p,
-                                                  Rule r ,
-                                                  ProfileSet_Rule pr
-                   where  r.FK_ID_PROFILE = p.ID
-                     and pr.ID_RULE = r.ID
-                     and pr.ID_PROFILESET in (@id_profile_set_rch));
+												  Rule r ,
+												  ProfileSet_Rule pr
+					where  r.FK_ID_PROFILE = p.ID
+					and pr.ID_RULE = r.ID
+					and pr.ID_PROFILESET in (@id_profile_set_rch));
 
 set @id_rule = (select group_concat(r.id) from Rule r ,
-                                               ProfileSet_Rule pr
-                where  pr.ID_RULE = r.ID
-                  and pr.ID_PROFILESET in (@id_profile_set_rch));
+											   ProfileSet_Rule pr
+					where  pr.ID_RULE = r.ID
+					and pr.ID_PROFILESET in (@id_profile_set_rch));
 
 -- delete conditions
 SELECT r.id from Rule r, ProfileSet_Rule pr
@@ -65,19 +65,19 @@ where rc.FK_ID_RULE = r.id and pr.ID_RULE = r.id and pr.ID_PROFILESET in (@id_pr
 
 delete from Condition_TransactionStatuses
 where ID_CONDITION in (SELECT rc.id from RuleCondition rc, Rule r, ProfileSet_Rule pr
-                       where rc.FK_ID_RULE = r.id and pr.ID_RULE = r.id and pr.ID_PROFILESET in (@id_profile_set_rch));
+						where rc.FK_ID_RULE = r.id and pr.ID_RULE = r.id and pr.ID_PROFILESET in (@id_profile_set_rch));
 
 delete from Condition_MeansProcessStatuses
 where ID_CONDITION in (SELECT rc.id from RuleCondition rc, Rule r, ProfileSet_Rule pr
-                       where rc.FK_ID_RULE = r.id and pr.ID_RULE = r.id and pr.ID_PROFILESET in (@id_profile_set_rch));
+						where rc.FK_ID_RULE = r.id and pr.ID_RULE = r.id and pr.ID_PROFILESET in (@id_profile_set_rch));
 
 delete from RuleCondition where ID in (SELECT id from (SELECT rc.id from RuleCondition rc, Rule r, ProfileSet_Rule pr
-                                                       where rc.FK_ID_RULE = r.id and pr.ID_RULE = r.id and pr.ID_PROFILESET in (@id_profile_set_rch)) as temp);
+														where rc.FK_ID_RULE = r.id and pr.ID_RULE = r.id and pr.ID_PROFILESET in (@id_profile_set_rch)) as temp);
 
 delete from Profile where find_in_set(id, @id_profile);
 
 set @id_rule = (select group_concat(r.id) from Rule r , ProfileSet_Rule pr
-                where  pr.ID_RULE = r.ID and pr.ID_PROFILESET in (@id_profile_set_rch));
+				where  pr.ID_RULE = r.ID and pr.ID_PROFILESET in (@id_profile_set_rch));
 
 -- update Profileset_Rule set ID_RULE = null where find_in_set(ID_RULE, @id_rule);
 

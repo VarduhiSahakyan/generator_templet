@@ -19,8 +19,8 @@ FROM `Role_Permission`
 WHERE id_role IN (SELECT r.id FROM `Role` r WHERE r.name in (@Role1, @Role2, @Role3));
 
 SET @customer_ids = (SELECT group_concat(id)
-                     FROM `Customer`
-                     WHERE name in (@BankB, @subIssuerA));
+					 FROM `Customer`
+					 WHERE name in (@BankB, @subIssuerA));
 
 -- 2. Remove Role-Customer
 DELETE

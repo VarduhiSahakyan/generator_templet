@@ -17,7 +17,7 @@ INSERT INTO `Network_SubIssuer` (`id_network`, `id_subIssuer`)
 SELECT n.id, si.id
 FROM `Network` n, `SubIssuer` si
 WHERE si.fk_id_issuer = @issuerId and si.id = @subIssuerID
-  AND n.code = 'VISA';
+AND n.code = 'VISA';
 
 
 SET @subIssuerIDSOBA = (SELECT id FROM SubIssuer where code = 83340 AND name = 'Baloise Bank SoBa AG');
@@ -30,9 +30,9 @@ SET @subIssuerIDSOBA = (SELECT id FROM SubIssuer where code = 83340 AND name = '
 SET @updateState = 'PUSHED_TO_CONFIG';
 
 INSERT INTO `BinRange` (`activateState`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                        `name`, `updateState`, `immediateActivation`, `activationDate`, `lowerBound`, `panLength`,
-                        `sharedBinRange`, `updateDSDate`, `upperBound`, `toExport`, `fk_id_profileSet`, `fk_id_network`,
-                        `coBrandedCardNetwork`) VALUES
+						`name`, `updateState`, `immediateActivation`, `activationDate`, `lowerBound`, `panLength`,
+						`sharedBinRange`, `updateDSDate`, `upperBound`, `toExport`, `fk_id_profileSet`, `fk_id_network`,
+						`coBrandedCardNetwork`) VALUES
 ('ACTIVATED', @createdBy, NOW(), NULL, NULL, NULL, NULL, @updateState, TRUE, NOW(), '4395907000', 16, FALSE, NULL, '4395907099', FALSE, @ProfileSet, @MaestroVID, NULL);
 
 /* BinRange_SubIssuer */
@@ -40,8 +40,8 @@ INSERT INTO `BinRange_SubIssuer` (`id_binRange`, `id_subIssuer`)
 SELECT b.id, s.id
 FROM BinRange b, SubIssuer s
 WHERE b.lowerBound = '4395907000' AND b.upperBound = '4395907099'
-  AND b.fk_id_profileSet=@ProfileSet
-  AND s.code=@subIssuerCode;
+AND b.fk_id_profileSet=@ProfileSet
+AND s.code=@subIssuerCode;
 
 /* CustomItem */
 /* Create custom items for default language and backup languages - in this example de and en */
@@ -63,25 +63,25 @@ SET @customItemSetREFUSAL = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCA
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'de', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetREFUSAL
+		'de', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetREFUSAL
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'de', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetREFUSAL
+		'de', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetREFUSAL
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 /* ----------- DE Elements for the profile DEFAULT_REFUSAL : ------------*/
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_1'), @updateState,
  'de', 1, @refusalPageType, '<b>Zahlungsfreigabe nicht möglich</b>', @MaestroVID, NULL, @customItemSetREFUSAL),
 
@@ -134,13 +134,13 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 # ------------- HELP PAGE ----------
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'de', 1, @helpPagePageType, '<b>Hilfe</b>', @MaestroVID, NULL, @customItemSetREFUSAL),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_2'), @updateState,
- 'de', 2, @helpPagePageType, 'Um Ihre Sicherheit bei Online-Zahlung zu erhöhen, hat die Zürcher Kantonalbank eine zweistufige Authentifikation eingeführt.  ', @MaestroVID, NULL, @customItemSetREFUSAL),
+ 'de', 2, @helpPagePageType, 'Um Ihre Sicherheit bei Online-Zahlung zu erhöhen, hat die Zürcher Kantonalbank eine zweistufige Authentifikation eingeführt.	', @MaestroVID, NULL, @customItemSetREFUSAL),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_3'), @updateState,
  'de', 3, @helpPagePageType, 'Um eine Zahlung ausführen zu können, müssen Sie diese entweder anhand eines Freigabe-Codes per SMS, oder durch die Verifikation Ihrer Person auf einer Mobile Authentifikations-App bestätigen. Für diesen Service müssen Sie sich einmalig registrieren. Für den entsprechenden Registrierungsprozess, oder Änderungen Ihrer Authentifikationsmethode, wenden Sie sich bitte an die Zürcher Kantonalbank.', @MaestroVID, NULL, @customItemSetREFUSAL),
@@ -152,8 +152,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 # --------- FAILURE_PAGE -----------
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'de', 11, @failurePagePageType, '<b>Informationen zur Zahlung</b>', @MaestroVID, NULL, @customItemSetREFUSAL),
 
@@ -182,23 +182,23 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /*ENGLISH translations for DEFAULT_REFUSAL*/
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'en', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetREFUSAL
+	   'en', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetREFUSAL
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'en', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetREFUSAL
+	   'en', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetREFUSAL
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_1'), @updateState,
  'en', 1, @refusalPageType, '<b>Payment approval not possible.</b>', @MaestroVID, NULL, @customItemSetREFUSAL),
 
@@ -250,8 +250,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'en', 1, @helpPagePageType, '<b>Help</b>', @MaestroVID, NULL, @customItemSetREFUSAL),
 
@@ -267,8 +267,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'en', 11, @failurePagePageType, '<b>Information about payment</b>', @MaestroVID, NULL, @customItemSetREFUSAL),
 
@@ -298,23 +298,23 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /*FRENCH translations for DEFAULT_REFUSAL*/
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'fr', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetREFUSAL
+	   'fr', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetREFUSAL
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'fr', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetREFUSAL
+	   'fr', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetREFUSAL
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_1'), @updateState,
  'fr', 1, @refusalPageType, '<b>Activation de paiement impossible</b>', @MaestroVID, NULL, @customItemSetREFUSAL),
 
@@ -366,8 +366,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'fr', 1, @helpPagePageType, '<b>Aide</b>', @MaestroVID, NULL, @customItemSetREFUSAL),
 
@@ -382,8 +382,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'fr', 11, @failurePagePageType, '<b>Informations concernant le paiement.</b>', @MaestroVID, NULL, @customItemSetREFUSAL),
 
@@ -414,23 +414,23 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /*Italian translations for DEFAULT_REFUSAL*/
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'it', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetREFUSAL
+	   'it', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetREFUSAL
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'it', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetREFUSAL
+	   'it', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetREFUSAL
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_1'), @updateState,
  'it', 1, @refusalPageType, '<b>Autorizzazione di pagamento non possibile</b>', @MaestroVID, NULL, @customItemSetREFUSAL),
 
@@ -481,8 +481,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'it', 1, @helpPagePageType, '<b>Aiuto</b>', @MaestroVID, NULL, @customItemSetREFUSAL),
 
@@ -497,8 +497,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'it', 11, @failurePagePageType, '<b>Informazioni sul pagamento</b>', @MaestroVID, NULL, @customItemSetREFUSAL),
 
@@ -528,37 +528,37 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 /* Elements for the profile SMS : */
 
-SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_SMS'));
+SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_SMS_EXT'));
 
 /* Here are the images for all pages associated to the SMS Profile */
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'de', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetSMS
+	   'de', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetSMS
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'de', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetSMS
+	   'de', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetSMS
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 
 /* Here is what the content of the SMS will be */
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-VALUES ('T', @createdBy, NOW(), NULL, NULL, NULL, 'OTP_SMS_MESSAGE_BODY', @updateState, 'de', 0, 'MESSAGE_BODY',
-        'Sie haben einen Freigabe-Code für eine Online-Zahlung angefordert. Bitte verwenden Sie folgenden Code: @otp', @MaestroVID, NULL, @customItemSetSMS);
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+VALUES ('T', @createdBy, NOW(), NULL, NULL, NULL, 'OTP_SMS_EXT_MESSAGE_BODY', @updateState, 'de', 0, 'MESSAGE_BODY',
+		'Sie haben einen Freigabe-Code für eine Online-Zahlung angefordert. Bitte verwenden Sie folgenden Code: @otp', @MaestroVID, NULL, @customItemSetSMS);
 
 /* Elements for the OTP page, for SMS Profile */
 # ---------- de TRANSLATE FOR SMS PROFILE ---------
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@otpFormPagePageType,'_1'), @updateState,
  'de', 1, @otpFormPagePageType, '<b>SMS-Freigabe der Zahlung</b>', @MaestroVID, NULL, @customItemSetSMS),
 
@@ -656,13 +656,13 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /* Elements for the HELP page, for SMS Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'de', 1, @helpPagePageType, '<b>Hilfe</b>', @MaestroVID, NULL, @customItemSetSMS),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@helpPagePageType,'_2'), @updateState,
- 'de', 2, @helpPagePageType, 'Um Ihre Sicherheit bei Online-Zahlung zu erhöhen, hat die Zürcher Kantonalbank eine zweistufige Authentifikation eingeführt.  ', @MaestroVID, NULL, @customItemSetSMS),
+ 'de', 2, @helpPagePageType, 'Um Ihre Sicherheit bei Online-Zahlung zu erhöhen, hat die Zürcher Kantonalbank eine zweistufige Authentifikation eingeführt.	', @MaestroVID, NULL, @customItemSetSMS),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@helpPagePageType,'_3'), @updateState,
  'de', 3, @helpPagePageType, 'Um eine Zahlung ausführen zu können, müssen Sie diese entweder anhand eines Freigabe-Codes per SMS, oder durch die Verifikation Ihrer Person auf einer Mobile Authentifikations-App bestätigen. Für diesen Service müssen Sie sich einmalig registrieren. Für den entsprechenden Registrierungsprozess, oder Änderungen Ihrer Authentifikationsmethode, wenden Sie sich bitte an die Zürcher Kantonalbank.', @MaestroVID, NULL, @customItemSetSMS),
@@ -675,8 +675,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'de', 11, @failurePagePageType, '<b>Informationen zur Zahlung</b>', @MaestroVID, NULL, @customItemSetSMS),
@@ -704,41 +704,41 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 
-/*ENGLISH translations for OTP_SMS*/
+/*ENGLISH translations for OTP_SMS_EXT*/
 /* Here are the images for all pages associated to the SMS Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'en', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetSMS
+	   'en', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetSMS
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'en', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetSMS
+	   'en', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetSMS
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 
 /* Here is what the content of the SMS will be */
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-VALUES ('T', @createdBy, NOW(), NULL, NULL, NULL, 'OTP_SMS_MESSAGE_BODY', @updateState, 'en', 0, 'MESSAGE_BODY',
-        'You have requested an approval code for an online purchase. Please use the following code: @otp', @MaestroVID, NULL, @customItemSetSMS);
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+VALUES ('T', @createdBy, NOW(), NULL, NULL, NULL, 'OTP_SMS_EXT_MESSAGE_BODY', @updateState, 'en', 0, 'MESSAGE_BODY',
+		'You have requested an approval code for an online purchase. Please use the following code: @otp', @MaestroVID, NULL, @customItemSetSMS);
 
 /* Elements for the OTP page, for SMS Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@otpFormPagePageType,'_1'), @updateState,
  'en', 1, @otpFormPagePageType, '<b>SMS approval of the payment</b>', @MaestroVID, NULL, @customItemSetSMS),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@otpFormPagePageType,'_2'), @updateState,
- 'en', 2, @otpFormPagePageType, 'We have sent an approval code to your mobile phone to approve the payment.  ', @MaestroVID, NULL, @customItemSetSMS),
+ 'en', 2, @otpFormPagePageType, 'We have sent an approval code to your mobile phone to approve the payment.	 ', @MaestroVID, NULL, @customItemSetSMS),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@otpFormPagePageType,'_3'), @updateState,
  'en', 3, @otpFormPagePageType, 'Please check the payment details to the left and confirm the payment by entering the approval code.', @MaestroVID, NULL, @customItemSetSMS),
@@ -832,13 +832,13 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'en', 1, @helpPagePageType, '<b>Help</b>', @MaestroVID, NULL, @customItemSetSMS),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@helpPagePageType,'_2'), @updateState,
- 'en', 2, @helpPagePageType, 'To boost security while paying online, Zürcher Kantonalbank has introduced two-level authentification. To complete a payment, you must confirm it either by means of an approval code per SMS, or through verification of your identity with a mobile authentication app. You need to register once for this service.   ', @MaestroVID, NULL, @customItemSetSMS),
+ 'en', 2, @helpPagePageType, 'To boost security while paying online, Zürcher Kantonalbank has introduced two-level authentification. To complete a payment, you must confirm it either by means of an approval code per SMS, or through verification of your identity with a mobile authentication app. You need to register once for this service.	  ', @MaestroVID, NULL, @customItemSetSMS),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@helpPagePageType,'_3'), @updateState,
  'en', 3, @helpPagePageType, 'Contact Zürcher Kantonalbank for the corresponding registration process or changes to your authentification method.', @MaestroVID, NULL, @customItemSetSMS),
@@ -851,8 +851,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /* Elements for the FAILURE page, for SMS Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+								`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'en', 11, @failurePagePageType, '<b>Information about payment</b>', @MaestroVID, NULL, @customItemSetSMS),
 
@@ -878,36 +878,36 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'en', 175, @failurePagePageType, 'Back to the online shop', @MaestroVID, NULL, @customItemSetSMS);
 
 
-/*FRENCH translations for OTP_SMS*/
+/*FRENCH translations for OTP_SMS_EXT*/
 /* Here are the images for all pages associated to the SMS Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'fr', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetSMS
+	   'fr', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetSMS
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'fr', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetSMS
+	   'fr', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetSMS
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 
 /* Here is what the content of the SMS will be */
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-VALUES ('T', @createdBy, NOW(), NULL, NULL, NULL, 'OTP_SMS_MESSAGE_BODY', @updateState, 'fr', 0, 'MESSAGE_BODY',
-        'Vous avez demandé un code d’activation pour un paiement en ligne. Veuillez utiliser le code suivant : @otp', @MaestroVID, NULL, @customItemSetSMS);
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+VALUES ('T', @createdBy, NOW(), NULL, NULL, NULL, 'OTP_SMS_EXT_MESSAGE_BODY', @updateState, 'fr', 0, 'MESSAGE_BODY',
+		'Vous avez demandé un code d’activation pour un paiement en ligne. Veuillez utiliser le code suivant : @otp', @MaestroVID, NULL, @customItemSetSMS);
 
 /* Elements for the OTP page, for SMS Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@otpFormPagePageType,'_1'), @updateState,
  'fr', 1, @otpFormPagePageType, '<b>SMS - Activation du paiement</b>', @MaestroVID, NULL, @customItemSetSMS),
 
@@ -1006,8 +1006,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /* Elements for the HELP page, for SMS Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'fr', 1, @helpPagePageType, '<b>Aide</b>', @MaestroVID, NULL, @customItemSetSMS),
 
@@ -1025,8 +1025,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /* Elements for the FAILURE page, for SMS Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'fr', 11, @failurePagePageType, '<b>Informations concernant le paiement.</b>', @MaestroVID, NULL, @customItemSetSMS),
 
@@ -1054,36 +1054,36 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 
-/*ITALIAN translations for OTP_SMS*/
+/*ITALIAN translations for OTP_SMS_EXT*/
 /* Here are the images for all pages associated to the SMS Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'it', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetSMS
+	   'it', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetSMS
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'it', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetSMS
+	   'it', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetSMS
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 
 /* Here is what the content of the SMS will be */
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-VALUES ('T', @createdBy, NOW(), NULL, NULL, NULL, 'OTP_SMS_MESSAGE_BODY', @updateState, 'it', 0, 'MESSAGE_BODY',
-        'Ha richiesto un codice di autenticazione per un pagamento online. Utilizzi il seguente codice: @otp', @MaestroVID, NULL, @customItemSetSMS);
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+VALUES ('T', @createdBy, NOW(), NULL, NULL, NULL, 'OTP_SMS_EXT_MESSAGE_BODY', @updateState, 'it', 0, 'MESSAGE_BODY',
+		'Ha richiesto un codice di autenticazione per un pagamento online. Utilizzi il seguente codice: @otp', @MaestroVID, NULL, @customItemSetSMS);
 
 /* Elements for the OTP page, for SMS Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@otpFormPagePageType,'_1'), @updateState,
  'it', 1, @otpFormPagePageType, '<b>Autorizzazione del pagamento via SMS</b>', @MaestroVID, NULL, @customItemSetSMS),
 
@@ -1182,13 +1182,13 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'it', 1, @helpPagePageType, '<b>Aiuto</b>', @MaestroVID, NULL, @customItemSetSMS),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@helpPagePageType,'_2'), @updateState,
- 'it', 2, @helpPagePageType, 'Al fine di aumentare la sicurezza per i pagamenti online, Zürcher Kantonalbank ha introdotto una procedura di autenticazione in due fasi.  ', @MaestroVID, NULL, @customItemSetSMS),
+ 'it', 2, @helpPagePageType, 'Al fine di aumentare la sicurezza per i pagamenti online, Zürcher Kantonalbank ha introdotto una procedura di autenticazione in due fasi.	 ', @MaestroVID, NULL, @customItemSetSMS),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@helpPagePageType,'_3'), @updateState,
  'it', 3, @helpPagePageType, 'Per poter effettuare un pagamento, deve confermarlo utilizzando un codice di autenticazione tramite SMS o verificando la sua persona su un’app di autenticazione mobile. Deve effettuare una volta la registrazione per questo servizio. Si rivolga alla Zürcher Kantonalbank per il processo di registrazione corrispondente o per modifiche al metodo di autenticazione.', @MaestroVID, NULL, @customItemSetSMS),
@@ -1202,8 +1202,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'it', 11, @failurePagePageType, '<b>Informazioni sul pagamento</b>', @MaestroVID, NULL, @customItemSetSMS),
 
@@ -1234,23 +1234,23 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 SET @customItemSetMobileAppExt = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_MOBILE_APP_EXT'));
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'de', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMobileAppExt
+	   'de', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMobileAppExt
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'de', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMobileAppExt
+	   'de', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMobileAppExt
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 /*MOBILE_APP_EXT_PAGE*/
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_1'), @updateState,
  'de', 1, @pollingPagePageType, '<b>Zahlung im App freigeben</b>', @MaestroVID, NULL, @customItemSetMobileAppExt),
@@ -1259,7 +1259,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 2, @pollingPagePageType, 'Damit die Zahlung abgeschlossen werden kann, müssen Sie diese in der von der Zürcher Kantonalbank zur Verfügung gestellten App freigeben. Sie sollten bereits eine entsprechende Benachrichtigung auf Ihrem Mobil-Telefon erhalten haben. Andernfalls können Sie direkt in die App einsteigen und die Zahlung dort verifizieren. ', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_3'), @updateState,
- 'de', 3, @pollingPagePageType, '/nFalls Sie die App zurzeit nicht nutzen können, können Sie die Zahlung per SMS-Code bestätigen:', @MaestroVID, NULL, @customItemSetMobileAppExt),
+ 'de', 3, @pollingPagePageType, 'Falls Sie die App zurzeit nicht nutzen können, können Sie die Zahlung per SMS-Code bestätigen:', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_10'), @updateState,
  'de', 10, @pollingPagePageType, 'Per SMS-Code bestätigen', @MaestroVID, NULL, @customItemSetMobileAppExt),
@@ -1328,8 +1328,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /* Elements for the HELP page, for MOBILE APP EXT Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'de', 1, @helpPagePageType, '<b>Hilfe</b>', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
@@ -1346,8 +1346,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /* Elements for the FAILURE page, for MOBILE APP EXT Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'de', 11, @failurePagePageType, '<b>Informationen zur Zahlung</b>', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
@@ -1377,23 +1377,23 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /*ENGLISH translations for MOBILE_APP_EXT*/
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'en', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMobileAppExt
+	   'en', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMobileAppExt
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'en', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMobileAppExt
+	   'en', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMobileAppExt
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_1'), @updateState,
  'en', 1, @pollingPagePageType, '<b>Approve payment in the app</b>', @MaestroVID, NULL, @customItemSetMobileAppExt),
@@ -1472,8 +1472,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /* Elements for the HELP page, for MOBILE APP EXT Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'en', 1, @helpPagePageType, '<b>Help</b>', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
@@ -1490,8 +1490,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /* Elements for the FAILURE page, for MOBILE APP EXT Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'en', 11, @failurePagePageType, '<b>Information about payment</b>', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
@@ -1520,24 +1520,24 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /*FRENCH translations for MOBILE_APP_EXT*/
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'fr', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMobileAppExt
+	   'fr', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMobileAppExt
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'fr', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMobileAppExt
+	   'fr', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMobileAppExt
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 
 /*MOBILE_APP_EXT_PAGE*/
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_1'), @updateState,
  'fr', 1, @pollingPagePageType, '<b>Activer le paiement dans l''App</b>', @MaestroVID, NULL, @customItemSetMobileAppExt),
@@ -1546,7 +1546,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'fr', 2, @pollingPagePageType, 'Pour que le paiement puisse être terminé, vous devez l''activer dans l''App mise à disposition par Zürcher Kantonalbank. Vous devriez déjà avoir reçu un message correspondant sur votre téléphone portable. Dans le cas contraire, vous pouvez aller directement dans votre App et y vérifier le paiement.', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_3'), @updateState,
- 'fr', 3, @pollingPagePageType, '/nSi vous n''êtes actuellement pas en masure d''utiliser l''app, vous pouvez confirmer le paiement par code SMS:', @MaestroVID, NULL, @customItemSetMobileAppExt),
+ 'fr', 3, @pollingPagePageType, 'Si vous n''êtes actuellement pas en masure d''utiliser l''app, vous pouvez confirmer le paiement par code SMS:', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_10'), @updateState,
  'fr', 10, @pollingPagePageType, 'Confirmer par code SMS', @MaestroVID, NULL, @customItemSetMobileAppExt),
@@ -1616,8 +1616,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /* Elements for the HELP page, for MOBILE APP EXT Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'fr', 1, @helpPagePageType, '<b>Hilfe</b>', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
@@ -1635,8 +1635,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'fr', 11, @failurePagePageType, '<b>Informations concernant le paiement.</b>', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
@@ -1668,23 +1668,23 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /*ITALIAN translations for MOBILE_APP_EXT*/
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'it', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMobileAppExt
+	   'it', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMobileAppExt
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'it', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMobileAppExt
+	   'it', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMobileAppExt
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 /*MOBILE_APP_EXT_PAGE*/
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_1'), @updateState,
@@ -1694,7 +1694,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'it', 2, @pollingPagePageType, 'Per poter completare il pagamento, è necessario autorizzarlo nell’app fornita sua Zürcher Kantonalbank.  Dovrebbe aver già ricevuto una notifica sul suo cellulare.  In caso contrario può accedere direttamente all''app e verificare il pagamento lì.', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_3'), @updateState,
- 'it', 3, @pollingPagePageType, '/nSe al momento non sei in grado di utilizzare l''app, potete confermare il pagamento via codice SMS:', @MaestroVID, NULL, @customItemSetMobileAppExt),
+ 'it', 3, @pollingPagePageType, 'Se al momento non sei in grado di utilizzare l''app, potete confermare il pagamento via codice SMS:', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_10'), @updateState,
  'it', 10, @pollingPagePageType, 'Confermare via codice SMS', @MaestroVID, NULL, @customItemSetMobileAppExt),
@@ -1763,8 +1763,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /* Elements for the HELP page, for MOBILE APP EXT Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'it', 1, @helpPagePageType, '<b>Aiuto</b>', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
@@ -1782,8 +1782,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /* Elements for the FAILURE page, for MOBILE APP EXT Profile */
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'it', 11, @failurePagePageType, '<b>Informazioni sul pagamento</b>', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
@@ -1820,8 +1820,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, @customItemSetRefusalFraud FROM `CustomItem` n WHERE fk_id_customItemSet = @customItemSetREFUSAL;
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_22'), @updateState,
  'de', 22, @refusalPageType, 'Zahlung nicht ausgeführt', @MaestroVID, NULL, @customItemSetRefusalFraud),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_23'), @updateState,
@@ -1835,7 +1835,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_22'), @updateState,
  'fr', 22, @refusalPageType, 'Le paiement n''a pas été effectué', @MaestroVID, NULL, @customItemSetRefusalFraud),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_23'), @updateState,
- 'fr', 23, @refusalPageType, 'Pour des raisons de sécurité, votre carte est bloquée, pour une courte durée,  pour les paiements en ligne.', @MaestroVID, NULL, @customItemSetRefusalFraud),
+ 'fr', 23, @refusalPageType, 'Pour des raisons de sécurité, votre carte est bloquée, pour une courte durée,	 pour les paiements en ligne.', @MaestroVID, NULL, @customItemSetRefusalFraud),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_22'), @updateState,
  'it', 22, @refusalPageType, 'Pagamento non eseguito', @MaestroVID, NULL, @customItemSetRefusalFraud),
@@ -1849,25 +1849,25 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 SET @customItemSetMISSING = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_MISSING_AUTHENTICATION_REFUSAL'));
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'de', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMISSING
+	   'de', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMISSING
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'de', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMISSING
+	   'de', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMISSING
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 /* ----------- DE Elements for the profile MISSING : ------------*/
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_1'), @updateState,
  'de', 1, @refusalPageType, '<b>Zahlungsfreigabe nicht möglich</b>', @MaestroVID, NULL, @customItemSetMISSING ),
 
@@ -1921,13 +1921,13 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 # ------------- HELP PAGE ----------
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'de', 1, @helpPagePageType, '<b>Hilfe</b>', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_2'), @updateState,
- 'de', 2, @helpPagePageType, 'Um Ihre Sicherheit bei Online-Zahlung zu erhöhen, hat die Zürcher Kantonalbank eine zweistufige Authentifikation eingeführt.  ', @MaestroVID, NULL, @customItemSetMISSING ),
+ 'de', 2, @helpPagePageType, 'Um Ihre Sicherheit bei Online-Zahlung zu erhöhen, hat die Zürcher Kantonalbank eine zweistufige Authentifikation eingeführt.	', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_3'), @updateState,
  'de', 3, @helpPagePageType, 'Um eine Zahlung ausführen zu können, müssen Sie diese entweder anhand eines Freigabe-Codes per SMS, oder durch die Verifikation Ihrer Person auf einer Mobile Authentifikations-App bestätigen. Für diesen Service müssen Sie sich einmalig registrieren. Für den entsprechenden Registrierungsprozess, oder Änderungen Ihrer Authentifikationsmethode, wenden Sie sich bitte an die Zürcher Kantonalbank.', @MaestroVID, NULL, @customItemSetMISSING),
@@ -1939,8 +1939,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 # --------- FAILURE_PAGE -----------
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'de', 11, @failurePagePageType, '<b>Informationen zur Zahlung</b>', @MaestroVID, NULL, @customItemSetMISSING ),
 
@@ -1969,23 +1969,23 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /*ENGLISH translations for MISSING*/
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'en', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMISSING
+	   'en', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMISSING
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'en', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMISSING
+	   'en', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMISSING
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_1'), @updateState,
  'en', 1, @refusalPageType, '<b>Payment approval not possible.</b>', @MaestroVID, NULL, @customItemSetMISSING ),
 
@@ -2036,8 +2036,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'en', 1, @helpPagePageType, '<b>Help</b>', @MaestroVID, NULL, @customItemSetMISSING ),
 
@@ -2053,8 +2053,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'en', 11, @failurePagePageType, '<b>Information about payment</b>', @MaestroVID, NULL, @customItemSetMISSING ),
 
@@ -2084,23 +2084,23 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /*FRENCH translations for MISSING*/
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'fr', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMISSING
+	   'fr', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMISSING
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'fr', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMISSING
+	   'fr', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMISSING
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_1'), @updateState,
  'fr', 1, @refusalPageType, '<b>Activation de paiement impossible</b>', @MaestroVID, NULL, @customItemSetMISSING ),
 
@@ -2117,7 +2117,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'fr', 22, @refusalPageType, 'Le paiement n''a pas été effectuéLe paiement n''a pas été effectué', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_23'), @updateState,
- 'fr', 23, @refusalPageType, 'Pour des raisons de sécurité, votre carte est bloquée, pour une courte durée,  pour les paiements en ligne.', @MaestroVID, NULL, @customItemSetMISSING ),
+ 'fr', 23, @refusalPageType, 'Pour des raisons de sécurité, votre carte est bloquée, pour une courte durée,	 pour les paiements en ligne.', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_32'), @updateState,
  'fr', 32, @refusalPageType, 'Le paiement n''a pas été effectué - La carte n''est pas enregistrée pour 3D Secure', @MaestroVID, NULL, @customItemSetMISSING ),
@@ -2151,8 +2151,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'fr', 1, @helpPagePageType, '<b>Aide</b>', @MaestroVID, NULL, @customItemSetMISSING ),
 
@@ -2169,8 +2169,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 # SET @currentPageType = 'FAILURE_PAGE';
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'fr', 11, @failurePagePageType, '<b>Informations concernant le paiement.</b>', @MaestroVID, NULL, @customItemSetMISSING ),
 
@@ -2201,23 +2201,23 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /*Italian translations for MISSING*/
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'it', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMISSING
+	   'it', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetMISSING
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'it', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMISSING
+	   'it', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetMISSING
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_1'), @updateState,
  'it', 1, @refusalPageType, '<b>Autorizzazione di pagamento non possibile</b>', @MaestroVID, NULL, @customItemSetMISSING ),
 
@@ -2269,8 +2269,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'it', 1, @helpPagePageType, '<b>Aiuto</b>', @MaestroVID, NULL, @customItemSetMISSING ),
 
@@ -2287,8 +2287,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 # SET @currentPageType = 'FAILURE_PAGE';
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'it', 11, @failurePagePageType, '<b>Informazioni sul pagamento</b>', @MaestroVID, NULL, @customItemSetMISSING ),
 
@@ -2320,25 +2320,25 @@ SET @customItemSetBackupRefusal = (SELECT id FROM `CustomItemSet` WHERE `name` =
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'de', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetBackupRefusal
+	   'de', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetBackupRefusal
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'de', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetBackupRefusal
+	   'de', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetBackupRefusal
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 /* ----------- DE Elements for the profile BACKUP_REFUSAL : ------------*/
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_1'), @updateState,
  'de', 1, @refusalPageType, '<b>Zahlungsfreigabe nicht möglich</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
 
@@ -2391,13 +2391,13 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 # ------------- HELP PAGE ----------
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'de', 1, @helpPagePageType, '<b>Hilfe</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_2'), @updateState,
- 'de', 2, @helpPagePageType, 'Um Ihre Sicherheit bei Online-Zahlung zu erhöhen, hat die Zürcher Kantonalbank eine zweistufige Authentifikation eingeführt.  ', @MaestroVID, NULL, @customItemSetBackupRefusal),
+ 'de', 2, @helpPagePageType, 'Um Ihre Sicherheit bei Online-Zahlung zu erhöhen, hat die Zürcher Kantonalbank eine zweistufige Authentifikation eingeführt.	', @MaestroVID, NULL, @customItemSetBackupRefusal),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_3'), @updateState,
  'de', 3, @helpPagePageType, 'Um eine Zahlung ausführen zu können, müssen Sie diese entweder anhand eines Freigabe-Codes per SMS, oder durch die Verifikation Ihrer Person auf einer Mobile Authentifikations-App bestätigen. Für diesen Service müssen Sie sich einmalig registrieren. Für den entsprechenden Registrierungsprozess, oder Änderungen Ihrer Authentifikationsmethode, wenden Sie sich bitte an die Zürcher Kantonalbank.', @MaestroVID, NULL, @customItemSetBackupRefusal),
@@ -2409,8 +2409,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 # --------- FAILURE_PAGE -----------
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'de', 11, @failurePagePageType, '<b>Informationen zur Zahlung</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
 
@@ -2439,23 +2439,23 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /*ENGLISH translations for BACKUP_REFUSAL*/
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'en', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetBackupRefusal
+	   'en', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetBackupRefusal
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'en', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetBackupRefusal
+	   'en', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetBackupRefusal
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_1'), @updateState,
  'en', 1, @refusalPageType, '<b>Payment approval not possible.</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
 
@@ -2507,8 +2507,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'en', 1, @helpPagePageType, '<b>Help</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
 
@@ -2524,8 +2524,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'en', 11, @failurePagePageType, '<b>Information about payment</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
 
@@ -2555,23 +2555,23 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /*FRENCH translations for BACKUP_REFUSAL*/
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'fr', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetBackupRefusal
+	   'fr', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetBackupRefusal
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'fr', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetBackupRefusal
+	   'fr', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetBackupRefusal
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_1'), @updateState,
  'fr', 1, @refusalPageType, '<b>Activation de paiement impossible</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
 
@@ -2623,8 +2623,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'fr', 1, @helpPagePageType, '<b>Aide</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
 
@@ -2639,8 +2639,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'fr', 11, @failurePagePageType, '<b>Informations concernant le paiement.</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
 
@@ -2671,23 +2671,23 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 /*Italian translations for BACKUP_REFUSAL*/
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-       'it', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetBackupRefusal
+	   'it', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetBackupRefusal
 FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-       'it', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetBackupRefusal
+	   'it', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetBackupRefusal
 FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_1'), @updateState,
  'it', 1, @refusalPageType, '<b>Autorizzazione di pagamento non possibile</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
 
@@ -2738,8 +2738,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
  'it', 1, @helpPagePageType, '<b>Aiuto</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
 
@@ -2754,8 +2754,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-                          `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-                          `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
  'it', 11, @failurePagePageType, '<b>Informazioni sul pagamento</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
 
