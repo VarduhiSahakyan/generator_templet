@@ -12,7 +12,7 @@ SET @activatedAuthMeans = '[ {
 	"authentMeans" : "REFUSAL",
 	"validate" : true
 }, {
-	"authentMeans" : "OTP_SMS_EXT",
+	"authentMeans" : "OTP_SMS_EXT_MESSAGE",
 	"validate" : true
 }, {
 	"authentMeans" : "MOBILE_APP_EXT",
@@ -25,7 +25,7 @@ SET @activatedAuthMeans = '[ {
 	"validate" : true
 } ]';
 
-SET @availableAuthMeans = 'REFUSAL|OTP_SMS_EXT|MOBILE_APP_EXT|INFO|UNDEFINED';
+SET @availableAuthMeans = 'REFUSAL|OTP_SMS_EXT_MESSAGE|MOBILE_APP_EXT|INFO|UNDEFINED';
 SET @issuerNameAndLabel = 'Zürcher Kantonalbank ';
 SET @issuerCode = '70000';
 /*!40000 ALTER TABLE `Issuer` DISABLE KEYS */;
