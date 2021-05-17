@@ -13,6 +13,7 @@
 
     <KEYFile><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/Cles_techniques_ACS_V3_07052019.ksk</KEYFile>
     <KEYFile><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/Cles_techniques_ACS_V3_07052019.rsa</KEYFile>
+    <KEYFile><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/Cles_techniques_ACS_V4_13042021.rsa</KEYFile>
 
     <TraceLevel>info</TraceLevel>
     <TraceFile>+<%= @context['softman_global']['CRYPTO_LOG_PATH'] %>/c2pLog.txt</TraceFile>
@@ -45,6 +46,7 @@
         <KDKFile><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/KDK_ZKB_<%= @context['softman_global']['NAME_C2PBOX_1'] %>_02032021.kdk</KDKFile>
 
         <KDKFile><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/KDK_CLES_TECHNIQUES_<%= @context['softman_global']['NAME_C2PBOX_1'] %>_27082019.kdk</KDKFile>
+		<KDKFile><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/KDK_CLES_TECHNIQUES_<%= @context['softman_global']['NAME_C2PBOX_1'] %>_27042021.kdk</KDKFile>
     </C2PBox>
     
     <C2PBox Id="102" SSL="on" Status="A">
@@ -57,5 +59,6 @@
         <KDKFile><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/KDK_ZKB_<%= @context['softman_global']['NAME_C2PBOX_2'] %>_02032021.kdk</KDKFile>
 
         <KDKFile><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/KDK_CLES_TECHNIQUES_<%= @context['softman_global']['NAME_C2PBOX_2'] %>_27082019.kdk</KDKFile>
+		<KDKFile><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/KDK_CLES_TECHNIQUES_<%= @context['softman_global']['NAME_C2PBOX_2'] %>_27042021.kdk</KDKFile>
     </C2PBox>
 </C2PConfig>
