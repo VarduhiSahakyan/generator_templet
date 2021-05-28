@@ -122,3 +122,5 @@ release_deploy:
 #    - master
 #    - tags
 #  tags:
+#    - kazan-S
+#    - docker-S
