@@ -174,12 +174,12 @@ SET `value` = '<custom-font straight-mode="false" mime-type-key="''network_means
 	#content h2 {
 		font-family: BNPPSansLight;
 		font-size: 25px;
-		line-height: 0.8;
+		line-height: 1.2;
 		font-weight: normal;
 		margin-bottom: 0.25em;
 		margin-top: 0.25em;
 		color: #403f3d;
-		padding-top: 7px;
+        padding-top: 7px;
 	}
 	.btn {
 		border-radius: 0px;
@@ -392,7 +392,7 @@ SET `value` = '<custom-font straight-mode="false" mime-type-key="''network_means
 		.contact {width: 100%;order: 1;}
 		#main-container #footer .small-font {font-size: 0.75em;}
 	}
-</style>'
+</style> '
 WHERE `fk_id_layout` = @idAppViewPage;
 
 SET @textValue = 'Mit QR-TAN bestätigen';
