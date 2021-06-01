@@ -1,1 +1,0 @@
-ALTER TABLE BinRange ADD COLUMN serviceCode VARCHAR(255) DEFAULT NULL AFTER fk_id_cryptoConfig;

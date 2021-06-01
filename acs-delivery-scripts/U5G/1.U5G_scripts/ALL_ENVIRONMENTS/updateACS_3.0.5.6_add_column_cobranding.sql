@@ -1,1 +1,0 @@
-ALTER TABLE `BinRange` ADD COLUMN `coBrandedCardNetwork` VARCHAR(255) DEFAULT NULL AFTER `toExport`;

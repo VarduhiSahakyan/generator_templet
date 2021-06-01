@@ -1,4 +1,0 @@
-INSERT INTO `U0P_ACS_WS`.`Permission` (`name`, `shiroExpression`) VALUES ('Consult_enrolment_page', 'ENROLMENT:READ');
-INSERT INTO `U0P_ACS_WS`.`PermissionDescription` (`value`, `language`, `fk_id_permission`) VALUES ('Consult enrolment page', 'en', (SELECT id FROM Permission WHERE name = 'Consult_enrolment_page'));
-INSERT INTO `U0P_ACS_WS`.`PermissionDescription` (`value`, `language`, `fk_id_permission`) VALUES ("Consultation du portail d'enrôlement", 'fr', (SELECT id FROM Permission WHERE name = 'Consult_enrolment_page'));
-INSERT INTO `U0P_ACS_WS`.`Role_Permission` (`id_permission`, `id_role`) VALUES ((SELECT id FROM Permission WHERE name = 'Consult_enrolment_page'), (SELECT id FROM Role WHERE name LIKE '%ADMIN_WORLDLINE'));

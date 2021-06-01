@@ -1,1 +1,0 @@
-ALTER TABLE Network ADD dsReferenceNumber VARCHAR(255) AFTER solution;

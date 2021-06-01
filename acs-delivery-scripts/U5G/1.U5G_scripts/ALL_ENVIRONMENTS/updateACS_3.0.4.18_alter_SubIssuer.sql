@@ -1,5 +1,0 @@
-ALTER TABLE `SubIssuer` ADD COLUMN `rbaThreshold` INT(11) NOT NULL DEFAULT 0 AFTER `hubCallMode`;
-ALTER TABLE `SubIssuer` ADD COLUMN `maskParams` VARCHAR(50) NULL DEFAULT NULL AFTER `RbaThreshold`;
-ALTER TABLE `SubIssuer` ADD COLUMN `dateFormat` VARCHAR(50) NULL DEFAULT 'lll' AFTER `MaskParams`;
-ALTER TABLE `SubIssuer` ADD COLUMN `twoStepCancellation` TINYINT(1) NULL DEFAULT 0 AFTER `DateFormat`;
-
