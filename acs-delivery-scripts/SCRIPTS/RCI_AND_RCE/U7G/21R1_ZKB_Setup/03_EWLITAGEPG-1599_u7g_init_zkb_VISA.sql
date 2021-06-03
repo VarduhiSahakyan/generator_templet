@@ -47,6 +47,7 @@ AND s.code=@subIssuerCode;
 /* Create custom items for default language and backup languages - in this example de and en */
 /*!40000 ALTER TABLE `CustomItem` DISABLE KEYS */;
 
+SET @MaestroVID = NULL;
 SET @refusalPageType = 'REFUSAL_PAGE';
 SET @helpPagePageType = 'HELP_PAGE';
 SET @failurePagePageType = 'FAILURE_PAGE';
@@ -1819,28 +1820,49 @@ SET @customItemSetRefusalFraud = (SELECT id FROM `CustomItemSet` WHERE `name` = 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
 SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, @customItemSetRefusalFraud FROM `CustomItem` n WHERE fk_id_customItemSet = @customItemSetREFUSAL;
 
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_22'), @updateState,
- 'de', 22, @refusalPageType, 'Zahlung nicht ausgeführt', @MaestroVID, NULL, @customItemSetRefusalFraud),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_23'), @updateState,
- 'de', 23, @refusalPageType, 'Ihre Karte ist aus Sicherheitsgründen während einer kurzen Zeitdauer für Online-Zahlungen blockiert. ', @MaestroVID, NULL, @customItemSetRefusalFraud),
 
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_22'), @updateState,
- 'en', 22, @refusalPageType, 'Payment not completed', @MaestroVID, NULL, @customItemSetRefusalFraud),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_23'), @updateState,
- 'en', 23, @refusalPageType, 'Your card is temporarily blocked for online payments for security reasons.', @MaestroVID, NULL, @customItemSetRefusalFraud),
+UPDATE `CustomItem` SET `value` = 'Zahlung nicht ausgeführt' WHERE `fk_id_customItemSet` = @customItemSetRefusalFraud AND
+                                                                   `locale` = 'de' AND
+                                                                   `pageTypes` = @refusalPageType AND
+                                                                   `ordinal` = 22;
 
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_22'), @updateState,
- 'fr', 22, @refusalPageType, 'Le paiement n''a pas été effectué', @MaestroVID, NULL, @customItemSetRefusalFraud),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_23'), @updateState,
- 'fr', 23, @refusalPageType, 'Pour des raisons de sécurité, votre carte est bloquée, pour une courte durée,	 pour les paiements en ligne.', @MaestroVID, NULL, @customItemSetRefusalFraud),
+UPDATE `CustomItem` SET `value` = 'Ihre Karte ist aus Sicherheitsgründen während einer kurzen Zeitdauer für Online-Zahlungen blockiert. ' WHERE `fk_id_customItemSet` = @customItemSetRefusalFraud AND
+                                                                   `locale` = 'de' AND
+                                                                   `pageTypes` = @refusalPageType AND
+                                                                   `ordinal` = 23;
 
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_22'), @updateState,
- 'it', 22, @refusalPageType, 'Pagamento non eseguito', @MaestroVID, NULL, @customItemSetRefusalFraud),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_23'), @updateState,
- 'it', 23, @refusalPageType, 'Per motivi di sicurezza la sua carta è bloccata per i pagamenti online per un breve periodo di tempo.', @MaestroVID, NULL, @customItemSetRefusalFraud);
+
+UPDATE `CustomItem` SET `value` = 'Payment not completed' WHERE `fk_id_customItemSet` = @customItemSetRefusalFraud AND
+                                                                   `locale` = 'en' AND
+                                                                   `pageTypes` = @refusalPageType AND
+                                                                   `ordinal` = 22;
+
+UPDATE `CustomItem` SET `value` = 'Your card is temporarily blocked for online payments for security reasons.' WHERE `fk_id_customItemSet` = @customItemSetRefusalFraud AND
+                                                                   `locale` = 'en' AND
+                                                                   `pageTypes` = @refusalPageType AND
+                                                                   `ordinal` = 23;
+
+
+UPDATE `CustomItem` SET `value` = 'Le paiement n''a pas été effectué' WHERE `fk_id_customItemSet` = @customItemSetRefusalFraud AND
+                                                                   `locale` = 'fr' AND
+                                                                   `pageTypes` = @refusalPageType AND
+                                                                   `ordinal` = 22;
+
+UPDATE `CustomItem` SET `value` = 'Pour des raisons de sécurité, votre carte est bloquée, pour une courte durée, pour les paiements en ligne.' WHERE `fk_id_customItemSet` = @customItemSetRefusalFraud AND
+                                                                   `locale` = 'fr' AND
+                                                                   `pageTypes` = @refusalPageType AND
+                                                                   `ordinal` = 23;
+
+
+UPDATE `CustomItem` SET `value` = 'Pagamento non eseguito' WHERE `fk_id_customItemSet` = @customItemSetRefusalFraud AND
+                                                                   `locale` = 'it' AND
+                                                                   `pageTypes` = @refusalPageType AND
+                                                                   `ordinal` = 22;
+
+UPDATE `CustomItem` SET `value` = 'Per motivi di sicurezza la sua carta è bloccata per i pagamenti online per un breve periodo di tempo.' WHERE `fk_id_customItemSet` = @customItemSetRefusalFraud AND
+                                                                   `locale` = 'it' AND
+                                                                   `pageTypes` = @refusalPageType AND
+                                                                   `ordinal` = 23;
 
 
 # ---------- MISSING_AUTHENTICATION_REFUSAL -------------------
