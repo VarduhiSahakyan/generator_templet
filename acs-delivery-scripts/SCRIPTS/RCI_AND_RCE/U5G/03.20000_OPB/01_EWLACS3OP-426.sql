@@ -13,7 +13,7 @@ WHERE locale = @locale
   AND ordinal = 151
   AND fk_id_customItemSet = @customItemSetMobileAPP;
 
-UPDATE `CustomItem` SET `value` = 'Confirm with Mobile key. Then return to this app and continue.\n\nMerchant: @merchantName\nAmount: @amount\nCard: @displayedPan\n'
+UPDATE `CustomItem` SET `value` = 'Confirm with Mobile key. Then return to this app and continue.\n\nMerchant: @merchant\nAmount: @amount\nCard: @displayedPan\n'
 WHERE locale = @locale
   AND pageTypes = @pageType
   AND ordinal = 152
@@ -25,7 +25,7 @@ WHERE locale = @locale
   AND ordinal = 157
   AND fk_id_customItemSet = @customItemSetMobileAPP;
 
-UPDATE `CustomItem` SET `value` = 'First confirm identification with Mobile key on OP-mobile or OP Business mobile. Then return to this app and continue.\n\nMerchant: @merchantName\nAmount: @amount\nCard: @displayedPan\n'
+UPDATE `CustomItem` SET `value` = 'First confirm identification with Mobile key on OP-mobile or OP Business mobile. Then return to this app and continue.\n\nMerchant: @merchant\nAmount: @amount\nCard: @displayedPan\n'
 WHERE locale = @locale
   AND pageTypes = @pageType
   AND ordinal = 160
@@ -46,7 +46,7 @@ WHERE locale = @locale
   AND ordinal = 151
   AND fk_id_customItemSet = @customItemSetMobileAPP;
 
-UPDATE `CustomItem` SET `value` = 'Vahvista Mobiiliavaimella. Palaa sen jälkeen tähän sovellukseen ja jatka.\n\nVerkkokauppa: @merchantName\nSumma: @amount\nKortti:  @displayedPan\n'
+UPDATE `CustomItem` SET `value` = 'Vahvista Mobiiliavaimella. Palaa sen jälkeen tähän sovellukseen ja jatka.\n\nVerkkokauppa: @merchant\nSumma: @amount\nKortti:  @displayedPan\n'
 WHERE locale = @locale
   AND pageTypes = @pageType
   AND ordinal = 152
@@ -58,7 +58,7 @@ WHERE locale = @locale
   AND ordinal = 157
   AND fk_id_customItemSet = @customItemSetMobileAPP;
 
-UPDATE `CustomItem` SET `value` = 'Vahvista tunnistautuminen ensin Mobiiliavaimella OP-mobiilissa tai OP-yritysmobiilissa. Palaa sen jälkeen tähän sovellukseen ja jatka.\n\nVerkkokauppa: @merchantName\nSumma: @amount\nKortti: @displayedPan\n'
+UPDATE `CustomItem` SET `value` = 'Vahvista tunnistautuminen ensin Mobiiliavaimella OP-mobiilissa tai OP-yritysmobiilissa. Palaa sen jälkeen tähän sovellukseen ja jatka.\n\nVerkkokauppa: @merchant\nSumma: @amount\nKortti: @displayedPan\n'
 WHERE locale = @locale
   AND pageTypes = @pageType
   AND ordinal = 160
@@ -79,7 +79,7 @@ WHERE locale = @locale
   AND ordinal = 151
   AND fk_id_customItemSet = @customItemSetMobileAPP;
 
-UPDATE `CustomItem` SET `value` = 'Bekräfta med Mobilnyckeln. Kom därefter tillbaka till den här appen och fortsätt.\n\nNätbutik: @merchantName\nBelopp: @amount\nKort: @displayedPan\n'
+UPDATE `CustomItem` SET `value` = 'Bekräfta med Mobilnyckeln. Kom därefter tillbaka till den här appen och fortsätt.\n\nNätbutik: @merchant\nBelopp: @amount\nKort: @displayedPan\n'
 WHERE locale = @locale
   AND pageTypes = @pageType
   AND ordinal = 152
@@ -91,7 +91,7 @@ WHERE locale = @locale
   AND ordinal = 157
   AND fk_id_customItemSet = @customItemSetMobileAPP;
 
-UPDATE `CustomItem` SET `value` = 'Bekräfta först identifieringen med Mobilnyckeln i OP-mobilen eller OP-företagsmobilen. Kom därefter tillbaka till den här appen och fortsätt. \n\nNätbutik: @merchantName\nBelopp:  @amount\nKort: @displayedPan\n'
+UPDATE `CustomItem` SET `value` = 'Bekräfta först identifieringen med Mobilnyckeln i OP-mobilen eller OP-företagsmobilen. Kom därefter tillbaka till den här appen och fortsätt. \n\nNätbutik: @merchant\nBelopp:  @amount\nKort: @displayedPan\n'
 WHERE locale = @locale
   AND pageTypes = @pageType
   AND ordinal = 160
