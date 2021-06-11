@@ -438,9 +438,6 @@ SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customit
 SET @pageType = 'OTP_FORM_PAGE';
 SET @authentMeanSMS = 'OTP_SMS';
 
-update CustomItem set value = 'Weiter >'
-where fk_id_customItemSet = @customItemSetSMS and pageTypes = @pageType and ordinal = 42;
-
 set @pageLayoutIdSMS = (select id from `CustomPageLayout` where DESCRIPTION = 'OTP Form Page (Commerzbank Cobrands)' and `pageType` = @pageType);
 
 UPDATE `CustomComponent`
