@@ -84,7 +84,7 @@ SET `value` = '
 	}
 	.rightColumn {
 		width:60%;
-		margin-left:38%;
+        margin-left:38%;
 		display:block;
 		text-align:center;
 		padding:20px 10px 20px;
@@ -211,18 +211,18 @@ SET `value` = '
 		padding-top: 12px;
 		padding-bottom:12px;
 		width:60%;
-		margin-left:38%;
+        margin-left:38%;
 		background-color: #FFFFFF;
 	}
-	#footer .cancel-link {
-		float: left;
-		margin-left: 20px;
-		background-color: #FFFFFF;
-		border-style: solid;
-		border-width: 1px;
-		border-color:transparent;
-		padding: 2px;
-	}
+    #footer .cancel-link {
+        float: left;
+        margin-left: 20px;
+        background-color: #FFFFFF;
+        border-style: solid;
+        border-width: 1px;
+        border-color:transparent;
+        padding: 2px;
+    }
 	#cancelButton button {
 		background-color: #FFFFFF;
 		border-style: none;
@@ -256,13 +256,13 @@ SET `value` = '
 		display: none;
 	}
 	#footer .help-link {
-		float: right;
-		margin-right: 20px;
-		background-color: #FFFFFF;
-		border-style: solid;
-		border-width: 1px;
-		border-color:transparent;
-		padding: 2px;
+	    float: right;
+        margin-right: 20px;
+        background-color: #FFFFFF;
+        border-style: solid;
+        border-width: 1px;
+        border-color:transparent;
+        padding: 2px;
 	}
 	#helpButton button {
 		background-color: #FFFFFF;
@@ -304,7 +304,7 @@ SET `value` = '
 		#otp-form{ display:block; width:200px; margin-left:auto; margin-right:auto; }
 		#otp-form input { width:100%;}
 		div#otp-fields-container { width:70%; text-align:center; margin-top:10px; margin-bottom:10px; }
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 	@media all and (max-width: 700px) and (min-width: 481px) {
 		h1 { font-size:18px; }
@@ -321,7 +321,7 @@ SET `value` = '
 		#otp-form{ display:block; width:200px; margin-left:auto; margin-right:auto; }
 		#otp-form input { width:100%; }
 		div#otp-fields-container { width:70%; text-align:center; margin-top:10px; margin-bottom:10px; }
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 	@media all and (max-width: 480px) {
 		h1 { font-size:16px; }
@@ -348,7 +348,7 @@ SET `value` = '
 		.paragraph { font-size : 12px; text-align:center; }
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 110px; text-align:center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
 		#pageHeader {height: 60px;}
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 	@media all and (max-width: 309px) {
 		h1 { font-size:12px; }
@@ -357,7 +357,7 @@ SET `value` = '
 		.paragraph { font-size : 10px; text-align:center; }
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 100px; text-align:center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
 		div#otp-fields {display:inherit;}
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 	@media all and (max-width: 250px) {
 		h1 { font-size:10px; }
@@ -366,7 +366,7 @@ SET `value` = '
 		.paragraph { font-size : 8px; text-align:center; }
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 80px; text-align:center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
 		div#otp-fields {display:inherit;}
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 </style>
 <div id="optGblPage">
@@ -506,7 +506,7 @@ SET `value` = '<style>
 	}
 	.rightColumn {
 		width:60%;
-		margin-left:38%;
+        margin-left:38%;
 		display:block;
 		text-align:center;
 		padding:20px 10px 20px;
@@ -636,18 +636,18 @@ SET `value` = '<style>
 		padding-top: 12px;
 		padding-bottom:12px;
 		width:60%;
-		margin-left:38%;
+        margin-left:38%;
 		background-color: #FFFFFF;
 	}
-	#footer .cancel-link {
-		float: left;
-		margin-left: 20px;
-		background-color: #FFFFFF;
-		border-style: solid;
-		border-width: 1px;
-		border-color:transparent;
-		padding: 2px;
-	}
+    #footer .cancel-link {
+        float: left;
+        margin-left: 20px;
+        background-color: #FFFFFF;
+        border-style: solid;
+        border-width: 1px;
+        border-color:transparent;
+        padding: 2px;
+    }
 	#cancelButton button {
 		background-color: #FFFFFF;
 		border-style: none;
@@ -682,12 +682,12 @@ SET `value` = '<style>
 	}
 	#footer .help-link {
 		float: right;
-		margin-right: 20px;
-		background-color: #FFFFFF;
-		border-style: solid;
-		border-width: 1px;
-		border-color:transparent;
-		padding: 2px;
+        margin-right: 20px;
+        background-color: #FFFFFF;
+        border-style: solid;
+        border-width: 1px;
+        border-color:transparent;
+        padding: 2px;
 	}
 	#helpButton button {
 		background-color: #FFFFFF;
@@ -736,7 +736,7 @@ SET `value` = '<style>
 		#otp-form input { width:100%;}
 		div#otp-fields-container { width:70%; text-align:center; margin-top:10px; margin-bottom:10px; }
 		.externalImage {margin:0px; padding:0px; max-height: 120px;max-width:100%;}
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 	@media all and (max-width: 700px) and (min-width: 481px) {
 		h1 { font-size:18px; }
@@ -754,7 +754,7 @@ SET `value` = '<style>
 		#otp-form input { width:100%; }
 		div#otp-fields-container { width:70%; text-align:center; margin-top:10px; margin-bottom:10px; }
 		.externalImage {margin:0px; padding:0px; max-height: 120px;max-width:100%;}
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 	@media all and (max-width: 480px) {
 		h1 { font-size:16px; }
@@ -783,7 +783,7 @@ SET `value` = '<style>
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 110px; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
 		#pageHeader {height: 60px;}
 		.externalImage {margin:0px; padding:0px; max-height: 100px;max-width:100%;}
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 	@media all and (max-width: 309px) {
 		h1 { font-size:12px; }
@@ -792,7 +792,7 @@ SET `value` = '<style>
 		.paragraph { font-size : 10px; }
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 100px; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
 		.externalImage {margin:0px; padding:0px; max-height: 90px;max-width:100%;}
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 	@media all and (max-width: 250px) {
 		h1 { font-size:10px; }
@@ -801,7 +801,7 @@ SET `value` = '<style>
 		.paragraph { font-size : 8px; }
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 80px; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
 		.externalImage {margin:0px; padding:0px; max-height: 80px;max-width:100%;}
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 </style>
 <div id="optGblPage">
@@ -944,7 +944,7 @@ SET `value` = '<style>
 	}
 	.rightColumn {
 		width:60%;
-		margin-left:38%;
+        margin-left:38%;
 		display:block;
 		text-align:center;
 		padding:20px 10px 20px;
@@ -1071,18 +1071,18 @@ SET `value` = '<style>
 		padding-top: 12px;
 		padding-bottom:12px;
 		width:60%;
-		margin-left:38%;
+        margin-left:38%;
 		background-color: #FFFFFF;
 	}
-	#footer .cancel-link {
-		float: left;
-		margin-left: 20px;
-		background-color: #FFFFFF;
-		border-style: solid;
-		border-width: 1px;
-		border-color:transparent;
-		padding: 2px;
-	}
+    #footer .cancel-link {
+        float: left;
+        margin-left: 20px;
+        background-color: #FFFFFF;
+        border-style: solid;
+        border-width: 1px;
+        border-color:transparent;
+        padding: 2px;
+    }
 	#cancelButton button {
 		background-color: #FFFFFF;
 		border-style: none;
@@ -1117,12 +1117,12 @@ SET `value` = '<style>
 	}
 	#footer .help-link {
 		float: right;
-		margin-right: 20px;
-		background-color: #FFFFFF;
-		border-style: solid;
-		border-width: 1px;
-		border-color:transparent;
-		padding: 2px;
+        margin-right: 20px;
+        background-color: #FFFFFF;
+        border-style: solid;
+        border-width: 1px;
+        border-color:transparent;
+        padding: 2px;
 	}
 	#helpButton button {
 		background-color: #FFFFFF;
@@ -1165,7 +1165,7 @@ SET `value` = '<style>
 		#otp-form input { width:100%;}
 		div#otp-fields { width:100%; padding-right: 0px;}
 		div#otp-fields-container { width:70%; text-align:center; margin-top:10px; margin-bottom:10px; }
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 	@media all and (max-width: 700px) and (min-width: 481px) {
 		h1 { font-size:18px; }
@@ -1183,7 +1183,7 @@ SET `value` = '<style>
 		#otp-form input { width:100%; }
 		div#otp-fields { width:100%; padding-right: 0px;}
 		div#otp-fields-container { width:70%; text-align:center; margin-top:10px; margin-bottom:10px; }
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 	@media all and (max-width: 480px) {
 		h1 { font-size:16px; }
@@ -1211,7 +1211,7 @@ SET `value` = '<style>
 		.paragraph { font-size : 12px; }
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 110px; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
 		#pageHeader {height: 60px;}
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 	@media all and (max-width: 309px) {
 		h1 { font-size:12px; }
@@ -1219,7 +1219,7 @@ SET `value` = '<style>
 		div.side-menu div.menu-title { font-size : 10px; display:block; text-align:center; }
 		.paragraph { font-size : 10px; }
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 100px; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 	@media all and (max-width: 250px) {
 		h1 { font-size:10px; }
@@ -1227,7 +1227,7 @@ SET `value` = '<style>
 		div.side-menu div.menu-title { font-size : 8px; display:block; text-align:center; }
 		.paragraph { font-size : 8px; }
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 80px; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 </style>
 <div id="optGblPage">
@@ -1362,7 +1362,7 @@ SET `value` = '<style>
 	}
 	.rightColumn {
 		width:60%;
-		margin-left:38%;
+        margin-left:38%;
 		display:block;
 		text-align:center;
 		padding:20px 10px 20px;
@@ -1465,7 +1465,7 @@ SET `value` = '<style>
 		display:inline-flex;
 	}
 	div#reOPT {
-		text-align:left;
+		text-align:center;
 		color:#394344;
 	}
 	div#otp-form div.tooltips {
@@ -1477,7 +1477,7 @@ SET `value` = '<style>
 	div#otp-form div.tooltips span:after {
 		border-top: 8px solid #545454;
 	}
-	.validateButton{
+    .validateButton{
 		text-align: center;
 	}
 	#validateButton button {
@@ -1514,19 +1514,19 @@ SET `value` = '<style>
 	#footer {
 		padding-top: 12px;
 		padding-bottom:12px;
-		margin-left:38%;
+        margin-left:38%;
 		width:60%;
 		background-color: #FFFFFF;
 	}
-	#footer .cancel-link {
-		float: left;
-		margin-left: 20px;
-		background-color: #FFFFFF;
-		border-style: solid;
-		border-width: 1px;
-		border-color:transparent;
-		padding: 2px;
-	}
+    #footer .cancel-link {
+        float: left;
+        margin-left: 20px;
+        background-color: #FFFFFF;
+        border-style: solid;
+        border-width: 1px;
+        border-color:transparent;
+        padding: 2px;
+    }
 	#cancelButton button {
 		background-color: #FFFFFF;
 		border-style: none;
@@ -1560,13 +1560,13 @@ SET `value` = '<style>
 		display: none;
 	}
 	#footer .help-link {
-		float: right;
-		margin-right: 20px;
-		background-color: #FFFFFF;
-		border-style: solid;
-		border-width: 1px;
-		border-color:transparent;
-		padding: 2px;
+	    float: right;
+        margin-right: 20px;
+        background-color: #FFFFFF;
+        border-style: solid;
+        border-width: 1px;
+        border-color:transparent;
+        padding: 2px;
 	}
 	#helpButton button {
 		background-color: #FFFFFF;
@@ -1609,7 +1609,7 @@ SET `value` = '<style>
 		#otp-form input { width:100%;}
 		div#otp-fields-container { width:70%; text-align:center; margin-top:10px; margin-bottom:10px; }
 		div#reOPT { text-align:center; }
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 	@media all and (max-width: 700px) and (min-width: 481px) {
 		h1 { font-size:18px; }
@@ -1627,7 +1627,7 @@ SET `value` = '<style>
 		#otp-form input { width:100%; }
 		div#otp-fields-container { width:70%; text-align:center; margin-top:10px; margin-bottom:10px; }
 		div#reOPT { text-align:center; }
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 	@media all and (max-width: 480px) {
 		h1 { font-size:16px; }
@@ -1656,7 +1656,7 @@ SET `value` = '<style>
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 90px; text-align:center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
 		#pageHeader {height: 60px;}
 		div#reOPT { text-align:center; }
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 	@media all and (max-width: 309px) {
 		h1 { font-size:12px; }
@@ -1666,7 +1666,7 @@ SET `value` = '<style>
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 80px; text-align:center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
 		div#otp-fields {display:inherit;}
 		div#reOPT { text-align:center; }
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 	@media all and (max-width: 250px) {
 		h1 { font-size:10px; }
@@ -1676,7 +1676,7 @@ SET `value` = '<style>
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 70px; text-align:center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
 		div#otp-fields {display:inherit;}
 		div#reOPT { text-align:center; }
-		#footer { width:100%; margin-left:0%;}
+        #footer { width:100%; margin-left:0%;}
 	}
 </style>
 <div id="optGblPage">
@@ -1772,6 +1772,24 @@ VALUES( 'div', '
 		margin-left: auto;
 		margin-right: auto;
 		justify-content: center;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 5px;
+        border-color:transparent;
+	}
+    #helpCloseButton button:hover {
+		display: flex;
+		align-items: center;
+		width: 120px;
+		margin-left: auto;
+		margin-right: auto;
+		justify-content: center;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 5px;
+        color: #000000;
+		border-color: #000000;
+		background: #FFFFFF;
 	}
 	#help-page {
 		font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -1781,8 +1799,8 @@ VALUES( 'div', '
 		text-align:left;
 	}
  #helpCloseButton span.fa-times {
-		display: none;
-	}
+        display: none;
+    }
 	@media screen and (max-width: 700px) and (min-width: 361px) {
 		#helpCloseButton > button {
 
