@@ -493,12 +493,12 @@ SET `value` = '
 		font-size:18px;
 	}
 	.leftColumn {
-		width:45%;
+		width:38%;
 		display:block;
 		float:left;
 	}
 	.rightColumn {
-		width:55%;
+		width:60%;
 		margin-left:38%;
 		display:block;
 		text-align:center;
@@ -653,7 +653,7 @@ SET `value` = '
 		padding-top: 12px;
 		padding-bottom:12px;
         margin-left:38%;
-		width:55%;
+		width:60%;
 		background-color: #FFFFFF;
 	}
     #footer .cancel-link {
@@ -927,6 +927,24 @@ VALUES( 'div', '
 		margin-left: auto;
 		margin-right: auto;
 		justify-content: center;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 5px;
+        border-color:transparent;
+	}
+    #helpCloseButton button:hover {
+		display: flex;
+		align-items: center;
+		width: 120px;
+		margin-left: auto;
+		margin-right: auto;
+		justify-content: center;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 5px;
+        color: #000000;
+		border-color: #000000;
+		background: #FFFFFF;
 	}
 	#help-page {
 		font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
