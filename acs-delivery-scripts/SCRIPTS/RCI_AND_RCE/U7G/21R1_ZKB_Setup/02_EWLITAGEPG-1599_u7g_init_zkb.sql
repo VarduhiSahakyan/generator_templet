@@ -109,7 +109,7 @@ INSERT INTO `CryptoConfig` (`protocolOne`, `protocolTwo`, `description`)SELECT c
 
 
 
-SET @cryptoConfigIDNAB = (SELECT id FROM CryptoConfig where description = 'CryptoConfig for ZKB');
+SET @cryptoConfigIDZKB = (SELECT id FROM CryptoConfig where description = 'CryptoConfig for ZKB');
 INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `code`, `codeSvi`, `currencyCode`,
 						 `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`,
 						 `defaultLanguage`, `freshnessPeriod`, `label`, `manageBackupsCombinedAmounts`, `manageChoicesCombinedAmounts`,
@@ -122,7 +122,7 @@ INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `c
   ('ACS_U7G', 120, @backUpLanguages, @subIssuerCode, @subIssuerCode, '978', @createdBy, NOW(), NULL, NULL, NULL, @subIssuerNameAndLabel,
    @updateState, @defaultLanguage, 600, @subIssuerNameAndLabel, TRUE, TRUE, NULL, TRUE, TRUE, 300,
    @acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,
-   @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, @paChallengeURL, '1', @3DS2AdditionalInfo,'3', TRUE, FALSE, b'0', b'0', @activatedAuthMeans, @cryptoConfigIDNAB, @currencyFormat);
+   @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, @paChallengeURL, '1', @3DS2AdditionalInfo,'3', TRUE, FALSE, b'0', b'0', @activatedAuthMeans, @cryptoConfigIDZKB, @currencyFormat);
 /*!40000 ALTER TABLE `SubIssuer` ENABLE KEYS */;
 
 
@@ -1022,8 +1022,13 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		</div>
 	</div>
 
-	<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
-
+   <alternative-display attribute="''currentProfileName''" value="''ZKB_REFUSAL_FRAUD''" enabled="''fraud_refusal''" default-fallback="''default_refusal''" ></alternative-display>
+	<div class="fraud_refusal" ng-style="style" class="ng-scope" style="display: none;">
+		<message-banner display-type="''1''" heading-attr="''network_means_pageType_220''" message-attr="''network_means_pageType_230''" close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''" show=true ></message-banner>
+	</div>
+	<div class="default_refusal" ng-style="style" class="ng-scope" style="display: none;">
+		<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''" ></message-banner>
+	</div>
 	<div id="i18n-container" class="text-center">
 		<div id="i18n-inner">
 			<i18n></i18n>
@@ -2170,20 +2175,12 @@ SET @status = 'DEPLOYED_IN_PRODUCTION';
 INSERT INTO `CustomItemSet` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
 							 `updateState`, `status`, `versionNumber`, `validationDate`, `deploymentDate`, `fk_id_subIssuer`)
 VALUES
-	(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_REFUSAL_FRAUD_Current'), NULL, NULL,
-		CONCAT('customitemset_', @BankUB, '_REFUSAL_FRAUD'), @updateState, @status, 1, NULL, NULL, @subIssuerID),
-	(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_ZKBDECLINE_Current'), NULL, NULL,
-		CONCAT('customitemset_', @BankUB, '_ZKBDECLINE'), @updateState, @status, 1, NULL, NULL, @subIssuerID),
-	(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_ZKBACCEPT_Current'), NULL, NULL,
-		CONCAT('customitemset_', @BankUB, '_ZKBACCEPT'), @updateState, @status, 1, NULL, NULL, @subIssuerID),
 	(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_MOBILE_APP_EXT_Current'), NULL, NULL,
 		CONCAT('customitemset_', @BankUB, '_MOBILE_APP_EXT'), @updateState, @status, 1, NULL, NULL, @subIssuerID),
 	(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_SMS_EXT_Current'), NULL, NULL,
 		CONCAT('customitemset_', @BankUB, '_SMS_EXT'), @updateState, @status, 1, NULL, NULL, @subIssuerID),
 	(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_MISSING_AUTHENTICATION_REFUSAL_Current'), NULL, NULL,
 		CONCAT('customitemset_', @BankUB, '_MISSING_AUTHENTICATION_REFUSAL'), @updateState, @status, 1, NULL, NULL, @subIssuerID),
-	(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_BACKUP_REFUSAL_Current'), NULL, NULL,
-		CONCAT('customitemset_', @BankUB, '_BACKUP_REFUSAL'), @updateState, @status, 1, NULL, NULL, @subIssuerID),
 	(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_DEFAULT_REFUSAL_Current'), NULL, NULL,
 	  CONCAT('customitemset_', @BankUB, '_DEFAULT_REFUSAL'), @updateState, @status, 1, NULL, NULL, @subIssuerID);
 /*!40000 ALTER TABLE `CustomItemSet` ENABLE KEYS */;
@@ -2192,13 +2189,9 @@ VALUES
 /*!40000 ALTER TABLE `Profile` DISABLE KEYS */;
 
 SET @customItemSetRefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_DEFAULT_REFUSAL'));
-SET @customItemSetRefusalFraud = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_REFUSAL_FRAUD'));
-SET @customItemSetZKBACCEPT = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_ZKBACCEPT'));
-SET @customItemSetZKBDECLINE = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_ZKBDECLINE'));
 SET @customItemSetMOBILEAPPEXT = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_MOBILE_APP_EXT'));
 SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_SMS_EXT'));
 SET @customItemSetINFORefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_MISSING_AUTHENTICATION_REFUSAL'));
-SET @customItemSetBackupRefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_BACKUP_REFUSAL'));
 
 SET @authMeanRefusal = (SELECT id FROM `AuthentMeans` WHERE `name` = 'REFUSAL');
 SET @authMeanACCEPT = (SELECT id FROM `AuthentMeans` WHERE `name` = 'ACCEPT');
@@ -2210,14 +2203,14 @@ INSERT INTO `Profile` (`createdBy`, `creationDate`, `description`, `lastUpdateBy
 						`updateState`, `maxAttempts`,`dataEntryFormat`, `dataEntryAllowedPattern`, `fk_id_authentMeans`,
 						`fk_id_customItemSetCurrent`, `fk_id_customItemSetOld`, `fk_id_customItemSetNew`,
 						`fk_id_subIssuer`) VALUES
-(@createdBy, NOW(), 'ZKB_ACCEPT', NULL, NULL, CONCAT(@BankUB,'_ACCEPT'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanACCEPT, @customItemSetZKBACCEPT, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'ZKB_DECLINE', NULL, NULL, CONCAT(@BankUB,'_DECLINE'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanACCEPT, @customItemSetZKBDECLINE, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'ZKB_ACCEPT', NULL, NULL, CONCAT(@BankUB,'_ACCEPT'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanACCEPT, NULL, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'ZKB_DECLINE', NULL, NULL, CONCAT(@BankUB,'_DECLINE'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanACCEPT, NULL, NULL, NULL, @subIssuerID),
 (@createdBy, NOW(), 'OTP_SMS_EXT', NULL, NULL, CONCAT(@BankUB,'_SMS_EXT_01'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanOTPsms, @customItemSetSMS, NULL, NULL, @subIssuerID),
 (@createdBy, NOW(), 'MOBILE_APP_EXT', NULL, NULL, CONCAT(@BankUB,'_APP_EXT_01'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authentMeansMobileAppExt, @customItemSetMOBILEAPPEXT, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'REFUSAL (FRAUD)', NULL, NULL, CONCAT(@BankUB,'_REFUSAL_FRAUD'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanRefusal, @customItemSetRefusalFraud, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'REFUSAL (FRAUD)', NULL, NULL, CONCAT(@BankUB,'_REFUSAL_FRAUD'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanRefusal, NULL, NULL, NULL, @subIssuerID),
 (@createdBy, NOW(), 'INFO', NULL, NULL, CONCAT(@BankUB,'_MISSING_AUTHENTICATION_REFUSAL'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanINFO, @customItemSetINFORefusal, NULL, NULL, @subIssuerID),
 (@createdBy, NOW(), 'INFO', NULL, NULL, CONCAT(@BankUB,'_BACKUP_REFUSAL'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$',
- @authMeanINFO, @customItemSetBackupRefusal, NULL, NULL, @subIssuerID),
+ @authMeanRefusal, NULL, NULL, NULL, @subIssuerID),
 (@createdBy, NOW(), 'UNDEFINED', NULL, NULL, CONCAT(@BankUB,'_UNDEFINED_01'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanUNDEFINED, NULL, NULL, NULL, @subIssuerID),
 (@createdBy, NOW(), 'REFUSAL (DEFAULT)', NULL, NULL, CONCAT(@BankUB,'_DEFAULT_REFUSAL'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanRefusal, @customItemSetRefusal, NULL, NULL, @subIssuerID);
 

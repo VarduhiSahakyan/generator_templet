@@ -125,6 +125,12 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_104'), @updateState,
  'de', 104, 'ALL', 'Telefonnummer', @MaestroVID, NULL, @customItemSetREFUSAL),
 
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_220'), @updateState,
+ 'de', 220, @refusalPageType, 'Zahlung nicht ausgeführt', @MaestroVID, NULL, @customItemSetREFUSAL),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_230'), @updateState,
+ 'de', 230, @refusalPageType, 'Ihre Karte ist aus Sicherheitsgründen während einer kurzen Zeitdauer für Online-Zahlungen blockiert. ', @MaestroVID, NULL, @customItemSetREFUSAL),
+
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_174'), @updateState,
  'de', 174,@refusalPageType, 'Meldung schliessen', @MaestroVID, NULL, @customItemSetREFUSAL),
 
@@ -242,6 +248,12 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_104'), @updateState,
  'en', 104, 'ALL', 'Phone number', @MaestroVID, NULL, @customItemSetREFUSAL),
 
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_220'), @updateState,
+ 'en', 220, @refusalPageType, 'Payment not completed', @MaestroVID, NULL, @customItemSetREFUSAL),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_230'), @updateState,
+ 'en', 230, @refusalPageType, 'Your card is temporarily blocked for online payments for security reasons.', @MaestroVID, NULL, @customItemSetREFUSAL),
+
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_174'), @updateState,
  'en', 174,@refusalPageType, 'Close message', @MaestroVID, NULL, @customItemSetREFUSAL),
 
@@ -358,11 +370,18 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_104'), @updateState,
  'fr', 104, 'ALL', 'Numéro de téléphone', @MaestroVID, NULL, @customItemSetREFUSAL),
 
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_220'), @updateState,
+ 'fr', 220, @refusalPageType, 'Le paiement n''a pas été effectué', @MaestroVID, NULL, @customItemSetREFUSAL),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_230'), @updateState,
+ 'fr', 230, @refusalPageType, 'Pour des raisons de sécurité, votre carte est bloquée, pour une courte durée, pour les paiements en ligne.', @MaestroVID, NULL, @customItemSetREFUSAL),
+
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_174'), @updateState,
  'fr', 174,@refusalPageType, 'Fermer le message', @MaestroVID, NULL, @customItemSetREFUSAL),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_175'), @updateState,
  'fr', 175,@refusalPageType, 'Retour vers la boutique en ligne', @MaestroVID, NULL, @customItemSetREFUSAL);
+
 
 
 
@@ -473,6 +492,12 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_104'), @updateState,
  'it', 104, 'ALL', 'Numero di telefono', @MaestroVID, NULL, @customItemSetREFUSAL),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_220'), @updateState,
+ 'it', 220, @refusalPageType, 'Pagamento non eseguito', @MaestroVID, NULL, @customItemSetREFUSAL),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_230'), @updateState,
+ 'it', 230, @refusalPageType, 'Per motivi di sicurezza la sua carta è bloccata per i pagamenti online per un breve periodo di tempo.', @MaestroVID, NULL, @customItemSetREFUSAL),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_174'), @updateState,
  'it', 174,@refusalPageType, 'Chiudere messaggio', @MaestroVID, NULL, @customItemSetREFUSAL),
@@ -1811,59 +1836,6 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 
-# ---------- REFUSAL_FRAUD -------------------
-
-
-SET @customItemSetRefusalFraud = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_REFUSAL_FRAUD'));
-
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT `DTYPE`, `createdBy`, NOW(), NULL, NULL, NULL, `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, @customItemSetRefusalFraud FROM `CustomItem` n WHERE fk_id_customItemSet = @customItemSetREFUSAL;
-
-
-UPDATE `CustomItem` SET `value` = 'Zahlung nicht ausgeführt' WHERE `fk_id_customItemSet` = @customItemSetRefusalFraud AND
-                                                                   `locale` = 'de' AND
-                                                                   `pageTypes` = @refusalPageType AND
-                                                                   `ordinal` = 22;
-
-UPDATE `CustomItem` SET `value` = 'Ihre Karte ist aus Sicherheitsgründen während einer kurzen Zeitdauer für Online-Zahlungen blockiert. ' WHERE `fk_id_customItemSet` = @customItemSetRefusalFraud AND
-                                                                   `locale` = 'de' AND
-                                                                   `pageTypes` = @refusalPageType AND
-                                                                   `ordinal` = 23;
-
-
-UPDATE `CustomItem` SET `value` = 'Payment not completed' WHERE `fk_id_customItemSet` = @customItemSetRefusalFraud AND
-                                                                   `locale` = 'en' AND
-                                                                   `pageTypes` = @refusalPageType AND
-                                                                   `ordinal` = 22;
-
-UPDATE `CustomItem` SET `value` = 'Your card is temporarily blocked for online payments for security reasons.' WHERE `fk_id_customItemSet` = @customItemSetRefusalFraud AND
-                                                                   `locale` = 'en' AND
-                                                                   `pageTypes` = @refusalPageType AND
-                                                                   `ordinal` = 23;
-
-
-UPDATE `CustomItem` SET `value` = 'Le paiement n''a pas été effectué' WHERE `fk_id_customItemSet` = @customItemSetRefusalFraud AND
-                                                                   `locale` = 'fr' AND
-                                                                   `pageTypes` = @refusalPageType AND
-                                                                   `ordinal` = 22;
-
-UPDATE `CustomItem` SET `value` = 'Pour des raisons de sécurité, votre carte est bloquée, pour une courte durée, pour les paiements en ligne.' WHERE `fk_id_customItemSet` = @customItemSetRefusalFraud AND
-                                                                   `locale` = 'fr' AND
-                                                                   `pageTypes` = @refusalPageType AND
-                                                                   `ordinal` = 23;
-
-
-UPDATE `CustomItem` SET `value` = 'Pagamento non eseguito' WHERE `fk_id_customItemSet` = @customItemSetRefusalFraud AND
-                                                                   `locale` = 'it' AND
-                                                                   `pageTypes` = @refusalPageType AND
-                                                                   `ordinal` = 22;
-
-UPDATE `CustomItem` SET `value` = 'Per motivi di sicurezza la sua carta è bloccata per i pagamenti online per un breve periodo di tempo.' WHERE `fk_id_customItemSet` = @customItemSetRefusalFraud AND
-                                                                   `locale` = 'it' AND
-                                                                   `pageTypes` = @refusalPageType AND
-                                                                   `ordinal` = 23;
-
 
 # ---------- MISSING_AUTHENTICATION_REFUSAL -------------------
 
@@ -2334,128 +2306,6 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_175'), @updateState,
  'it', 175, @failurePagePageType, 'Indietro al negozio online', @MaestroVID, NULL, @customItemSetMISSING );
-
-
-# ---------- BACKUP_REFUSAL -------------------
-
-SET @customItemSetBackupRefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_BACKUP_REFUSAL'));
-
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Bank Logo', @updateState,
-	   'de', 1, 'ALL', @BankUB, @MaestroVID, im.id, @customItemSetBackupRefusal
-FROM `Image` im WHERE im.name LIKE CONCAT('%',@BankUB,'%');
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`)
-SELECT 'I', @createdBy, NOW(), NULL, NULL, NULL, 'Visa Logo', @updateState,
-	   'de', 2, 'ALL', 'Verified by Visa™', n.id, im.id, @customItemSetBackupRefusal
-FROM `Image` im, `Network` n WHERE im.name LIKE '%VISA_LOGO%' AND n.code LIKE '%VISA%';
-
-/* ----------- DE Elements for the profile BACKUP_REFUSAL : ------------*/
-
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_1'), @updateState,
- 'de', 1, @refusalPageType, '<b>Zahlungsfreigabe nicht möglich</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_2'), @updateState,
- 'de', 2, @refusalPageType, 'Leider konnten wir Ihre Anfrage nicht ausführen, da wir keine Freigabe-Methode (SMS oder App) für Ihre Karte gefunden haben. ', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_3'), @updateState,
- 'de', 3, @refusalPageType, 'Bitte hinterlegen Sie für Ihre Karte eine entsprechende Freigabe-Methode im Registrierungsportal gemäss der Anleitung Ihrer Bank. ', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_11'), @updateState,
- 'de', 11, @refusalPageType, '<b>Informationen zur Zahlung</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_22'), @updateState,
- 'de', 22, @refusalPageType, 'Zahlung nicht ausgeführt - Karte ist nicht für 3D Secure registriert', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_23'), @updateState,
- 'de', 23, @refusalPageType, 'Die Zahlung konnte nicht ausgeführt werden, da Ihre Karte nicht für 3D Secure Zahlungen registriert ist. Sollten Sie den Kauf fortsetzen wollen, bitten wir Sie Ihre Karte gemäss der Anleitung Ihrer Bank entsprechend zu registrieren.', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_32'), @updateState,
- 'de', 32, @refusalPageType, 'Zahlung nicht ausgeführt - Technischer Fehler', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_33'), @updateState,
- 'de', 33, @refusalPageType, 'Auf Grund eines technischen Fehlers konnte die Zahlung nicht ausgeführt werden. Sollten Sie die den Kauf fortsetzen wollen, bitten wir Sie es erneut zu versuchen.', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_41'), @updateState,
- 'de', 41, @refusalPageType, 'Hilfe', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_100'), @updateState,
- 'de', 100, 'ALL', 'Händler', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_101'), @updateState,
- 'de', 101, 'ALL', 'Betrag', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_102'), @updateState,
- 'de', 102, 'ALL', 'Datum', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_103'), @updateState,
- 'de', 103, 'ALL', 'Kartennummer', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_104'), @updateState,
- 'de', 104, 'ALL', 'Telefonnummer', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_174'), @updateState,
- 'de', 174,@refusalPageType, 'Meldung schliessen', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_175'), @updateState,
- 'de', 175,@refusalPageType, 'Zurück zum Online Shop', @MaestroVID, NULL, @customItemSetBackupRefusal);
-
-# ------------- HELP PAGE ----------
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_1'), @updateState,
- 'de', 1, @helpPagePageType, '<b>Hilfe</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_2'), @updateState,
- 'de', 2, @helpPagePageType, 'Um Ihre Sicherheit bei Online-Zahlung zu erhöhen, hat die Zürcher Kantonalbank eine zweistufige Authentifikation eingeführt.	', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_3'), @updateState,
- 'de', 3, @helpPagePageType, 'Um eine Zahlung ausführen zu können, müssen Sie diese entweder anhand eines Freigabe-Codes per SMS, oder durch die Verifikation Ihrer Person auf einer Mobile Authentifikations-App bestätigen. Für diesen Service müssen Sie sich einmalig registrieren. Für den entsprechenden Registrierungsprozess, oder Änderungen Ihrer Authentifikationsmethode, wenden Sie sich bitte an die Zürcher Kantonalbank.', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@helpPagePageType,'_174'), @updateState,
- 'de', 174, @helpPagePageType, 'Hilfe-Text schliessen', @MaestroVID, NULL, @customItemSetBackupRefusal);
-
-
-# --------- FAILURE_PAGE -----------
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-							`name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-							`fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_11'), @updateState,
- 'de', 11, @failurePagePageType, '<b>Informationen zur Zahlung</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_16'), @updateState,
- 'de', 16, @failurePagePageType, 'Zahlung nicht ausgeführt - Karte ist nicht für 3D Secure registriert', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_17'), @updateState,
- 'de', 17, @failurePagePageType, 'Die Zahlung konnte nicht ausgeführt werden, da Ihre Karte nicht für 3D Secure Zahlungen registriert ist. Sollten Sie den Kauf fortsetzen wollen, bitten wir Sie Ihre Karte gemäss der Anleitung Ihrer Bank entsprechend zu registrieren.', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_32'), @updateState,
- 'de', 32, @failurePagePageType, 'Zahlung nicht ausgeführt - Technischer Fehler', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_33'), @updateState,
- 'de', 33, @failurePagePageType, 'Aufgrund eines technischen Fehlers konnte die Zahlung nicht ausgeführt werden. Ihre Karte wurde nicht belastet.Sollten Sie den Kauf fortsetzen wollen, bitten wir Sie es erneut zu versuchen.', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_41'), @updateState,
- 'de', 41, @failurePagePageType, 'Hilfe', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_174'), @updateState,
- 'de', 174, @failurePagePageType, 'Meldung schliessen', @MaestroVID, NULL, @customItemSetBackupRefusal),
-
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@failurePagePageType,'_175'), @updateState,
- 'de', 175, @failurePagePageType, 'Zurück zum Online Shop', @MaestroVID, NULL, @customItemSetBackupRefusal);
 
 
 /*ENGLISH translations for BACKUP_REFUSAL*/
