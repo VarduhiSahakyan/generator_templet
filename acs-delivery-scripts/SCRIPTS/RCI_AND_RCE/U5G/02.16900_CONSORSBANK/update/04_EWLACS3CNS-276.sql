@@ -341,7 +341,6 @@ p {
 		}
  #main-container .row .back-link span {
 	 text-align:left;
-	 margin-left:0.5em;
 }
 		#main-container	  .row .back-link span.fa-ban {
 			display:none;
@@ -378,6 +377,10 @@ p {
  .otp-field input:focus {
 	 outline:none;
 }
+.btn {
+		border-radius: 0px;
+        text-align: left;
+	}
  #main-container #footer .help-area {
 	 display:flex;
 	 flex-direction: row;
