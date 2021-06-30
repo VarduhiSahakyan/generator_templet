@@ -194,6 +194,7 @@ SET `value` = '<custom-font straight-mode="false" mime-type-key="''network_means
 	}
 	.btn {
 		border-radius: 0px;
+        text-align: left;
 	}
 	span.col-sm-6.col-xs-6.text-left.padding-left {
 		font-family: BNPPSans;
@@ -355,7 +356,6 @@ SET `value` = '<custom-font straight-mode="false" mime-type-key="''network_means
 	}
 	#main-container .row .back-link span {
 		text-align: left;
-		margin-left: 0.5em;
 		color: #749bb3;
 	}
 	#main-container .row .back-link span.fa-ban {
