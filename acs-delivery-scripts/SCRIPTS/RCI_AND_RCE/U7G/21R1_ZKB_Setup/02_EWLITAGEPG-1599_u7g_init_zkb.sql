@@ -48,16 +48,16 @@ SET @defaultLanguage = 'en';
 SET @HUBcallMode = 'PA_ONLY_MODE';
 /* Correspond to URL to configure for the BinRanges extraction */
 /*IAT*/
-SET @acsURLVEMastercard = 'https://ssl-qlf-u7g-fo-acs-ve.wlp-acs.com:9743/acs-ve-service/ve/veRequest';
-SET @acsURLVEVisa = 'https://ssl-qlf-u7g-fo-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
+#SET @acsURLVEMastercard = 'https://ssl-qlf-u7g-fo-acs-ve.wlp-acs.com:9743/acs-ve-service/ve/veRequest';
+#SET @acsURLVEVisa = 'https://ssl-qlf-u7g-fo-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
 
 /*CAT*/
 #SET @acsURLVEMastercard = 'https://ssl-liv-u7g-fo-acs-ve.wlp-acs.com:9743/acs-ve-service/ve/veRequest';
 #SET @acsURLVEVisa = 'https://ssl-liv-fo-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
 
 /*PRD*/
-#SET @acsURLVEMastercard = 'https://ssl-prd-u7g-fo-acs-ve.wlp-acs.com:9743/acs-ve-service/ve/veRequest';
-#SET @acsURLVEVisa = 'https://ssl-prd-fo-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
+SET @acsURLVEMastercard = 'https://ssl-prd-acs-ve.wlp-acs.com:9743/acs-ve-service/ve/veRequest';
+SET @acsURLVEVisa = 'https://ssl-prd-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
 
 
 /* Corresponds to the authentication mean to use primarily */
@@ -74,32 +74,33 @@ SET @currencyFormat = '{
 							"thousandDelimiter":"''"
 						}';
 /* IAT/CAT */
-SET @3DS2AdditionalInfo = '{
+/*SET @3DS2AdditionalInfo = '{
 	  "VISA": {
 		"operatorId": "acsOperatorVisa",
 		"dsKeyAlias": "3DS2-VISA-CERTIFICATION"
 	  }
-}';
+}';*/
 
 /* PRD */
-/*
 SET @3DS2AdditionalInfo = '{
-		"VISA": {
-		"operatorId": "acsOperatorVisa",
-		"dsKeyAlias": "dsvisa_call_alias_cert_01"
-		}
+      "VISA": {
+        "operatorId": "acsOperatorVisa",
+        "dsKeyAlias": "dsvisa_call_alias_cert_01"
+      },
+      "MASTERCARD": {
+        "operatorId": "ACS-V210-EQUENSWORLDLINE-34926",
+        "dsKeyAlias": "1"
+      }
 }';
-*/
+
 /* IAT */
-SET @paChallengeURL = '{ "Vendome" : "https://ssl-qlf-u7g-fo-acs-pa.wlp-acs.com/", "Seclin" : "https://ssl-qlf-u7g-fo-acs-pa.wlp-acs.com/", "Unknown" : "https://ssl-qlf-u7g-fo-acs-pa.wlp-acs.com/" }';
+#SET @paChallengeURL = '{ "Vendome" : "https://ssl-qlf-u7g-fo-acs-pa.wlp-acs.com/", "Seclin" : "https://ssl-qlf-u7g-fo-acs-pa.wlp-acs.com/", "Unknown" : "https://ssl-qlf-u7g-fo-acs-pa.wlp-acs.com/" }';
 
 /* CAT */
 #SET @paChallengeURL = '{ "Vendome" : "https://ssl-liv-u7g-fo-acs-pa.wlp-acs.com/", "Seclin" : "https://ssl-liv-u7g-fo-acs-pa.wlp-acs.com/", "Unknown" : "https://ssl-liv-u7g-fo-acs-pa.wlp-acs.com/" }';
 
 /* PRD */
-#SET @paChallengeURL = '{ "Vendome" : "https://authentication1.six-group.com/", "Brussels" : "https://authentication2.six-group.com/", "Unknown" : "https://secure.six-group.com/" }';
-
-# SET @subIssuerIDNAB = (SELECT id FROM SubIssuer where code = 58810 AND name = 'Neue Aargauer Bank');
+SET @paChallengeURL = '{ "Vendome" : "https://authentication1.six-group.com/", "Brussels" : "https://authentication2.six-group.com/", "Unknown" : "https://secure.six-group.com/" }';
 
 
 SET @cryptoConfigID = (SELECT id FROM CryptoConfig where description = 'CryptoConfig for RCH');
