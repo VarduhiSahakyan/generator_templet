@@ -423,9 +423,9 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanPassword,'_',@pageTypeHelp,'_1'), @updateState,
  'de', 1, @pageTypeHelp, 'Ich benötige Hilfe ', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanPassword,'_',@pageTypeHelp,'_2'), @updateState,
- 'de', 2, @pageTypeHelp, 'Haben Sie Ihr 3-D Secure Passwort vergessen? \n\n', @MaestroVID, NULL, @customItemSetPassword),
+ 'de', 2, @pageTypeHelp, '<I>Haben Sie Ihr 3-D Secure Passwort vergessen?</I> \n\n', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanPassword,'_',@pageTypeHelp,'_3'), @updateState,
- 'de', 3, @pageTypeHelp, 'Sie können sich auf der Internetseite <a href="www.commerzbank.de/sicher-einkaufen">www.commerzbank.de/sicher-einkaufen</a> unter „Jetzt registrieren“ das dafür erforderliche Einmal-Passwort bei uns anfordern. ', @MaestroVID, NULL, @customItemSetPassword),
+ 'de', 3, @pageTypeHelp, '<I>Sie können sich auf der Internetseite <a href="https://www.commerzbank.de/sicher-einkaufen">www.commerzbank.de/sicher-einkaufen</a> unter „Jetzt registrieren“ das dafür erforderliche Einmal-Passwort bei uns anfordern.</I> ', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanPassword,'_',@pageTypeHelp,'_11'), @updateState,
  'de', 11, @pageTypeHelp, 'Hilfe schließen', @MaestroVID, NULL, @customItemSetPassword);
 
@@ -882,9 +882,9 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanSMS,'_',@pageTypeHelp,'_1'), @updateState,
  'de', 1, @pageTypeHelp, 'Ich benötige Hilfe ', @MaestroVID, NULL, @customItemSetSMS),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanSMS,'_',@pageTypeHelp,'_2'), @updateState,
- 'de', 2, @pageTypeHelp, 'Haben Sie Ihre aktuelle Mobilnummer nicht bei uns hinterlegt? \n\n', @MaestroVID, NULL, @customItemSetSMS),
+ 'de', 2, @pageTypeHelp, '<I>Haben Sie Ihre aktuelle Mobilnummer nicht bei uns hinterlegt? </I>\n\n', @MaestroVID, NULL, @customItemSetSMS),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanSMS,'_',@pageTypeHelp,'_3'), @updateState,
- 'de', 3, @pageTypeHelp, 'Sie können sich auf der Internetsweite <a href="www.commerzbank.de/sicher-einkaufen">www.commerzbank.de/sicher-einkaufen</a> unter „Jetzt registrieren“ das dafür erforderliche Einmal-Passwort bei uns anfordern.', @MaestroVID, NULL, @customItemSetSMS),
+ 'de', 3, @pageTypeHelp, '<I>Sie können sich auf der Internetsweite <a href="https://www.commerzbank.de/sicher-einkaufen">www.commerzbank.de/sicher-einkaufen</a> unter „Jetzt registrieren“ das dafür erforderliche Einmal-Passwort bei uns anfordern.</I>', @MaestroVID, NULL, @customItemSetSMS),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanSMS,'_',@pageTypeHelp,'_11'), @updateState,
  'de', 11, @pageTypeHelp, 'Hilfe schließen', @MaestroVID, NULL, @customItemSetSMS);
 
