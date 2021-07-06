@@ -432,7 +432,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanPassword,'_',@pageTypeHelp,'_2'), @updateState,
  'de', 2, @pageTypeHelp, ' ', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanPassword,'_',@pageTypeHelp,'_3'), @updateState,
- 'de', 3, @pageTypeHelp, 'Bitte geben Sie hier Ihre Online Banking PIN ein, die Sie auch für den Login auf <a href=" www.commerzbank.de "> www.commerzbank.de </a> verwenden.', @MaestroVID, NULL, @customItemSetPassword),
+ 'de', 3, @pageTypeHelp, '<I>Bitte geben Sie hier Ihre Online Banking PIN ein, die Sie auch für den Login auf <a href="https://www.commerzbank.de "> www.commerzbank.de </a> verwenden.</I>', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanPassword,'_',@pageTypeHelp,'_11'), @updateState,
  'de', 11, @pageTypeHelp, 'Hilfe schließen', @MaestroVID, NULL, @customItemSetPassword);
 
@@ -868,12 +868,12 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@customItemSetPhotoTan,'_',@pageTypeHelp,'_1'), @updateState,
  'de', 1, @pageTypeHelp, 'Ich benötige Hilfe ', @MaestroVID, NULL, @customItemSetPhotoTan),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@customItemSetPhotoTan,'_',@pageTypeHelp,'_2'), @updateState,
- 'de', 2, @pageTypeHelp, '<b>photoTAN-Anleitung</b>', @MaestroVID, NULL, @customItemSetPhotoTan),
+ 'de', 2, @pageTypeHelp, '<I><b>photoTAN-Anleitung</b></I>', @MaestroVID, NULL, @customItemSetPhotoTan),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@customItemSetPhotoTan,'_',@pageTypeHelp,'_3'), @updateState,
- 'de', 3, @pageTypeHelp, '1. Prüfen Sie die oben stehenden Daten.<br>
+ 'de', 3, @pageTypeHelp, '<I>1. Prüfen Sie die oben stehenden Daten.<br>
 2. Scannen Sie die Grafik mit Ihrer Commerzbank photoTAN-App oder Ihrem photoTAN-Lesegerät.<br>
 3. Prüfen Sie die in Ihrer photoTAN-App oder auf Ihrem photoTAN-Lesegerät angezeigten Daten.<br>
-4. Wenn die Daten korrekt sind, geben Sie die photoTAN in das Eingabefeld ein und führen Sie die Freigabe durch.', @MaestroVID, NULL, @customItemSetPhotoTan),
+4. Wenn die Daten korrekt sind, geben Sie die photoTAN in das Eingabefeld ein und führen Sie die Freigabe durch.</I>', @MaestroVID, NULL, @customItemSetPhotoTan),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@customItemSetPhotoTan,'_',@pageTypeHelp,'_11'), @updateState,
  'de', 11, @pageTypeHelp, 'Hilfe schließen', @MaestroVID, NULL, @customItemSetPhotoTan);
 
@@ -1285,13 +1285,13 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobileAppCustomItemSet,'_',@pageTypeHelp,'_1'), @updateState,
  'de', 1, @pageTypeHelp, 'Ich benötige Hilfe ', @MaestroVID, NULL, @mobileAppCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobileAppCustomItemSet,'_',@pageTypeHelp,'_2'), @updateState,
- 'de', 2, @pageTypeHelp, '<b>So funktioniert photoTAN-Push:</b>', @MaestroVID, NULL, @mobileAppCustomItemSet),
+ 'de', 2, @pageTypeHelp, '<I><b>So funktioniert photoTAN-Push:</b></I>', @MaestroVID, NULL, @mobileAppCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobileAppCustomItemSet,'_',@pageTypeHelp,'_3'), @updateState,
- 'de', 3, @pageTypeHelp, '1. Wir haben Ihnen einen Auftrag zur Freigabe an Ihre photoTAN-App gesendet.<br>
+ 'de', 3, @pageTypeHelp, '<I>1. Wir haben Ihnen einen Auftrag zur Freigabe an Ihre photoTAN-App gesendet.<br>
 2. Wenn Sie der App das Versenden von Push-Mitteilungen erlaubt haben, erhalten Sie dazu eine Mitteilung auf Ihr Smartphone.<br>
 3. Bitte öffnen Sie nun die photoTAN-App auf Ihrem Smartphone.<br>
 4. Prüfen Sie dort die Auftragsdaten und geben Sie den Auftrag frei.<br>
-5. Anschließend wird die Freigabe automatisch an die Händlerseite gesendet und Sie werden dort automatisch weitergeleitet', @MaestroVID, NULL, @mobileAppCustomItemSet),
+5. Anschließend wird die Freigabe automatisch an die Händlerseite gesendet und Sie werden dort automatisch weitergeleitet</I>', @MaestroVID, NULL, @mobileAppCustomItemSet),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobileAppCustomItemSet,'_',@pageTypeHelp,'_11'), @updateState,
  'de', 11, @pageTypeHelp, 'Hilfe schließen', @MaestroVID, NULL, @mobileAppCustomItemSet);
 
