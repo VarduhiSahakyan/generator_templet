@@ -27,7 +27,7 @@ SET @profileBackupINFO = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB
 SET @profileSMS = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_SMS_01'));
 INSERT INTO `Rule` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
 					`updateState`, `orderRule`, `fk_id_profile`) VALUES
-(@createdBy, NOW(), 'OTP_SMS_EXT (BACKUP)', NULL, NULL, 'OTP_SMS_EXT (BACKUP)', @updateState, 10, @profileSMS),
+(@createdBy, NOW(), 'OTP_SMS_EXT (BACKUP)', NULL, NULL, 'OTP_SMS_EXT (BACKUP)', @updateState, 11, @profileSMS),
 (@createdBy, NOW(), 'BACKUP_REFUSAL', NULL, NULL, 'BACKUP_REFUSAL', @updateState,3, @profileBackupINFO);
 
 SET @profileACCEPT = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_ACCEPT'));
@@ -48,7 +48,7 @@ UPDATE Rule SET orderRule = 6 WHERE fk_id_profile = @profileTA_01;
 UPDATE Rule SET orderRule = 7 WHERE fk_id_profile = @profilePASSWORD;
 UPDATE Rule SET orderRule = 8 WHERE fk_id_profile = @profileOTP_PWD;
 UPDATE Rule SET orderRule = 9 WHERE fk_id_profile = @profileSMSOVER;
-UPDATE Rule SET orderRule = 11 WHERE fk_id_profile = @profileSMS_01;
+UPDATE Rule SET orderRule = 10 WHERE fk_id_profile = @profileSMS_01 and `name` = 'OTP_SMS_EXT (FALLBACK)';
 UPDATE Rule SET orderRule = 12 WHERE fk_id_profile = @profileUNDEFINED;
 UPDATE Rule SET orderRule = 13 WHERE fk_id_profile = @profileDEFAULT_REFUSAL;
 

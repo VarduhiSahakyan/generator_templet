@@ -713,6 +713,12 @@ SET @profilePassword = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'
 SET @profilePasswordOTP = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_OTP_PWD'));
 SET @profileSMS = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_SMS_Override'));
 SET @profileINFO = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_MISSING_AUTHENTICATION_REFUSAL'));
+
+
+SET @profileSMSSwisskey = (SELECT id FROM `Profile` WHERE `name` = 'SWISSKEY_SMS_01');
+SET @profileUNIFIEDSwisskey = (SELECT id FROM `Profile` WHERE `name` = 'SWISSKEY_UNDEFINED_01');
+SET @profileDefaultRefSwisskey = (SELECT id FROM `Profile` WHERE `name` = 'SWISSKEY_DEFAULT_REFUSAL');
+
 INSERT INTO `Rule` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
                     `updateState`, `orderRule`, `fk_id_profile`) VALUES
 (@createdBy, NOW(), 'REFUSAL_FRAUD', NULL, NULL, 'REFUSAL (FRAUD)', @updateState, 1, @profileRefusalFraud),
@@ -724,6 +730,14 @@ INSERT INTO `Rule` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, 
 UPDATE `Rule` SET `orderRule` = 5 WHERE `fk_id_profile` =  @profilePasswordOTP;
 UPDATE `Rule` SET `orderRule` = 6 WHERE `fk_id_profile` =  @profilePassword;
 UPDATE `Rule` SET `orderRule` = 7 WHERE `fk_id_profile` =  @profileSMS;
+
+
+
+UPDATE `Rule` SET `orderRule` = 7 WHERE `fk_id_profile` =  @profileSMSSwisskey and `name` = 'OTP_SMS_EXT (FALLBACK)';
+UPDATE `Rule` SET `orderRule` = 8 WHERE `fk_id_profile` =  @profileSMSSwisskey and `name` = 'OTP_SMS_EXT (BACKUP)';
+UPDATE `Rule` SET `orderRule` = 9 WHERE `fk_id_profile` =  @profileUNIFIEDSwisskey;
+UPDATE `Rule` SET `orderRule` = 10 WHERE `fk_id_profile` =  @profileDefaultRefSwisskey;
+
 /*!40000 ALTER TABLE `Rule` ENABLE KEYS */;
 
 
