@@ -405,3 +405,5 @@ SET `value` = '<custom-font straight-mode="false" mime-type-key="''network_means
 	}
 </style> '
 WHERE `fk_id_layout` = @idAppViewPage;
+
+UPDATE Profile SET dataEntryFormat = '8:(:DIGIT:1)' WHERE name = 'BNP_WM_PHOTO_TAN_01';
