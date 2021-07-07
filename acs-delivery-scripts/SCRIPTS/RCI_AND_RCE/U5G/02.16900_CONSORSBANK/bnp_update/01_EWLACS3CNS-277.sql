@@ -407,3 +407,4 @@ SET `value` = '<custom-font straight-mode="false" mime-type-key="''network_means
 WHERE `fk_id_layout` = @idAppViewPage;
 
 UPDATE Profile SET dataEntryFormat = '8:(:DIGIT:1)' WHERE name = 'BNP_WM_PHOTO_TAN_01';
+UPDATE Profile SET maxAttempts = 3 WHERE name in ('BNP_WM_UNDEFINED_01','16900_UNDEFINED_01');
