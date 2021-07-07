@@ -83,7 +83,7 @@ SET @customItemSetPassword = (SELECT id FROM `CustomItemSet` WHERE `name` = 'cus
 -- PWD main --
 SET @pageOTP = 'OTP_FORM_PAGE';
 
-UPDATE `CustomItem` SET value = '<b>Eingabe persönliches Password<b>'
+UPDATE `CustomItem` SET value = '<b>Eingabe persönliches Passwort<b>'
 WHERE locale = 'de' and  `ordinal` = 1 and pageTypes = @pageOTP and fk_id_customItemSet = @customItemSetPassword;
 UPDATE `CustomItem` SET value = '<b>Enter your password<b>'
 WHERE locale = 'en' and  `ordinal` = 1 and pageTypes = @pageOTP and fk_id_customItemSet = @customItemSetPassword;
@@ -104,13 +104,13 @@ WHERE locale = 'de' and  `ordinal` = 174 and pageTypes = @pageHelp and fk_id_cus
 -- PWD processing --
 SET @pageOTP = 'OTP_FORM_PAGE';
 
-UPDATE `CustomItem` SET value = 'Bestätigung der Zahlung erforderlich'
+UPDATE `CustomItem` SET value = 'Überprüfung der Zahlungsfreigabe'
 WHERE locale = 'de' and  `ordinal` = 12 and pageTypes = @pageOTP and fk_id_customItemSet = @customItemSetPassword;
-UPDATE `CustomItem` SET value = 'Confirmation of payment required'
+UPDATE `CustomItem` SET value = 'Payment approval is being verified'
 WHERE locale = 'en' and  `ordinal` = 12 and pageTypes = @pageOTP and fk_id_customItemSet = @customItemSetPassword;
-UPDATE `CustomItem` SET value = 'Confirmation du paiement requise'
+UPDATE `CustomItem` SET value = 'L''activation de paiement va être vérifiée'
 WHERE locale = 'fr' and  `ordinal` = 12 and pageTypes = @pageOTP and fk_id_customItemSet = @customItemSetPassword;
-UPDATE `CustomItem` SET value = 'Richiesta conferma di pagamento'
+UPDATE `CustomItem` SET value = 'L’autorizzazione di pagamento viene controllata'
 WHERE locale = 'it' and  `ordinal` = 12 and pageTypes = @pageOTP and fk_id_customItemSet = @customItemSetPassword;
 
 -- PWD success --
@@ -280,24 +280,24 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'it', 52, @pageOTP, 'Per confermare il pagamento, le abbiamo inviato un codice SMS al suo numero di cellulare, poiché il collegamento con l’app non è possibile.', @MaestroVID, NULL, @customItemSetSMSEXT);
 
 -- SMS Processing --
-UPDATE `CustomItem` SET value = 'Bestätigung der Zahlung erforderlich'
+UPDATE `CustomItem` SET value = 'Überprüfung der Zahlungsfreigabe'
 WHERE locale = 'de' and  `ordinal` = 12 and pageTypes = @pageOTP and fk_id_customItemSet in ( @customItemSetSMSOverride, @customItemSetSMSEXT );
-UPDATE `CustomItem` SET value = 'Sie erhalten in Kürze einen Freigabe-Code per SMS zur Bestätigung der Zahlung. '
+UPDATE `CustomItem` SET value = 'Bitte haben Sie einen Moment Geduld. Wir prüfen Ihre Zahlungsfreigabe und somit die Authentifikation für die gewünschte Zahlung. '
 WHERE locale = 'de' and  `ordinal` = 13 and pageTypes = @pageOTP and fk_id_customItemSet in ( @customItemSetSMSOverride, @customItemSetSMSEXT );
 
-UPDATE `CustomItem` SET value = 'Confirmation of payment required'
+UPDATE `CustomItem` SET value = 'Payment approval is being verified'
 WHERE locale = 'en' and  `ordinal` = 12 and pageTypes = @pageOTP and fk_id_customItemSet in ( @customItemSetSMSOverride, @customItemSetSMSEXT );
-UPDATE `CustomItem` SET value = 'You will receive an approval code via SMS shortly to confirm the payment. '
+UPDATE `CustomItem` SET value = 'Please be patient. We are verifying your payment approval and thereby the authentication for the requested payment. '
 WHERE locale = 'en' and  `ordinal` = 13 and pageTypes = @pageOTP and fk_id_customItemSet in ( @customItemSetSMSOverride, @customItemSetSMSEXT );
 
-UPDATE `CustomItem` SET value = 'Confirmation du paiement requise'
+UPDATE `CustomItem` SET value = 'L''activation de paiement va être vérifiée'
 WHERE locale = 'fr' and  `ordinal` = 12 and pageTypes = @pageOTP and fk_id_customItemSet in ( @customItemSetSMSOverride, @customItemSetSMSEXT );
-UPDATE `CustomItem` SET value = 'Vous recevrez sous peu un code d''activation par SMS pour confirmer le paiement. '
+UPDATE `CustomItem` SET value = 'Merci de patienter. Nous vérifions votre activation de paiement et donc l''authentification pour le paiement souhaité. '
 WHERE locale = 'fr' and  `ordinal` = 13 and pageTypes = @pageOTP and fk_id_customItemSet in ( @customItemSetSMSOverride, @customItemSetSMSEXT );
 
-UPDATE `CustomItem` SET value = 'Richiesta conferma di pagamento'
+UPDATE `CustomItem` SET value = 'L’autorizzazione di pagamento viene controllata'
 WHERE locale = 'it' and  `ordinal` = 12 and pageTypes = @pageOTP and fk_id_customItemSet in ( @customItemSetSMSOverride, @customItemSetSMSEXT );
-UPDATE `CustomItem` SET value = 'A breve riceverà un codice di autenticazione via SMS per confermare il pagamento.  '
+UPDATE `CustomItem` SET value = 'Abbia un attimo di pazienza. Stiamo verificando la sua autorizzazione di pagamento e quindi l’autenticazione per il pagamento desiderato.  '
 WHERE locale = 'it' and  `ordinal` = 13 and pageTypes = @pageOTP and fk_id_customItemSet in ( @customItemSetSMSOverride, @customItemSetSMSEXT );
 
 -- SMS Resend --
