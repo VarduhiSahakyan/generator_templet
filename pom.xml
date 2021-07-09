@@ -44,21 +44,6 @@
 	        <url>https://nexus.kazan.myworldline.com/repository/acs-delivery-ge-nexus-1-snapshots</url>
 	    </snapshotRepository>
 	</distributionManagement>
-	
-	<!--  global-worldline-public-maven -->
-	<pluginRepositories>
-        <pluginRepository>
-            <id>Kazan plugin</id>
-            <url>https://nexus.kazan.myworldline.com/repository/global-worldline-public-maven/</url>
-        </pluginRepository>
-    </pluginRepositories>
-	
-	<repositories>
-        <repository>
-            <id>global-worldline-public-maven</id>
-            <url>https://nexus.kazan.myworldline.com/repository/global-worldline-public-maven/</url>
-        </repository>
-    </repositories>
 
     <properties>
         <java-version>1.8</java-version>
