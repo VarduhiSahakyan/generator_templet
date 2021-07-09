@@ -31,6 +31,7 @@ snapshot_deploy:
   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-rev-20210401
   stage: deploy
   before_script:
+    - mvn help:evaluate -Dexpression=project.version $MAVEN_CLI_OPTS
     - mvn help:evaluate -Dexpression=project.version -q -DforceStdout $MAVEN_CLI_OPTS > version.tmp 
     - sed -i 's/-SNAPSHOT//g' version.tmp
     - export SNAPSHOT="`cat version.tmp`"
