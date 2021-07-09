@@ -15,7 +15,7 @@ variables:
 
 
 build:
-  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-latest
+  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-rev-20210401
   stage: build
   before_script:
   - cat "$SETTINGS" > "$(pwd)/settings.xml"
@@ -28,15 +28,15 @@ build:
     - docker-S
 
 snapshot_deploy:
-  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-latest
+  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-rev-20210401
   stage: deploy
   before_script:
-    - mvn help:evaluate -Dexpression=project.version -q -DforceStdout > version.tmp
+    - mvn help:evaluate -Dexpression=project.version -q -DforceStdout $MAVEN_CLI_OPTS > version.tmp 
     - sed -i 's/-SNAPSHOT//g' version.tmp
     - export SNAPSHOT="`cat version.tmp`"
-    - rm version.tmp
+    - rm version.tmp || true
     - echo "build version $SNAPSHOT-SNAPSHOT"
-    - mvn versions:set -DnewVersion=$SNAPSHOT-SNAPSHOT versions:commit
+    - mvn versions:set -DnewVersion=$SNAPSHOT-SNAPSHOT versions:commit $MAVEN_CLI_OPTS
     - cat "$SETTINGS" > "$(pwd)/settings.xml"
     - cat "$SETTINGS_SECURITY" > "$(pwd)/settings-security.xml"
   script:
@@ -55,10 +55,10 @@ snapshot_deploy:
     - /^[HU][0-9X][BFGMAH]$/
   
 make_release: 
-  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-latest
+  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-rev-20210401
   stage: release
   before_script:
-    - export MAVEN_CURRENT_VERSION=`mvn help:evaluate -Dexpression=project.version -q -DforceStdout`
+    - export MAVEN_CURRENT_VERSION=`mvn help:evaluate -Dexpression=project.version -q -DforceStdout $MAVEN_CLI_OPTS`
     - export MAVEN_RELEASE_VERSION=`echo $MAVEN_CURRENT_VERSION | sed 's/-SNAPSHOT//g'`
     - export MAVEN_SNAPSHOT_VERSION=`echo $MAVEN_RELEASE_VERSION | sed -r 's/^([0-9a-Z]+)-GE-?([0-9]+\.)?([0-9]+)(-SNAPSHOT)?/echo "\1-GE-\2$((\3+1))-SNAPSHOT"/ge'`
     - cat "$SETTINGS" > "$(pwd)/settings.xml"
@@ -71,11 +71,11 @@ make_release:
     - git remote set-url origin $GIT_REPO_URL
     - git checkout $CI_COMMIT_REF_NAME
     - git pull
-    - mvn versions:set -DnewVersion=$MAVEN_RELEASE_VERSION versions:commit
+    - mvn versions:set -DnewVersion=$MAVEN_RELEASE_VERSION versions:commit $MAVEN_CLI_OPTS
     - git commit -a -m "Release $MAVEN_RELEASE_VERSION"
     - git tag -f -a $MAVEN_RELEASE_VERSION -m "$MAVEN_RELEASE_VERSION"
     - echo "## Snapshot $MAVEN_SNAPSHOT_VERSION on $CI_COMMIT_REF_NAME branch"
-    - mvn versions:set -DnewVersion=$MAVEN_SNAPSHOT_VERSION versions:commit
+    - mvn versions:set -DnewVersion=$MAVEN_SNAPSHOT_VERSION versions:commit $MAVEN_CLI_OPTS
     - git commit -a -m "Snapshot $MAVEN_SNAPSHOT_VERSION"
     - git push origin $CI_COMMIT_REF_NAME
     - git push --tags
@@ -87,7 +87,7 @@ make_release:
     - docker-S
 
 release_deploy:
-  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-latest
+  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-rev-20210401
   stage: release
   before_script:
     - export MAVEN_CURRENT_VERSION=`mvn help:evaluate -Dexpression=project.version -q -DforceStdout`
@@ -106,7 +106,7 @@ release_deploy:
 
 
 #notify: 
-#  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-latest
+#  image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-rev-20210401
 #  stage: notify
 #  script:
 #  - VERSION="$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)"
