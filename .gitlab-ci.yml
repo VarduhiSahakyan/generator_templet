@@ -31,12 +31,12 @@ snapshot_deploy:
   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-latest
   stage: deploy
   before_script:
-    - mvn help:evaluate -Dexpression=project.version -q -DforceStdout > version.tmp
+    - mvn -X help:evaluate -Dexpression=project.version -q -DforceStdout > version.tmp
     - sed -i 's/-SNAPSHOT//g' version.tmp
     - export SNAPSHOT="`cat version.tmp`"
-    - rm version.tmp
+    - rm version.tmp || true
     - echo "build version $SNAPSHOT-SNAPSHOT"
-    - mvn versions:set -DnewVersion=$SNAPSHOT-SNAPSHOT versions:commit
+    - mvn -X versions:set -DnewVersion=$SNAPSHOT-SNAPSHOT versions:commit
     - cat "$SETTINGS" > "$(pwd)/settings.xml"
     - cat "$SETTINGS_SECURITY" > "$(pwd)/settings-security.xml"
   script:
