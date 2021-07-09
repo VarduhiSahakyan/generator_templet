@@ -31,6 +31,8 @@ snapshot_deploy:
   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-rev-20210401
   stage: deploy
   before_script:
+    - cat "$SETTINGS" > "$(pwd)/settings.xml"
+    - cat "$SETTINGS_SECURITY" > "$(pwd)/settings-security.xml"
     - mvn help:evaluate -Dexpression=project.version $MAVEN_CLI_OPTS
     - mvn help:evaluate -Dexpression=project.version -q -DforceStdout $MAVEN_CLI_OPTS > version.tmp 
     - sed -i 's/-SNAPSHOT//g' version.tmp
@@ -38,8 +40,6 @@ snapshot_deploy:
     - rm version.tmp || true
     - echo "build version $SNAPSHOT-SNAPSHOT"
     - mvn versions:set -DnewVersion=$SNAPSHOT-SNAPSHOT versions:commit $MAVEN_CLI_OPTS
-    - cat "$SETTINGS" > "$(pwd)/settings.xml"
-    - cat "$SETTINGS_SECURITY" > "$(pwd)/settings-security.xml"
   script:
     - mvn -f pom.xml clean deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true $MAVEN_CLI_OPTS
   when: manual
