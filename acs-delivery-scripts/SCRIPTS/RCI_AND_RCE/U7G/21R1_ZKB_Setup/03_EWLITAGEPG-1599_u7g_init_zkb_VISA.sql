@@ -2108,7 +2108,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'fr', 11, @refusalPageType, '<b>Informations concernant le paiement.</b>', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_22'), @updateState,
- 'fr', 22, @refusalPageType, 'Le paiement n''a pas été effectuéLe paiement n''a pas été effectué', @MaestroVID, NULL, @customItemSetMISSING ),
+ 'fr', 22, @refusalPageType, 'Le paiement n''a pas été effectué', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_23'), @updateState,
  'fr', 23, @refusalPageType, 'Pour des raisons de sécurité, votre carte est bloquée, pour une courte durée,	 pour les paiements en ligne.', @MaestroVID, NULL, @customItemSetMISSING ),
