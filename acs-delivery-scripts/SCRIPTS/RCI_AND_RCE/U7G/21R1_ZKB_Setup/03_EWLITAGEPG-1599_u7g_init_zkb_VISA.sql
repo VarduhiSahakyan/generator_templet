@@ -332,7 +332,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'fr', 1, @refusalPageType, '<b>Activation de paiement impossible</b>', @MaestroVID, NULL, @customItemSetREFUSAL),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_2'), @updateState,
- 'fr', 2, @refusalPageType, '''Nous n''avons malheureusement pas pu répondre à votre demande car nous n''avons trouvé aucune méthode d''activation (SMS ou App) pour votre carte.', @MaestroVID, NULL, @customItemSetREFUSAL),
+ 'fr', 2, @refusalPageType, 'Nous n''avons malheureusement pas pu répondre à votre demande car nous n''avons trouvé aucune méthode d''activation (SMS ou App) pour votre carte.', @MaestroVID, NULL, @customItemSetREFUSAL),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_3'), @updateState,
  'fr', 3, @refusalPageType, 'Veuillez consigner une méthode d''activation pour votre carte dans le portail d’inscription, conformément aux instructions de votre banque.', @MaestroVID, NULL, @customItemSetREFUSAL),
@@ -965,7 +965,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'fr', 22, @otpFormPagePageType, 'L''activation a échoué', @MaestroVID, NULL, @customItemSetSMS),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@otpFormPagePageType,'_23'), @updateState,
- 'fr', 23, @otpFormPagePageType, '''Vous avez saisi 3 fois un mauvais code d''activation. Votre paiement n''a pas pu être terminé et votre carte n''a pas été débitée. Pour des raisons de sécurité, votre carte va, pour une courte durée, être bloquée pour les paiements en ligne. ', @MaestroVID, NULL, @customItemSetSMS),
+ 'fr', 23, @otpFormPagePageType, 'Vous avez saisi 3 fois un mauvais code d''activation. Votre paiement n''a pas pu être terminé et votre carte n''a pas été débitée. Pour des raisons de sécurité, votre carte va, pour une courte durée, être bloquée pour les paiements en ligne. ', @MaestroVID, NULL, @customItemSetSMS),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@otpFormPagePageType,'_26'), @updateState,
  'fr', 26, @otpFormPagePageType, 'L’activation du paiement a réussi', @MaestroVID, NULL, @customItemSetSMS),
@@ -1141,7 +1141,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'it', 22, @otpFormPagePageType, 'Autenticazione fallita', @MaestroVID, NULL, @customItemSetSMS),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@otpFormPagePageType,'_23'), @updateState,
- 'it', 23, @otpFormPagePageType, '''Ha inserito 3 volte il codice di autenticazione errato. Non è stato possibile portare a termine il pagamento e la sua carta non è stata addebitata. Per motivi di sicurezza la sua carta verrà ora bloccata per i pagamenti online per un breve periodo di tempo. ', @MaestroVID, NULL, @customItemSetSMS),
+ 'it', 23, @otpFormPagePageType, 'Ha inserito 3 volte il codice di autenticazione errato. Non è stato possibile portare a termine il pagamento e la sua carta non è stata addebitata. Per motivi di sicurezza la sua carta verrà ora bloccata per i pagamenti online per un breve periodo di tempo. ', @MaestroVID, NULL, @customItemSetSMS),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@otpFormPagePageType,'_26'), @updateState,
  'it', 26, @otpFormPagePageType, 'L’autorizzazione di pagamento è andata a buon fine', @MaestroVID, NULL, @customItemSetSMS),
@@ -1159,7 +1159,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'it', 30, @otpFormPagePageType, 'Pagamento non effettuato - Sessione scaduta', @MaestroVID, NULL, @customItemSetSMS),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@otpFormPagePageType,'_31'), @updateState,
- 'it', 31, @otpFormPagePageType, '''È passato troppo tempo per autorizzare il pagamento. Il processo di pagamento è stato quindi annullato per motivi di sicurezza. Ritorni al negozio online e inizi di nuovo il processo di pagamento se desidera effettuare il pagamento.', @MaestroVID, NULL, @customItemSetSMS),
+ 'it', 31, @otpFormPagePageType, 'È passato troppo tempo per autorizzare il pagamento. Il processo di pagamento è stato quindi annullato per motivi di sicurezza. Ritorni al negozio online e inizi di nuovo il processo di pagamento se desidera effettuare il pagamento.', @MaestroVID, NULL, @customItemSetSMS),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@otpFormPagePageType,'_32'), @updateState,
  'it', 32, @otpFormPagePageType, 'Pagamento non eseguito - Errore tecnico', @MaestroVID, NULL, @customItemSetSMS),
@@ -1237,7 +1237,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'it', 16, @failurePagePageType, 'Autenticazione fallita', @MaestroVID, NULL, @customItemSetSMS),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@failurePagePageType,'_17'), @updateState,
- 'it', 17, @failurePagePageType, '''Ha inserito 3 volte il codice di autenticazione errato. Non è stato possibile portare a termine il pagamento e la sua carta non è stata addebitata. Per motivi di sicurezza la sua carta verrà ora bloccata per i pagamenti online per un breve periodo di tempo. ', @MaestroVID, NULL, @customItemSetSMS),
+ 'it', 17, @failurePagePageType, 'Ha inserito 3 volte il codice di autenticazione errato. Non è stato possibile portare a termine il pagamento e la sua carta non è stata addebitata. Per motivi di sicurezza la sua carta verrà ora bloccata per i pagamenti online per un breve periodo di tempo. ', @MaestroVID, NULL, @customItemSetSMS),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@failurePagePageType,'_32'), @updateState,
  'it', 32, @failurePagePageType, 'Pagamento non eseguito - Errore tecnico', @MaestroVID, NULL, @customItemSetSMS),
@@ -1590,7 +1590,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'fr', 14,@pollingPagePageType, 'Activation de paiement interrompue', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_15'), @updateState,
- 'fr', 15,@pollingPagePageType, '''Le paiement a été interrompu et votre carte n’a pas été débitée. Si vous souhaitez malgré tout continuer le processus d’achat, veuillez recommencer la tentative de paiement. ', @MaestroVID, NULL, @customItemSetMobileAppExt),
+ 'fr', 15,@pollingPagePageType, 'Le paiement a été interrompu et votre carte n’a pas été débitée. Si vous souhaitez malgré tout continuer le processus d’achat, veuillez recommencer la tentative de paiement. ', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_26'), @updateState,
  'fr', 26,@pollingPagePageType, 'L’activation du paiement a réussi', @MaestroVID, NULL, @customItemSetMobileAppExt),
@@ -1602,13 +1602,13 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'fr', 30,@pollingPagePageType, 'Paiement non effectué - La session a expiré', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_31'), @updateState,
- 'fr', 31,@pollingPagePageType, '''Trop de temps s’est écoulé avant le paiement. Pour des raisons de sécurité, la procédure de paiement a donc été interrompue. Veuillez retourner sur la boutique en ligne et recommencez la procédure de paiement si vous voulez effectuer le paiement.', @MaestroVID, NULL, @customItemSetMobileAppExt),
+ 'fr', 31,@pollingPagePageType, 'Trop de temps s’est écoulé avant le paiement. Pour des raisons de sécurité, la procédure de paiement a donc été interrompue. Veuillez retourner sur la boutique en ligne et recommencez la procédure de paiement si vous voulez effectuer le paiement.', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_32'), @updateState,
  'fr', 32,@pollingPagePageType, 'Paiement non effectué - Problème technique', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_33'), @updateState,
- 'fr', 33,@pollingPagePageType, '''En raison d''une erreur technique, le paiement n''a pas pu être effectué. Si vous souhaitez poursuivre l''achat, nous vous prions de bien vouloir essayer à nouveau.', @MaestroVID, NULL, @customItemSetMobileAppExt),
+ 'fr', 33,@pollingPagePageType, 'En raison d''une erreur technique, le paiement n''a pas pu être effectué. Si vous souhaitez poursuivre l''achat, nous vous prions de bien vouloir essayer à nouveau.', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_40'), @updateState,
  'fr', 40, @pollingPagePageType, 'Interrompre le paiement', @MaestroVID, NULL, @customItemSetMobileAppExt),
@@ -1738,7 +1738,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'it', 14,@pollingPagePageType, 'Autorizzazione di pagamento annullata', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_15'), @updateState,
- 'it', 15,@pollingPagePageType, '''Il pagamento è stato annullato e la sua carta non è stata addebitata. Se desidera continuare comunque il processo di acquisto, provi a iniziare di nuovo il pagamento.', @MaestroVID, NULL, @customItemSetMobileAppExt),
+ 'it', 15,@pollingPagePageType, 'Il pagamento è stato annullato e la sua carta non è stata addebitata. Se desidera continuare comunque il processo di acquisto, provi a iniziare di nuovo il pagamento.', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_26'), @updateState,
  'it', 26,@pollingPagePageType, 'L’autorizzazione di pagamento è andata a buon fine', @MaestroVID, NULL, @customItemSetMobileAppExt),
@@ -1750,13 +1750,13 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'it', 30,@pollingPagePageType, 'Pagamento non effettuato - Sessione scaduta', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_31'), @updateState,
- 'it', 31,@pollingPagePageType, '''È passato troppo tempo per autorizzare il pagamento. Il processo di pagamento è stato quindi annullato per motivi di sicurezza. Ritorni al negozio online e inizi di nuovo il processo di pagamento se desidera effettuare il pagamento.', @MaestroVID, NULL, @customItemSetMobileAppExt),
+ 'it', 31,@pollingPagePageType, 'È passato troppo tempo per autorizzare il pagamento. Il processo di pagamento è stato quindi annullato per motivi di sicurezza. Ritorni al negozio online e inizi di nuovo il processo di pagamento se desidera effettuare il pagamento.', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_32'), @updateState,
  'it', 32,@pollingPagePageType, 'Pagamento non eseguito - Errore tecnico', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_33'), @updateState,
- 'it', 33,@pollingPagePageType, '''Non è stato possibile eseguire il pagamento a causa di un errore tecnico. Se desidera continuare l’acquisto, la preghiamo di riprovare nuovamente.', @MaestroVID, NULL, @customItemSetMobileAppExt),
+ 'it', 33,@pollingPagePageType, 'Non è stato possibile eseguire il pagamento a causa di un errore tecnico. Se desidera continuare l’acquisto, la preghiamo di riprovare nuovamente.', @MaestroVID, NULL, @customItemSetMobileAppExt),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobilleAppExtAuthentMean,'_',@pollingPagePageType,'_40'), @updateState,
  'it', 40, @pollingPagePageType, 'Interrompere il pagamento', @MaestroVID, NULL, @customItemSetMobileAppExt),
@@ -2099,7 +2099,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'fr', 1, @refusalPageType, '<b>Activation de paiement impossible</b>', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_2'), @updateState,
- 'fr', 2, @refusalPageType, '''Nous n''avons malheureusement pas pu répondre à votre demande car nous n''avons trouvé aucune méthode d''activation (SMS ou App) pour votre carte.', @MaestroVID, NULL, @customItemSetMISSING ),
+ 'fr', 2, @refusalPageType, 'Nous n''avons malheureusement pas pu répondre à votre demande car nous n''avons trouvé aucune méthode d''activation (SMS ou App) pour votre carte.', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_3'), @updateState,
  'fr', 3, @refusalPageType, 'Veuillez consigner une méthode d''activation pour votre carte dans le portail d’inscription, conformément aux instructions de votre banque.', @MaestroVID, NULL, @customItemSetMISSING ),
@@ -2308,6 +2308,8 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'it', 175, @failurePagePageType, 'Indietro al negozio online', @MaestroVID, NULL, @customItemSetMISSING );
 
 
+SET @customItemSetBackupRefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_BACKUP_REFUSAL'));
+
 /*ENGLISH translations for BACKUP_REFUSAL*/
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
@@ -2448,7 +2450,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'fr', 1, @refusalPageType, '<b>Activation de paiement impossible</b>', @MaestroVID, NULL, @customItemSetBackupRefusal),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_2'), @updateState,
- 'fr', 2, @refusalPageType, '''Nous n''avons malheureusement pas pu répondre à votre demande car nous n''avons trouvé aucune méthode d''activation (SMS ou App) pour votre carte.', @MaestroVID, NULL, @customItemSetBackupRefusal),
+ 'fr', 2, @refusalPageType, 'Nous n''avons malheureusement pas pu répondre à votre demande car nous n''avons trouvé aucune méthode d''activation (SMS ou App) pour votre carte.', @MaestroVID, NULL, @customItemSetBackupRefusal),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_3'), @updateState,
  'fr', 3, @refusalPageType, 'Veuillez consigner une méthode d''activation pour votre carte dans le portail d’inscription, conformément aux instructions de votre banque.', @MaestroVID, NULL, @customItemSetBackupRefusal),

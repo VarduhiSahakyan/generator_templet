@@ -2182,6 +2182,8 @@ VALUES
 		CONCAT('customitemset_', @BankUB, '_SMS_EXT'), @updateState, @status, 1, NULL, NULL, @subIssuerID),
 	(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_MISSING_AUTHENTICATION_REFUSAL_Current'), NULL, NULL,
 		CONCAT('customitemset_', @BankUB, '_MISSING_AUTHENTICATION_REFUSAL'), @updateState, @status, 1, NULL, NULL, @subIssuerID),
+	(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_BACKUP_REFUSAL_Current'), NULL, NULL,
+        CONCAT('customitemset_', @BankUB, '_BACKUP_REFUSAL'), @updateState, @status, 1, NULL, NULL, @subIssuerID),
 	(@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_DEFAULT_REFUSAL_Current'), NULL, NULL,
 	  CONCAT('customitemset_', @BankUB, '_DEFAULT_REFUSAL'), @updateState, @status, 1, NULL, NULL, @subIssuerID);
 /*!40000 ALTER TABLE `CustomItemSet` ENABLE KEYS */;
