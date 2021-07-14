@@ -11,7 +11,7 @@ SET @textValue = 'Payment approval via SMS';
 UPDATE CustomItem SET value = @textValue WHERE ordinal = 151 AND pageTypes = @pageType AND locale = 'en' AND fk_id_customItemSet = @customItemSetId;
 
 
-SET @textValue = 'We have sent you an approval code for confirmation of the payment. If the payment has been made by you, please confirm this by entering this code. \n\n With the approval you pay the merchant @merchantName the amount of @amount on @formattedDate.';
+SET @textValue = 'We have sent you an approval code for confirmation of the payment. If the payment has been made by you, please confirm this by entering this code. \n\n With the approval you pay the merchant @merchant the amount of @amount on @formattedDate.';
 
 UPDATE CustomItem SET value = @textValue WHERE ordinal = 152 AND pageTypes = @pageType AND locale = 'en' AND fk_id_customItemSet = @customItemSetId;
 
