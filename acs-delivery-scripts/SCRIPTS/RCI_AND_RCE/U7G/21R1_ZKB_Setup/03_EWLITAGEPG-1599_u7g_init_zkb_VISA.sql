@@ -1881,10 +1881,10 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 23, @refusalPageType, 'Ihre Karte ist aus Sicherheitsgründen während einer kurzen Zeitdauer für Online-Zahlungen blockiert.', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_32'), @updateState,
- 'de', 32, @refusalPageType, 'Zahlung nicht ausgeführt - Karte ist nicht für 3D Secure registriert', @MaestroVID, NULL, @customItemSetMISSING ),
+ 'de', 32, @refusalPageType, 'Zahlungsfreigabe nicht möglich', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_33'), @updateState,
- 'de', 33, @refusalPageType, 'Die Zahlung konnte nicht ausgeführt werden, da Ihre Karte nicht für 3D Secure Zahlungen registriert ist. Sollten Sie den Kauf fortsetzen wollen, bitten wir Sie Ihre Karte gemäss der Anleitung Ihrer Bank entsprechend zu registrieren.', @MaestroVID, NULL, @customItemSetMISSING ),
+ 'de', 33, @refusalPageType, 'Leider konnten wir Ihre Anfrage nicht ausführen, da wir keine Freigabe-Methode (SMS oder App) für Ihre Karte gefunden haben. Bitte hinterlegen Sie für Ihre Karte eine entsprechende Freigabe-Methode im Registrierungsportal gemäss der Anleitung Ihrer Bank.', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_41'), @updateState,
  'de', 41, @refusalPageType, 'Hilfe', @MaestroVID, NULL, @customItemSetMISSING ),
@@ -1999,10 +1999,10 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'en', 23, @refusalPageType, 'Your card is temporarily blocked for online payments for security reasons. ', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_32'), @updateState,
- 'en', 32, @refusalPageType, 'Payment not completed – card is not registered for 3-D Secure.', @MaestroVID, NULL, @customItemSetMISSING ),
+ 'en', 32, @refusalPageType, 'Payment approval not possible.', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_33'), @updateState,
- 'en', 33, @refusalPageType, 'The payment could not be completed because your card is not registered for 3-D Secure payments. If you wish to continue with the purchase, please register your card according the instructions issued by your bank.', @MaestroVID, NULL, @customItemSetMISSING ),
+ 'en', 33, @refusalPageType, 'Unfortunately, we cannot complete your request, because we could not find an approval method (SMS or app) for your card. Please set up a corresponding approval method for your card on the registration portal according to your bank''s instructions.', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_41'), @updateState,
  'en', 41, @refusalPageType, 'Help', @MaestroVID, NULL, @customItemSetMISSING ),
@@ -2114,10 +2114,10 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'fr', 23, @refusalPageType, 'Pour des raisons de sécurité, votre carte est bloquée, pour une courte durée,	 pour les paiements en ligne.', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_32'), @updateState,
- 'fr', 32, @refusalPageType, 'Le paiement n''a pas été effectué - La carte n''est pas enregistrée pour 3D Secure', @MaestroVID, NULL, @customItemSetMISSING ),
+ 'fr', 32, @refusalPageType, 'Activation de paiement impossible', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_33'), @updateState,
- 'fr', 33, @refusalPageType, 'Le paiement n''as pas pu être effectué car votre carte n''est pas enregistrée pour les paiements 3D Secure. Si vous souhaitez poursuivre l''achat, nous vous prions d''enregistrer votre carte conformément aux instructions de votre banque.', @MaestroVID, NULL, @customItemSetMISSING ),
+ 'fr', 33, @refusalPageType, 'Nous n''avons malheureusement pas pu répondre à votre demande car nous n''avons trouvé aucune méthode d''activation (SMS ou App) pour votre carte. Veuillez consigner une méthode d''activation pour votre carte dans le portail d’inscription, conformément aux instructions de votre banque.', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_41'), @updateState,
  'fr', 41, @refusalPageType, 'Aide', @MaestroVID, NULL, @customItemSetMISSING ),
@@ -2231,10 +2231,10 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'it', 23, @refusalPageType, 'Per motivi di sicurezza la sua carta è bloccata per i pagamenti online per un breve periodo di tempo.', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_32'), @updateState,
- 'it', 32, @refusalPageType, 'Pagamento non eseguito - La carta non è registrata per 3D Secure', @MaestroVID, NULL, @customItemSetMISSING ),
+ 'it', 32, @refusalPageType, 'Autorizzazione di pagamento non possibile', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_33'), @updateState,
- 'it', 33, @refusalPageType, 'Non è stato possibile effettuare il pagamento perché la sua carta non è registrata per i pagamenti 3D Secure. Se desidera continuare l’acquisto, la preghiamo di registrare la sua carta secondo le istruzioni della sua banca.', @MaestroVID, NULL, @customItemSetMISSING ),
+ 'it', 33, @refusalPageType, 'Purtroppo non siamo riusciti a elaborare la sua richiesta perché non abbiamo trovato un metodo di autenticazione (SMS o app) per la sua carta. Stabilisca un metodo di autenticazione corrispondente per la sua carta nel portale di registrazione secondo le istruzioni della sua banca.', @MaestroVID, NULL, @customItemSetMISSING ),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_41'), @updateState,
  'it', 41, @refusalPageType, 'Aiuto', @MaestroVID, NULL, @customItemSetMISSING ),
