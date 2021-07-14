@@ -31,14 +31,14 @@ snapshot_deploy:
   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-rev-20210401
   stage: deploy
   before_script:
+    - cat "$SETTINGS" > "$(pwd)/settings.xml"
+    - cat "$SETTINGS_SECURITY" > "$(pwd)/settings-security.xml"
     - mvn help:evaluate -Dexpression=project.version -q -DforceStdout $MAVEN_CLI_OPTS > version.tmp 
     - sed -i 's/-SNAPSHOT//g' version.tmp
     - export SNAPSHOT="`cat version.tmp`"
     - rm version.tmp || true
     - echo "build version $SNAPSHOT-SNAPSHOT"
     - mvn versions:set -DnewVersion=$SNAPSHOT-SNAPSHOT versions:commit $MAVEN_CLI_OPTS
-    - cat "$SETTINGS" > "$(pwd)/settings.xml"
-    - cat "$SETTINGS_SECURITY" > "$(pwd)/settings-security.xml"
   script:
     - mvn -f pom.xml clean deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true $MAVEN_CLI_OPTS
   when: manual
@@ -58,11 +58,11 @@ make_release:
   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-rev-20210401
   stage: release
   before_script:
+    - cat "$SETTINGS" > "$(pwd)/settings.xml"
+    - cat "$SETTINGS_SECURITY" > "$(pwd)/settings-security.xml"
     - export MAVEN_CURRENT_VERSION=`mvn help:evaluate -Dexpression=project.version -q -DforceStdout $MAVEN_CLI_OPTS`
     - export MAVEN_RELEASE_VERSION=`echo $MAVEN_CURRENT_VERSION | sed 's/-SNAPSHOT//g'`
     - export MAVEN_SNAPSHOT_VERSION=`echo $MAVEN_RELEASE_VERSION | sed -r 's/^([0-9a-Z]+)-GE-?([0-9]+\.)?([0-9]+)(-SNAPSHOT)?/echo "\1-GE-\2$((\3+1))-SNAPSHOT"/ge'`
-    - cat "$SETTINGS" > "$(pwd)/settings.xml"
-    - cat "$SETTINGS_SECURITY" > "$(pwd)/settings-security.xml"
   script:
     - git config user.name "$TECHUSER_NAME"
     - git config user.email "$TECHUSER_MAIL"
@@ -90,11 +90,11 @@ release_deploy:
   image: registry-testing.kazan.atosworldline.com/kazan/awl-kazan-builder:openjdk8-rev-20210401
   stage: release
   before_script:
+    - cat "$SETTINGS" > "$(pwd)/settings.xml"
+    - cat "$SETTINGS_SECURITY" > "$(pwd)/settings-security.xml"
     - export MAVEN_CURRENT_VERSION=`mvn help:evaluate -Dexpression=project.version -q -DforceStdout`
     - export MAVEN_RELEASE_VERSION=`echo $MAVEN_CURRENT_VERSION | sed 's/-SNAPSHOT//g'`
     - export MAVEN_SNAPSHOT_VERSION=`echo $MAVEN_RELEASE_VERSION | sed -r 's/^([0-9a-Z]+)-GE-?([0-9]+\.)?([0-9]+)(-SNAPSHOT)?/echo "\1-GE-\2$((\3+1))-SNAPSHOT"/ge'`
-    - cat "$SETTINGS" > "$(pwd)/settings.xml"
-    - cat "$SETTINGS_SECURITY" > "$(pwd)/settings-security.xml"
   script:
     - mvn -f pom.xml clean deploy -U -Dmaven.test.skip=true -Dmaven.javadoc.skip=true $MAVEN_CLI_OPTS
   only: 
