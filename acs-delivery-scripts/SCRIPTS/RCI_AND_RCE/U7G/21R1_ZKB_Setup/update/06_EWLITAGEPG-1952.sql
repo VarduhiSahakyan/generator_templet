@@ -23,10 +23,10 @@ WHERE locale = 'it' AND ordinal = 23 AND pageTypes = @otpFormPagePageType AND fk
 UPDATE CustomItem SET value = 'È passato troppo tempo per autorizzare il pagamento. Il processo di pagamento è stato quindi annullato per motivi di sicurezza. Ritorni al negozio online e inizi di nuovo il processo di pagamento se desidera effettuare il pagamento.'
 WHERE locale = 'it' AND ordinal = 31 AND pageTypes = @otpFormPagePageType AND fk_id_customItemSet = @customItemSetSMS;
 
-UPDATE CustomItem SET value = 'We did not reach your Access App.'
+UPDATE CustomItem SET value = 'No connection to Access App'
 WHERE locale = 'en' AND ordinal = 51 AND pageTypes = @otpFormPagePageType AND fk_id_customItemSet = @customItemSetSMS;
 
-UPDATE CustomItem SET value = 'We sent an approval code to your mobile phone, which you can use to confirm the payment.'
+UPDATE CustomItem SET value = 'We did not reach your Access App.\nWe sent an approval code to your mobile phone, which you can use to confirm the payment.'
 WHERE locale = 'en' AND ordinal = 52 AND pageTypes = @otpFormPagePageType AND fk_id_customItemSet = @customItemSetSMS;
 
 SET @failurePagePageType = 'FAILURE_PAGE';
