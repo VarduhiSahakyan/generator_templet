@@ -2747,7 +2747,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@otpFormPagePageType,'_52'), @updateState,
  'de', 52, @otpFormPagePageType, 'Keine Verbindung zur Access App möglich.Wir haben Ihnen zur Bestätigung der Zahlung einen Freigabe-Code auf Ihr Mobiltelefon gesendet. ', @MaestroVID, NULL, @customItemSetSMS),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@otpFormPagePageType,'_52'), @updateState,
- 'en', 52, @otpFormPagePageType, 'As we did not reach your Access App.We sent an approval code to your mobile phone, which you can use to confirm the payment. ', @MaestroVID, NULL, @customItemSetSMS),
+ 'en', 52, @otpFormPagePageType, 'We did not reach your Access App.\nWe sent an approval code to your mobile phone, which you can use to confirm the payment. ', @MaestroVID, NULL, @customItemSetSMS),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@otpFormPagePageType,'_52'), @updateState,
  'fr', 52, @otpFormPagePageType, 'La connexion avec l''app Access est impossible. Pour confirmer le paiement, nous vous avons envoyé un code de validation sur votre téléphone mobile.', @MaestroVID, NULL, @customItemSetSMS),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@otpSMSExtMessageAuthentMean,'_',@otpFormPagePageType,'_52'), @updateState,
