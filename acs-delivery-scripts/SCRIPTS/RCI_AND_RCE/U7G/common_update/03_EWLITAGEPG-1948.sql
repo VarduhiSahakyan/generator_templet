@@ -30,7 +30,7 @@ WHERE `ordinal` = 230 AND
 
 
 SET @BankUB = 'RCH';
-SET @customItemSetREFUSAL = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_DEFAULT_REFUSAL'));
+SET @customItemSetREFUSAL = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_REFUSAL_FRAUD'));
 
 UPDATE `CustomItem` SET `value` = 'Aus Sicherheitsgründen wurde Ihre Transaktion nicht ausgeführt. Ihre Karte wurde nicht belastet.'
 WHERE `ordinal` = 230 AND
