@@ -129,7 +129,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'de', 220, @refusalPageType, 'Zahlung nicht ausgeführt', @MaestroVID, NULL, @customItemSetREFUSAL),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_230'), @updateState,
- 'de', 230, @refusalPageType, 'Ihre Karte ist aus Sicherheitsgründen während einer kurzen Zeitdauer für Online-Zahlungen blockiert. ', @MaestroVID, NULL, @customItemSetREFUSAL),
+ 'de', 230, @refusalPageType, 'Aus Sicherheitsgründen wurde Ihre Transaktion nicht ausgeführt. Ihre Karte wurde nicht belastet.', @MaestroVID, NULL, @customItemSetREFUSAL),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_174'), @updateState,
  'de', 174,@refusalPageType, 'Meldung schliessen', @MaestroVID, NULL, @customItemSetREFUSAL),
@@ -252,7 +252,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'en', 220, @refusalPageType, 'Payment not completed', @MaestroVID, NULL, @customItemSetREFUSAL),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_230'), @updateState,
- 'en', 230, @refusalPageType, 'Your card is temporarily blocked for online payments for security reasons.', @MaestroVID, NULL, @customItemSetREFUSAL),
+ 'en', 230, @refusalPageType, 'For security reasons, your transaction was not completed and your card not debited.', @MaestroVID, NULL, @customItemSetREFUSAL),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_174'), @updateState,
  'en', 174,@refusalPageType, 'Close message', @MaestroVID, NULL, @customItemSetREFUSAL),
@@ -374,7 +374,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'fr', 220, @refusalPageType, 'Le paiement n''a pas été effectué', @MaestroVID, NULL, @customItemSetREFUSAL),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_230'), @updateState,
- 'fr', 230, @refusalPageType, 'Pour des raisons de sécurité, votre carte est bloquée, pour une courte durée, pour les paiements en ligne.', @MaestroVID, NULL, @customItemSetREFUSAL),
+ 'fr', 230, @refusalPageType, 'Pour des raisons de sécurité, votre transaction n''a pas été exécutée. Votre carte n''a pas été débitée.', @MaestroVID, NULL, @customItemSetREFUSAL),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_174'), @updateState,
  'fr', 174,@refusalPageType, 'Fermer le message', @MaestroVID, NULL, @customItemSetREFUSAL),
@@ -497,7 +497,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'it', 220, @refusalPageType, 'Pagamento non eseguito', @MaestroVID, NULL, @customItemSetREFUSAL),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_230'), @updateState,
- 'it', 230, @refusalPageType, 'Per motivi di sicurezza la sua carta è bloccata per i pagamenti online per un breve periodo di tempo.', @MaestroVID, NULL, @customItemSetREFUSAL),
+ 'it', 230, @refusalPageType, 'Per ragioni di sicurezza, la tua transazione non è stata eseguita. La sua carta non è stata addebitata.', @MaestroVID, NULL, @customItemSetREFUSAL),
 
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@refusalAuthentMean,'_',@refusalPageType,'_174'), @updateState,
  'it', 174,@refusalPageType, 'Chiudere messaggio', @MaestroVID, NULL, @customItemSetREFUSAL),
