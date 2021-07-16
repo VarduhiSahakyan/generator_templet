@@ -432,7 +432,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanPassword,'_',@pageTypeHelp,'_2'), @updateState,
  'de', 2, @pageTypeHelp, ' ', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanPassword,'_',@pageTypeHelp,'_3'), @updateState,
- 'de', 3, @pageTypeHelp, '<I>Bitte geben Sie hier Ihre Online Banking PIN ein, die Sie auch für den Login auf <a href="https://www.commerzbank.de "> www.commerzbank.de </a> verwenden.</I>', @MaestroVID, NULL, @customItemSetPassword),
+ 'de', 3, @pageTypeHelp, '<I>Bitte geben Sie hier Ihre Online Banking PIN ein, die Sie auch für den Login auf  www.commerzbank.de  verwenden.</I>', @MaestroVID, NULL, @customItemSetPassword),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanPassword,'_',@pageTypeHelp,'_11'), @updateState,
  'de', 11, @pageTypeHelp, 'Hilfe schließen', @MaestroVID, NULL, @customItemSetPassword);
 
@@ -443,7 +443,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 UPDATE CustomItem SET value = '<b>Freigabe mit photoTAN-Scan.<br>Bitte Grafik scannen und TAN eingeben.</b>'
 WHERE fk_id_customItemSet = @customItemSetPhotoTan AND pageTypes = @otpFormPageType	 AND ordinal = 1;
 
-UPDATE CustomItem SET value = 'Weiter >'
+UPDATE CustomItem SET value = 'Freigeben >'
 WHERE fk_id_customItemSet = @customItemSetPhotoTan AND pageTypes = @otpFormPageType	 AND ordinal = 42;
 SET @pageLayoutIdPhotoTan = (SELECT id FROM `CustomPageLayout` WHERE `pageType` = 'PHOTO_TAN_OTP_FORM_PAGE' AND DESCRIPTION = 'PhotoTAN OTP Form Page (Commerzbank AG)');
 
@@ -522,7 +522,7 @@ SET `value` = '<style>
 		clear:both;
 	}
 	.externalImage {
-		margin-right:100px;
+		margin-right:0px;
 	}
 	side-menu .text-left {
 		padding-right: 5px;
@@ -715,10 +715,10 @@ SET `value` = '<style>
 		display:none;
 	}
 	@media all and (max-width: 1610px) {
-		.externalImage {margin-right:100px;}
+		.externalImage {margin-right:0px;}
 	}
 	@media all and (max-width: 1278px) and (min-width: 764px) {
-		.externalImage {margin-right:60px;}
+		.externalImage {margin-right:0px;}
 	}
 	@media all and (max-width: 1199px) and (min-width: 701px) {
 		h1 { font-size:24px; }
