@@ -1,6 +1,6 @@
 USE `U7G_ACS_BO`;
 
-SET @customItemSetSMSOverride = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_SWISSKEY_SMS_OVERRIDE');
+SET @customItemSetSMSOverride = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_SWISSKEY_UNIFIED_SMS_OVERRIDE');
 SET @customItemSetSMSEXT = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_SWISSKEY_SMS');
 
 SET @pageOTP = 'OTP_FORM_PAGE';
@@ -40,7 +40,7 @@ WHERE locale = 'de' and  `ordinal` = 3 and pageTypes = @pageHelp and fk_id_custo
 
 -- PWD --
 
-SET @customItemSetPassword = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_SWISSKEY_PASSWORD');
+SET @customItemSetPassword = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_SWISSKEY_UNIFIED_PASSWORD');
 
 -- Main --
 UPDATE `CustomItem` SET value = 'Bitte prüfen Sie die Zahlungsdetails und bestätigen Sie die Zahlung durch Eingabe Ihres persönlichen Passworts.'
@@ -84,7 +84,7 @@ WHERE locale = 'de' and  `ordinal` = 3 and pageTypes = @pageHelp and fk_id_custo
 SET @pageAppView = 'APP_VIEW';
 
 -- SMS --
-SET @customItemSetSMSOverride = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_SWISSKEY_SMS_OVERRIDE');
+SET @customItemSetSMSOverride = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_SWISSKEY_UNIFIED_SMS_OVERRIDE');
 SET @customItemSetSMSEXT = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_SWISSKEY_SMS');
 
 UPDATE `CustomItem` SET value = 'Zahlungsfreigabe mit SMS-Code '
@@ -102,9 +102,9 @@ WHERE locale = 'de' and  `ordinal` = 160 and pageTypes = @pageAppView and fk_id_
 
 -- PWD --
 
-SET @customItemSetPassword = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_SWISSKEY_PASSWORD');
+SET @customItemSetPassword = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_SWISSKEY_UNIFIED_PASSWORD');
 
-UPDATE `CustomItem` SET value = 'Bitte prüfen Sie die Zahlungsdetails und bestätigen Sie die Zahlung durch Eingabe Ihres persönlichen Passworts.  \n\n Sie bezahlen dem Händler  @merchantName den Betrag von @amount am @formattedDate.'
+UPDATE `CustomItem` SET value = 'Bitte prüfen Sie die Zahlungsdetails und bestätigen Sie die Zahlung durch Eingabe Ihres persönlichen Passworts.\n\n Sie bezahlen dem Händler  @merchantName den Betrag von @amount am @formattedDate.'
 WHERE locale = 'de' and  `ordinal` = 152 and pageTypes = @pageAppView and fk_id_customItemSet = @customItemSetPassword;
 UPDATE `CustomItem` SET value = 'Persönliches Passwort eingeben:'
 WHERE locale = 'de' and  `ordinal` = 153 and pageTypes = @pageAppView and fk_id_customItemSet = @customItemSetPassword;
