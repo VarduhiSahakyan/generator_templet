@@ -95,7 +95,7 @@ UPDATE `CustomItem` SET value = 'SMS-Code bitte hier eingeben: '
 WHERE locale = 'de' and  `ordinal` = 153 and pageTypes = @pageAppView and fk_id_customItemSet in ( @customItemSetSMSOverride, @customItemSetSMSEXT );
 UPDATE `CustomItem` SET value = 'Bestätigen'
 WHERE locale = 'de' and  `ordinal` = 154 and pageTypes = @pageAppView and fk_id_customItemSet in ( @customItemSetSMSOverride, @customItemSetSMSEXT );
-UPDATE `CustomItem` SET value = 'Neuen Code anfordern'
+UPDATE `CustomItem` SET value = 'Neuen SMS-Code anfordern'
 WHERE locale = 'de' and  `ordinal` = 155 and pageTypes = @pageAppView and fk_id_customItemSet in ( @customItemSetSMSOverride, @customItemSetSMSEXT );
 UPDATE `CustomItem` SET value = 'Der eingegebene SMS-Code ist nicht korrekt. Geben Sie den Code erneut ein oder fordern Sie einen neuen Code an.'
 WHERE locale = 'de' and  `ordinal` = 160 and pageTypes = @pageAppView and fk_id_customItemSet in ( @customItemSetSMSOverride, @customItemSetSMSEXT );
