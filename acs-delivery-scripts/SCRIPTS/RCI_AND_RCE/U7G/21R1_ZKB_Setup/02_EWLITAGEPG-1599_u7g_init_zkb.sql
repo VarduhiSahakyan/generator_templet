@@ -56,8 +56,8 @@ SET @HUBcallMode = 'PA_ONLY_MODE';
 #SET @acsURLVEVisa = 'https://ssl-liv-fo-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
 
 /*PRD*/
-SET @acsURLVEMastercard = 'https://ssl-prd-acs-ve.wlp-acs.com:9743/acs-ve-service/ve/veRequest';
-SET @acsURLVEVisa = 'https://ssl-prd-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
+SET @acsURLVEMastercard = 'https://ssl-prd-u7g-fo-acs-ve.wlp-acs.com:9743/acs-ve-service/ve/veRequest';
+SET @acsURLVEVisa = 'https://ssl-prd-u7g-fo-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
 
 
 /* Corresponds to the authentication mean to use primarily */
