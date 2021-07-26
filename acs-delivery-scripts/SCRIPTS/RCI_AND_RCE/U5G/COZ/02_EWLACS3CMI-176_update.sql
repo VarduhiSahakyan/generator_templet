@@ -1,28 +1,5 @@
 USE U5G_ACS_BO;
 
-
-SET @createdBy = 'W100851';
-SET @BankUB = 'COZ';
-SET @MaestroVID = NULL;
-SET @MaestroVName = (SELECT `name` FROM `Network` WHERE `code` = 'VISA');
-SET @customItemSetPassword = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_PASSWORD'));
-SET @customItemSetPhotoTan = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_PHOTOTAN'));
-SET @mobileAppCustomItemSet = (SELECT id FROM CustomItemSet WHERE name = CONCAT('customitemset_',@BankUB,'_MOBILE_APP'));
-SET @SMSCustomItemSet = (SELECT id FROM CustomItemSet WHERE name = CONCAT('customitemset_',@BankUB,'_SMS'));
-SET @updateState =	'PUSHED_TO_CONFIG';
-SET @authentMeanPassword = 'EXT_PASSWORD';
-SET @authentMeanPhotoTan = 'PHOTO_TAN';
-SET @otpFormPageType = 'OTP_FORM_PAGE';
-SET @pollingPageType = 'POLLING_PAGE';
-SET @pageTypeHelp = 'HELP_PAGE';
-
-
--- PASSWORD --
-UPDATE CustomItem SET value = '<b>Bitte geben Sie Ihre Commerzbank Online Banking PIN ein.</b>'
-WHERE fk_id_customItemSet = @customItemSetPassword AND pageTypes = @otpFormPageType	 AND ordinal = 1;
-
-UPDATE CustomItem SET value = 'Weiter >'
-WHERE fk_id_customItemSet = @customItemSetPassword AND pageTypes = @otpFormPageType	 AND ordinal = 42;
 SET @pageLayoutIdPassword = (SELECT id FROM `CustomPageLayout` WHERE `pageType` = 'EXT_PASSWORD_OTP_FORM_PAGE' AND DESCRIPTION = 'Password OTP Form Page (Commerzbank AG)');
 
 UPDATE `CustomComponent`
@@ -292,7 +269,7 @@ SET `value` = '
 	@media all and (max-width: 1199px) and (min-width: 701px) {
 		h1 { font-size:24px; }
 		#issuerLogo {max-height:64px; max-width:140%; padding-top: 5px;}
-		#networkLogo {max-height:60px; max-width:100%; }
+		#networkLogo {max-height:72px; max-width:100%; }
 		div#optGblPage { font-size : 14px; }
 		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
 		.paragraph { font-size : 14px; text-align:center; }
@@ -421,30 +398,6 @@ SET `value` = '
 	</div>
 </div>' where fk_id_layout = @pageLayoutIdPassword;
 
--- HELP PAGE for Password --
-
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanPassword,'_',@pageTypeHelp,'_1'), @updateState,
- 'de', 1, @pageTypeHelp, 'Ich benötige Hilfe ', @MaestroVID, NULL, @customItemSetPassword),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanPassword,'_',@pageTypeHelp,'_2'), @updateState,
- 'de', 2, @pageTypeHelp, ' ', @MaestroVID, NULL, @customItemSetPassword),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanPassword,'_',@pageTypeHelp,'_3'), @updateState,
- 'de', 3, @pageTypeHelp, '<I>Bitte geben Sie hier Ihre Online Banking PIN ein, die Sie auch für den Login auf  www.commerzbank.de  verwenden.</I>', @MaestroVID, NULL, @customItemSetPassword),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@authentMeanPassword,'_',@pageTypeHelp,'_11'), @updateState,
- 'de', 11, @pageTypeHelp, 'Hilfe schließen', @MaestroVID, NULL, @customItemSetPassword);
-
-
--- PHOTO TAN --
-
-
-UPDATE CustomItem SET value = '<b>Freigabe mit photoTAN-Scan.<br>Bitte Grafik scannen und TAN eingeben.</b>'
-WHERE fk_id_customItemSet = @customItemSetPhotoTan AND pageTypes = @otpFormPageType	 AND ordinal = 1;
-
-UPDATE CustomItem SET value = 'Freigeben >'
-WHERE fk_id_customItemSet = @customItemSetPhotoTan AND pageTypes = @otpFormPageType	 AND ordinal = 42;
 SET @pageLayoutIdPhotoTan = (SELECT id FROM `CustomPageLayout` WHERE `pageType` = 'PHOTO_TAN_OTP_FORM_PAGE' AND DESCRIPTION = 'PhotoTAN OTP Form Page (Commerzbank AG)');
 
 UPDATE `CustomComponent`
@@ -522,7 +475,7 @@ SET `value` = '<style>
 		clear:both;
 	}
 	.externalImage {
-		margin-right:0px;
+		margin-right:100px;
 	}
 	side-menu .text-left {
 		padding-right: 5px;
@@ -715,15 +668,15 @@ SET `value` = '<style>
 		display:none;
 	}
 	@media all and (max-width: 1610px) {
-		.externalImage {margin-right:0px;}
+		.externalImage {margin-right:100px;}
 	}
 	@media all and (max-width: 1278px) and (min-width: 764px) {
-		.externalImage {margin-right:0px;}
+		.externalImage {margin-right:60px;}
 	}
 	@media all and (max-width: 1199px) and (min-width: 701px) {
 		h1 { font-size:24px; }
 		#issuerLogo {max-height:64px; max-width:140%; padding-top: 5px;}
-		#networkLogo {max-height:60px; max-width:100%; }
+		#networkLogo {max-height:72px; max-width:100%; }
 		div#optGblPage { font-size : 14px; }
 		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
 		.paragraph { font-size : 14px; }
@@ -858,31 +811,6 @@ SET `value` = '<style>
 	</div>
 </div>' where fk_id_layout = @pageLayoutIdPhotoTan;
 
-
--- HELP PAGE for PHOTO TAN --
-SET @pageTypeHelp = 'HELP_PAGE';
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@customItemSetPhotoTan,'_',@pageTypeHelp,'_1'), @updateState,
- 'de', 1, @pageTypeHelp, 'Ich benötige Hilfe ', @MaestroVID, NULL, @customItemSetPhotoTan),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@customItemSetPhotoTan,'_',@pageTypeHelp,'_2'), @updateState,
- 'de', 2, @pageTypeHelp, '<I><b>photoTAN-Anleitung</b></I>', @MaestroVID, NULL, @customItemSetPhotoTan),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@customItemSetPhotoTan,'_',@pageTypeHelp,'_3'), @updateState,
- 'de', 3, @pageTypeHelp, '<I>1. Prüfen Sie die oben stehenden Daten.<br>
-2. Scannen Sie die Grafik mit Ihrer Commerzbank photoTAN-App oder Ihrem photoTAN-Lesegerät.<br>
-3. Prüfen Sie die in Ihrer photoTAN-App oder auf Ihrem photoTAN-Lesegerät angezeigten Daten.<br>
-4. Wenn die Daten korrekt sind, geben Sie die photoTAN in das Eingabefeld ein und führen Sie die Freigabe durch.</I>', @MaestroVID, NULL, @customItemSetPhotoTan),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@customItemSetPhotoTan,'_',@pageTypeHelp,'_11'), @updateState,
- 'de', 11, @pageTypeHelp, 'Hilfe schließen', @MaestroVID, NULL, @customItemSetPhotoTan);
-
-
--- PUSH TAN --
-
-
-UPDATE CustomItem SET value = '<b>Freigabe mit photoTAN-Push in der Commerzbank photoTAN-App.</b>'
-WHERE fk_id_customItemSet = @mobileAppCustomItemSet AND pageTypes = @pollingPageType  AND ordinal = 1;
 SET @pageLayoutIdPushTan = (select id from `CustomPageLayout` where `pageType` = 'POLLING_PAGE' and DESCRIPTION = 'Polling Page (Commerzbank AG)');
 
 UPDATE `CustomComponent`
@@ -1276,32 +1204,6 @@ SET `value` = '<style>
 	</div>
 </div>' where fk_id_layout = @pageLayoutIdPushTan ;
 
--- HELP PAGE for PUSH TAN --
-SET @pageTypeHelp = 'HELP_PAGE';
-
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobileAppCustomItemSet,'_',@pageTypeHelp,'_1'), @updateState,
- 'de', 1, @pageTypeHelp, 'Ich benötige Hilfe ', @MaestroVID, NULL, @mobileAppCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobileAppCustomItemSet,'_',@pageTypeHelp,'_2'), @updateState,
- 'de', 2, @pageTypeHelp, '<I><b>So funktioniert photoTAN-Push:</b></I>', @MaestroVID, NULL, @mobileAppCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobileAppCustomItemSet,'_',@pageTypeHelp,'_3'), @updateState,
- 'de', 3, @pageTypeHelp, '<I>1. Wir haben Ihnen einen Auftrag zur Freigabe an Ihre photoTAN-App gesendet.<br>
-2. Wenn Sie der App das Versenden von Push-Mitteilungen erlaubt haben, erhalten Sie dazu eine Mitteilung auf Ihr Smartphone.<br>
-3. Bitte öffnen Sie nun die photoTAN-App auf Ihrem Smartphone.<br>
-4. Prüfen Sie dort die Auftragsdaten und geben Sie den Auftrag frei.<br>
-5. Anschließend wird die Freigabe automatisch an die Händlerseite gesendet und Sie werden dort automatisch weitergeleitet</I>', @MaestroVID, NULL, @mobileAppCustomItemSet),
-('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@mobileAppCustomItemSet,'_',@pageTypeHelp,'_11'), @updateState,
- 'de', 11, @pageTypeHelp, 'Hilfe schließen', @MaestroVID, NULL, @mobileAppCustomItemSet);
-
-
--- SMS --
-
-UPDATE CustomItem SET value = '<b>Zur Freigabe die mobileTAN eingeben, die Sie per SMS erhalten haben.</b>'
-WHERE fk_id_customItemSet = @SMSCustomItemSet AND pageTypes = @otpFormPageType	AND ordinal = 1;
-UPDATE CustomItem SET value = 'Freigeben >'
-WHERE fk_id_customItemSet = @SMSCustomItemSet AND pageTypes = @otpFormPageType	AND ordinal = 42;
 SET @pageLayoutIdSMS = (SELECT id FROM `CustomPageLayout` WHERE `pageType` = 'OTP_FORM_PAGE' AND DESCRIPTION = 'SMS OTP Form Page (Commerzbank AG)');
 
 UPDATE `CustomComponent`
@@ -1596,7 +1498,7 @@ SET `value` = '<style>
 	@media all and (max-width: 1199px) and (min-width: 701px) {
 		h1 { font-size:24px; }
 		#issuerLogo {max-height : 64px;	 max-width:140%; padding-top: 5px;}
-		#networkLogo {max-height : 60px; max-width:100%; }
+		#networkLogo {max-height : 72px; max-width:100%; }
 		div#optGblPage { font-size : 14px; }
 		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
 		.paragraph { font-size : 14px; text-align:center; }
@@ -1731,113 +1633,4 @@ SET `value` = '<style>
 		</div>
 	</div>
 </div>' where fk_id_layout = @pageLayoutIdSMS;
-
-
-
--- HELP PAGE Layout --
-
-INSERT INTO CustomPageLayout (controller, pageType, description) VALUES
-( NULL, 'HELP_PAGE', 'Help Page (Commerzbank AG)');
-
-SET @pageLayoutIdHelp = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` = 'Help Page (Commerzbank AG)' );
-
-INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
-VALUES( 'div', '
-<div id="help-page">
-	<div id="help-contents">
-		<p><custom-text custom-text-key="''network_means_HELP_PAGE_2''"></custom-text></p>
-		<p><custom-text custom-text-key="''network_means_HELP_PAGE_3''"></custom-text></p>
-	</div>
-
-	<div class="row">
-		<div class="col-xs-12" style="text-align:center">
-			<help-close-button help-close-label="''network_means_HELP_PAGE_11''" id="helpCloseButton"></help-close-button>
-		</div>
-	</div>
-</div>
-<style>
-
-	#help-contents {
-		text-align:left;
-		margin-top:20px;
-		margin-bottom:20px;
-	}
-	#help-container #help-modal {
-		overflow:hidden;
-	}
-	#helpCloseButton button {
-		display: flex;
-		align-items: center;
-		width: 120px;
-		margin-left: auto;
-		margin-right: auto;
-		justify-content: center;
-        border-style: solid;
-        border-width: 1px;
-        border-radius: 5px;
-        border-color:transparent;
-	}
-    #helpCloseButton button:hover {
-		display: flex;
-		align-items: center;
-		width: 120px;
-		margin-left: auto;
-		margin-right: auto;
-		justify-content: center;
-        border-style: solid;
-        border-width: 1px;
-        border-radius: 5px;
-        color: #000000;
-		border-color: #000000;
-		background: #FFFFFF;
-	}
-	#help-page {
-		font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-		font-size:14px;
-		padding:14px;
-		overflow:auto;
-		text-align:left;
-	}
- #helpCloseButton span.fa-times {
-        display: none;
-    }
-	@media screen and (max-width: 700px) and (min-width: 361px) {
-		#helpCloseButton > button {
-
-		}
-	}
-	@media screen and (max-width: 360px) {
-		#helpCloseButton > button {
-
-		}
-	}
-	@media only screen and (max-width: 480px) {
-		div#message-container {
-			width:100%;
-			box-shadow: none;
-			-webkit-box-shadow:none;
-		}
-		#help-page {
-			font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-			font-size:9.1px;
-		}
-	}
-	@media only screen and (max-width: 309px) {
-		#help-page {
-			font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-			font-size:8.3px;
-		}
-	}
-	@media only screen and (max-width: 250px) {
-		#help-page {
-			font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-			font-size:7.7px;
-		}
-	}
-</style>', @pageLayoutIdHelp);
-
-INSERT INTO CustomPageLayout_ProfileSet (customPageLayout_id, profileSet_id)
-SELECT cpl.id, ps.id
-FROM CustomPageLayout cpl, ProfileSet ps
-WHERE cpl.description = 'Help Page (Commerzbank AG)' AND cpl.pageType = 'HELP_PAGE' AND ps.name = 'PS_COZ_01';
 
