@@ -20,5 +20,10 @@
             <outputDirectory>.</outputDirectory>
             <filtered>false</filtered>
         </file>
+        <file>
+            <source>src/main/certificates/bo/prd/prod-client-u0p-rmui.wlp-acs.com.jks</source>
+            <outputDirectory>.</outputDirectory>
+            <filtered>false</filtered>
+        </file>
     </files>
 </assembly>
