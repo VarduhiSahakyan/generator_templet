@@ -1,10 +1,8 @@
 USE `U7G_ACS_BO`;
 
-SET @BankUB = 'SQN';
+SET @BankUB = 'SQB';
 SET @IssuerCode = '00601';
 SET @SubIssuerCodeA = '00601';
-
-START TRANSACTION;
 
 set @id_issuer = (SELECT ID from Issuer where CODE = @issuerCode);
 set @id_subissuer_1 = (SELECT ID from SubIssuer where FK_ID_ISSUER = @id_issuer and code = @SubIssuerCodeA);
@@ -35,4 +33,3 @@ delete from BinRange where FK_ID_PROFILESET in (@id_profile_set_1) and fk_id_net
 delete from Network_SubIssuer where ID_SUBISSUER in (@id_subissuer_1) and id_network = @NetworkMID;
 
 SET FOREIGN_KEY_CHECKS = 1;
-COMMIT;

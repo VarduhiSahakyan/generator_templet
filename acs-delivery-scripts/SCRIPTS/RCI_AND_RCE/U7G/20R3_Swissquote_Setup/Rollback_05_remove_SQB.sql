@@ -2,12 +2,10 @@ USE `U7G_ACS_BO`;
 
 SET @BankB = 'SWISSQUOTE';
 
-SET @BankUB_01 = 'SQN';
+SET @BankUB_01 = 'SQB';
 
 SET @IssuerCode = '00601';
 SET @SubIssuerCodeA = '00601';
-
-START TRANSACTION;
 
 set @id_issuer = (SELECT ID from Issuer where CODE = @issuerCode);
 set @id_subIssuer_1 = (SELECT ID from SubIssuer where FK_ID_ISSUER = @id_issuer and code = @SubIssuerCodeA);
@@ -98,4 +96,3 @@ delete from Issuer where ID = @id_issuer;
 delete from Image where name in (@BankUB_01);
 
 SET FOREIGN_KEY_CHECKS = 1;
-COMMIT;

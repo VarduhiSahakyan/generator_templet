@@ -20,8 +20,6 @@ set @customPageLayoutID = (select group_concat(id)
                              and DESCRIPTION in
                                  (@customPageLayoutDesc_appView_OTP_SMS));
 
-start transaction;
-
 delete
 from `CustomPageLayout_ProfileSet`
 where find_in_set(customPageLayout_id, @customPageLayoutID)
@@ -34,5 +32,3 @@ where find_in_set(`fk_id_layout`, @customPageLayoutID);
 delete
 from `CustomPageLayout`
 where find_in_set(`id`, @customPageLayoutID);
-
-commit;

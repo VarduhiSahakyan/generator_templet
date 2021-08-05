@@ -47,11 +47,11 @@ SET @acsURLVEVisa = 'https://ssl-qlf-u7g-fo-acs-ve.wlp-acs.com:9643/acs-ve-servi
 
 /*CAT*/
 #SET @acsURLVEMastercard = 'https://ssl-liv-u7g-fo-acs-ve.wlp-acs.com:9743/acs-ve-service/ve/veRequest';
-#SET @acsURLVEVisa = 'https://ssl-qlf-liv-fo-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
+#SET @acsURLVEVisa = 'https://ssl-liv-u7g-fo-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
 
 /*PRD*/
 #SET @acsURLVEMastercard = 'https://ssl-prd-u7g-fo-acs-ve.wlp-acs.com:9743/acs-ve-service/ve/veRequest';
-#SET @acsURLVEVisa = 'https://ssl-qlf-prd-fo-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
+#SET @acsURLVEVisa = 'https://ssl-prd-u7g-fo-acs-ve.wlp-acs.com:9643/acs-ve-service/ve/veRequest';
 
 /* Corresponds to the authentication mean to use primarily */
 SET @preferredAuthMean = 'OTP_SMS';
@@ -101,6 +101,12 @@ SET @paChallengeURL = '{ "Vendome" : "https://ssl-qlf-u7g-fo-acs-pa.wlp-acs.com/
 
 SET @subIssuerIDNAB = (SELECT id FROM SubIssuer where code = 58810 AND name = 'Neue Aargauer Bank');
 SET @cryptoConfigIDNAB = (SELECT fk_id_cryptoConfig FROM SubIssuer where code = 58810 AND name = 'Neue Aargauer Bank');
+
+
+INSERT INTO `CryptoConfig` (`protocolOne`, `protocolTwo`, `description`)
+SELECT conf.protocolOne, conf.protocolTwo, 'CryptoConfig for SQB' FROM `CryptoConfig` conf where conf.id = @cryptoConfigIDNAB;
+
+SET @cryptoConfigIDSQB = (SELECT id FROM CryptoConfig where description = 'CryptoConfig for SQB');
 INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `code`, `codeSvi`, `currencyCode`,
                          `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`,
                          `defaultLanguage`, `freshnessPeriod`, `label`, `manageBackupsCombinedAmounts`, `manageChoicesCombinedAmounts`,
@@ -112,14 +118,14 @@ INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `c
   ('ACS_U7G', 120, @backUpLanguages, @subIssuerCode, @subIssuerCode, '978', @createdBy, NOW(), NULL, NULL, NULL, @subIssuerNameAndLabel,
    @updateState, @defaultLanguage, 600, @subIssuerNameAndLabel, TRUE, TRUE, NULL, TRUE, TRUE, 300,
    @acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,
-   @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, @paChallengeURL, '1', @3DS2AdditionalInfo, '3', TRUE, FALSE, b'0', b'0', @activatedAuthMeans, @cryptoConfigIDNAB, @currencyFormat, TRUE);
+   @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, @paChallengeURL, '1', @3DS2AdditionalInfo, '3', TRUE, FALSE, b'0', b'0', @activatedAuthMeans, @cryptoConfigIDSQB, @currencyFormat, TRUE);
 /*!40000 ALTER TABLE `SubIssuer` ENABLE KEYS */;
 
 SET @subIssuerID = (SELECT id FROM `SubIssuer` WHERE `code` = @subIssuerCode AND `name` = @subIssuerNameAndLabel);
 /* ProfileSet */
 /*!40000 ALTER TABLE `ProfileSet` DISABLE KEYS */;
 SET @BankB = 'SWISSQUOTE';
-SET @BankUB = 'SQN';
+SET @BankUB = 'SQB';
 INSERT INTO `ProfileSet` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `fk_id_subIssuer`)
     SELECT @createdBy, NOW(), CONCAT(@BankB, ' profile set'), NULL, NULL, CONCAT('PS_', @BankUB, '_01'), @updateState, si.id
     FROM `SubIssuer` si
@@ -157,25 +163,25 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		position:relative;
 	}
 	div#message-container.info {
-		background-color:#de3919;
+		background-color:#1b4498;
 		font-family: Arial, standard;
 		font-size:12px;
 		color: #EAEAEA;
 	}
 	div#message-container.success {
-		background-color:#449D44;
+		background-color:#0E7C45;
 		font-family: Arial, standard;
 		font-size:12px;
 		color: #EAEAEA;
 	}
 	div#message-container.error {
-		background-color:#de3919;
+		background-color:#B81414;
 		font-family: Arial, standard;
 		font-size:12px;
 		color: #EAEAEA;
 	}
 	div#message-container.warn {
-		background-color:#EC971F;
+		background-color:#1b4498;
 		font-family: Arial, standard;
 		font-size:12px;
 		color: #EAEAEA;
@@ -185,6 +191,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		top:15px;
 		left:15px;
 		float:none;
+        color: #636363;
 	}
 	#headingTxt {
 		font-family: Arial,bold;
@@ -204,7 +211,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		text-align:center;
 	}
 	span#message {
-		font-size:14px;
+		font-size:12px;
 	}
 	div.message-button {
 		padding-top: 0px;
@@ -338,7 +345,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		padding-top: 1em;
 		clear: both;
 		font-size: 12px;
-		color: #000000;
+		color: #323232;
 	}
 	side-menu div.text-center {
 		text-align: center;
@@ -367,7 +374,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		box-sizing: content-box;
 		padding: 5px 10px 3px;
 		background-color: #fff;
-		border: 1px solid rgba(0, 0, 0, .2);
+		border: 1px solid #fa5b35;
 		border-radius: 2px;
 		box-shadow: inset 1px 1px 0 0 rgba(0, 0, 0, .1);
 		font: 300 18px "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -382,8 +389,8 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		box-shadow: none !important;
 	}
 	#otp-form input:focus {
-		border-color: #ff6a10 !important;
-		outline-color: #ff6a10;
+		border-color: #fa5b35 !important;
+		outline-color: #fa5b35;
 	}
 	div#otp-fields-container {
 		width: 100%;
@@ -435,10 +442,10 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		font-family: "Arial", Helvetica, Arial, sans-serif;
 		font-size: 14px;
 		border-radius: 20px;
-		color: #ffffff;
-		background: #449d44;
+		color: #fa5b35;
+		background: #FFFFFF;
 		padding: 10px 30px 10px 20px;
-		border: solid #449d44 1px;
+		border: solid #fa5b35 1px;
 		text-decoration: none;
 		min-width: 150px;
 	}
@@ -449,9 +456,9 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		border-radius: 20px;
 		color: #000;
 		background: #fff;
-		border-color: #dcdcdc;
+		border-color: #636363;
 		padding: 10px 30px 10px 20px;
-		border: solid #000 1px;
+		border: solid #636363 1px;
 		text-decoration: none;
 		min-width: 150px;
 	}
@@ -467,8 +474,8 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		text-align: center;
 		height: 40px;
 		background: #fff;
-		color: #323232;
-		border: 1px solid rgba(0, 0, 0, .25);
+		color: #636363;
+		border: solid #636363 1px;
 		min-width: 15rem;
 		border-radius: 20px;
 		font-size: 14px;
@@ -481,9 +488,9 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		white-space: nowrap;
 		text-align: center;
 		height: 40px;
-		background: #4e4e4e;
-		color: #ffffff;
-		border: 1px solid #4e4e4e;
+		background: #FFFFFF;
+		color: #636363;
+		border: solid #636363 1px;
 		min-width: 15rem;
 		border-radius: 20px;
 		font-size: 14px;
@@ -494,7 +501,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	#cancelButton button:focus {outline: 0;border-color: #ff6a10;outline: #6e6e6e 1px dotted;}
 	#helpButton button:focus {outline: 0;border-color: #ff6a10;outline: #6e6e6e 1px dotted;}
 	#cancelButton button:hover:enabled {
-		border-color: rgba(255, 106, 16, .75);
+		border-color: #323232;
 	}
 	#cancelButton button:active {
 		background-image: linear-gradient(rgba(0, 0, 0, .05), rgba(0, 0, 0, .05));
@@ -506,7 +513,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		vertical-align: 8px;
 	}
 	#helpButton button:hover {
-		border-color: rgba(255, 106, 16, .75);
+		border-color: #323232;
 	}
 	#helpButton button:active {
 		background-image: linear-gradient(rgba(0, 0, 0, .05), rgba(0, 0, 0, .05));
@@ -671,9 +678,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 				</div>
 				<div class="paragraphDescription">
 					<custom-text custom-text-key="''network_means_pageType_2''"></custom-text>
-				</div>
-				<div class="paragraphDescription">
-					<custom-text custom-text-key="''network_means_pageType_3''"></custom-text>
 				</div>
 				<div id="otp-fields-container">
 					<div x-ms-format-detection="none" id="otp-fields">
@@ -1007,8 +1011,13 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		</div>
 	</div>
 
-	<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
-
+   <alternative-display attribute="''currentProfileName''" value="''SQB_REFUSAL_FRAUD''" enabled="''fraud_refusal''" default-fallback="''default_refusal''" ></alternative-display>
+	<div class="fraud_refusal" ng-style="style" class="ng-scope" style="display: none;">
+		<message-banner display-type="''1''" heading-attr="''network_means_pageType_220''" message-attr="''network_means_pageType_230''" close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''" show=true ></message-banner>
+	</div>
+	<div class="default_refusal" ng-style="style" class="ng-scope" style="display: none;">
+		<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''" ></message-banner>
+	</div>
 	<div id="i18n-container" class="text-center">
 		<div id="i18n-inner">
 			<i18n></i18n>
@@ -1790,8 +1799,6 @@ SET @status = 'DEPLOYED_IN_PRODUCTION';
 INSERT INTO `CustomItemSet` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
                              `updateState`, `status`, `versionNumber`, `validationDate`, `deploymentDate`, `fk_id_subIssuer`)
 VALUES
-  (@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_REFUSAL_FRAUD_Current'), NULL, NULL,
-	CONCAT('customitemset_', @BankUB, '_REFUSAL_FRAUD'), @updateState, @status, 1, NULL, NULL, @subIssuerID),
   (@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_RBADECLINE_Current'), NULL, NULL,
 	CONCAT('customitemset_', @BankUB, '_RBADECLINE'), @updateState, @status, 1, NULL, NULL, @subIssuerID),
   (@createdBy, NOW(), CONCAT('customitemset_', @BankUB, '_RBAACCEPT_Current'), NULL, NULL,
@@ -1808,7 +1815,6 @@ VALUES
 /*!40000 ALTER TABLE `Profile` DISABLE KEYS */;
 
 SET @customItemSetRefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_DEFAULT_REFUSAL'));
-SET @customItemSetRefusalFraud = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_REFUSAL_FRAUD'));
 SET @customItemSetRBAACCEPT = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_RBAACCEPT'));
 SET @customItemSetRBADECLINE = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_RBADECLINE'));
 SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_SMS'));
@@ -1825,7 +1831,7 @@ INSERT INTO `Profile` (`createdBy`, `creationDate`, `description`, `lastUpdateBy
 (@createdBy, NOW(), 'RBA_ACCEPT', NULL, NULL, CONCAT(@BankUB,'_ACCEPT'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanACCEPT, @customItemSetRBAACCEPT, NULL, NULL, @subIssuerID),
 (@createdBy, NOW(), 'RBA_DECLINE', NULL, NULL, CONCAT(@BankUB,'_DECLINE'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanACCEPT, @customItemSetRBADECLINE, NULL, NULL, @subIssuerID),
 (@createdBy, NOW(), 'OTP_SMS', NULL, NULL, CONCAT(@BankUB,'_SMS_01'), @updateState, 4,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanOTPsms, @customItemSetSMS, NULL, NULL, @subIssuerID),
-(@createdBy, NOW(), 'REFUSAL (FRAUD)', NULL, NULL, CONCAT(@BankUB,'_REFUSAL_FRAUD'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanRefusal, @customItemSetRefusalFraud, NULL, NULL, @subIssuerID),
+(@createdBy, NOW(), 'REFUSAL (FRAUD)', NULL, NULL, CONCAT(@BankUB,'_REFUSAL_FRAUD'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanRefusal, NULL, NULL, NULL, @subIssuerID),
 (@createdBy, NOW(), 'INFO', NULL, NULL, CONCAT(@BankUB,'_MISSING_AUTHENTICATION_REFUSAL'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanINFO, @customItemSetINFORefusal, NULL, NULL, @subIssuerID),
 (@createdBy, NOW(), 'REFUSAL (DEFAULT)', NULL, NULL, CONCAT(@BankUB,'_DEFAULT_REFUSAL'), @updateState, -1,'6:(:DIGIT:1)','^[^OIi]*$', @authMeanRefusal, @customItemSetRefusal, NULL, NULL, @subIssuerID);
 

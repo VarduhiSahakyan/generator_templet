@@ -1,10 +1,9 @@
 USE `U7G_ACS_BO`;
 
-start transaction;
 
 set foreign_key_checks = 0;
 
-SET @BankSQN = 'SQN';
+SET @BankSQN = 'SQB';
 SET @Banklb_SQN = LOWER(@BankSQN);
 
 
@@ -25,5 +24,3 @@ delete from Image where find_in_set(id, @imageIds);
 delete from CustomItem where pageTypes = @pageType and find_in_set(fk_id_customItemSet, @customItemsIds);
 
 set foreign_key_checks = 1;
-
-commit;
