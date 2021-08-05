@@ -22,6 +22,7 @@ SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` = CONCAT('PS_', @Ban
 
 SET @MaestroMID = (SELECT `id` FROM `Network` WHERE `code` = 'MASTERCARD');
 SET @MaestroMName = (SELECT `name` FROM `Network` WHERE `code` = 'MASTERCARD');
+SET @updateState = 'PUSHED_TO_CONFIG';
 
 /* Network_SubIssuer */
 /*!40000 ALTER TABLE `Network_SubIssuer` DISABLE KEYS */;
@@ -58,7 +59,7 @@ INSERT INTO `BinRange_SubIssuer` (`id_binRange`, `id_subIssuer`)
     AND b.fk_id_profileSet=@ProfileSet
     AND s.code=@subIssuerCode;
 
-SET @updateState = 'PUSHED_TO_CONFIG';
+
 
 /* CustomItem */
 /* Create custom items for default language and backup languages - in this example de and en */
