@@ -87,13 +87,13 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_1'), @updateState,
-         'de', 1, @currentPageType, '<b>Zahlungsfreigabe nicht möglich</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'de', 1, @currentPageType, '<b>3D Secure Authentifizierung nicht möglich</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_2'), @updateState,
-         'de', 2, @currentPageType, 'Leider konnten wir Ihre Anfrage nicht ausführen, da wir keine Freigabe-Methode (SMS oder App) für Ihre Karte gefunden haben. ', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'de', 2, @currentPageType, '', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), @updateState,
-         'de', 3, @currentPageType, 'Bitte hinterlegen Sie für Ihre Karte eine entsprechende Freigabe-Methode im Registrierungsportal gemäss der Anleitung Ihrer Bank. ', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'de', 3, @currentPageType, '', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), @updateState,
          'de', 11, @currentPageType, '<b>Informationen zur Zahlung</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
@@ -102,7 +102,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'de', 22, @currentPageType, '3D Secure Authentifizierung nicht ausgeführt - Karte ist nicht für 3D Secure registriert', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_23'), @updateState,
-         'de', 23, @currentPageType, 'Die Zahlung konnte nicht ausgeführt werden, da Ihre Karte nicht für 3D Secure Zahlungen registriert ist. Sollten Sie den Kauf fortsetzen wollen, bitten wir Sie Ihre Karte gemäß der Anleitung Ihrer Bank entsprechend zu registrieren.', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'de', 23, @currentPageType, 'Die Zahlung konnte nicht ausgeführt werden, da Ihre Karte nicht für 3D-Secure-Zahlungen registriert ist. Sollten Sie den Kauf fortsetzen wollen, bitten wir Sie, Ihre Karte gemäß der Anleitung Ihrer Bank entsprechend zu registrieren.', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_32'), @updateState,
          'de', 32, @currentPageType, '3D Secure Authentifizierung nicht ausgeführt - Technischer Fehler', @MaestroMID, NULL, @customItemSetREFUSAL),
@@ -126,7 +126,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'de', 103, 'ALL', 'Kartennummer', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_104'), @updateState,
-         'de', 104, 'ALL', 'Telefonnummer', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'de', 104, 'ALL', 'Mobiltelefonnummer', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_22'), @updateState,
 		 'de', 220, @currentPageType, '3D Secure Authentifizierung fehlgeschlagen', @MaestroMID, NULL, @customItemSetREFUSAL),
@@ -138,7 +138,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'de', 174,@currentPageType, 'Meldung schliessen', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), @updateState,
-         'de', 175,@currentPageType, 'Zurück zum Online Shop', @MaestroMID, NULL, @customItemSetREFUSAL);
+         'de', 175,@currentPageType, 'Zurück zum Online-Shop', @MaestroMID, NULL, @customItemSetREFUSAL);
 
 SET @helpPage = 'HELP_PAGE';
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
@@ -184,7 +184,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'de', 174, @currentPageType, 'Meldung schliessen', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), @updateState,
-         'de', 175, @currentPageType, 'Zurück zum Online Shop', @MaestroMID, NULL, @customItemSetREFUSAL);
+         'de', 175, @currentPageType, 'Zurück zum Online-Shop', @MaestroMID, NULL, @customItemSetREFUSAL);
 
 /*ENGLISH translations for DEFAULT_REFUSAL*/
 SET @currentPageType = 'REFUSAL_PAGE';
@@ -206,13 +206,13 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_1'), @updateState,
-         'en', 1, @currentPageType, '<b>Payment approval not possible.</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'en', 1, @currentPageType, '<b>3D Secure authentication not possible</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_2'), @updateState,
-         'en', 2, @currentPageType, 'Unfortunately, we cannot complete your request, because we could not find an approval method (SMS or app) for your card. ', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'en', 2, @currentPageType, '', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), @updateState,
-         'en', 3, @currentPageType, 'Please set up a corresponding approval method for your card on the registration portal according to your bank''s instructions. ', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'en', 3, @currentPageType, '', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), @updateState,
          'en', 11, @currentPageType, '<b>Information about payment</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
@@ -245,7 +245,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'en', 103, 'ALL', 'Card number', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_104'), @updateState,
-         'en', 104, 'ALL', 'Phone number', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'en', 104, 'ALL', 'Mobile phone number', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_22'), @updateState,
 		 'en', 220, @currentPageType, '3D Secure authentication failed', @MaestroMID, NULL, @customItemSetREFUSAL),
@@ -326,13 +326,13 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_1'), @updateState,
-         'fr', 1, @currentPageType, '<b>Activation de paiement impossible</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'fr', 1, @currentPageType, '<b>Authentification 3D Secure impossible</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_2'), @updateState,
-         'fr', 2, @currentPageType, 'Nous n''avons malheureusement pas pu répondre à votre demande car nous n''avons trouvé aucune méthode d''activation (SMS ou App) pour votre carte. ', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'fr', 2, @currentPageType, '', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), @updateState,
-         'fr', 3, @currentPageType, 'Veuillez consigner une méthode d''activation pour votre carte dans le portail d’inscription, conformément aux instructions de votre banque.', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'fr', 3, @currentPageType, '', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), @updateState,
          'fr', 11, @currentPageType, '<b>Informations concernant le paiement.</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
@@ -365,7 +365,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'fr', 103, 'ALL', 'Numéro de carte', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_104'), @updateState,
-         'fr', 104, 'ALL', 'Numéro de téléphone', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'fr', 104, 'ALL', 'Numéro de téléphone mobile', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_22'), @updateState,
 		 'fr', 220, @currentPageType, 'L''authentification 3D Secure a échoué', @MaestroMID, NULL, @customItemSetREFUSAL),
@@ -447,13 +447,13 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_1'), @updateState,
-         'it', 1, @currentPageType, '<b>Autorizzazione di pagamento non possibile</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'it', 1, @currentPageType, '<b>L''autenticazione 3D Secure non è possibile</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_2'), @updateState,
-         'it', 2, @currentPageType, 'Purtroppo non siamo riusciti a elaborare la sua richiesta perché non abbiamo trovato un metodo di autenticazione (SMS o app) per la sua carta. ', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'it', 2, @currentPageType, '', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), @updateState,
-         'it', 3, @currentPageType, 'Stabilisca un metodo di autenticazione corrispondente per la sua carta nel portale di registrazione secondo le istruzioni della sua banca.', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'it', 3, @currentPageType, '', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), @updateState,
          'it', 11, @currentPageType, '<b>Informazioni sul pagamento</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
@@ -486,7 +486,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'it', 103, 'ALL', 'Numero della carta', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_104'), @updateState,
-         'it', 104, 'ALL', 'Numero di telefono', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'it', 104, 'ALL', 'Numero di cellulare', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_22'), @updateState,
 		 'it', 220, @currentPageType, 'Autenticazione 3D Secure non riuscita', @MaestroMID, NULL, @customItemSetREFUSAL),
@@ -671,7 +671,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'de', 174, @currentPageType, 'Meldung schliessen', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), @updateState,
-         'de', 175, @currentPageType, 'Zurück zum Online Shop', @MaestroMID, NULL, @customItemSetSMS);
+         'de', 175, @currentPageType, 'Zurück zum Online-Shop', @MaestroMID, NULL, @customItemSetSMS);
 
 
 /* Elements for the HELP page, for SMS Profile */
@@ -722,7 +722,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'de', 174, @currentPageType, 'Meldung schliessen', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), @updateState,
-         'de', 175, @currentPageType, 'Zurück zum Online Shop', @MaestroMID, NULL, @customItemSetSMS);
+         'de', 175, @currentPageType, 'Zurück zum Online-Shop', @MaestroMID, NULL, @customItemSetSMS);
 
 SET @currentPageType = 'REFUSAL_PAGE';
 
@@ -760,7 +760,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'de', 174, @currentPageType, 'Meldung schliessen', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), @updateState,
-         'de', 175, @currentPageType, 'Zurück zum Online Shop', @MaestroMID, NULL, @customItemSetSMS);
+         'de', 175, @currentPageType, 'Zurück zum Online-Shop', @MaestroMID, NULL, @customItemSetSMS);
 
 
 /*ENGLISH translations for OTP_SMS*/
@@ -874,7 +874,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'en', 103, 'ALL', 'Card number', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_104'), @updateState,
-         'en', 104, 'ALL', 'Phone number', @MaestroMID, NULL, @customItemSetSMS),
+         'en', 104, 'ALL', 'Mobile phone number', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_174'), @updateState,
          'en', 174, @currentPageType, 'Close message', @MaestroMID, NULL, @customItemSetSMS),
@@ -969,7 +969,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'en', 174, @currentPageType, 'Close message', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_175'), @updateState,
-         'en', 175, @currentPageType, 'Back to online shop', @MaestroMID, NULL, @customItemSetSMS);
+         'en', 175, @currentPageType, 'Back to the online shop', @MaestroMID, NULL, @customItemSetSMS);
 
 
 
@@ -1085,7 +1085,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'fr', 103, 'ALL', 'Numéro de carte', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_104'), @updateState,
-         'fr', 104, 'ALL', 'Numéro de téléphone', @MaestroMID, NULL, @customItemSetSMS),
+         'fr', 104, 'ALL', 'Numéro de téléphone mobile', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_174'), @updateState,
          'fr', 174, @currentPageType, 'Fermer le message', @MaestroMID, NULL, @customItemSetSMS),
@@ -1297,7 +1297,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'it', 103, 'ALL', 'Numero della carta', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_104'), @updateState,
-         'it', 104, 'ALL', 'Numero di telefono', @MaestroMID, NULL, @customItemSetSMS),
+         'it', 104, 'ALL', 'Numero di cellulare', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_174'), @updateState,
          'it', 174, @currentPageType, 'Chiudere messaggio', @MaestroMID, NULL, @customItemSetSMS),

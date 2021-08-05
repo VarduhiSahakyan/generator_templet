@@ -191,7 +191,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		top:15px;
 		left:15px;
 		float:none;
-        color: #636363;
+        color: #FFFFFF;
 	}
 	#headingTxt {
 		font-family: Arial,bold;
@@ -317,6 +317,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	.paragraph {
 		text-align: left;
 		margin-bottom: 10px;
+        font-size: 14px;
 	}
 	.paragraphDescription {
 		text-align: left;
@@ -782,6 +783,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	.paragraph {
 		text-align: left;
 		margin-bottom : 10px;
+        font-size: 14px;
 	}
 	.paragraphDescription {
 		text-align: left;
@@ -808,7 +810,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		padding-top:1em;
 		clear:both;
 		font-size: 12px;
-		color: #000000;
+		color: #323232;
 	}
 	side-menu div.text-center {
 		text-align:center;
@@ -1132,6 +1134,7 @@ VALUES( 'div', '
 	.paragraph {
 		text-align: left;
 		margin-bottom : 10px;
+        font-size: 14px;
 	}
 	.paragraphDescription {
 		text-align: center;
@@ -1158,7 +1161,7 @@ VALUES( 'div', '
 		padding-top:1em;
 		clear:both;
 		font-size: 12px;
-		color: #000000;
+		color: #323232;
 	}
 	side-menu div.text-center {
 		text-align:center;
@@ -1517,6 +1520,7 @@ VALUES( 'div', '<style>
 	.paragraph {
 		text-align: left;
 		margin-bottom: 10px;
+        font-size: 14px;
 	}
 	.paragraphDescription {
 		text-align: left;
@@ -1544,7 +1548,7 @@ VALUES( 'div', '<style>
 		padding-top: 1em;
 		clear: both;
 		font-size: 12px;
-		color: #000000;
+		color: #323232;
 	}
 	side-menu div.text-center {
 		text-align: center;
