@@ -787,8 +787,9 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		text-align: left;
 		margin-bottom : 10px;
 		font-size: 12px;
+		font-weight: bold;
 	}
-    label {
+	label {
         font-weight: normal;
     }
 	.paragraphDescription {
@@ -1040,11 +1041,11 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		</div>
 		<div class="rightColumn">
 			<div class="paragraph">
-				<alternative-display attribute="''currentProfileName''" value="''SQB_REFUSAL_FRAUD''" enabled="''fraud_refusal''" default-fallback="''default_refusal''" ></alternative-display>
-				<div class="fraud_refusal" ng-style="style" class="ng-scope" style="display: none;">
+				<alternative-display attribute="''currentProfileName''" value="''SQB_REFUSAL_FRAUD''" enabled="''fraud_refusal_title''" default-fallback="''default_refusal_title''" ></alternative-display>
+				<div class="fraud_refusal_title" ng-style="style" class="ng-scope" style="display: none;">
 					<custom-text custom-text-key="''network_means_pageType_5''"></custom-text>
 				</div>
-				<div class="default_refusal" ng-style="style" class="ng-scope" style="display: none;">
+				<div class="default_refusal_title" ng-style="style" class="ng-scope" style="display: none;">
 					<custom-text custom-text-key="''network_means_pageType_1''"></custom-text>
 				</div>
 
