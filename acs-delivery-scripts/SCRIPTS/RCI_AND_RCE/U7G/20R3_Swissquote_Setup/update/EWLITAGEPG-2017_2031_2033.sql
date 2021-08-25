@@ -12,7 +12,7 @@ SET @currencyFormat = '{
                             "thousandDelimiter":"''"
                         }';
 
-UPDATE `SubIssuer` SET `currencyFormat` = @currencyFormat  AND `resendSameOTP` = FALSE WHERE `fk_id_issuer` = @issuerId_SQB;
+UPDATE `SubIssuer` SET `currencyFormat` = @currencyFormat, `resendSameOTP` = FALSE WHERE `fk_id_issuer` = @issuerId_SQB;
 
 
 SET @id_layout = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Refusal Page (', @BankB, ')%') );
@@ -473,7 +473,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	#networkLogo {
 		max-height: 65px;
-		max-width: 100%;
+		max-width: 100%;UPDATE `SubIssuer` SET
 	}
 	#i18n > button:focus {outline: 0;border-color: #ff6a10;outline: #6e6e6e 1px dotted;}
 	#i18n-container {

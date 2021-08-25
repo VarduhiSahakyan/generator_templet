@@ -12,7 +12,7 @@ SET @currencyFormat = '{
                             "thousandDelimiter":"''"
                         }';
 
-UPDATE `SubIssuer` SET `currencyFormat` = @currencyFormat AND `resendSameOTP` = TRUE WHERE `fk_id_issuer` = @issuerId_SQB;
+UPDATE `SubIssuer` SET `currencyFormat` = @currencyFormat, `resendSameOTP` = TRUE WHERE `fk_id_issuer` = @issuerId_SQB;
 
 
 SET @id_layout = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Refusal Page (', @BankB, ')%') );
