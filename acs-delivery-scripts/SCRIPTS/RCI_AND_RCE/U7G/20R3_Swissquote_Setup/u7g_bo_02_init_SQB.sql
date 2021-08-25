@@ -61,7 +61,7 @@ SET @issuerCountryCode = '250';
 SET @maskParam = '*,6,4';
 SET @dateFormat = 'DD.MM.YYYY HH:mm|CET';
 SET @currencyFormat = '{
-                            "useAlphaCurrencySymbol":true,
+                            "useAlphaCurrencySymbol":false,
                             "currencySymbolPosition":"LEFT",
                             "decimalDelimiter":".",
                             "thousandDelimiter":"''"
@@ -118,7 +118,7 @@ INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `c
   ('ACS_U7G', 120, @backUpLanguages, @subIssuerCode, @subIssuerCode, '978', @createdBy, NOW(), NULL, NULL, NULL, @subIssuerNameAndLabel,
    @updateState, @defaultLanguage, 600, @subIssuerNameAndLabel, TRUE, TRUE, NULL, TRUE, TRUE, 300,
    @acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,
-   @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, @paChallengeURL, '1', @3DS2AdditionalInfo, '3', TRUE, FALSE, b'0', b'0', @activatedAuthMeans, @cryptoConfigIDSQB, @currencyFormat, TRUE);
+   @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, @paChallengeURL, '1', @3DS2AdditionalInfo, '3', FALSE, FALSE, b'0', b'0', @activatedAuthMeans, @cryptoConfigIDSQB, @currencyFormat, TRUE);
 /*!40000 ALTER TABLE `SubIssuer` ENABLE KEYS */;
 
 SET @subIssuerID = (SELECT id FROM `SubIssuer` WHERE `code` = @subIssuerCode AND `name` = @subIssuerNameAndLabel);
@@ -317,7 +317,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	.paragraph {
 		text-align: left;
 		margin-bottom: 10px;
-        font-size: 14px;
+        font-size: 12px;
 	}
 	.paragraphDescription {
 		text-align: left;
@@ -325,6 +325,9 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	.paragraphDescription {
 		text-align: left;
 	}
+    label {
+        font-weight: normal;
+    }
 	.leftColumn {
 		width: 40%;
 		display: block;
@@ -783,8 +786,11 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	.paragraph {
 		text-align: left;
 		margin-bottom : 10px;
-        font-size: 14px;
+		font-size: 12px;
 	}
+    label {
+        font-weight: normal;
+    }
 	.paragraphDescription {
 		text-align: left;
 	}
@@ -1013,7 +1019,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		</div>
 	</div>
 
-   <alternative-display attribute="''currentProfileName''" value="''SQB_REFUSAL_FRAUD''" enabled="''fraud_refusal''" default-fallback="''default_refusal''" ></alternative-display>
+	<alternative-display attribute="''currentProfileName''" value="''SQB_REFUSAL_FRAUD''" enabled="''fraud_refusal''" default-fallback="''default_refusal''" ></alternative-display>
 	<div class="fraud_refusal" ng-style="style" class="ng-scope" style="display: none;">
 		<message-banner display-type="''1''" heading-attr="''network_means_pageType_220''" message-attr="''network_means_pageType_230''" close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''" show=true ></message-banner>
 	</div>
@@ -1034,7 +1040,14 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		</div>
 		<div class="rightColumn">
 			<div class="paragraph">
-				<custom-text custom-text-key="''network_means_pageType_1''"></custom-text>
+				<alternative-display attribute="''currentProfileName''" value="''SQB_REFUSAL_FRAUD''" enabled="''fraud_refusal''" default-fallback="''default_refusal''" ></alternative-display>
+				<div class="fraud_refusal" ng-style="style" class="ng-scope" style="display: none;">
+					<custom-text custom-text-key="''network_means_pageType_5''"></custom-text>
+				</div>
+				<div class="default_refusal" ng-style="style" class="ng-scope" style="display: none;">
+					<custom-text custom-text-key="''network_means_pageType_1''"></custom-text>
+				</div>
+
 			</div>
 			<div class="paragraphDescription">
 				<custom-text custom-text-key="''network_means_pageType_2''"></custom-text>
@@ -1134,8 +1147,11 @@ VALUES( 'div', '
 	.paragraph {
 		text-align: left;
 		margin-bottom : 10px;
-        font-size: 14px;
+        font-size: 12px;
 	}
+    label {
+        font-weight: normal;
+    }
 	.paragraphDescription {
 		text-align: center;
 	}
@@ -1430,7 +1446,7 @@ VALUES( 'div','
 	<div id="help-contents">
 		<p><custom-text custom-text-key="''network_means_HELP_PAGE_1''"></custom-text></p>
 		<p><custom-text custom-text-key="''network_means_HELP_PAGE_2''"></custom-text>
-            <custom-text custom-text-key="''network_means_HELP_PAGE_3''"></custom-text></p>
+        <custom-text custom-text-key="''network_means_HELP_PAGE_3''"></custom-text></p>
 
 	</div>
 	<div class="row">
@@ -1520,8 +1536,11 @@ VALUES( 'div', '<style>
 	.paragraph {
 		text-align: left;
 		margin-bottom: 10px;
-        font-size: 14px;
+        font-size: 12px;
 	}
+    label {
+        font-weight: normal;
+    }
 	.paragraphDescription {
 		text-align: left;
 		display: none;

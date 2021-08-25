@@ -95,6 +95,9 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), @updateState,
          'de', 3, @currentPageType, '', @MaestroMID, NULL, @customItemSetREFUSAL),
 
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_5'), @updateState,
+         'de', 5, @currentPageType, 'Zahlungsfreigabe nicht möglich', @MaestroMID, NULL, @customItemSetREFUSAL),
+
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), @updateState,
          'de', 11, @currentPageType, '<b>Informationen zur Zahlung</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
 
@@ -145,7 +148,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@helpPage,'_1'), @updateState,
-         'de', 1, @helpPage, '<b>Hilfe</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'de', 1, @helpPage, 'Hilfe', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@helpPage,'_2'), @updateState,
          'de', 2, @helpPage, 'Aus Sicherheitsgründen müssen Sie sich an das Payment Card Service Helpdesk wenden, um die Änderung Ihrer Mobiltelefonnummer zu beantragen.', @MaestroMID, NULL, @customItemSetREFUSAL),
@@ -214,6 +217,9 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), @updateState,
          'en', 3, @currentPageType, '', @MaestroMID, NULL, @customItemSetREFUSAL),
 
+   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_5'), @updateState,
+         'en', 5, @currentPageType, 'Payment approval not possible.', @MaestroMID, NULL, @customItemSetREFUSAL),
+
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), @updateState,
          'en', 11, @currentPageType, '<b>Information about payment</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
 
@@ -264,7 +270,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@helpPage,'_1'), @updateState,
-         'en', 1, @helpPage, '<b>Help</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'en', 1, @helpPage, 'Help', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@helpPage,'_2'), @updateState,
          'en', 2, @helpPage, 'For security reasons, you must contact the Payment Card Service Helpdesk to request the modification of your mobile phone number.', @MaestroMID, NULL, @customItemSetREFUSAL),
@@ -334,6 +340,9 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), @updateState,
          'fr', 3, @currentPageType, '', @MaestroMID, NULL, @customItemSetREFUSAL),
 
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_5'), @updateState,
+         'fr', 5, @currentPageType, 'Activation de paiement impossible', @MaestroMID, NULL, @customItemSetREFUSAL),
+
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), @updateState,
          'fr', 11, @currentPageType, '<b>Informations concernant le paiement.</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
 
@@ -384,7 +393,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@helpPage,'_1'), @updateState,
-         'fr', 1, @helpPage, '<b>Aide</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'fr', 1, @helpPage, 'Aide', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@helpPage,'_2'), @updateState,
          'fr', 2, @helpPage, 'Pour des raisons de sécurité, vous devez contacter le Payment Card Service Helpdesk afin de demander la modification de votre numéro de téléphone portable.', @MaestroMID, NULL, @customItemSetREFUSAL),
@@ -455,6 +464,9 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_3'), @updateState,
          'it', 3, @currentPageType, '', @MaestroMID, NULL, @customItemSetREFUSAL),
 
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_5'), @updateState,
+         'it', 5, @currentPageType, 'Autorizzazione di pagamento non possibile', @MaestroMID, NULL, @customItemSetREFUSAL),
+
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_11'), @updateState,
          'it', 11, @currentPageType, '<b>Informazioni sul pagamento</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
 
@@ -483,7 +495,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'it', 102, 'ALL', 'Data', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_103'), @updateState,
-         'it', 103, 'ALL', 'Numero della carta', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'it', 103, 'ALL', 'Numero di carta', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_104'), @updateState,
          'it', 104, 'ALL', 'Numero di cellulare', @MaestroMID, NULL, @customItemSetREFUSAL),
@@ -505,7 +517,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@helpPage,'_1'), @updateState,
-         'it', 1, @helpPage, '<b>Aiuto</b>', @MaestroMID, NULL, @customItemSetREFUSAL),
+         'it', 1, @helpPage, 'Aiuto', @MaestroMID, NULL, @customItemSetREFUSAL),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@helpPage,'_2'), @updateState,
          'it', 2, @helpPage, 'Per motivi di sicurezza, per richiedere la modifica del suo numero di cellulare dovrà contattare il Payment Card Service Helpdesk.', @MaestroMID, NULL, @customItemSetREFUSAL),
@@ -681,7 +693,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@helpPage,'_1'), @updateState,
-         'de', 1, @currentPageType, '<b>Hilfe</b>', @MaestroMID, NULL, @customItemSetSMS),
+         'de', 1, @currentPageType, 'Hilfe', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@helpPage,'_2'), @updateState,
          'de', 2, @currentPageType, 'Aus Sicherheitsgründen müssen Sie sich an das Payment Card Service Helpdesk wenden, um die Änderung Ihrer Mobiltelefonnummer zu beantragen.', @MaestroMID, NULL, @customItemSetSMS),
@@ -890,7 +902,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@helpPage,'_1'), @updateState,
-         'en', 1, @currentPageType, '<b>Help</b>', @MaestroMID, NULL, @customItemSetSMS),
+         'en', 1, @currentPageType, 'Help', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@helpPage,'_2'), @updateState,
          'en', 2, @currentPageType, 'For security reasons, you must contact the Payment Card Service Helpdesk to request the modification of your mobile phone number.', @MaestroMID, NULL, @customItemSetSMS),
@@ -1102,7 +1114,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@helpPage,'_1'), @updateState,
-         'fr', 1, @currentPageType, '<b>Aide</b>', @MaestroMID, NULL, @customItemSetSMS),
+         'fr', 1, @currentPageType, 'Aide', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@helpPage,'_2'), @updateState,
          'fr', 2, @currentPageType, 'Pour des raisons de sécurité, vous devez contacter le Payment Card Service Helpdesk afin de demander la modification de votre numéro de téléphone portable.', @MaestroMID, NULL, @customItemSetSMS),
@@ -1294,7 +1306,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'it', 102, 'ALL', 'Data', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_103'), @updateState,
-         'it', 103, 'ALL', 'Numero della carta', @MaestroMID, NULL, @customItemSetSMS),
+         'it', 103, 'ALL', 'Numero di carta', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_104'), @updateState,
          'it', 104, 'ALL', 'Numero di cellulare', @MaestroMID, NULL, @customItemSetSMS),
@@ -1313,7 +1325,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@helpPage,'_1'), @updateState,
-         'it', 1, @currentPageType, '<b>Aiuto</b>', @MaestroMID, NULL, @customItemSetSMS),
+         'it', 1, @currentPageType, 'Aiuto', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@helpPage,'_2'), @updateState,
          'it', 2, @currentPageType, 'Per motivi di sicurezza, per richiedere la modifica del suo numero di cellulare dovrà contattare il Payment Card Service Helpdesk.', @MaestroMID, NULL, @customItemSetSMS),
