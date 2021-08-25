@@ -374,34 +374,34 @@ SET @text = '<b>Hilfe</b>';
 UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 1
 										AND pageTypes = @helpPage
 										AND locale = @locale
-										AND `fk_id_customItemSet` in (customItemSetREFUSAL, @customItemSetSMS);
+										AND `fk_id_customItemSet` in (@customItemSetREFUSAL, @customItemSetSMS);
 
 SET @locale = 'en';
 SET @text = '<b>Help</b>';
 UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 1
 										AND pageTypes = @helpPage
 										AND locale = @locale
-										AND `fk_id_customItemSet` in (customItemSetREFUSAL, @customItemSetSMS);
+										AND `fk_id_customItemSet` in (@customItemSetREFUSAL, @customItemSetSMS);
 
 SET @locale = 'fr';
 SET @text = '<b>Aide</b>';
 UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 1
 										AND pageTypes = @helpPage
 										AND locale = @locale
-										AND `fk_id_customItemSet` in (customItemSetREFUSAL, @customItemSetSMS);
+										AND `fk_id_customItemSet` in (@customItemSetREFUSAL, @customItemSetSMS);
 
 SET @locale = 'it';
 SET @text = '<b>Aiuto</b>';
 UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 1
 										AND pageTypes = @helpPage
 										AND locale = @locale
-										AND `fk_id_customItemSet` in (customItemSetREFUSAL, @customItemSetSMS);
+										AND `fk_id_customItemSet` in (@customItemSetREFUSAL, @customItemSetSMS);
 
 SET @text = 'Numero della carta';
 UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 103
 										AND pageTypes = 'ALL'
 										AND locale = @locale
-										AND `fk_id_customItemSet` in (customItemSetREFUSAL, @customItemSetSMS);
+										AND `fk_id_customItemSet` in (@customItemSetREFUSAL, @customItemSetSMS);
 
 
 SET @id_layout = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('SMS OTP Form Page (', @BankB, ')%') );
