@@ -1446,8 +1446,8 @@ VALUES( 'div','
 <div id="help-page">
 	<div id="help-contents">
 		<p><custom-text custom-text-key="''network_means_HELP_PAGE_1''"></custom-text></p>
-		<p><custom-text custom-text-key="''network_means_HELP_PAGE_2''"></custom-text>
-        <custom-text custom-text-key="''network_means_HELP_PAGE_3''"></custom-text></p>
+		<p><custom-text custom-text-key="''network_means_HELP_PAGE_2''"></custom-text></p>
+        <p><custom-text custom-text-key="''network_means_HELP_PAGE_3''"></custom-text></p>
 
 	</div>
 	<div class="row">

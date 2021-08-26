@@ -617,7 +617,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'de', 15, @currentPageType, 'Die Zahlung wurde abgebrochen und Ihre Karte nicht belastet. Sofern Sie den Kaufprozess trotzdem fortsetzen möchten, starten Sie den Zahlungsversuch bitte erneut.', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_19'), @updateState,
-         'de', 19, @currentPageType, 'Neuen Authentifizierungscode anfordern', @MaestroMID, NULL, @customItemSetSMS),
+         'de', 19, @currentPageType, 'SMS TAN erneut senden', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_22'), @updateState,
          'de', 22, @currentPageType, '3D Secure Authentifizierung fehlgeschlagen', @MaestroMID, NULL, @customItemSetSMS),
@@ -826,7 +826,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'en', 15, @currentPageType, 'The payment was cancelled and your card was not debited. If you wish to nevertheless continue the purchase process, please start the payment attempt again. ', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_19'), @updateState,
-         'en', 19, @currentPageType, 'Request new authentication code', @MaestroMID, NULL, @customItemSetSMS),
+         'en', 19, @currentPageType, 'Resend SMS Code', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_22'), @updateState,
          'en', 22, @currentPageType, '3D Secure authentication failed', @MaestroMID, NULL, @customItemSetSMS),
@@ -1037,7 +1037,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'fr', 15, @currentPageType, 'Le paiement a été interrompu et votre carte n’a pas été débitée. Si vous souhaitez malgré tout continuer le processus d’achat, veuillez recommencer la tentative de paiement.', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_19'), @updateState,
-         'fr', 19, @currentPageType, 'Demander un nouveau code d‘authentification', @MaestroMID, NULL, @customItemSetSMS),
+         'fr', 19, @currentPageType, 'Renvoyer le code SMS', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_22'), @updateState,
          'fr', 22, @currentPageType, 'L''authentification 3D Secure a échoué', @MaestroMID, NULL, @customItemSetSMS),
@@ -1249,7 +1249,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
          'it', 15, @currentPageType, 'Il pagamento è stato annullato e la sua carta non è stata addebitata. Se desidera continuare comunque il processo di acquisto, provi a iniziare di nuovo il pagamento.', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_19'), @updateState,
-         'it', 19, @currentPageType, 'Richiedere un nuovo codice di autenticazione', @MaestroMID, NULL, @customItemSetSMS),
+         'it', 19, @currentPageType, 'Invia nuovo codice SMS', @MaestroMID, NULL, @customItemSetSMS),
 
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroMName,'_',@currentAuthentMean,'_',@currentPageType,'_22'), @updateState,
          'it', 22, @currentPageType, 'Autenticazione 3D Secure non riuscita', @MaestroMID, NULL, @customItemSetSMS),

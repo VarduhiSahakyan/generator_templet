@@ -1,19 +1,62 @@
-use `U7G_ACS_BO`;
-set @issuerCode = '00601';
-set @customPageLayoutDesc_appView = 'App_View OTP_SMS (SWISSQUOTE)';
-set @pageType = 'OTP_SMS_APP_VIEW';
+USE `U7G_ACS_BO`;
 
-insert into CustomPageLayout (controller, pageType, description)
-values (null, @pageType, @customPageLayoutDesc_appView);
+SET @amName = 'OTP_SMS';
+SET @username = 'A709391';
+SET @BankB = 'SQB';
+SET @Banklb = LOWER(@BankB);
+SET @customItemSetId = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankB, '_SMS'));
 
-set @idAppViewPage = (select id
+SET @networkMC = (SELECT `id` FROM `Network` WHERE `code` = 'MASTERCARD');
+SET @pageType = 'APP_VIEW';
+SET @updateState = 'PUSHED_TO_CONFIG';
+
+
+-- 3DS MAIN CONTENT TEXT
+SET @text = 'Ti abbiamo inviato un codice di autenticazione tramite SMS per confermare il seguente pagamento: \nCommerciante: @merchant\nImporto: @amount\nData: @formattedDate\nNumero della carta: @displayedPan\nNumero di cellulare: @device\n';
+
+UPDATE `CustomItem` SET `value` = @text WHERE `ordinal` = 152
+                                        AND `locale` = 'it'
+                                        AND `pageTypes` = @pageType
+                                        AND `fk_id_customItemSet` = @customItemSetId;
+
+-- 3DS RESEND BUTTON LABEL
+SET @ordinal = 155;
+SET @text = 'Neuen Authentifizierungscode anfordern';
+UPDATE `CustomItem` SET `value` = @text WHERE `ordinal` = @ordinal
+                                        AND `locale` = 'de'
+                                        AND `pageTypes` = @pageType
+                                        AND `fk_id_customItemSet` = @customItemSetId;
+
+SET @text = 'Request new authentication code';
+UPDATE `CustomItem` SET `value` = @text WHERE `ordinal` = @ordinal
+                                        AND `locale` = 'en'
+                                        AND `pageTypes` = @pageType
+                                        AND `fk_id_customItemSet` = @customItemSetId;
+
+SET @text = 'Demander un nouveau code d‘authentification';
+UPDATE `CustomItem` SET `value` = @text WHERE `ordinal` = @ordinal
+                                        AND `locale` = 'fr'
+                                        AND `pageTypes` = @pageType
+                                        AND `fk_id_customItemSet` = @customItemSetId;
+
+SET @text = 'Richiedere un nuovo codice di autenticazione';
+UPDATE `CustomItem` SET `value` = @text WHERE `ordinal` = @ordinal
+                                        AND `locale` = 'it'
+                                        AND `pageTypes` = @pageType
+                                        AND `fk_id_customItemSet` = @customItemSetId;
+
+
+
+SET @customPageLayoutDesc_appView = 'App_View OTP_SMS (SWISSQUOTE)';
+SET @pageType = 'OTP_SMS_APP_VIEW';
+
+SET @idAppViewPage = (select id
                       from `CustomPageLayout`
                       where `pageType` = @pageType
                         and DESCRIPTION = @customPageLayoutDesc_appView);
 
-insert into `CustomComponent` (`type`, `value`, `fk_id_layout`)
-values ('div',
-        '<style>
+
+UPDATE `CustomComponent` SET `value` = '<style>
             .acs-container {
                 padding: 0em;
             }
@@ -65,13 +108,8 @@ values ('div',
                 font-weight: bold;
                 font-size: 1.15em;
             }
-            element.style {
-                height: 2em;
-                margin-top: 20px;
-            }
             .acs-challengeInfoText {
-                margin-top: 20px;
-                margin-bottom: 20px;
+                margin-bottom: 0em;
             }
             .acs-footer {
                 font-size: 0.9em;
@@ -97,7 +135,7 @@ values ('div',
                 width: 100%;
             }
             .col-md-10 {
-                width: 95%;
+                width: 83.33333333%;
             }
             .col-md-6 {
                 width: 50%;
@@ -366,18 +404,4 @@ values ('div',
                     <span id="content">network_means_pageType_157 </span>
                 </div>
             </div>
-        </div>', @idAppViewPage);
-
-insert into CustomPageLayout_ProfileSet (customPageLayout_id, profileSet_id)
-select cpl.id, profileSetIDs.id
-from CustomPageLayout cpl,
-     (select ProfileSet.id
-      from `ProfileSet`,
-           (select SubIssuer.id
-            from `SubIssuer`,
-                 (select Issuer.`id`
-                  from `Issuer`
-                  where `code` = @issuerCode) as issuer
-            where `fk_id_issuer` = issuer.id) as subissuers
-      where fk_id_subIssuer = subissuers.id) as profileSetIDs
-where cpl.description = @customPageLayoutDesc_appView
+        </div>' WHERE `fk_id_layout` = @idAppViewPage;
