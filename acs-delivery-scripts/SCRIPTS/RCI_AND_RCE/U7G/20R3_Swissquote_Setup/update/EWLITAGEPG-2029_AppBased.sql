@@ -125,6 +125,9 @@ UPDATE `CustomComponent` SET `value` = '<style>
     .col-md-12 {
         width: 100%;
     }
+    div#acs-challenge-info-text {
+        width: 95%;
+    }
     .col-md-10 {
         width: 83.33333333%;
     }
