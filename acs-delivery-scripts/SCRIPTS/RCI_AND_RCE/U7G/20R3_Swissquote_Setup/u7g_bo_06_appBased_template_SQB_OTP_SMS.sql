@@ -82,7 +82,7 @@ values ('div',
         width: 100%;
     }
     div#acs-challenge-info-text {
-        width: 95%;
+        width: 89%;
     }
     .col-md-10 {
         width: 83.33333333%;
