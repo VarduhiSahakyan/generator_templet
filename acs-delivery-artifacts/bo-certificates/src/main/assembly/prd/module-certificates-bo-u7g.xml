@@ -25,5 +25,11 @@
             <outputDirectory>.</outputDirectory>
             <filtered>false</filtered>
         </file>
+        <file>
+            <source>src/config/common/module-certificates.xml</source>
+            <filtered>false</filtered>
+            <destName>module.xml</destName>
+            <outputDirectory>./</outputDirectory>
+        </file>
     </files>
 </assembly>
