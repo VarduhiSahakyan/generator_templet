@@ -1,16 +1,12 @@
 USE `U5G_ACS_BO`;
-SET @createdBy = 'A758582';
-SET @MaestroVName =  (SELECT `name` FROM `Network` WHERE `code` = 'VISA');
-SET @MaestroVID = NULL;
-SET @currentPageType = 'ALL';
-SET @BankUB = '16500';
 
 SET @pageLayoutIdMessageBanner = (SELECT id FROM `CustomPageLayout` where `pageType` = 'MESSAGE_BANNER' and DESCRIPTION = 'for ING 16500');
 
 UPDATE `CustomComponent`
 SET `value` = '
 <div id="messageBanner">
-    <custom-text id="headingTxt" custom-text-key="$parent.heading"></custom-text>
+	<span id="info-icon" class="fa fa-info-circle"></span>
+	<custom-text id="headingTxt" custom-text-key="$parent.heading"></custom-text>
 	<custom-text id="message" custom-text-key="$parent.message"></custom-text>
 </div>
 <style>
@@ -28,7 +24,6 @@ SET `value` = '
 		width : 90%;
 		margin : auto;
 		display : block;
-        font-weight: bold;
 	}
 	#messageBanner	#spinner-row {
 		padding-top: 20px;
@@ -50,6 +45,13 @@ SET `value` = '
 		font-family: "INGme-Regular", Arial, Helvetica;
 		color: #ffffff;
 	}
+
+	span#info-icon {
+		position:absolute;
+		top:15px;
+		left:15px;
+		float:none;
+	}
 	@media all and (max-width: 480px) {
 		span#info-icon {
 			position: absolute;
@@ -70,10 +72,18 @@ SET `value` = '
 		#messageBanner #headingTxt {
 			font-size: 15px;
 		}
+		span#info-icon {
+			font-size: 2em;
+			display: inline-block;
+		}
 	}
 	@media all and (max-width: 309px) {
 		#messageBanner #headingTxt {
 			font-size: 12px;
+		}
+		span#info-icon {
+			font-size: 1em;
+			display: inline-block;
 		}
 	}
 	@media all and (max-width: 250px) {
@@ -88,6 +98,8 @@ SET @pageLayoutIdPolling = (SELECT id FROM `CustomPageLayout` where `pageType` =
 
 UPDATE `CustomComponent`
 SET `value` = '<custom-font straight-mode="false" mime-type-key="''network_means_pageType_301_FONT_MIME_TYPE''" title-key="''network_means_pageType_301_FONT_TITLE''" font-key="''network_means_pageType_301_FONT_DATA''"></custom-font>
+
+
 <div id="optGblPage">
 <style>
 	/* global styles */
@@ -151,6 +163,27 @@ margin-left:1em;
 	margin-bottom:1em;
 	margin-right:1em;
 }
+
+@media screen and (min-width: 701px) {
+	#optGblPage{
+
+		font-size: 18px;
+	}
+}
+
+@media screen and (max-width: 700px) and (min-width: 361px) {
+	#optGblPage{
+
+		font-size: 14px;
+	}
+}
+
+@media screen and (max-width: 360px) {
+	#optGblPage{
+
+		font-size: 12px;
+	}
+}
 </style>
 <message-banner></message-banner>
 <style>
@@ -159,25 +192,33 @@ message-banner {
 	width: 100%;
 	position: relative;
 }
-span#message {
-    font-size: 18px !important;
-    font-weight: normal !important;
-}
 </style>
 	<div id="content">
 		<div>
 			<custom-text
 					custom-text-key="''network_means_pageType_1''"></custom-text>
 		</div>
-        <div id="center">
-        <div id="left"> </div>
+
+		<div>
+			<help help-label="''network_means_pageType_11''" id="helpButton"
+				class="helpButtonClass"></help>
+			<hr>
+		</div>
 		<div id="mainLayout">
 			<div class="row">
+				<div class="col1 primary-color">
+					<custom-text custom-text-key="''network_means_pageType_42''"></custom-text>
+				</div>
 				<div class="colwidth2">
 					<side-menu></side-menu>
 				</div>
 			</div>
+
 			<div class="row">
+				<div class="col1 primary-color">
+					<custom-text custom-text-key="''network_means_pageType_43''"></custom-text>
+				</div>
+
 				<div class="col2 primary-color">
 					<div class="img-text">
 						<span class="mobapp-icon"></span>
@@ -190,9 +231,11 @@ span#message {
 
 			<div class="row">
 				<div class="col1">
+
 				</div>
 
 				<div class="col2 primary-color">
+
 				</div>
 				<div class="col3"></div>
 
@@ -204,48 +247,18 @@ span#message {
 
 				</div>
 				<div class="col2">
-                    <div>
-			        <help help-label="''network_means_pageType_11''" id="helpButton" class="helpButtonClass"></help>
-			        <hr>
-		            </div>
+
 				</div>
 				<div class="col3">
 					<cancel-button cn-label="''network_means_pageType_7''"  id="cancelButton"></cancel-button>
 				</div>
 			</div>
 		</div>
+
 	</div>
-<div id="right"> </div>
-</div>
+
 <style>
-#center {
-		width: 100%;
-		height: 96px;
-	}
-#left {
-		width: 20%;
-		float: left;
-		padding-left: 16px;
-		height: 100%;
-		display: flex;
-		align-items: center;
-	}
-	#mainLayout {
-		width: 60%;
-		float: left;
-		text-align: center;
-		line-height: 30px;
-		padding-top: 16px;
-	}
-	#right {
-		width: 20%;
-		float: right;
-		padding-right: 16px;
-		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
-	}
+
 .img-text {
 		display:flex;
 	}
@@ -314,7 +327,6 @@ hr {
 	border-radius:1em;
 	margin:1.5em;
 	padding:1.5em;
-    height: 400px;
 }
 
 #optGblPage .row {
@@ -323,10 +335,13 @@ hr {
 	margin-top:1em;
 }
 
+.col1 {
+	width:30%;
 
+}
 
 .col2 {
-	width: 40%;
+	width: 35%;
 
 }
 
@@ -421,28 +436,6 @@ val-button button.btn custom-text span {
 	vertical-align:10%
 }
 
-@media screen and (min-width: 701px) {
-	#optGblPage{
-		font-size: 18px;
-	}
-    #center {
-		width: 100%;
-		height: 96px;
-	}
-}
-
-@media screen and (max-width: 700px) and (min-width: 361px) {
-	#optGblPage{
-		font-size: 14px;
-	}
-}
-
-@media screen and (max-width: 360px) {
-	#optGblPage{
-		font-size: 12px;
-	}
-}
-
 @media screen and (max-width: 1200px) {
 
 	#optGblPage .row {
@@ -453,6 +446,7 @@ val-button button.btn custom-text span {
 
 	/* overrides for the side-menu element */
 	div.side-menu div.menu-elements div div div  span  {
+
 		display:block;
 		float:none;
 		text-align:left;
@@ -461,12 +455,14 @@ val-button button.btn custom-text span {
 	}
 
 	div.side-menu div.menu-elements div div div span:nth-child(2)  {
+
 		padding-left:0px;
 		padding-right:0px;
 		display:block;
 		width:100%;
 		float:none;
 	}
+
 
 	cancel-button button.btn {
 		display:block;
@@ -541,8 +537,7 @@ val-button button.btn custom-text span {
 }
 
 </style>
-</div>
-' where fk_id_layout = @pageLayoutIdPolling;
+</div>' where fk_id_layout = @pageLayoutIdPolling;
 
 SET @pageLayoutIdPhotoTan = (SELECT id FROM `CustomPageLayout` where `pageType` = 'PHOTO_TAN_OTP_FORM_PAGE' and DESCRIPTION = 'for ING 16500');
 
@@ -648,14 +643,26 @@ message-banner {
 					custom-text-key="''network_means_pageType_1''"></custom-text>
 		</div>
 
+		<div>
+			<help help-label="''network_means_pageType_11''" id="helpButton"
+				class="helpButtonClass"></help>
+			<hr>
+		</div>
 		<div id="mainLayout">
 			<div class="row">
+				<div class="col1 primary-color">
+					<custom-text custom-text-key="''network_means_pageType_42''"></custom-text>
+				</div>
 				<div class="colwidth2">
 					<side-menu></side-menu>
 				</div>
 			</div>
 
 			<div class="row">
+				<div class="col1 primary-color">
+					<custom-text custom-text-key="''network_means_pageType_43''"></custom-text>
+				</div>
+
 				<div class="col2"><custom-text custom-text-key="''network_means_pageType_3''"></custom-text></div>
 				<div class="col3"><external-image></external-image></div>
 
@@ -690,10 +697,7 @@ message-banner {
 
 				</div>
 				<div class="col2">
-                     <div>
-			        <help help-label="''network_means_pageType_11''" id="helpButton" class="helpButtonClass"></help>
-			        <hr>
-		            </div>
+
 				</div>
 				<div class="col3">
 					<cancel-button cn-label="''network_means_pageType_7''"  id="cancelButton"></cancel-button>
@@ -951,14 +955,14 @@ val-button button.btn custom-text span {
 	}
 }
 </style>
-</div>
-' where fk_id_layout = @pageLayoutIdPhotoTan;
+</div>' where fk_id_layout = @pageLayoutIdPhotoTan;
 
 
 SET @pageLayoutIdOtpSmsExt = (SELECT id FROM `CustomPageLayout` where `pageType` = 'OTP_SMS_EXT_MESSAGE_OTP_FORM_PAGE' and DESCRIPTION = 'for ING 16500');
 
 UPDATE `CustomComponent`
 SET `value` = '<custom-font straight-mode="false" mime-type-key="''network_means_pageType_301_FONT_MIME_TYPE''" title-key="''network_means_pageType_301_FONT_TITLE''" font-key="''network_means_pageType_301_FONT_DATA''"></custom-font>
+
 
 <div id="optGblPage">
 <style>
@@ -1052,13 +1056,24 @@ message-banner {
 			<custom-text
 					custom-text-key="''network_means_pageType_1''"></custom-text>
 		</div>
+		<div>
+			<help help-label="''network_means_pageType_11''" id="helpButton"
+				class="helpButtonClass"></help>
+			<hr>
+		</div>
 		<div id="mainLayout">
 			<div class="row">
+				<div class="col1 primary-color">
+					<custom-text custom-text-key="''network_means_pageType_2''"></custom-text>
+				</div>
 				<div class="colwidth2">
 					<side-menu></side-menu>
 				</div>
 			</div>
 			<div class="row">
+				<div class="col1 primary-color">
+					<custom-text custom-text-key="''network_means_pageType_3''"></custom-text>
+				</div>
 				<div class="col2">
 					<custom-text custom-text-key="''network_means_pageType_4''"></custom-text>
 				</div>
@@ -1075,12 +1090,7 @@ message-banner {
 			</div>
 			<div class="row">
 				<div class="col1"></div>
-				<div class="col2">
-                    <div>
-			        <help help-label="''network_means_pageType_11''" id="helpButton" class="helpButtonClass"></help>
-			        <hr>
-		            </div>
-                </div>
+				<div class="col2"></div>
 				<div class="col3">
 					<cancel-button cn-label="''network_means_pageType_7''"  id="cancelButton"></cancel-button>
 					<val-button val-label="''network_means_pageType_8''" id="validateButton"></val-button>
@@ -1283,8 +1293,7 @@ val-button button.btn custom-text span {
 	}
 }
 </style>
-</div>
-' where fk_id_layout = @pageLayoutIdOtpSmsExt;
+</div>' where fk_id_layout = @pageLayoutIdOtpSmsExt;
 
 SET @pageLayoutIdMobileAppExt = (SELECT id FROM `CustomPageLayout` where `pageType` = 'MOBILE_APP_EXT_CHOICE_PAGE' and DESCRIPTION = 'for ING 16500');
 
@@ -1357,23 +1366,38 @@ margin-left:1em;
 
 @media screen and (min-width: 701px) {
 	#optGblPage{
+
 		font-size: 18px;
 	}
 }
 
 @media screen and (max-width: 700px) and (min-width: 361px) {
 	#optGblPage{
+
 		font-size: 14px;
+	}
+
+	#gerat {
+		margin-top: -16px;
 	}
 }
 
 @media screen and (max-width: 360px) {
 	#optGblPage{
+
 		font-size: 12px;
+	}
+
+	#gerat {
+		margin-top: -12px;
 	}
 }
 
 @media screen and (max-width: 1200px) and (min-width: 701px) {
+
+	 #gerat {
+		margin-top: -22px;
+	}
 }
 </style>
 <message-banner></message-banner>
@@ -1390,14 +1414,26 @@ message-banner {
 					custom-text-key="''network_means_pageType_1''"></custom-text>
 		</div>
 
+		<div>
+			<help help-label="''network_means_pageType_11''" id="helpButton"
+				class="helpButtonClass"></help>
+			<hr>
+		</div>
 		<div id="mainLayout">
 			<div class="row">
+				<div class="col1 primary-color">
+					<custom-text custom-text-key="''network_means_pageType_2''"></custom-text>
+				</div>
 				<div class="colwidth2">
 					<side-menu></side-menu>
 				</div>
 			</div>
 
 			<div class="row">
+				<div class="col1" id="gerat">
+					<custom-text custom-text-key="''network_means_pageType_3''"></custom-text>
+				</div>
+
 				<div class="col2 primary-color">
 					<div class="img-text">
 					<span class="mobapp-icon"></span>
@@ -1413,10 +1449,7 @@ message-banner {
 
 				</div>
 				<div class="col2">
-                     <div>
-			        <help help-label="''network_means_pageType_11''" id="helpButton" class="helpButtonClass"></help>
-			        <hr>
-		            </div>
+
 				</div>
 				<div class="col3">
 					<val-button val-label="''network_means_pageType_8''" id="validateButton"></val-button>
@@ -1712,8 +1745,7 @@ val-button button.btn custom-text span {
 }
 
 </style>
-</div>
-' where fk_id_layout = @pageLayoutIdMobileAppExt;
+</div>' where fk_id_layout = @pageLayoutIdMobileAppExt;
 
 SET @pageLayoutIdITan = (SELECT id FROM `CustomPageLayout` where `pageType` = 'I_TAN_OTP_FORM_PAGE' and DESCRIPTION = 'for ING 16500');
 
@@ -1820,14 +1852,26 @@ message-banner {
 					custom-text-key="''network_means_pageType_1''"></custom-text>
 		</div>
 
+		<div>
+			<help help-label="''network_means_pageType_11''" id="helpButton"
+				class="helpButtonClass"></help>
+			<hr>
+		</div>
 		<div id="mainLayout">
 			<div class="row">
+				<div class="col1 primary-color">
+					<custom-text custom-text-key="''network_means_pageType_2''"></custom-text>
+				</div>
 				<div class="colwidth2">
 					<side-menu></side-menu>
 				</div>
 			</div>
 
 			<div class="row">
+				<div class="col1 primary-color">
+					<custom-text custom-text-key="''network_means_pageType_3''"></custom-text>
+				</div>
+
 				<div class="col2">
 					<custom-text custom-text-key="''network_means_pageType_4''"></custom-text>
 				</div>
@@ -1842,10 +1886,7 @@ message-banner {
 
 				</div>
 				<div class="col2">
-                     <div>
-			        <help help-label="''network_means_pageType_11''" id="helpButton" class="helpButtonClass"></help>
-			        <hr>
-		            </div>
+
 				</div>
 				<div class="col3">
 					<cancel-button cn-label="''network_means_pageType_7''"  id="cancelButton"></cancel-button>
@@ -2106,6 +2147,7 @@ SET @pageLayoutIdExtPassword = (SELECT id FROM `CustomPageLayout` where `pageTyp
 UPDATE `CustomComponent`
 SET `value` = '<custom-font straight-mode="false" mime-type-key="''network_means_pageType_301_FONT_MIME_TYPE''" title-key="''network_means_pageType_301_FONT_TITLE''" font-key="''network_means_pageType_301_FONT_DATA''"></custom-font>
 
+
 <div id="optGblPage">
 <style>
 	/* global styles */
@@ -2195,13 +2237,24 @@ message-banner {
 			<custom-text
 					custom-text-key="''network_means_pageType_1''"></custom-text>
 		</div>
+		<div>
+			<help help-label="''network_means_pageType_11''" id="helpButton"
+				class="helpButtonClass"></help>
+			<hr>
+		</div>
 		<div id="mainLayout">
 			<div class="row">
+				<div class="col1 primary-color">
+					<custom-text custom-text-key="''network_means_pageType_2''"></custom-text>
+				</div>
 				<div class="colwidth2">
 					<side-menu></side-menu>
 				</div>
 			</div>
 			<div class="row">
+				<div class="col1 primary-color">
+					<custom-text custom-text-key="''network_means_pageType_3''"></custom-text>
+				</div>
 				<div class="col2">
 					<custom-text custom-text-key="''network_means_pageType_4''"></custom-text>
 				</div>
@@ -2213,10 +2266,6 @@ message-banner {
 				<div class="col1">
 				</div>
 				<div class="col2">
-                     <div>
-			        <help help-label="''network_means_pageType_11''" id="helpButton" class="helpButtonClass"></help>
-			        <hr>
-		            </div>
 				</div>
 				<div class="col3">
 					<cancel-button cn-label="''network_means_pageType_7''"  id="cancelButton"></cancel-button>
@@ -2425,41 +2474,32 @@ val-button button.btn custom-text span {
 	}
 }
 </style>
-</div>
-' where fk_id_layout = @pageLayoutIdExtPassword;
+</div>' where fk_id_layout = @pageLayoutIdExtPassword;
 
-
-
+SET @BankUB = '16500';
 SET @customItemSetMobileApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_MOBILE_APP'));
 SET @customItemSetPhotoTan = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_PHOTO_TAN'));
 SET @customItemSetSms = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_ING_SMS'));
 SET @customItemSetITan = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_ITAN'));
 SET @customItemSetPassword = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_PASSWORD'));
 
-UPDATE `CustomItem` SET `value` = '' WHERE `ordinal` = 12
-                                            AND pageTypes = 'POLLING_PAGE'
-                                            AND `fk_id_customItemSet` in (@customItemSetMobileApp);
+UPDATE `CustomItem` SET `value` = 'Freigabe mit Banking to go' WHERE `ordinal` = 12
+                                                                AND pageTypes = 'POLLING_PAGE'
+                                                                AND `fk_id_customItemSet` in (@customItemSetMobileApp);
 
-UPDATE `CustomItem` SET `value` = 'Händler' WHERE `value` = 'Onlinehändler'
-                                            AND `fk_id_customItemSet` in (@customItemSetMobileApp,
+UPDATE `CustomItem` SET `value` = 'Onlinehändler' WHERE `value` = 'Händler'
+                                                  AND `fk_id_customItemSet` in (@customItemSetMobileApp,
                                                                           @customItemSetPhotoTan,
                                                                           @customItemSetSms,
                                                                           @customItemSetITan,
                                                                           @customItemSetPassword);
 
-UPDATE `CustomItem` SET `value` = '<b>Banking to go App starten und Auftrag freigeben</b>' WHERE `ordinal` = 13
+UPDATE `CustomItem` SET `value` = 'Banking to go App starten und Auftrag freigeben' WHERE `ordinal` = 13
                                             AND `fk_id_customItemSet` in (@customItemSetMobileApp);
 
-INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
-						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
-						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_SIDE_MENU_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
-		 'de', 103, @currentPageType, 'Visa Card', @MaestroVID, NULL, @customItemSetMobileApp),
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_SIDE_MENU_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
-		 'de', 103, @currentPageType, 'Visa Card', @MaestroVID, NULL, @customItemSetPhotoTan),
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_SIDE_MENU_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
-		 'de', 103, @currentPageType, 'Visa Card', @MaestroVID, NULL, @customItemSetSms),
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_SIDE_MENU_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
-		 'de', 103, @currentPageType, 'Visa Card', @MaestroVID, NULL, @customItemSetITan),
-  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_SIDE_MENU_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
-		 'de', 103, @currentPageType, 'Visa Card', @MaestroVID, NULL, @customItemSetPassword);
+DELETE FROM `CustomItem` WHERE `ordinal` = 103
+                                AND `fk_id_customItemSet` in (@customItemSetMobileApp,
+                                                              @customItemSetPhotoTan,
+                                                              @customItemSetSms,
+                                                              @customItemSetITan,
+                                                              @customItemSetPassword);

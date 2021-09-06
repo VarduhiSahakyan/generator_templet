@@ -1,11 +1,87 @@
 USE `U5G_ACS_BO`;
 SET @createdBy = 'A758582';
+SET @MaestroVName =  (SELECT `name` FROM `Network` WHERE `code` = 'VISA');
+SET @MaestroVID = NULL;
+SET @currentPageType = 'ALL';
+SET @BankUB = '16500';
 
-SET @customItemSetSMS = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_16500_ING_SMS');
-DELETE FROM `CustomItem` WHERE fk_id_customItemSet = @customItemSetSMS AND ordinal = in (34, 35);
+SET @pageLayoutIdMessageBanner = (SELECT id FROM `CustomPageLayout` where `pageType` = 'MESSAGE_BANNER' and DESCRIPTION = 'for ING 16500');
 
-SET @customItemSetId = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_16500_MOBILE_APP');
-DELETE FROM `CustomItem` WHERE  pageTypes = 'APP_VIEW_DEVICE_SELECT' AND ordinal = in (254, 255, 256) AND fk_id_customItemSet = @customItemSetId;
+UPDATE `CustomComponent`
+SET `value` = '
+<div id="messageBanner">
+	<custom-text id="headingTxt" custom-text-key="$parent.heading"></custom-text>
+	<custom-text id="message" custom-text-key="$parent.message"></custom-text>
+</div>
+<style>
+	#optGblPage {
+		font-family: "INGme-Regular", Arial, Helvetica;
+	}
+	#messageBanner #headingTxt {
+		font-size: large;
+		font-weight: bold;
+		width: 80%;
+		margin: auto;
+		display: block;
+	}
+	#messageBanner #message {
+		width: 90%;
+		margin: auto;
+		display: block;
+		font-weight: bold;
+	}
+	#messageBanner #spinner-row {
+		padding-top: 20px;
+	}
+	#messageBanner .spinner {
+		display: block;
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}
+	#messageBanner {
+		position: relative;
+	}
+	#message {
+		display: block;
+	}
+	div#message-container.success {
+		background-color: #ec971f;
+		font-family: "INGme-Regular", Arial, Helvetica;
+		color: #ffffff;
+	}
+	@media all and (max-width: 480px) {
+		span#info-icon {
+			position: absolute;
+			font-size: 3em;
+			top: 1px;
+			left: 5px;
+			display: inline-block;
+		}
+		.spinner {
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+		#messageBanner #headingTxt {
+			font-size: 15px;
+		}
+	}
+	@media all and (max-width: 347px) {
+		#messageBanner #headingTxt {
+			font-size: 15px;
+		}
+	}
+	@media all and (max-width: 309px) {
+		#messageBanner #headingTxt {
+			font-size: 12px;
+		}
+	}
+	@media all and (max-width: 250px) {
+		#messageBanner #headingTxt {
+			width: 100%;
+			font-size: 8px;
+		}
+	}
+</style>' where fk_id_layout = @pageLayoutIdMessageBanner;
 
 SET @pageLayoutIdPolling = (SELECT id FROM `CustomPageLayout` where `pageType` = 'POLLING_PAGE' and DESCRIPTION = 'for ING 16500');
 
@@ -2344,105 +2420,37 @@ message-banner {
 ' where fk_id_layout = @pageLayoutIdExtPassword;
 
 
-SET @pageLayoutIdHelpPage = (SELECT id FROM `CustomPageLayout` where `pageType` = 'HELP_PAGE' and DESCRIPTION = 'for ING 16500');
 
-UPDATE `CustomComponent`
-SET `value` = '<custom-font straight-mode="false" mime-type-key="''network_means_pageType_301_FONT_MIME_TYPE''" title-key="''network_means_pageType_301_FONT_TITLE''" font-key="''network_means_pageType_301_FONT_DATA''"></custom-font>
+SET @customItemSetMobileApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_MOBILE_APP'));
+SET @customItemSetPhotoTan = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_PHOTO_TAN'));
+SET @customItemSetSms = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_ING_SMS'));
+SET @customItemSetITan = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_ITAN'));
+SET @customItemSetPassword = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_PASSWORD'));
 
-<div id="optGblPage" style="margin:auto;" class="container-fluid">
-<div class="container-fluid">
-       <div class="hr-line"></div>
-          <div class="leftPadding20" id="helpTitle">
-          <custom-text custom-text-key="''network_means_HELP_PAGE_1''"></custom-text></div>
-		<div class="hr-line"></div>
+UPDATE `CustomItem` SET `value` = '' WHERE `ordinal` = 12
+                                            AND pageTypes = 'POLLING_PAGE'
+                                            AND `fk_id_customItemSet` in (@customItemSetMobileApp);
 
-    <div class=" col-xs-12 col-md-10 ">
-        <div id="helpContent">
-<div class="paragraph" id="divMedia">
-    <custom-text custom-text-key="''network_means_HELP_PAGE_2''" id="paragraph1">
-    </custom-text>
-</div>
-<help-close-button id="helpCloseButton" help-close-label="''network_means_HELP_PAGE_3''" ></help-close-button>
-        </div>
-    </div>
-</div>
+UPDATE `CustomItem` SET `value` = 'Händler' WHERE `value` = 'Onlinehändler'
+                                            AND `fk_id_customItemSet` in (@customItemSetMobileApp,
+                                                                          @customItemSetPhotoTan,
+                                                                          @customItemSetSms,
+                                                                          @customItemSetITan,
+                                                                          @customItemSetPassword);
 
-<style>
+UPDATE `CustomItem` SET `value` = '<b>Banking to go App starten und Auftrag freigeben</b>' WHERE `ordinal` = 13
+                                            AND `fk_id_customItemSet` in (@customItemSetMobileApp);
 
-    @font-face {
-    font-family: "INGme-Regular", Arial, Helvetica;
-    src: url(data:font/truetype;charset=utf-8;base64,<<copied base64 string>>) format(''truetype'');
-    font-weight: normal;
-    font-style: normal;
-}
-    #optGblPage{
-         font-family: "INGme-Regular", Arial, Helvetica;
-    }
-#helpContent {
-padding: 7px 0px 0px;
-min-height: 200px;
-text-align: justify;
-}
-
-#helpCloseButton button span.fa {
-display:none;
-}
-
-#helpCloseButton{
-color: blue;
-text-decoration:underline;
-}
-
-#helpTitle{
-padding-left: 20px;
-text-align: center;
-}
-
-.paragraph {
-margin: 0px 5px 10px;
-text-align: justify;
-}
-
-.hr-line{
-			position: relative;
-			display: inline-block;
-			margin-left: 5px;
-			margin-right: 5px;
-			width: 100%;
-			border-bottom: 1px solid #EAEBEB;
-}
-
-.btn {
-border: 0px solid transparent;
-font-size: 16px;
-}
-
-.btn-default:hover {
-color: blue;
-			background-color: white;
-border-color: white;
-text-decoration: underline;
-}
-@media screen and (min-width: 701px) {
-	#optGblPage, #divMedia {
-		max-width: 800px;
-		font-size: 18px;
-	}
-}
-
-@media screen and (max-width: 700px) and (min-width: 361px) {
-	#optGblPage, #divMedia {
-		max-width: 650px;
-		font-size: 14px;
-	}
-}
-
-@media screen and (max-width: 360px) {
-	#optGblPage, #divMedia {
-		max-width: 360px;
-		font-size: 12px;
-	}
-}
-</style>
-</div>
-' where fk_id_layout = @pageLayoutIdMessageBanner;
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+						  `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+						  `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_SIDE_MENU_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
+		 'de', 103, @currentPageType, 'Visa Card', @MaestroVID, NULL, @customItemSetMobileApp),
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_SIDE_MENU_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
+		 'de', 103, @currentPageType, 'Visa Card', @MaestroVID, NULL, @customItemSetPhotoTan),
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_SIDE_MENU_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
+		 'de', 103, @currentPageType, 'Visa Card', @MaestroVID, NULL, @customItemSetSms),
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_SIDE_MENU_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
+		 'de', 103, @currentPageType, 'Visa Card', @MaestroVID, NULL, @customItemSetITan),
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_SIDE_MENU_',@currentPageType,'_103'), 'PUSHED_TO_CONFIG',
+		 'de', 103, @currentPageType, 'Visa Card', @MaestroVID, NULL, @customItemSetPassword);
