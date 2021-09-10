@@ -113,12 +113,12 @@ INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `c
                          `personnalDataStorage`, `resetBackupsIfSuccess`, `resetChoicesIfSuccess`,
                          `transactionTimeOut`, `acs_URL1_VE_MC`, `acs_URL2_VE_MC`, `acs_URL1_VE_VISA`, `acs_URL2_VE_VISA`,
                          `automaticDeviceSelection`, `userChoiceAllowed`, `backupAllowed`, `defaultDeviceChoice`, `preferredAuthentMeans`,
-                         `issuerCountry`, `hubCallMode`, `fk_id_issuer`, `maskParams`, `dateFormat`, `paChallengePublicUrl`,`verifyCardStatus`, `3DS2AdditionalInfo`, `resendOTPThreshold`, `resendSameOTP`,`combinedAuthenticationAllowed`,
+                         `issuerCountry`, `hubCallMode`, `fk_id_issuer`, `maskParams`, `dateFormat`, `paChallengePublicUrl`,`verifyCardStatus`, `3DS2AdditionalInfo`, `permanentStrongMeansCounter`, `resendOTPThreshold`, `resendSameOTP`,`combinedAuthenticationAllowed`,
                          `displayLanguageSelectPage`,`trustedBeneficiariesAllowed`,`authentMeans`, `fk_id_cryptoConfig`, `currencyFormat`, `npaEnabled`) VALUES
   ('ACS_U7G', 120, @backUpLanguages, @subIssuerCode, @subIssuerCode, '978', @createdBy, NOW(), NULL, NULL, NULL, @subIssuerNameAndLabel,
    @updateState, @defaultLanguage, 600, @subIssuerNameAndLabel, TRUE, TRUE, NULL, TRUE, TRUE, 300,
    @acsURLVEMastercard, @acsURLVEMastercard, @acsURLVEVisa, @acsURLVEVisa, FALSE, TRUE, TRUE, TRUE, @preferredAuthMean,
-   @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, @paChallengeURL, '1', @3DS2AdditionalInfo, '3', FALSE, FALSE, b'0', b'0', @activatedAuthMeans, @cryptoConfigIDSQB, @currencyFormat, TRUE);
+   @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, @paChallengeURL, '1', @3DS2AdditionalInfo, '1', '3', FALSE, FALSE, b'0', b'0', @activatedAuthMeans, @cryptoConfigIDSQB, @currencyFormat, TRUE);
 /*!40000 ALTER TABLE `SubIssuer` ENABLE KEYS */;
 
 SET @subIssuerID = (SELECT id FROM `SubIssuer` WHERE `code` = @subIssuerCode AND `name` = @subIssuerNameAndLabel);
