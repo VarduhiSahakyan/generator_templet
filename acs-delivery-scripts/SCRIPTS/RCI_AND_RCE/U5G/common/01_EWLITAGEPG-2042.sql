@@ -16,11 +16,11 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1000'), @updateState,
- 'de', 1000, @currentPageType, 'BW-Secure ist erforderlich. Bitte klicken sie hier https://sicheres-bezahlen.bw-bank.de und registrieren Ihre Karte.', @MaestroVID, NULL, @customItemSetREFUSAL),
+ 'de', 1000, @currentPageType, 'BW-Secure ist erforderlich. Bitte gehen Sie auf https://sicheres-bezahlen.bw-bank.de und registrieren Ihre Karte.', @MaestroVID, NULL, @customItemSetREFUSAL),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1001'), @updateState,
- 'de', 1001, @currentPageType, 'BW-Secure ist erforderlich. Bitte klicken sie hier https://sicheres-bezahlen.bw-bank.de und registrieren Ihre Karte.', @MaestroVID, NULL, @customItemSetREFUSAL),
+ 'de', 1001, @currentPageType, 'BW-Secure ist erforderlich. Bitte gehen Sie auf https://sicheres-bezahlen.bw-bank.de und registrieren Ihre Karte.', @MaestroVID, NULL, @customItemSetREFUSAL),
  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1002'), @updateState,
- 'de', 1002, @currentPageType, 'BW-Secure ist erforderlich. Bitte klicken sie hier https://sicheres-bezahlen.bw-bank.de und registrieren Ihre Karte.', @MaestroVID, NULL, @customItemSetREFUSAL);
+ 'de', 1002, @currentPageType, 'BW-Secure ist erforderlich. Bitte gehen Sie auf https://sicheres-bezahlen.bw-bank.de und registrieren Ihre Karte.', @MaestroVID, NULL, @customItemSetREFUSAL);
 
 
 SET @customItemSetREFUSAL = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_16500_REFUSAL');
