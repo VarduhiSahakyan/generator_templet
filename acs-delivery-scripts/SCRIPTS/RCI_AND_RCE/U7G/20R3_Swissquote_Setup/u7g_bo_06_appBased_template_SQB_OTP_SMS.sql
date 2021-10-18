@@ -331,7 +331,7 @@ values ('div',
                                         network_means_pageType_153
                                     </label>
                                     <input id="challenge-html-data-entry" name="submitted-otp-value"
-                                        type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY"/>
+                                        type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY" required/>
                                 </div>
                                 <input type="submit" value="network_means_pageType_154" class="btn btn-primary"
                                     id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
