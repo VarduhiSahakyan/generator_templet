@@ -2305,6 +2305,11 @@ WHERE c.`name` = CONCAT('C1_P_', @bank, '_01_OTP_SMS_EXT')
   AND mps.`fk_id_authentMean` = @authMeanOTPsms
   AND (mps.`meansProcessStatusType` = 'HUB_AUTHENTICATION_MEAN_AVAILABLE' AND mps.`reversed` = FALSE);
 
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C1_P_', @bank, '_01_OTP_SMS_EXT')
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'MEANS_PROCESS_ERROR' AND mps.`reversed` = TRUE);
 
 INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
 SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
