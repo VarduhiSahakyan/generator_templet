@@ -7,6 +7,7 @@ SET @customItemSetREFUSAL_LBBW = (SELECT id FROM `CustomItemSet` WHERE `name` = 
 SET @customItemSetREFUSAL_ING = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_16500_REFUSAL');
 SET @customItemSetREFUSAL_PB_18501 = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_18501_PB_2_REFUSAL');
 SET @customItemSetREFUSAL_PB_18502 = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_18502_PB_2_REFUSAL');
+SET @customItemSetREFUSAL_PB_18502_3 = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_18502_PB_3_REFUSAL');
 SET @customItemSetREFUSAL_Reisebank = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_12000_ReiseBank_MISSING_AUTHENTICATION_REFUSAL');
 SET @customItemSetREFUSAL_Consorsebank = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_16900_1_REFUSAL');
 SET @customItemSetREFUSAL_BNP_WM = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_BNP_WM_1_REFUSAL');
@@ -17,6 +18,7 @@ DELETE FROM `CustomItem` WHERE `fk_id_customItemSet` IN (@customItemSetREFUSAL_L
                                                          @customItemSetREFUSAL_ING,
                                                          @customItemSetREFUSAL_PB_18501,
                                                          @customItemSetREFUSAL_PB_18502,
+														 @customItemSetREFUSAL_PB_18502_3,
                                                          @customItemSetREFUSAL_Reisebank,
                                                          @customItemSetREFUSAL_Consorsebank,
                                                          @customItemSetREFUSAL_BNP_WM,

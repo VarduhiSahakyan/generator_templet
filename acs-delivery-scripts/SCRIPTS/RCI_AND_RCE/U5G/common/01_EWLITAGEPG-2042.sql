@@ -61,6 +61,19 @@ SET @customItemSetREFUSAL = (SELECT id FROM `CustomItemSet` WHERE `name` = 'cust
   ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1002'), @updateState,
   'de', 1002, @currentPageType, 'Ihr Einkauf kann nicht durchgeführt werden. Sie benötigen dafür ein Sicherheitsverfahren, z.B. „mobileTAN“ oder „BestSign“.', @MaestroVID, NULL, @customItemSetREFUSAL);
 
+SET @customItemSetREFUSAL = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_18502_PB_3_REFUSAL');
+
+ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
+                           `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+ ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1000'), @updateState,
+  'de', 1000, @currentPageType, 'Ihr Einkauf kann nicht durchgeführt werden. Sie benötigen dafür ein Sicherheitsverfahren, z.B. „mobileTAN“ oder „BestSign“.', @MaestroVID, NULL, @customItemSetREFUSAL),
+ ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1001'), @updateState,
+  'de', 1001, @currentPageType, 'Ihr Einkauf kann nicht durchgeführt werden. Sie benötigen dafür ein Sicherheitsverfahren, z.B. „mobileTAN“ oder „BestSign“.', @MaestroVID, NULL, @customItemSetREFUSAL),
+  ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1002'), @updateState,
+  'de', 1002, @currentPageType, 'Ihr Einkauf kann nicht durchgeführt werden. Sie benötigen dafür ein Sicherheitsverfahren, z.B. „mobileTAN“ oder „BestSign“.', @MaestroVID, NULL, @customItemSetREFUSAL);
+
+
 
 SET @customItemSetREFUSAL = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_12000_ReiseBank_MISSING_AUTHENTICATION_REFUSAL');
 
