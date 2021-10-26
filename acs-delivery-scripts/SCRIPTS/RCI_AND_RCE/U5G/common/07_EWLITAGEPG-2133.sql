@@ -24,7 +24,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 
 
 
-SET @customItemSetREFUSAL = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_12000_REISEBANK_DEFAULT_REFUSAL');
+SET @customItemSetREFUSAL = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_12000_REISEBANK_DEFAULT_FRAUD');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
@@ -43,7 +43,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
  'en', 1002, @currentPageType, 'Payment not executed. Register for 3D Secure in the RBMC Secure App. Info on www.reisebank.de/mastercard', @MaestroVID, NULL, @customItemSetREFUSAL);
 
 
-SET @customItemSetREFUSAL = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_COB_DEFAULT_REFUSAL');
+SET @customItemSetREFUSAL = (SELECT id FROM `CustomItemSet` WHERE `name` = 'customitemset_COB_1_REFUSAL');
 
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
                           `name`, `updateState`, `locale`, `ordinal`, `pageTypes`, `value`,
@@ -53,5 +53,12 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1001'), @updateState,
  'de', 1001, @currentPageType, 'Ihre Karte wurde noch nicht für das sichere Einkaufen registriert. Infos finden Sie unter www.commerzbank.de/sicher-einkaufen', @MaestroVID, NULL, @customItemSetREFUSAL),
 ('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1002'), @updateState,
- 'de', 1002, @currentPageType, 'Ihre Karte wurde noch nicht für das sichere Einkaufen registriert. Infos finden Sie unter www.commerzbank.de/sicher-einkaufen', @MaestroVID, NULL, @customItemSetREFUSAL);
+ 'de', 1002, @currentPageType, 'Ihre Karte wurde noch nicht für das sichere Einkaufen registriert. Infos finden Sie unter www.commerzbank.de/sicher-einkaufen', @MaestroVID, NULL, @customItemSetREFUSAL),
+
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1000'), @updateState,
+ 'en', 1000, @currentPageType, 'Ihre Karte wurde noch nicht für das sichere Einkaufen registriert. Infos finden Sie unter www.commerzbank.de/sicher-einkaufen', @MaestroVID, NULL, @customItemSetREFUSAL),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1001'), @updateState,
+ 'en', 1001, @currentPageType, 'Ihre Karte wurde noch nicht für das sichere Einkaufen registriert. Infos finden Sie unter www.commerzbank.de/sicher-einkaufen', @MaestroVID, NULL, @customItemSetREFUSAL),
+('T', @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@MaestroVName,'_',@currentAuthentMean,'_',@currentPageType,'_1002'), @updateState,
+ 'en', 1002, @currentPageType, 'Ihre Karte wurde noch nicht für das sichere Einkaufen registriert. Infos finden Sie unter www.commerzbank.de/sicher-einkaufen', @MaestroVID, NULL, @customItemSetREFUSAL);
 
