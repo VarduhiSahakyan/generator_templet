@@ -77,10 +77,10 @@
 
     <SSLDefinition>
         <TrustStoreType>JKS</TrustStoreType>
-        <TrustStore><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/jks_acs3_prd_06_07.jks</TrustStore>
+        <TrustStore><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/<%= @context['softman_global']['TRUST_STORE_FILENAME'] %></TrustStore>
         <TrustStorePassword><%= @context['softman_global']['TRUST_STORE_PASSWORD'] %></TrustStorePassword>
         <KeyStoreType>PKCS12</KeyStoreType>
-        <KeyStore><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/USER_3DS_PRD.p12</KeyStore>
+        <KeyStore><%= @context['softman_global']['CRYPTO_KEY_PATH'] %>/<%= @context['softman_global']['KEY_STORE_FILENAME'] %></KeyStore>
         <KeyStorePassword><%= @context['softman_global']['KEY_STORE_PASSWORD'] %></KeyStorePassword>
         <KeyStoreAlias><%= @context['softman_global']['KEY_STORE_ALIAS'] %></KeyStoreAlias>
         <SSLProtocol>TLSv1.2</SSLProtocol>
