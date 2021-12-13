@@ -314,7 +314,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	@media all and (max-width: 500px) and (min-width: 391px) {
 		h1 { font-size: 10px; }
-		div#optGblPage { font-size: 15px; }
+		div#optGblPage { font-size: 11px; }
 		#pageHeader {height: 70px;}
 		#issuerLogo {max-height: 45px; }
 		#networkLogo {max-height: 45px; }
@@ -322,7 +322,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 105px; padding: 0px 10px;}
 		div.side-menu div.menu-title { font-size: 16px; padding-left: 0px; text-align: center; }
 		side-menu div.text-center { text-align: center; }
-		.paragraph { font-size: 15px; text-align: center; margin: 0px 0px 7px; }
+		.paragraph { font-size: 11px; text-align: center; margin: 0px 0px 7px; }
 		div#otp-fields-container { margin-top: 7px; margin-bottom: 7px; text-align: center;}
 		#otp-form {padding-top: 0px; display: block;}
 		#otp-form input { min-height: unset; padding: 2px 2px;}
@@ -610,7 +610,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	@media all and (max-width: 500px) and (min-width: 391px) {
 		h1 { font-size:10px; }
-		div#optGblPage { font-size: 15px; }
+		div#optGblPage { font-size: 11px; }
 		#pageHeader {height: 70px;}
 		#issuerLogo {max-height: 45px; }
 		#networkLogo {max-height: 45px; }
@@ -618,7 +618,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 105px; padding: 0px 10px;}
 		div.side-menu div.menu-title { font-size: 16px; padding-left: 0px; text-align: center; }
 		side-menu div.text-center { text-align: center; }
-		.paragraph { font-size: 15px; text-align: center; margin: 0px 0px 7px; }
+		.paragraph { font-size: 11px; text-align: center; margin: 0px 0px 7px; }
 		div#footer {height: unset; margin: 0px 0px; padding-top: 2px; padding-bottom: 2px;}
 		#helpButton button {font: 300 14px/15px "Helvetica Neue", Helvetica, Arial, sans-serif; height: 35px; padding: 0px; margin-bottom: 0px;}
 		#footer #helpButton button span.fa {width: 24px; height: 22px; background-position-y: 1px; background-repeat: no-repeat; background-size: 100%;}
@@ -867,7 +867,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	@media all and (max-width: 500px) and (min-width: 391px) {
 		h1 { font-size:10px; }
-		div#optGblPage { font-size: 15px; }
+		div#optGblPage { font-size: 11px; }
 		#pageHeader {height: 70px;}
 		#issuerLogo {max-height: 45px; }
 		#networkLogo {max-height: 45px; }
@@ -875,7 +875,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 105px; padding: 0px 10px;}
 		div.side-menu div.menu-title { font-size: 16px; padding-left: 0px; text-align: center; }
 		side-menu div.text-center { text-align: center; }
-		.paragraph { font-size: 15px; text-align: center; margin: 0px 0px 7px; }
+		.paragraph { font-size: 11px; text-align: center; margin: 0px 0px 7px; }
 		div#footer {height: unset; margin: 0px 0px; padding-top: 2px; padding-bottom: 2px;}
 		#helpButton button {font: 300 14px/15px "Helvetica Neue", Helvetica, Arial, sans-serif; height: 35px; padding: 0px; margin-bottom: 0px;}
 		#footer #helpButton button span.fa {width: 24px; height: 22px; background-position-y: 1px; background-repeat: no-repeat; background-size: 100%;}
