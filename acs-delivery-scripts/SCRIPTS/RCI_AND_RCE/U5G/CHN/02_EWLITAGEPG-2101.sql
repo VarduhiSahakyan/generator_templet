@@ -319,7 +319,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#issuerLogo {max-height: 45px; }
 		#networkLogo {max-height: 45px; }
 		.leftColumn { display: block; width: 100%; float: none; padding: 0px 1em;}
-		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 105px; padding: 0px 10px;}
+		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 65px; padding: 0px 10px;}
 		div.side-menu div.menu-title { font-size: 16px; padding-left: 0px; text-align: center; }
 		side-menu div.text-center { text-align: center; }
 		.paragraph { font-size: 11px; text-align: center; margin: 0px 0px 7px; }
@@ -615,7 +615,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#issuerLogo {max-height: 45px; }
 		#networkLogo {max-height: 45px; }
 		.leftColumn { display: block; width: 100%; float: none; padding: 0px 1em;}
-		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 105px; padding: 0px 10px;}
+		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 65px; padding: 0px 10px;}
 		div.side-menu div.menu-title { font-size: 16px; padding-left: 0px; text-align: center; }
 		side-menu div.text-center { text-align: center; }
 		.paragraph { font-size: 11px; text-align: center; margin: 0px 0px 7px; }
@@ -872,7 +872,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#issuerLogo {max-height: 45px; }
 		#networkLogo {max-height: 45px; }
 		.leftColumn { display: block; width: 100%; float: none; padding: 0px 1em;}
-		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 105px; padding: 0px 10px;}
+		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 65px; padding: 0px 10px;}
 		div.side-menu div.menu-title { font-size: 16px; padding-left: 0px; text-align: center; }
 		side-menu div.text-center { text-align: center; }
 		.paragraph { font-size: 11px; text-align: center; margin: 0px 0px 7px; }
