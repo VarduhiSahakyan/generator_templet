@@ -393,6 +393,10 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#footer { height: 44px; }
 		#cancelButton button { height: 35px; min-width: 1rem;}
 		#helpButton button { height: 35px; min-width: 1rem;}
+		#cancelButton button custom-text { vertical-align: 10px;}
+		#helpButton button custom-text { vertical-align: 10px;}
+		#footer #cancelButton button span.fa {background-position-y: -1px;}
+		#footer #helpButton button span.fa {background-position-y: -3px;}
 	}
 </style>
 <div id="optGblPage">
