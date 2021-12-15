@@ -90,9 +90,6 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	.paragraphDescription {
 		text-align: left;
 	}
-	.paragraphDescription {
-		text-align: left;
-	}
 	.leftColumn {
 		width: 40%;
 		display: block;
@@ -357,9 +354,9 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	 @media all and (max-width: 500px) and (min-width: 391px) {
 		#pageHeader {height: 96px;}
 		.leftColumn { display: block; float: none; width: 100%; padding-top: 0.5em; padding-bottom: 0em; }
-		.rightColumn { display: block; float: none; width: 50%; margin-left: 30%;  }
-		.paragraph { margin-left: 5%;}
-		.paragraphDescription {margin-left: 4%;}
+		.rightColumn { display: block; float: none; width: 50%; margin-left: 25%; padding: 0px; }
+		.paragraph { text-align: center;}
+		.paragraphDescription {text-align: center;}
 		div#otp-fields-container { margin-top: 0px; margin-bottom: 5px;}
 		#validateButton {margin-left: 0em;}
 		.refreshDiv { margin-left: 2%;}
@@ -372,6 +369,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#networkLogo {max-height: 50px; }
 		#optGblPage { font-size: 14px; }
 		div#green-banner { display: none; }
+		span.ng-binding { word-break: break-all; }
 		.contentRow { padding-top: 0px}
 		.paragraph { text-align: center;}
 		.paragraphDescription {text-align: center;}
@@ -733,6 +731,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#pageHeader {height: 55px;}
 		#issuerLogo {max-height : 35px; }
 		#networkLogo {max-height : 30px; }
+		span.ng-binding { word-break: break-all; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; }
@@ -1075,6 +1074,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#pageHeader {height: 50px;}
 		#issuerLogo {max-height : 35px; }
 		#networkLogo {max-height : 30px; }
+		span.ng-binding { word-break: break-all; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; }
@@ -1412,6 +1412,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#pageHeader {height: 55px;}
 		#issuerLogo {max-height : 35px; }
 		#networkLogo {max-height : 30px; }
+		span.ng-binding { word-break: break-all; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; }
