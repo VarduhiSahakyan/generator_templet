@@ -352,7 +352,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.leftColumn { width: 50%; }
 		.paragraph { text-align: left;}
 		.paragraphDescription {text-align: left;}
-        #validateButton {margin-left: 0em;}
+		#validateButton {margin-left: 0em;}
 	}
 	 @media all and (max-width: 500px) and (min-width: 391px) {
 		#pageHeader {height: 96px;}
@@ -360,9 +360,9 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.rightColumn { display: block; float: none; width: 50%; margin-left: 30%;  }
 		.paragraph { margin-left: 5%;}
 		.paragraphDescription {margin-left: 4%;}
-        div#otp-fields-container { margin-top: 0px; margin-bottom: 5px;}
-        #validateButton {margin-left: 0em;}
-        .refreshDiv { margin-left: 2%;}
+		div#otp-fields-container { margin-top: 0px; margin-bottom: 5px;}
+		#validateButton {margin-left: 0em;}
+		.refreshDiv { margin-left: 2%;}
 		#footer { height: 60px; }
 	}
 	@media all and (max-width: 391px) {
