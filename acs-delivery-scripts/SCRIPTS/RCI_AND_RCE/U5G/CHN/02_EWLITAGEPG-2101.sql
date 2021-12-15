@@ -365,10 +365,10 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#helpButton button {font: 300 12px/15px "Helvetica Neue", Helvetica, Arial, sans-serif; height: 30px; padding: 0px; margin-bottom: 0px;}
 		#footer #helpButton button span.fa {width: 19px; height: 19px; background-position-y: 1px; background-repeat: no-repeat; background-size: 100%;}
 		#helpButton button custom-text {vertical-align: 4px;}
+	    span.ng-binding { word-break: break-word; }
 	}
 	@media all and (max-width: 250px) {
 		h1 { font-size: 10px; }
-		#pageHeader {height: 45px;}
 		div#optGblPage { font-size: 8px; }
 		.leftColumn { display: block; width: 100%; float: none; padding: 0px 1em;}
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 65px; padding: 0px 10px;}
@@ -636,11 +636,10 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.paragraph { font-size: 10px; text-align: center; margin: 0px 0px 7px; }
 		#helpButton button {font: 300 12px/15px "Helvetica Neue", Helvetica, Arial, sans-serif; height: 30px; padding: 0px; margin-bottom: 0px;}
 		#footer #helpButton button span.fa {width: 19px; height: 19px; background-position-y: 1px; background-repeat: no-repeat; background-size: 100%;}
-
+	    span.ng-binding { word-break: break-word; }
 	}
 	@media all and (max-width: 250px) {
 		div#optGblPage { font-size: 8px; }
-		#pageHeader {height: 45px;}
 		.leftColumn { display: block; width: 100%; float: none; padding: 0px 1em;}
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 65px; padding: 0px 10px;}
 		.paragraph { font-size: 8px; text-align: center; margin: 0px 0px 7px; }
@@ -893,11 +892,10 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.paragraph { font-size: 10px; text-align: center; margin: 0px 0px 7px; }
 		#helpButton button {font: 300 12px/15px "Helvetica Neue", Helvetica, Arial, sans-serif; height: 30px; padding: 0px; margin-bottom: 0px;}
 		#footer #helpButton button span.fa {width: 19px; height: 19px; background-position-y: 1px; background-repeat: no-repeat; background-size: 100%;}
-
+	    span.ng-binding { word-break: break-word; }
 	}
 	@media all and (max-width: 250px) {
 		div#optGblPage { font-size: 8px; }
-		#pageHeader {height: 45px;}
 		.leftColumn { display: block; width: 100%; float: none; padding: 0px 1em;}
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 65px; padding: 0px 10px;}
 		.paragraph { font-size: 8px; text-align: center; margin: 0px 0px 7px; }
