@@ -147,6 +147,12 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		max-height: 65px;
 		max-width: 100%;
 	}
+    div#green-banner {
+        height: 50px !important;
+        background-color: #008991;
+        border-bottom: 5px solid #DE1300;
+        width: 100%;
+    }
 	.paragraph {
 		margin: 0px 0px 10px;
 		text-align: justify;
@@ -369,12 +375,14 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	@media all and (max-width: 250px) {
 		h1 { font-size: 10px; }
-		div#optGblPage { font-size: 8px; }
+        #pageHeader {height: 50px;}
+		div#optGblPage { font-size: 9px; }
+		div#green-banner { height: 40px !important; background-color: #008991; border-bottom: 5px solid #DE1300; width: 100%; }
 		.leftColumn { display: block; width: 100%; float: none; padding: 0px 1em;}
-		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 65px; padding: 0px 10px;}
+		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 70px; padding: 0px 10px;}
 		side-menu div.text-center { text-align: center; }
 		div.side-menu div.menu-title { font-size: 11px; padding-left: 0px; text-align: center; }
-		.paragraph { font-size: 8px; text-align: center; margin: 0px 0px 7px; }
+		.paragraph { font-size: 9px; text-align: center; margin: 0px 0px 7px; }
 		div#otp-fields-container { margin-top: 7px; margin-bottom: 7px; text-align: center;}
 		#otp-form {padding-top: 0px; display: block;}
 		#otp-form input { min-height: unset; }
@@ -398,14 +406,6 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	<div id="displayLayout" class="row">
 		<div id="green-banner"></div>
 	</div>
-	<style>
-		div#green-banner {
-			height: 50px !important;
-			background-color: #008991;
-			border-bottom: 5px solid #DE1300;
-			width: 100%;
-		}
-	</style>
 	<div class="contentRow">
 		<div x-ms-format-detection="none" class="leftColumn">
 			<side-menu menu-title="''TRANSACTION_SUMMARY''"></side-menu>
@@ -537,6 +537,12 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		max-height: 65px;
 		max-width: 100%;
 	}
+    div#green-banner {
+        height: 50px !important;
+        background-color: #008991;
+        border-bottom: 5px solid #DE1300;
+        width: 100%;
+    }
 	.paragraph {
 		margin: 0px 0px 10px;
 		text-align: justify;
@@ -639,10 +645,12 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	    span.ng-binding { word-break: break-word; }
 	}
 	@media all and (max-width: 250px) {
-		div#optGblPage { font-size: 8px; }
+		div#optGblPage { font-size: 9px; }
+        #pageHeader {height: 50px;}
+        div#green-banner { height: 40px !important; background-color: #008991; border-bottom: 5px solid #DE1300; width: 100%; }
 		.leftColumn { display: block; width: 100%; float: none; padding: 0px 1em;}
-		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 65px; padding: 0px 10px;}
-		.paragraph { font-size: 8px; text-align: center; margin: 0px 0px 7px; }
+		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 70px; padding: 0px 10px;}
+		.paragraph { font-size: 9px; text-align: center; margin: 0px 0px 7px; }
 	}
 </style>
 <div id="optGblPage">
@@ -663,14 +671,6 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	<div id="displayLayout" class="row">
 		<div id="green-banner"></div>
 	</div>
-	<style>
-		div#green-banner {
-			height: 50px !important;
-			background-color: #008991;
-			border-bottom: 5px solid #DE1300;
-			width: 100%;
-		}
-	</style>
 	<div class="contentRow">
 		<div x-ms-format-detection="none" class="leftColumn">
 			<side-menu menu-title="''TRANSACTION_SUMMARY''"></side-menu>
@@ -793,6 +793,12 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		max-height: 65px;
 		max-width: 100%;
 	}
+    div#green-banner {
+        height: 50px !important;
+        background-color: #008991;
+        border-bottom: 5px solid #DE1300;
+        width: 100%;
+    }
 	.paragraph {
 		margin: 0px 0px 10px;
 		text-align: justify;
@@ -895,10 +901,12 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	    span.ng-binding { word-break: break-word; }
 	}
 	@media all and (max-width: 250px) {
-		div#optGblPage { font-size: 8px; }
+		div#optGblPage { font-size: 9px; }
+        #pageHeader {height: 50px;}
+        div#green-banner { height: 40px !important; background-color: #008991; border-bottom: 5px solid #DE1300; width: 100%; }
 		.leftColumn { display: block; width: 100%; float: none; padding: 0px 1em;}
-		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 65px; padding: 0px 10px;}
-		.paragraph { font-size: 8px; text-align: center; margin: 0px 0px 7px; }
+		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 70px; padding: 0px 10px;}
+		.paragraph { font-size: 9px; text-align: center; margin: 0px 0px 7px; }
 	}
 </style>
 <div id="optGblPage">
@@ -914,15 +922,6 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	<div id="displayLayout" class="row">
 		<div id="green-banner"></div>
 	</div>
-	<style>
-		div#green-banner {
-			height: 50px !important;
-			background-color: #008991;
-			border-bottom: 5px solid #DE1300;
-			width: 100%;
-		}
-	</style>
-
 	<div class="contentRow">
 		<div class="leftColumn">
 			<side-menu menu-title="''TRANSACTION_SUMMARY''"></side-menu>
