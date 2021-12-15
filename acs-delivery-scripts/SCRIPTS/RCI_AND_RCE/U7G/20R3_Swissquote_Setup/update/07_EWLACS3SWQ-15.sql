@@ -348,15 +348,21 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	@media all and (max-width: 600px) and (min-width: 501px) {
 		#pageHeader {height: 96px;}
-		.rightColumn { display: block; float: none; width: 100%; }
+		.rightColumn { display: block; float: none; width: 50%; margin-left: 50%; padding: 20px 0px}
+		.leftColumn { width: 50%; }
 		.paragraph { text-align: left;}
 		.paragraphDescription {text-align: left;}
+        #validateButton {margin-left: 0em;}
 	}
 	 @media all and (max-width: 500px) and (min-width: 391px) {
 		#pageHeader {height: 96px;}
-		.rightColumn { display: block; float: none; width: 100%; }
-		.paragraph { text-align: left;}
-		.paragraphDescription {text-align: left;}
+		.leftColumn { display: block; float: none; width: 100%; padding-top: 0.5em; padding-bottom: 0em; }
+		.rightColumn { display: block; float: none; width: 50%; margin-left: 30%;  }
+		.paragraph { margin-left: 5%;}
+		.paragraphDescription {margin-left: 4%;}
+        div#otp-fields-container { margin-top: 0px; margin-bottom: 5px;}
+        #validateButton {margin-left: 0em;}
+        .refreshDiv { margin-left: 2%;}
 		#footer { height: 60px; }
 	}
 	@media all and (max-width: 391px) {
@@ -705,8 +711,8 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#optGblPage {     font-size : 14px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
-		.leftColumn { display:block; float:none; width:100%; }
-		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 40px;}
+		.leftColumn { display:block; float:none; width:100%; padding-bottom: 5px;}
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 0px;}
 	}
 	@media all and (max-width: 500px) and (min-width: 391px) {
 		h1 { font-size:18px; }
@@ -716,8 +722,8 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#networkLogo {max-height : 45px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
-		.leftColumn { display:block; float:none; width:100%; }
-		.rightColumn { margin-left:0px; display:block; float:none; width:100%; margin-top: 60px;}
+		.leftColumn { display:block; float:none; width:100%; padding-bottom: 5px;}
+		.rightColumn { margin-left:0px; display:block; float:none; width:100%; margin-top: 0px;}
 	}
 	@media all and (max-width: 391px) {
 		h1 { font-size:16px; }
@@ -735,7 +741,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 250px) {
 		div#green-banner { display: none;}
 		.contentRow { font-size: 11px; }
-		.rightColumn { margin-top: 30px; }
+		.rightColumn { margin-top: 20px; }
 	}
 </style>
 <div id="optGblPage">
