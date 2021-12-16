@@ -140,7 +140,6 @@ VALUES (NULL,'MESSAGE_BANNER', CONCAT('Message Banner (', @BankB, ')')),
      (NULL,'OTP_FORM_PAGE', CONCAT('SMS OTP Form Page (', @BankB, ')')),
      (NULL,'REFUSAL_PAGE', CONCAT('Refusal Page (', @BankB, ')')),
      (NULL,'FAILURE_PAGE', CONCAT('Failure Page (', @BankB, ')')),
-     (NULL,'POLLING_PAGE', CONCAT('Polling Page (', @BankB, ')')),
      (NULL,'HELP_PAGE', CONCAT('Help Page (', @BankB, ')')),
      (NULL,'INFO_REFUSAL_PAGE', CONCAT('INFO Refusal Page (', @BankB, ')'));
 
@@ -229,6 +228,8 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	}
 	@media all and (max-width: 480px) {
 		span#info-icon {position: absolute;font-size: 3em;top: 1px;left: 5px;display: inline-block;}
+        span#headingTxt { word-break: break-word;}
+        span#message { word-break: break-word; }
 	}
 </style>
 <div id="messageBanner">
@@ -240,8 +241,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('SMS OTP Form Page (', @BankB, ')%') );
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
-	VALUES( 'div', '
-<style>
+	VALUES( 'div', '<style>
 	div#optGblPage {
 		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 		font-size: 14px;
@@ -321,9 +321,6 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	}
 	label {
 		font-weight: normal;
-	}
-	.paragraphDescription {
-		text-align: left;
 	}
 	.paragraphDescription {
 		text-align: left;
@@ -582,16 +579,25 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		.paragraphDescription {text-align: left;}
 	}
 	@media all and (max-width: 600px) and (min-width: 501px) {
-		#pageHeader {height: 96px;}
-		.rightColumn { display: block; float: none; width: 100%; }
-		.paragraph { text-align: left;}
+		#pageHeader {height: 80px;}
+        .contentRow { padding-top: 0px; }
+		.rightColumn { display: block; float: none; width: 50%; margin-left: 50%; padding: 5px 0px}
+		.leftColumn { width: 50%; padding-top: 5px;}
+		.paragraph { text-align: left; margin-bottom: 5px; }
 		.paragraphDescription {text-align: left;}
+        div#otp-fields-container { margin-top: 5px; margin-bottom: 5px;}
+        #validateButton {margin-left: 0em;}
+        #footer { margin-top: 0px; }
 	}
 	 @media all and (max-width: 500px) and (min-width: 391px) {
-		#pageHeader {height: 96px;}
-		.rightColumn { display: block; float: none; width: 100%; }
-		.paragraph { text-align: left;}
-		.paragraphDescription {text-align: left;}
+		#pageHeader {height: 80px;}
+		.leftColumn { display: block; float: none; width: 100%; padding-top: 0.5em; padding-bottom: 0em; }
+		.rightColumn { display: block; float: none; width: 50%; margin-left: 25%; padding: 0px; }
+		.paragraph { text-align: center;}
+		.paragraphDescription {text-align: center;}
+        div#otp-fields-container { margin-top: 0px; margin-bottom: 5px;}
+        #validateButton {margin-left: 0em;}
+        .refreshDiv { margin-left: 2%;}
 		#footer { height: 60px; }
 	}
 	@media all and (max-width: 391px) {
@@ -601,6 +607,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		#networkLogo {max-height: 50px; }
 		#optGblPage { font-size: 14px; }
 		div#green-banner { display: none; }
+        span.ng-binding { word-break: break-all; }
 		.contentRow { padding-top: 0px}
 		.paragraph { text-align: center;}
 		.paragraphDescription {text-align: center;}
@@ -624,6 +631,10 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		#footer { height: 44px; }
 		#cancelButton button { height: 35px; min-width: 1rem;}
 		#helpButton button { height: 35px; min-width: 1rem;}
+        #cancelButton button custom-text { vertical-align: 10px;}
+        #helpButton button custom-text { vertical-align: 10px;}
+        #footer #cancelButton button span.fa {background-position-y: -1px;}
+        #footer #helpButton button span.fa {background-position-y: -3px;}
 	}
 </style>
 <div id="optGblPage">
@@ -680,14 +691,12 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 				<help help-label="''network_means_pageType_41''" id="helpButton"></help>
 			</div>
 		</div>
-</div>
-', @layoutId);
+</div>', @layoutId);
 
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Refusal Page (', @BankB, ')%') );
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
-  VALUES( 'div', '
-<style>
+  VALUES( 'div', '<style>
 	div#optGblPage {
 		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 		font-size:14px;
@@ -942,8 +951,8 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		#optGblPage {     font-size : 14px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
-		.leftColumn { display:block; float:none; width:100%; }
-		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 40px;}
+		.leftColumn { display:block; float:none; width:100%; padding-bottom: 5px;}
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 0px;}
 	}
 	@media all and (max-width: 500px) and (min-width: 391px) {
 		h1 { font-size:18px; }
@@ -953,8 +962,8 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		#networkLogo {max-height : 45px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
-		.leftColumn { display:block; float:none; width:100%; }
-		.rightColumn { margin-left:0px; display:block; float:none; width:100%; margin-top: 60px;}
+		.leftColumn { display:block; float:none; width:100%; padding-bottom: 5px;}
+		.rightColumn { margin-left:0px; display:block; float:none; width:100%; margin-top: 0px;}
 	}
 	@media all and (max-width: 391px) {
 		h1 { font-size:16px; }
@@ -964,6 +973,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 		#pageHeader {height: 55px;}
 		#issuerLogo {max-height : 35px; }
 		#networkLogo {max-height : 30px; }
+        span.ng-binding { word-break: break-all; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; }
@@ -972,7 +982,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 	@media all and (max-width: 250px) {
 		div#green-banner { display: none;}
 		.contentRow { font-size: 11px; }
-		.rightColumn { margin-top: 30px; }
+		.rightColumn { margin-top: 20px; }
 	}
 </style>
 <div id="optGblPage">
@@ -1036,8 +1046,7 @@ INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
 SET @layoutId = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Failure Page (', @BankB, ')%') );
 
 INSERT INTO `CustomComponent` (`type`, `value`, `fk_id_layout`)
-VALUES( 'div', '
-<style>
+VALUES( 'div', '<style>
 	div#optGblPage {
 		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 		font-size:14px;
@@ -1307,6 +1316,7 @@ VALUES( 'div', '
 		#pageHeader {height: 50px;}
 		#issuerLogo {max-height : 35px; }
 		#networkLogo {max-height : 30px; }
+        span.ng-binding { word-break: break-all; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; }
@@ -1701,6 +1711,7 @@ VALUES( 'div', '<style>
 		#pageHeader {height: 55px;}
 		#issuerLogo {max-height : 35px; }
 		#networkLogo {max-height : 30px; }
+        span.ng-binding { word-break: break-all; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; }
@@ -1752,8 +1763,7 @@ VALUES( 'div', '<style>
 			<help help-label="''network_means_pageType_41''" id="helpButton"></help>
 		</div>
 	</div>
-</div>
-', @layoutIdRefusalPage);
+</div>', @layoutIdRefusalPage);
 
 /*!40000 ALTER TABLE `CustomPageLayout` ENABLE KEYS */;
 

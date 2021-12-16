@@ -1472,3 +1472,87 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		</div>
 	</div>
 </div>' WHERE `fk_id_layout` = @id_layout;
+
+SET @id_layout = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Message Banner (', @BankB, ')%') );
+
+UPDATE `CustomComponent` SET `value` = '
+<style>
+	#message-container {
+		position:relative;
+	}
+	div#message-container.info {
+		background-color:#1b4498;
+		font-family: Arial, standard;
+		font-size:12px;
+		color: #EAEAEA;
+	}
+	div#message-container.success {
+		background-color:#0E7C45;
+		font-family: Arial, standard;
+		font-size:12px;
+		color: #EAEAEA;
+	}
+	div#message-container.error {
+		background-color:#B81414;
+		font-family: Arial, standard;
+		font-size:12px;
+		color: #EAEAEA;
+	}
+	div#message-container.warn {
+		background-color:#1b4498;
+		font-family: Arial, standard;
+		font-size:12px;
+		color: #EAEAEA;
+	}
+	span#info-icon {
+		position:absolute;
+		top:15px;
+		left:15px;
+		float:none;
+		color: #FFFFFF;
+	}
+	#headingTxt {
+		font-family: Arial,bold;
+		color: #FFFFFF;
+		font-size : 14px;
+		font-weight : bold;
+		width : 70%;
+		margin : auto;
+		display : block;
+		text-align:center;
+		padding:4px 1px 1px 1px;
+	}
+	#message {
+		font-family: Arial,regular;
+		color: #FFFFFF;
+		font-size:12px;
+		text-align:center;
+	}
+	span#message {
+		font-size:12px;
+	}
+	div.message-button {
+		padding-top: 0px;
+	}
+	div#message-content {
+		text-align: center;
+		background-color: inherit;
+		padding-bottom: 5px;
+	}
+	#return-button-row button {
+		border-radius: 30px
+	}
+	#close-button-row button {
+		border-radius: 30px
+	}
+	@media all and (max-width: 480px) {
+		span#info-icon {position: absolute;font-size: 3em;top: 1px;left: 5px;display: inline-block;}
+		span#headingTxt { word-break: break-word;}
+		span#message { word-break: break-word; }
+	}
+</style>
+<div id="messageBanner">
+	<span id="info-icon" class="fa fa-info-circle"></span>
+	<custom-text id="headingTxt" custom-text-key="$parent.heading"></custom-text>
+	<custom-text id="message" custom-text-key="$parent.message"></custom-text>
+</div>' WHERE `fk_id_layout` = @id_layout;
