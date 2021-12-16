@@ -344,15 +344,18 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.paragraphDescription {text-align: left;}
 	}
 	@media all and (max-width: 600px) and (min-width: 501px) {
-		#pageHeader {height: 96px;}
-		.rightColumn { display: block; float: none; width: 50%; margin-left: 50%; padding: 20px 0px}
-		.leftColumn { width: 50%; }
-		.paragraph { text-align: left;}
+		#pageHeader {height: 80px;}
+		.contentRow { padding-top: 0px; }
+		.rightColumn { display: block; float: none; width: 50%; margin-left: 50%; padding: 5px 0px}
+		.leftColumn { width: 50%; padding-top: 5px;}
+		.paragraph { text-align: left; margin-bottom: 5px; }
 		.paragraphDescription {text-align: left;}
+		div#otp-fields-container { margin-top: 5px; margin-bottom: 5px;}
 		#validateButton {margin-left: 0em;}
+		#footer { margin-top: 0px; }
 	}
 	 @media all and (max-width: 500px) and (min-width: 391px) {
-		#pageHeader {height: 96px;}
+		#pageHeader {height: 80px;}
 		.leftColumn { display: block; float: none; width: 100%; padding-top: 0.5em; padding-bottom: 0em; }
 		.rightColumn { display: block; float: none; width: 50%; margin-left: 25%; padding: 0px; }
 		.paragraph { text-align: center;}
