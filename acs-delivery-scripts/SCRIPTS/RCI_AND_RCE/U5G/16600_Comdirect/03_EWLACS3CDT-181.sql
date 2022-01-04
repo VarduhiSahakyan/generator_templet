@@ -1346,11 +1346,11 @@ SET @textValue = 'Weiter';
 UPDATE CustomItem SET value = @textValue WHERE fk_id_customItemSet = @customItemSetPassword AND ordinal = @ordinal AND pageTypes = @pageType;
 
 SET @ordinal = 12;
-SET @textValue = 'Authentifizierung läuft';
+SET @textValue = 'Authentifizierung wird fortgesetzt';
 UPDATE CustomItem SET value = @textValue WHERE fk_id_customItemSet = @customItemSetPassword AND ordinal = @ordinal AND pageTypes = @pageType;
 
 SET @ordinal = 13;
-SET @textValue = 'Bitte warten Sie kurz, während Ihre Eingabe geprüft wird.';
+SET @textValue = 'Bitte warten Sie einen Moment. Im nächsten Schritt wird eine TAN abgefragt.';
 UPDATE CustomItem SET value = @textValue WHERE fk_id_customItemSet = @customItemSetPassword AND ordinal = @ordinal AND pageTypes = @pageType;
 
 SET @ordinal = 14;
