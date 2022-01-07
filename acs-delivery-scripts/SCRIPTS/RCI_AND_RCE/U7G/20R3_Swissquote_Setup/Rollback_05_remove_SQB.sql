@@ -69,6 +69,10 @@ delete from Condition_MeansProcessStatuses
 where ID_CONDITION in (SELECT rc.id from RuleCondition rc, Rule r, ProfileSet_Rule pr
                        where rc.FK_ID_RULE = r.id and pr.ID_RULE = r.id and pr.ID_PROFILESET in (@id_profile_set_1));
 
+
+delete from `Thresholds` where `fk_id_condition` in (SELECT rc.id from RuleCondition rc, Rule r, ProfileSet_Rule pr
+                       where rc.FK_ID_RULE = r.id and pr.ID_RULE = r.id and pr.ID_PROFILESET in (@id_profile_set_1)) AND `thresholdType`='UNDER_TRIAL_NUMBER_THRESHOLD';
+
 delete from RuleCondition where ID in (SELECT id from (SELECT rc.id from RuleCondition rc, Rule r, ProfileSet_Rule pr
                                                        where rc.FK_ID_RULE = r.id and pr.ID_RULE = r.id and pr.ID_PROFILESET in
                                                                                                             (@id_profile_set_1)) as temp);
@@ -88,11 +92,15 @@ delete from ProfileSet where id in (@id_profile_set_1);
 
 delete from MerchantPivotList where FK_ID_ISSUER = @id_issuer;
 
+delete from `CryptoConfig` where description = 'CryptoConfig for SQB';
+
+																	  
 -- delete subissuer and issuer
 delete from SubIssuer where ID in (@id_subIssuer_1);
 
 delete from Issuer where ID = @id_issuer;
 
-delete from Image where name in (@BankUB_01);
+delete from Image where name like ('sqb_%');
+delete from Image where name = ('SQB');
 
 SET FOREIGN_KEY_CHECKS = 1;
