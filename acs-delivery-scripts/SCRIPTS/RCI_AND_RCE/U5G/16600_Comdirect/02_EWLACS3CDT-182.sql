@@ -44,7 +44,7 @@ SET @textValue = 'Öffnen Sie zunächst die photoTAN App und geben Sie die folge
 
 UPDATE CustomItem SET value = @textValue WHERE  fk_id_customItemSet = @mobileAppCustomSetId  AND ordinal =152 AND pageTypes = @appViewPageType;
 
-SET @textValue = 'Zugang gesperrt';
+SET @textValue = 'Freigabe mit photoTAN App';
 
 UPDATE CustomItem SET value = @textValue WHERE  fk_id_customItemSet = @mobileAppCustomSetId  AND ordinal =151 AND pageTypes = @appViewPageType;
 
