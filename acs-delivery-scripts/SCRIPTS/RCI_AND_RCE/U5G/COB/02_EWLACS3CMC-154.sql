@@ -59,6 +59,7 @@ SET `value` = '<style>
 	}
 	.acs-challengeInfoText {
 		margin-bottom: 2em;
+		white-space: pre-line;
 	}
 	div#acs-challenge-info-text {
 		width: 90%;
