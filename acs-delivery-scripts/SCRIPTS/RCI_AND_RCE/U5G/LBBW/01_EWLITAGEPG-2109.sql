@@ -131,19 +131,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		text-align: left;
 		margin-bottom: 10px;
 	}
-	#issuerLogo {
-		max-height: 64px;
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-	}
-	#networkLogo {
-		max-height: 82px;
-		transform: translateY(-50%);
-		position: absolute;
-		top: 50%;
-		left: 50%;
-	}
+
 	#pageHeader {
 		width: 100%;
 		height: 95px;
@@ -152,18 +140,33 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	#pageHeaderLeft {
 		width: 50%;
 		height: 100%;
+		display: inline-flex;
 		float: left;
-		text-align: left;
-		position: relative;
-		padding-left: 16px;
-		padding-top: 16px;
 	}
 	#pageHeaderRight {
 		width: 50%;
 		height: 100%;
-		float: right;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
 		text-align: right;
-		position: relative;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
+	}
+	#issuerLogo {
+		max-height: 65px;
+	}
+	#networkLogo {
+		max-height: 65px;
 	}
 	.valbtn {
 		text-align: center;
@@ -310,18 +313,15 @@ UPDATE `CustomComponent` SET `value` = '<style>
 
 	@media all and (max-width: 901px) {
 		div#mainContainer { width: 901px; }
-		#networkLogo { left: 40%; }
 	}
 
 
 	@media all and (max-width: 851px) {
 		 div#mainContainer { width: 851px; }
-		#networkLogo { left: 40%; }
 	}
 
 	@media all and (max-width: 801px) {
 		 div#mainContainer { width: 801px; }
-		#networkLogo { left: 32%; }
 		.contentRow { padding-top: 0em; }
 		.leftColumn { display: block; float: none; width: 100%; padding-top: 0.5em; padding-bottom: 0em; }
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0%; }
@@ -332,18 +332,16 @@ UPDATE `CustomComponent` SET `value` = '<style>
 
 	@media all and (max-width: 751px) {
 		 div#mainContainer { width: 751px; }
-		#networkLogo { left: 32%; }
 	}
 
 	@media all and (max-width: 701px) {
 		div#mainContainer { width: 701px; display: contents;}
-		#networkLogo { left: 20%; }
-
+		#networkLogo { height: 55px; }
+		#issuerLogo { height: 55px; }
 	}
 
 	@media all and (max-width: 651px) {
 		div#mainContainer { width: 650px; }
-		#networkLogo { left: 15%; }
 	}
 
 	@media all and (max-width: 600px) {
@@ -353,12 +351,11 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		div#optGblPage { font-size: 13px; }
 		#pageHeader { height: 85px; }
 		#issuerLogo { max-height: 50px; }
-		#networkLogo { max-height: 60px; left: 30%; }
+		#networkLogo { max-height: 50px; }
 	}
 
 	@media all and (max-width: 551px) {
 		 div#mainContainer { width: 550px; }
-		#networkLogo { left: 15%; }
 	}
 
 	@media all and (max-width: 501px) {
@@ -369,30 +366,30 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 481px) {
 		div#mainContainer { width: 480px; }
 		#pageHeader { height: 70px; }
-		#issuerLogo { max-height: 34px; padding-left: 0px; padding-right: 0px; }
-		#networkLogo { max-height: 40px; padding-top: 0px; padding-right: 0px; left: 35%; }
+		#issuerLogo { max-height: 40px;  }
+		#networkLogo { max-height: 40px; }
 		div#otp-fields { display: grid; }
 	}
 	@media all and (max-width: 391px) {
 		div#mainContainer { width: 390px; }
 		#pageHeader { height: 70px; }
-		#networkLogo { left: 20%; }
 	}
 	@media all and (max-width: 347px) {
 		div#mainContainer { width: 347px; }
 	}
 	@media all and (max-width: 309px) {
 		div#mainContainer { width: 309px; }
-		#networkLogo { left: 0%; }
+		#networkLogo { max-height: 35px;}
+		#issuerLogo { max-height: 30px;}
 		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
-		div.side-menu div.menu-elements { margin-top: 5px; display: grid; padding-left: 16px; }
-		.side-menu .text-left, .side-menu .text-right { width: auto; padding-left: 0px; padding-right: 0px;}
+		div.side-menu div.menu-elements { margin-top: 5px; display: grid; }
+		.side-menu .text-left, .side-menu .text-right { width: auto; padding-right: 0px;}
+		#otp-form input { width: 200px; }
 	}
 	@media all and (max-width: 251px) {
 		div#mainContainer { width: 250px; }
 		#pageHeader { height: 60px; }
-		#issuerLogo { max-height: 25px; }
 
 	}
 </style>
@@ -400,10 +397,14 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	<div id="mainContainer">
 		<div id="pageHeader" ng-style="style" class="ng-scope">
 			<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
-				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+				<div id="issuerLogoDiv">
+					<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+				</div>
 			</div>
 			<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
-				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+				<div id="networkLogoDiv">
+					<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+				</div>
 			</div>
 		</div>
 		<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
@@ -585,19 +586,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		text-align: left;
 		margin-bottom: 10px;
 	}
-	#issuerLogo {
-		max-height: 64px;
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-	}
-	#networkLogo {
-		max-height: 82px;
-		transform: translateY(-50%);
-		position: absolute;
-		top: 50%;
-		left: 50%;
-	}
+
 	#pageHeader {
 		width: 100%;
 		height: 95px;
@@ -606,18 +595,33 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	#pageHeaderLeft {
 		width: 50%;
 		height: 100%;
+		display: inline-flex;
 		float: left;
-		text-align: left;
-		position: relative;
-		padding-left: 16px;
-		padding-top: 16px;
 	}
 	#pageHeaderRight {
 		width: 50%;
 		height: 100%;
-		float: right;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
 		text-align: right;
-		position: relative;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
+	}
+	#issuerLogo {
+		max-height: 65px;
+	}
+	#networkLogo {
+		max-height: 65px;
 	}
 	.valbtn {
 		margin: 3px 12px 25px 50px;
@@ -770,18 +774,14 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	@media all and (max-width: 901px) {
 		div#mainContainer { width: 901px; }
-		#networkLogo { left: 40%; }
 	}
-
 
 	@media all and (max-width: 851px) {
 		 div#mainContainer { width: 851px; }
-		#networkLogo { left: 40%; }
 	}
 
 	@media all and (max-width: 801px) {
 		 div#mainContainer { width: 801px; }
-		#networkLogo { left: 32%; }
 		.contentRow { padding-top: 0em; }
 		.leftColumn { display: block; float: none; width: 100%; padding-top: 0.5em; padding-bottom: 0em; }
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0%; }
@@ -794,18 +794,17 @@ UPDATE `CustomComponent` SET `value` = '<style>
 
 	@media all and (max-width: 751px) {
 		 div#mainContainer { width: 751px; }
-		#networkLogo { left: 32%; }
 	}
 
 	@media all and (max-width: 701px) {
 		div#mainContainer { width: 701px; display: contents;}
-		#networkLogo { left: 20%; }
+		#networkLogo { height: 55px; }
+		#issuerLogo { height: 55px; }
 
 	}
 
 	@media all and (max-width: 651px) {
 		div#mainContainer { width: 650px; }
-		#networkLogo { left: 15%; }
 	}
 
 	@media all and (max-width: 600px) {
@@ -815,12 +814,11 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		div#optGblPage { font-size: 13px; }
 		#pageHeader { height: 85px; }
 		#issuerLogo { max-height: 50px; }
-		#networkLogo { max-height: 60px; left: 30%; }
+		#networkLogo { max-height: 50px; }
 	}
 
 	@media all and (max-width: 551px) {
 		 div#mainContainer { width: 550px; }
-		#networkLogo { left: 15%; }
 	}
 
 	@media all and (max-width: 501px) {
@@ -834,30 +832,30 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 481px) {
 		div#mainContainer { width: 480px; }
 		#pageHeader { height: 70px; }
-		#issuerLogo { max-height: 34px; padding-left: 0px; padding-right: 0px; }
-		#networkLogo { max-height: 40px; padding-top: 0px; padding-right: 0px; left: 35%; }
+		#issuerLogo { max-height: 40px; }
+		#networkLogo { max-height: 40px; }
 		div#otp-fields { display: grid; }
 	}
 	@media all and (max-width: 391px) {
 		div#mainContainer { width: 390px; }
 		#pageHeader { height: 70px; }
-		#networkLogo { left: 20%; }
 	}
 	@media all and (max-width: 347px) {
 		div#mainContainer { width: 347px; }
 	}
 	@media all and (max-width: 309px) {
 		div#mainContainer { width: 309px; }
-		#networkLogo { left: 0%; }
+		#networkLogo { max-height: 35px;}
+		#issuerLogo { max-height: 35px;}
 		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
-		div.side-menu div.menu-elements { margin-top: 5px; display: grid; padding-left: 16px; }
-		.side-menu .text-left, .side-menu .text-right { width: auto; padding-left: 0px; padding-right: 0px;}
+		div.side-menu div.menu-elements { margin-top: 5px; display: grid; }
+		.side-menu .text-left, .side-menu .text-right { width: auto; padding-right: 0px;}
+		#otp-form input { width: 200px; }
 	}
 	@media all and (max-width: 251px) {
 		div#mainContainer { width: 250px; }
 		#pageHeader { height: 60px; }
-		#issuerLogo { max-height: 25px; }
 
 	}
 </style>
@@ -865,10 +863,14 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	<div id="mainContainer">
 		<div id="pageHeader" ng-style="style" class="ng-scope">
 			<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
-				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+				<div id="issuerLogoDiv">
+					<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+				</div>
 			</div>
 			<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
-				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+				<div id="networkLogoDiv">
+					<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+				</div>
 			</div>
 		</div>
 		<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
@@ -1056,19 +1058,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		text-align: left;
 		margin-bottom: 10px;
 	}
-	#issuerLogo {
-		max-height: 64px;
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-	}
-	#networkLogo {
-		max-height: 82px;
-		transform: translateY(-50%);
-		position: absolute;
-		top: 50%;
-		left: 50%;
-	}
+
 	#pageHeader {
 		width: 100%;
 		height: 95px;
@@ -1077,18 +1067,33 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	#pageHeaderLeft {
 		width: 50%;
 		height: 100%;
+		display: inline-flex;
 		float: left;
-		text-align: left;
-		position: relative;
-		padding-left: 16px;
-		padding-top: 16px;
 	}
 	#pageHeaderRight {
 		width: 50%;
 		height: 100%;
-		float: right;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
 		text-align: right;
-		position: relative;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
+	}
+	#issuerLogo {
+		max-height: 65px;
+	}
+	#networkLogo {
+		max-height: 65px;
 	}
 	.leftColumn {
 		width: 40%;
@@ -1128,21 +1133,16 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		display: grid;
 	}
 
-
 	@media all and (max-width: 901px) {
 		div#mainContainer { width: 901px; }
-		#networkLogo { left: 40%; }
 	}
-
 
 	@media all and (max-width: 851px) {
 		div#mainContainer { width: 851px; }
-		#networkLogo { left: 40%; }
 	}
 
 	@media all and (max-width: 801px) {
 		div#mainContainer { width: 801px; }
-		#networkLogo { left: 32%; }
 		.contentRow { padding-top: 0em; }
 		.leftColumn { display: block; float: none; width: 100%; padding-top: 0.5em; padding-bottom: 0em; }
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0%; }
@@ -1152,18 +1152,17 @@ UPDATE `CustomComponent` SET `value` = '<style>
 
 	@media all and (max-width: 751px) {
 		div#mainContainer { width: 751px; }
-		#networkLogo { left: 32%; }
 	}
 
 	@media all and (max-width: 701px) {
 		div#mainContainer { width: 701px; display: contents;}
-		#networkLogo { left: 20%; }
+		#networkLogo { height: 55px; }
+		#issuerLogo { height: 55px; }
 
 	}
 
 	@media all and (max-width: 651px) {
 		div#mainContainer { width: 650px; }
-		#networkLogo { left: 15%; }
 	}
 
 	@media all and (max-width: 600px) {
@@ -1173,12 +1172,11 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		div#optGblPage { font-size: 13px; }
 		#pageHeader { height: 85px; }
 		#issuerLogo { max-height: 50px; }
-		#networkLogo { max-height: 60px; left: 30%; }
+		#networkLogo { max-height: 50px; }
 	}
 
 	@media all and (max-width: 551px) {
 		 div#mainContainer { width: 550px; }
-		#networkLogo { left: 15%; }
 	}
 
 	@media all and (max-width: 501px) {
@@ -1189,29 +1187,28 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 481px) {
 		div#mainContainer { width: 480px; }
 		#pageHeader { height: 70px; }
-		#issuerLogo { max-height: 34px; padding-left: 0px; padding-right: 0px; }
-		#networkLogo { max-height: 40px; padding-top: 0px; padding-right: 0px; left: 35%; }
+		#issuerLogo { max-height: 40px; }
+		#networkLogo { max-height: 40px; }
 	}
 	@media all and (max-width: 391px) {
 		div#mainContainer { width: 390px; }
 		#pageHeader { height: 70px; }
-		#networkLogo { left: 20%; }
 	}
 	@media all and (max-width: 347px) {
 		div#mainContainer { width: 347px; }
 	}
 	@media all and (max-width: 309px) {
 		div#mainContainer { width: 309px; }
-		#networkLogo { left: 0%; }
+		#networkLogo { max-height: 35px;}
+		#issuerLogo { max-height: 35px;}
 		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
-		div.side-menu div.menu-elements { margin-top: 5px; display: grid; padding-left: 16px; }
-		.side-menu .text-left, .side-menu .text-right { width: auto; padding-left: 0px; padding-right: 0px;}
+		div.side-menu div.menu-elements { margin-top: 5px; display: grid; }
+		.side-menu .text-left, .side-menu .text-right { width: auto; padding-right: 0px;}
 	}
 	@media all and (max-width: 251px) {
 		div#mainContainer { width: 250px; }
 		#pageHeader { height: 60px; }
-		#issuerLogo { max-height: 25px; }
 
 	}
 </style>
@@ -1219,10 +1216,14 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	<div id = "mainContainer">
 		<div id="pageHeader" ng-style="style" class="ng-scope">
 			<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
-				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+				<div id="issuerLogoDiv">
+					<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+				</div>
 			</div>
 			<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
-				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"  image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+				<div id="networkLogoDiv">
+					<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+				</div>
 			</div>
 		</div>
 
@@ -1369,19 +1370,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		text-align: left;
 		margin-bottom: 10px;
 	}
-	#issuerLogo {
-		max-height: 64px;
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-	}
-	#networkLogo {
-		max-height: 82px;
-		transform: translateY(-50%);
-		position: absolute;
-		top: 50%;
-		left: 50%;
-	}
+
 	#pageHeader {
 		width: 100%;
 		height: 95px;
@@ -1390,18 +1379,33 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	#pageHeaderLeft {
 		width: 50%;
 		height: 100%;
+		display: inline-flex;
 		float: left;
-		text-align: left;
-		position: relative;
-		padding-left: 16px;
-		padding-top: 16px;
 	}
 	#pageHeaderRight {
 		width: 50%;
 		height: 100%;
-		float: right;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
 		text-align: right;
-		position: relative;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
+	}
+	#issuerLogo {
+		max-height: 65px;
+	}
+	#networkLogo {
+		max-height: 65px;
 	}
 
 	.leftColumn {
@@ -1444,18 +1448,15 @@ UPDATE `CustomComponent` SET `value` = '<style>
 
 	@media all and (max-width: 901px) {
 		div#mainContainer { width: 901px; }
-		#networkLogo { left: 40%; }
 	}
 
 
 	@media all and (max-width: 851px) {
 		div#mainContainer { width: 851px; }
-		#networkLogo { left: 40%; }
 	}
 
 	@media all and (max-width: 801px) {
 		div#mainContainer { width: 801px; }
-		#networkLogo { left: 32%; }
 		.contentRow { padding-top: 0em; }
 		.leftColumn { display: block; float: none; width: 100%; padding-top: 0.5em; padding-bottom: 0em; }
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0%; }
@@ -1465,18 +1466,17 @@ UPDATE `CustomComponent` SET `value` = '<style>
 
 	@media all and (max-width: 751px) {
 		div#mainContainer { width: 751px; }
-		#networkLogo { left: 32%; }
 	}
 
 	@media all and (max-width: 701px) {
 		div#mainContainer { width: 701px; display: contents;}
-		#networkLogo { left: 20%; }
+		#networkLogo { height: 60px; }
+		#issuerLogo { height: 60px; }
 
 	}
 
 	@media all and (max-width: 651px) {
 		div#mainContainer { width: 650px; }
-		#networkLogo { left: 15%; }
 	}
 
 	@media all and (max-width: 600px) {
@@ -1485,12 +1485,11 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		div#optGblPage { font-size: 13px; }
 		#pageHeader { height: 85px; }
 		#issuerLogo { max-height: 50px; }
-		#networkLogo { max-height: 60px; left: 30%; }
+		#networkLogo { max-height: 50px; }
 	}
 
 	@media all and (max-width: 551px) {
 		 div#mainContainer { width: 550px; }
-		#networkLogo { left: 15%; }
 	}
 
 	@media all and (max-width: 501px) {
@@ -1501,29 +1500,28 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 481px) {
 		div#mainContainer { width: 480px; }
 		#pageHeader { height: 70px; }
-		#issuerLogo { max-height: 34px; padding-left: 0px; padding-right: 0px; }
-		#networkLogo { max-height: 40px; padding-top: 0px; padding-right: 0px; left: 35%; }
+		#issuerLogo { max-height: 40px; }
+		#networkLogo { max-height: 40px; }
 	}
 	@media all and (max-width: 391px) {
 		div#mainContainer { width: 390px; }
 		#pageHeader { height: 70px; }
-		#networkLogo { left: 20%; }
 	}
 	@media all and (max-width: 347px) {
 		div#mainContainer { width: 347px; }
 	}
 	@media all and (max-width: 309px) {
 		div#mainContainer { width: 309px; }
-		#networkLogo { left: 0%; }
+		#networkLogo { max-height: 35px;}
+		#issuerLogo { max-height: 35px;}
 		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
-		div.side-menu div.menu-elements { margin-top: 5px; display: grid; padding-left: 16px; }
-		.side-menu .text-left, .side-menu .text-right { width: auto; padding-left: 0px; padding-right: 0px;}
+		div.side-menu div.menu-elements { margin-top: 5px; display: grid; }
+		.side-menu .text-left, .side-menu .text-right { width: auto; padding-right: 0px;}
 	}
 	@media all and (max-width: 251px) {
 		div#mainContainer { width: 250px; }
 		#pageHeader { height: 60px; }
-		#issuerLogo { max-height: 25px; }
 
 	}
 </style>
@@ -1531,10 +1529,14 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	<div id ="mainContainer">
 		<div id="pageHeader" ng-style="style" class="ng-scope">
 			<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
-				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+				<div id="issuerLogoDiv">
+					<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+				</div>
 			</div>
 			<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
-				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"  image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+				<div id="networkLogoDiv">
+					<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+				</div>
 			</div>
 		</div>
 
@@ -1672,19 +1674,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		text-align: left;
 		margin-bottom: 10px;
 	}
-	#issuerLogo {
-		max-height: 64px;
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-	}
-	#networkLogo {
-		max-height: 82px;
-		transform: translateY(-50%);
-		position: absolute;
-		top: 50%;
-		left: 50%;
-	}
+
 	#pageHeader {
 		width: 100%;
 		height: 95px;
@@ -1693,18 +1683,33 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	#pageHeaderLeft {
 		width: 50%;
 		height: 100%;
+		display: inline-flex;
 		float: left;
-		text-align: left;
-		position: relative;
-		padding-left: 16px;
-		padding-top: 16px;
 	}
 	#pageHeaderRight {
 		width: 50%;
 		height: 100%;
-		float: right;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
 		text-align: right;
-		position: relative;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
+	}
+	#issuerLogo {
+		max-height: 65px;
+	}
+	#networkLogo {
+		max-height: 65px;
 	}
 
 	.leftColumn {
@@ -1747,18 +1752,15 @@ UPDATE `CustomComponent` SET `value` = '<style>
 
 	@media all and (max-width: 901px) {
 		div#mainContainer { width: 901px; }
-		#networkLogo { left: 40%; }
 	}
 
 
 	@media all and (max-width: 851px) {
 		div#mainContainer { width: 851px; }
-		#networkLogo { left: 40%; }
 	}
 
 	@media all and (max-width: 801px) {
 		div#mainContainer { width: 801px; }
-		#networkLogo { left: 32%; }
 		.contentRow { padding-top: 0em; }
 		.leftColumn { display: block; float: none; width: 100%; padding-top: 0.5em; padding-bottom: 0em; }
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0%; }
@@ -1768,18 +1770,17 @@ UPDATE `CustomComponent` SET `value` = '<style>
 
 	@media all and (max-width: 751px) {
 		div#mainContainer { width: 751px; }
-		#networkLogo { left: 32%; }
 	}
 
 	@media all and (max-width: 701px) {
 		div#mainContainer { width: 701px; display: contents;}
-		#networkLogo { left: 20%; }
+		#networkLogo { height: 60px; }
+		#issuerLogo { height: 60px; }
 
 	}
 
 	@media all and (max-width: 651px) {
 		div#mainContainer { width: 650px; }
-		#networkLogo { left: 15%; }
 	}
 
 	@media all and (max-width: 600px) {
@@ -1788,12 +1789,11 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		div#optGblPage { font-size: 13px; }
 		#pageHeader { height: 85px; }
 		#issuerLogo { max-height: 50px; }
-		#networkLogo { max-height: 60px; left: 30%; }
+		#networkLogo { max-height: 50px; }
 	}
 
 	@media all and (max-width: 551px) {
 		 div#mainContainer { width: 550px; }
-		#networkLogo { left: 15%; }
 	}
 
 	@media all and (max-width: 501px) {
@@ -1804,29 +1804,29 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 481px) {
 		div#mainContainer { width: 480px; }
 		#pageHeader { height: 70px; }
-		#issuerLogo { max-height: 34px; padding-left: 0px; padding-right: 0px; }
-		#networkLogo { max-height: 40px; padding-top: 0px; padding-right: 0px; left: 35%; }
+		#issuerLogo { max-height: 40px; }
+		#networkLogo { max-height: 40px;  }
 	}
 	@media all and (max-width: 391px) {
 		div#mainContainer { width: 390px; }
 		#pageHeader { height: 70px; }
-		#networkLogo { left: 20%; }
 	}
 	@media all and (max-width: 347px) {
 		div#mainContainer { width: 347px; }
 	}
 	@media all and (max-width: 309px) {
 		div#mainContainer { width: 309px; }
-		#networkLogo { left: 0%; }
+		#networkLogo { max-height: 35px;}
+		#issuerLogo { max-height: 35px;}
 		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
-		div.side-menu div.menu-elements { margin-top: 5px; display: grid; padding-left: 16px; }
-		.side-menu .text-left, .side-menu .text-right { width: auto; padding-left: 0px; padding-right: 0px;}
+		div.side-menu div.menu-elements { margin-top: 5px; display: grid; }
+		.side-menu .text-left, .side-menu .text-right { width: auto; padding-right: 0px;}
 	}
 	@media all and (max-width: 251px) {
 		div#mainContainer { width: 250px; }
 		#pageHeader { height: 60px; }
-		#issuerLogo { max-height: 25px; }
+	}
 
 	span#info-icon {
 		position:absolute;
@@ -1911,10 +1911,14 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	<div id ="mainContainer">
 		<div id="pageHeader" ng-style="style" class="ng-scope">
 			<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
-				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+				<div id="issuerLogoDiv">
+					<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+				</div>
 			</div>
 			<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
-				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"  image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+				<div id="networkLogoDiv">
+					<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+				</div>
 			</div>
 		</div>
 
@@ -2053,19 +2057,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		text-align: left;
 		margin-bottom: 10px;
 	}
-	#issuerLogo {
-		max-height: 64px;
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-	}
-	#networkLogo {
-		max-height: 82px;
-		transform: translateY(-50%);
-		position: absolute;
-		top: 50%;
-		left: 50%;
-	}
+
 	#pageHeader {
 		width: 100%;
 		height: 95px;
@@ -2074,20 +2066,34 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	#pageHeaderLeft {
 		width: 50%;
 		height: 100%;
+		display: inline-flex;
 		float: left;
-		text-align: left;
-		position: relative;
-		padding-left: 16px;
-		padding-top: 16px;
 	}
 	#pageHeaderRight {
 		width: 50%;
 		height: 100%;
-		float: right;
-		text-align: right;
-		position: relative;
+		display: inline-flex;
 	}
-
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: right;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
+	}
+	#issuerLogo {
+		max-height: 65px;
+	}
+	#networkLogo {
+		max-height: 65px;
+	}
 	.leftColumn {
 		width: 40%;
 		display: block;
@@ -2128,18 +2134,15 @@ UPDATE `CustomComponent` SET `value` = '<style>
 
 	@media all and (max-width: 901px) {
 		div#mainContainer { width: 901px; }
-		#networkLogo { left: 40%; }
 	}
 
 
 	@media all and (max-width: 851px) {
 		div#mainContainer { width: 851px; }
-		#networkLogo { left: 40%; }
 	}
 
 	@media all and (max-width: 801px) {
 		div#mainContainer { width: 801px; }
-		#networkLogo { left: 32%; }
 		.contentRow { padding-top: 0em; }
 		.leftColumn { display: block; float: none; width: 100%; padding-top: 0.5em; padding-bottom: 0em; }
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0%; }
@@ -2149,18 +2152,17 @@ UPDATE `CustomComponent` SET `value` = '<style>
 
 	@media all and (max-width: 751px) {
 		div#mainContainer { width: 751px; }
-		#networkLogo { left: 32%; }
 	}
 
 	@media all and (max-width: 701px) {
 		div#mainContainer { width: 701px; display: contents;}
-		#networkLogo { left: 20%; }
+		#networkLogo { height: 60px; }
+		#issuerLogo { height: 60px; }
 
 	}
 
 	@media all and (max-width: 651px) {
 		div#mainContainer { width: 650px; }
-		#networkLogo { left: 15%; }
 	}
 
 	@media all and (max-width: 600px) {
@@ -2169,12 +2171,11 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		div#optGblPage { font-size: 13px; }
 		#pageHeader { height: 85px; }
 		#issuerLogo { max-height: 50px; }
-		#networkLogo { max-height: 60px; left: 30%; }
+		#networkLogo { max-height: 50px; }
 	}
 
 	@media all and (max-width: 551px) {
 		 div#mainContainer { width: 550px; }
-		#networkLogo { left: 15%; }
 	}
 
 	@media all and (max-width: 501px) {
@@ -2185,8 +2186,8 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 481px) {
 		div#mainContainer { width: 480px; }
 		#pageHeader { height: 70px; }
-		#issuerLogo { max-height: 34px; padding-left: 0px; padding-right: 0px; }
-		#networkLogo { max-height: 40px; padding-top: 0px; padding-right: 0px; left: 35%; }
+		#issuerLogo { max-height: 40px; }
+		#networkLogo { max-height: 40px;  }
 	}
 	@media all and (max-width: 391px) {
 		div#mainContainer { width: 390px; }
@@ -2198,11 +2199,12 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	@media all and (max-width: 309px) {
 		div#mainContainer { width: 309px; }
-		#networkLogo { left: 0%; }
+		#networkLogo { max-height: 35px;}
+		#issuerLogo { max-height: 35px;}
 		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
-		div.side-menu div.menu-elements { margin-top: 5px; display: grid; padding-left: 16px; }
-		.side-menu .text-left, .side-menu .text-right { width: auto; padding-left: 0px; padding-right: 0px;}
+		div.side-menu div.menu-elements { margin-top: 5px; display: grid; }
+		.side-menu .text-left, .side-menu .text-right { width: auto; padding-right: 0px;}
 	}
 	@media all and (max-width: 251px) {
 		div#mainContainer { width: 250px; }
@@ -2216,10 +2218,14 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	<div id = "mainContainer">
 		<div id="pageHeader" ng-style="style" class="ng-scope">
 			<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
-				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+				<div id="issuerLogoDiv">
+					<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+				</div>
 			</div>
 			<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
-				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"  image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+				<div id="networkLogoDiv">
+					<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+				</div>
 			</div>
 		</div>
 
