@@ -383,9 +383,10 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#issuerLogo { max-height: 30px;}
 		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
-		div.side-menu div.menu-elements { margin-top: 5px; display: grid; }
-		.side-menu .text-left, .side-menu .text-right { width: auto; padding-right: 0px;}
+		div.side-menu div.menu-elements { margin-top: 5px; display: grid; font-size: 10px; }
+		.side-menu .text-left, .side-menu .text-right { padding-right: 0px;}
 		#otp-form input { width: 200px; }
+		div#optGblPage { font-size: 12px; }
 	}
 	@media all and (max-width: 251px) {
 		div#mainContainer { width: 250px; }
@@ -846,12 +847,13 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 309px) {
 		div#mainContainer { width: 309px; }
 		#networkLogo { max-height: 35px;}
-		#issuerLogo { max-height: 35px;}
+		#issuerLogo { max-height: 30px;}
 		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
-		div.side-menu div.menu-elements { margin-top: 5px; display: grid; }
-		.side-menu .text-left, .side-menu .text-right { width: auto; padding-right: 0px;}
+		div.side-menu div.menu-elements { margin-top: 5px; display: grid; font-size: 10px; }
+		.side-menu .text-left, .side-menu .text-right { padding-right: 0px;}
 		#otp-form input { width: 200px; }
+		div#optGblPage { font-size: 12px; }
 	}
 	@media all and (max-width: 251px) {
 		div#mainContainer { width: 250px; }
@@ -1200,11 +1202,12 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 309px) {
 		div#mainContainer { width: 309px; }
 		#networkLogo { max-height: 35px;}
-		#issuerLogo { max-height: 35px;}
+		#issuerLogo { max-height: 30px;}
 		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
-		div.side-menu div.menu-elements { margin-top: 5px; display: grid; }
-		.side-menu .text-left, .side-menu .text-right { width: auto; padding-right: 0px;}
+		div.side-menu div.menu-elements { margin-top: 5px; display: grid; font-size: 10px; }
+		.side-menu .text-left, .side-menu .text-right { padding-right: 0px;}
+		div#optGblPage { font-size: 12px; }
 	}
 	@media all and (max-width: 251px) {
 		div#mainContainer { width: 250px; }
@@ -1513,11 +1516,12 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 309px) {
 		div#mainContainer { width: 309px; }
 		#networkLogo { max-height: 35px;}
-		#issuerLogo { max-height: 35px;}
+		#issuerLogo { max-height: 30px;}
 		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
-		div.side-menu div.menu-elements { margin-top: 5px; display: grid; }
-		.side-menu .text-left, .side-menu .text-right { width: auto; padding-right: 0px;}
+		div.side-menu div.menu-elements { margin-top: 5px; display: grid; font-size: 10px; }
+		.side-menu .text-left, .side-menu .text-right { padding-right: 0px;}
+		div#optGblPage { font-size: 12px; }
 	}
 	@media all and (max-width: 251px) {
 		div#mainContainer { width: 250px; }
@@ -1817,11 +1821,12 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 309px) {
 		div#mainContainer { width: 309px; }
 		#networkLogo { max-height: 35px;}
-		#issuerLogo { max-height: 35px;}
+		#issuerLogo { max-height: 30px;}
 		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
-		div.side-menu div.menu-elements { margin-top: 5px; display: grid; }
-		.side-menu .text-left, .side-menu .text-right { width: auto; padding-right: 0px;}
+		div.side-menu div.menu-elements { margin-top: 5px; display: grid; font-size: 10px; }
+		.side-menu .text-left, .side-menu .text-right { padding-right: 0px;}
+		div#optGblPage { font-size: 12px; }
 	}
 	@media all and (max-width: 251px) {
 		div#mainContainer { width: 250px; }
@@ -2200,11 +2205,12 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 309px) {
 		div#mainContainer { width: 309px; }
 		#networkLogo { max-height: 35px;}
-		#issuerLogo { max-height: 35px;}
+		#issuerLogo { max-height: 30px;}
 		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
-		div.side-menu div.menu-elements { margin-top: 5px; display: grid; }
-		.side-menu .text-left, .side-menu .text-right { width: auto; padding-right: 0px;}
+		div.side-menu div.menu-elements { margin-top: 5px; display: grid; font-size: 10px; }
+		.side-menu .text-left, .side-menu .text-right { padding-right: 0px;}
+		div#optGblPage { font-size: 12px; }
 	}
 	@media all and (max-width: 251px) {
 		div#mainContainer { width: 250px; }
