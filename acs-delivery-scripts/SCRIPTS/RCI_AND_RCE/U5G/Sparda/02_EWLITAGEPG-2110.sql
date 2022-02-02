@@ -122,7 +122,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		width: 100%;
 		clear: both;
 	}
-   #pageHeader {
+	#pageHeader {
 		width: 100%;
 		height: 95px;
 		border-bottom: 1px solid #dcdcdc;
@@ -316,11 +316,14 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		div#chiptanContainer {margin-left: 30px; }
 		#tanLabel { flex: 1 1 0%; }
 	}
-	@media all and (max-width: 250px) {
+	@media all and (max-width: 251px) {
 		h1 { font-size:10px; }
 		div#optGblPage { font-size : 10px; }
 		#pageHeader {height: 60px;}
-		#issuerLogo {max-height: 22px; }
+		#issuerLogoDiv {padding-left: 6px !important;}
+		#networkLogoDiv {padding-right: 6px !important;}
+		#issuerLogo {max-height: 22px; max-width: 100px;}
+		#networkLogo {max-width: 100px;}
 		div.side-menu div.menu-title { display: flow-root; }
 		side-menu div.text-center { padding-bottom: 3%;}
 		.paragraph { font-size : 10px; text-align: center;}
@@ -332,6 +335,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		button span.fa { padding-right: 0px;}
 		#helpButton button { margin-left: auto; }
 		#valButton button { display: inline;}
+		.side-menu .text-left, .side-menu .text-right { padding-left: 0px;}
 	}
 </style>
 <div id="optGblPage">
@@ -719,11 +723,14 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#issuerLogo { max-height: 28px;}
 		#otp-form { width: 132px;}
 	}
-	@media all and (max-width: 250px) {
+	@media all and (max-width: 251px) {
 		h1 { font-size:10px; }
 		div#optGblPage { font-size : 10px; }
 		#pageHeader { height: 60px; }
-		#issuerLogo {max-height: 22px; }
+		#issuerLogoDiv {padding-left: 6px !important;}
+		#networkLogoDiv {padding-right: 6px !important;}
+		#issuerLogo {max-height: 22px; max-width: 100px;}
+		#networkLogo {max-width: 100px;}
 		div.side-menu div.menu-title { display: flow-root; }
 		side-menu div.text-center { padding-bottom: 3%;}
 		.paragraph { font-size : 10px; text-align: center;}
@@ -734,6 +741,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		button span.fa { padding-right: 0px;}
 		#helpButton button { margin-left: auto; }
 		#valButton button { display: inline; }
+		.side-menu .text-left, .side-menu .text-right { padding-left: 0px;}
 	}
 </style>
 <div id="optGblPage">
@@ -999,16 +1007,20 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#pageHeader {height: 70px;}
 		div#displayLayout { display: none; }
 	}
-	@media all and (max-width: 250px) {
+	@media all and (max-width: 251px) {
 		h1 { font-size:10px; }
 		div#optGblPage { font-size : 10px; }
 		#pageHeader {height: 60px;}
-		#issuerLogo {max-height: 22px; }
+		#issuerLogoDiv {padding-left: 6px !important;}
+		#networkLogoDiv {padding-right: 6px !important;}
+		#issuerLogo {max-height: 22px; max-width: 100px;}
+		#networkLogo {max-width: 100px;}
 		div.side-menu div.menu-title { display: flow-root; }
 		side-menu div.text-center { padding-bottom: 3%;}
 		.paragraph { font-size : 10px; text-align: center;}
 		div#footer { height: 50px; }
 		#helpButton button { margin-left: auto; }
+		.side-menu .text-left, .side-menu .text-right { padding-left: 0px;}
 	}
 </style>
 <div id="optGblPage">
@@ -1266,16 +1278,20 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#pageHeader {height: 70px;}
 		div#displayLayout { display: none; }
 	}
-	@media all and (max-width: 250px) {
+	@media all and (max-width: 251px) {
 		h1 { font-size:10px; }
 		div#optGblPage { font-size : 10px; }
 		#pageHeader {height: 60px;}
-		#issuerLogo {max-height: 22px; }
+		#issuerLogoDiv {padding-left: 6px !important;}
+		#networkLogoDiv {padding-right: 6px !important;}
+		#issuerLogo {max-height: 22px; max-width: 100px;}
+		#networkLogo {max-width: 100px;}
 		div.side-menu div.menu-title { display: flow-root; }
 		side-menu div.text-center { padding-bottom: 3%;}
 		.paragraph { font-size : 10px; text-align: center;}
 		div#footer { height: 50px; }
 		#helpButton button { margin-left: auto; }
+		.side-menu .text-left, .side-menu .text-right { padding-left: 0px;}
 	}
 </style>
 <div id="optGblPage">
@@ -1570,16 +1586,20 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#networkLogo {max-height: 30px; }
 		div#displayLayout { display: none; }
 	}
-	@media all and (max-width: 250px) {
+	@media all and (max-width: 251px) {
 		h1 { font-size:10px; }
 		div#optGblPage { font-size : 10px; }
 		#pageHeader {height: 60px;}
-		#issuerLogo {max-height: 22px; }
+		#issuerLogoDiv {padding-left: 6px !important;}
+		#networkLogoDiv {padding-right: 6px !important;}
+		#issuerLogo {max-height: 22px; max-width: 100px;}
+		#networkLogo {max-width: 100px;}
 		div.side-menu div.menu-title { display: flow-root; }
 		side-menu div.text-center { padding-bottom: 3%;}
 		.paragraph { font-size : 10px; text-align: center;}
 		div#footer { height: 50px; }
 		#helpButton button { margin-left: auto; }
+		.side-menu .text-left, .side-menu .text-right { padding-left: 0px;}
 	}
 </style>
 <div id="optGblPage">
@@ -1916,11 +1936,14 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#networkLogo {max-height: 35px; }
 		div#displayLayout { display: none; }
 	}
-	@media all and (max-width: 250px) {
+	@media all and (max-width: 251px) {
 		h1 { font-size:10px; }
 		div#optGblPage { font-size : 10px; }
 		#pageHeader {height: 60px;}
-		#issuerLogo {max-height: 22px; }
+		#issuerLogoDiv {padding-left: 6px !important;}
+		#networkLogoDiv {padding-right: 6px !important;}
+		#issuerLogo {max-height: 22px; max-width: 100px;}
+		#networkLogo {max-width: 100px;}
 		div.side-menu div.menu-title { display: flow-root; }
 		side-menu div.text-center { padding-bottom: 3%;}
 		.paragraph { font-size : 10px; text-align: center;}
@@ -1929,6 +1952,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		button span.fa { padding-right: 0px;}
 		#helpButton button { margin-left: auto; }
 		#valButton button { display: inline;}
+		.side-menu .text-left, .side-menu .text-right { padding-left: 0px;}
 	}
 </style>
 <div id="optGblPage">
@@ -2293,11 +2317,14 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#networkLogo {max-height: 35px; }
 		#otp-form { width: 132px;}
 	}
-	@media all and (max-width: 250px) {
+	@media all and (max-width: 251px) {
 		h1 { font-size:10px; }
 		div#optGblPage { font-size : 10px; }
 		#pageHeader {height: 60px;}
-		#issuerLogo {max-height: 22px; }
+		#issuerLogoDiv {padding-left: 6px !important;}
+		#networkLogoDiv {padding-right: 6px !important;}
+		#issuerLogo {max-height: 22px; max-width: 100px;}
+		#networkLogo {max-width: 100px;}
 		div.side-menu div.menu-title { display: flow-root; }
 		side-menu div.text-center { padding-bottom: 3%;}
 		.paragraph { font-size : 10px; text-align: center;}
@@ -2307,6 +2334,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		button span.fa { padding-right: 0px;}
 		#helpButton button { margin-left: auto; }
 		#valButton button { display: inline; }
+		.side-menu .text-left, .side-menu .text-right { padding-left: 0px;}
 	}
 </style>
 <div id="optGblPage">
@@ -2527,7 +2555,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		width: 100%;
 		clear: both;
 	}
-   #pageHeader {
+	#pageHeader {
 		width: 100%;
 		height: 95px;
 		border-bottom: 1px solid #dcdcdc;
@@ -2740,17 +2768,22 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 347px) {
 		#issuerLogo {max-height: 22px; }
 	}
-	@media all and (max-width: 250px) {
+	@media all and (max-width: 251px) {
 		h1 { font-size:10px; }
 		div#optGblPage { font-size : 10px; }
 		#pageHeader {height: 60px;}
-		#issuerLogo {max-height: 22px; }
+		#issuerLogoDiv {padding-left: 6px !important;}
+		#networkLogoDiv {padding-right: 6px !important;}
+		#issuerLogo {max-height: 22px; max-width: 100px;}
+		#networkLogo {max-width: 100px;}
 		div.side-menu div.menu-title { display: flow-root; }
 		side-menu div.text-center { padding-bottom: 3%;}
 		.paragraph { font-size : 10px; text-align: center;}
 		.meansSelectValue { flex:1 0 50%;  padding-left: 15%;}
 		div#footer { height: 50px; }
 		#helpButton button { margin-left: auto; }
+		.side-menu .text-left, .side-menu .text-right { padding-left: 0px;}
+
 	}
 </style>
 <div id="optGblPage">
@@ -2802,7 +2835,8 @@ UPDATE `CustomComponent` SET `value` = '<style>
 
 SET @id_layout = (SELECT id FROM `CustomPageLayout` WHERE `DESCRIPTION` like CONCAT('Message Banner (', @BankB, ')%') );
 
-UPDATE `CustomComponent` SET `value` = '<div id="messageBanner">
+UPDATE `CustomComponent` SET `value` = '
+<div id="messageBanner">
 	<span id="info-icon" class="fa fa-info-circle"></span>
 	<custom-text id="headingTxt" custom-text-key="$parent.heading"></custom-text>
 	<custom-text id="message" custom-text-key="$parent.message"></custom-text>
@@ -2840,7 +2874,7 @@ UPDATE `CustomComponent` SET `value` = '<div id="messageBanner">
 			span#headingTxt { font-size:12px; }
 			span#message { font-size:10px; }
 		}
-		@media all and (max-width: 250px) {
+		@media all and (max-width: 251px) {
 			span#headingTxt { font-size:10px; }
 			span#message { font-size:8px; }
 		}
@@ -3071,14 +3105,18 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#issuerLogo {max-height: 35px; }
 		#networkLogo {max-height: 30px; }
 	}
-	@media all and (max-width: 250px) {
+	@media all and (max-width: 251px) {
 		h1 { font-size:10px; }
 		div#optGblPage { font-size : 10px; }
 		#pageHeader {height: 60px;}
-		#issuerLogo {max-height: 22px; }
+		#issuerLogoDiv {padding-left: 6px !important;}
+		#networkLogoDiv {padding-right: 6px !important;}
+		#issuerLogo {max-height: 22px; max-width: 100px;}
+		#networkLogo {max-width: 100px;}
 		.paragraph { font-size : 10px; text-align: center;}
 		div#footer { height: 50px; }
 		#helpButton button { margin-left: auto; }
+		.side-menu .text-left, .side-menu .text-right { padding-left: 0px;}
 	}
 	</style>
 	<div id="optGblPage">
