@@ -2970,7 +2970,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		padding-right:0.5em;
 	}
 	#helpCloseButton button {
-		display: inline-block;
+		display: inline-flex;
 		cursor: pointer;
 		text-align: center;
 		text-decoration: none;
@@ -3111,8 +3111,8 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#pageHeader {height: 60px;}
 		#issuerLogoDiv {padding-left: 6px !important;}
 		#networkLogoDiv {padding-right: 6px !important;}
-		#issuerLogo {max-height: 22px; max-width: 100px;}
-		#networkLogo {max-width: 100px;}
+		#issuerLogo {max-height: 22px; max-width: 80px;}
+		#networkLogo {max-width: 80px;}
 		.paragraph { font-size : 10px; text-align: center;}
 		div#footer { height: 50px; }
 		#helpButton button { margin-left: auto; }
