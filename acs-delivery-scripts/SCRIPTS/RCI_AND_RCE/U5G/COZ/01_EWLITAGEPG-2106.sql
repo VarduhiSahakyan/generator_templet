@@ -13,28 +13,36 @@ SET `value` = '
 	}
 	#pageHeader {
 		width: 100%;
-		height: 96px;
+		height: 95px;
 		border-bottom: 1px solid #dcdcdc;
 	}
 	#pageHeaderLeft {
-		width: 30%;
-		float: left;
-		padding-left: 16px;
+		width: 50%;
 		height: 100%;
-		display: flex;
-		align-items: center;
+		display: inline-flex;
+		float: left;
 	}
 	#pageHeaderRight {
-		width: 30%;
-		float: right;
-		padding-right: 16px;
+		width: 50%;
 		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: right;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
 	}
 	#issuerLogo {
-		max-height: 64px;
+		max-height: 65px;
 		max-width: 100%;
 	}
 	#networkLogo {
@@ -184,7 +192,7 @@ SET `value` = '
 		width:60%;
 		margin-left:38%;
 		background-color: #FFFFFF;
-        clear: both;
+		clear: both;
 	}
 	#footer .cancel-link {
 		float: left;
@@ -261,82 +269,86 @@ SET `value` = '
 	#helpButton .fa-info {
 		display:none;
 	}
-    @media all and (min-width: 601px) and (max-width: 1199px) {
+	@media all and (min-width: 601px) and (max-width: 1199px) {
 		div#optGblPage { font-size : 14px; }
-        #displayLayout {display: none}
-		#pageHeader {height: 90px}
-		#issuerLogo {max-height: 50px; }
-		#networkLogo {max-height: 50px; }
+		#displayLayout {display: none}
+		#pageHeader { height: 85px; }
+		#issuerLogo { max-height: 55px; }
+		#networkLogo { max-height: 55px; }
 		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
 		.paragraph { font-size : 14px; text-align:center; }
-        .leftColumn {margin-top: 5px; width : 100%; float : none}
-        .rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
-        .validateButton {margin-bottom: 5px;}
-        #footer { width:100%; margin-left:0%;}
-    }
-    @media all and (min-width: 501px) and (max-width: 600px) {
+		.leftColumn {margin-top: 5px; width : 100%; float : none}
+		.rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
+		.validateButton {margin-bottom: 5px;}
+		#footer { width:100%; margin-left:0%;}
+	}
+	@media all and (min-width: 501px) and (max-width: 600px) {
 		div#optGblPage { font-size : 14px;}
 		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
 		.paragraph { font-size : 14px; text-align:center; }
-        #displayLayout {display: none}
+		#displayLayout {display: none}
 		#pageHeader {height: 80px}
 		#issuerLogo {max-height: 50px; }
 		#networkLogo {max-height: 50px; }
-        .leftColumn {margin-top: 5px; width : 100%; float : none}
-        .rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
-        .validateButton {margin-bottom: 5px;}
-        #footer { width:100%; margin-left:0%;}
-    }
-    @media all and (min-width: 390px) and (max-width: 500px) {
+		.leftColumn {margin-top: 5px; width : 100%; float : none}
+		.rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
+		.validateButton {margin-bottom: 5px;}
+		#footer { width:100%; margin-left:0%;}
+	}
+	@media all and (min-width: 391px) and (max-width: 501px) {
 		div#optGblPage { font-size : 14px;}
 		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
 		.paragraph { font-size : 14px; text-align:center; }
-        #displayLayout {display: none}
+		#displayLayout {display: none}
 		#pageHeader {height: 70px}
-		#issuerLogo {max-height: 45px; }
+		#issuerLogo {max-height: 40px; }
 		#networkLogo {max-height: 40px; }
-        .leftColumn {margin-top: 5px; width : 100%; float : none}
-        .rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
-        .validateButton {margin-bottom: 5px;}
-        #footer { width:100%; margin-left:0%;}
-    }
-    @media all and (min-width: 250px) and (max-width: 390px) {
+		.leftColumn {margin-top: 5px; width : 100%; float : none}
+		.rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
+		.validateButton {margin-bottom: 5px;}
+		#footer { width:100%; margin-left:0%;}
+	}
+	@media all and (min-width: 250px) and (max-width: 391px) {
 		div#optGblPage { font-size : 12px; }
 		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
 		.paragraph { font-size : 12px; text-align:center; }
-        #displayLayout {display: none}
+		#displayLayout {display: none}
 		#pageHeader {height: 65px}
-		#issuerLogo {max-height: 35px; }
+		#issuerLogo {max-height: 30px; }
 		#networkLogo {max-height: 30px; }
-        .leftColumn {margin-top: 5px; width : 100%; float : none}
-        .rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
-        .validateButton {margin-bottom: 5px;}
-        #footer { width:100%; margin-left:0%;}
-    }
+		.leftColumn {margin-top: 5px; width : 100%; float : none}
+		.rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
+		.validateButton {margin-bottom: 5px;}
+		#footer { width:100%; margin-left:0%;}
+	}
 	@media all and (min-width: 250px) and (max-width: 261px) {
-        div.side-menu { font-size : 11px}
-    }
+		div.side-menu { font-size : 11px}
+	}
 	@media all and (max-width: 250px) {
 		div#optGblPage { font-size : 12px; }
-        div.side-menu div.menu-title { font-size : 12px; display:block; text-align:center; }
-        side-menu div.text-center { font-size : 11px}
-        .paragraph { font-size : 12px; text-align:center; }
-        #pageHeader {height: 50px}
+		div.side-menu div.menu-title { font-size : 12px; display:block; text-align:center; }
+		side-menu div.text-center { font-size : 11px}
+		.paragraph { font-size : 12px; text-align:center; }
+		#pageHeader {height: 50px}
 		#networkLogo {max-height: 25px; }
-        #displayLayout {display: none}
-        .leftColumn {margin-top: 5px; width : 100%; float : none}
-        .rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
-        .validateButton {margin-bottom: 5px;}
-        #footer { width:100%; margin-left:0%;}
+		#displayLayout {display: none}
+		.leftColumn {margin-top: 5px; width : 100%; float : none}
+		.rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
+		.validateButton {margin-bottom: 5px;}
+		#footer { width:100%; margin-left:0%;}
 	}
 </style>
 <div id="optGblPage">
 	<div id="pageHeader" ng-style="style" class="ng-scope">
 		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
-			<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+			<div id="issuerLogoDiv">
+				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+			</div>
 		</div>
 		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
-			<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+			<div id="networkLogoDiv">
+				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+			</div>
 		</div>
 	</div>
 
@@ -388,7 +400,6 @@ SET `value` = '
 </div>'  where fk_id_layout = @pageLayoutIdPassword;
 
 
-
 set @pageLayoutIdSMS = (select id from `CustomPageLayout` where `pageType` = 'OTP_FORM_PAGE' and DESCRIPTION = 'SMS OTP Form Page (Commerzbank AG)');
 
 UPDATE `CustomComponent`
@@ -402,28 +413,36 @@ SET `value` = '
 	}
 	#pageHeader {
 		width: 100%;
-		height: 96px;
+		height: 95px;
 		border-bottom: 1px solid #dcdcdc;
 	}
 	#pageHeaderLeft {
 		width: 50%;
-		float: left;
-		padding-left: 16px;
 		height: 100%;
-		display: flex;
-		align-items: center;
+		display: inline-flex;
+		float: left;
 	}
 	#pageHeaderRight {
 		width: 50%;
-		float: right;
-		padding-right: 16px;
 		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: right;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
 	}
 	#issuerLogo {
-		max-height: 64px;
+		max-height: 65px;
 		max-width: 100%;
 	}
 	#networkLogo {
@@ -444,7 +463,7 @@ SET `value` = '
 	}
 	.rightColumn {
 		width:60%;
-        float:left;
+		float:left;
 		display:block;
 		text-align:center;
 		padding:20px 10px 20px;
@@ -559,7 +578,7 @@ SET `value` = '
 	div#otp-form div.tooltips span:after {
 		border-top: 8px solid #545454;
 	}
-    .validateButton{
+	.validateButton{
 		text-align: center;
 	}
 	#validateButton button {
@@ -596,20 +615,20 @@ SET `value` = '
 	#footer {
 		padding-top: 12px;
 		padding-bottom:12px;
-        margin-left:38%;
+		margin-left:38%;
 		width:60%;
 		background-color: #FFFFFF;
-        clear:both;
+		clear:both;
 	}
-    #footer .cancel-link {
-        float: left;
-        margin-left: 20px;
-        background-color: #FFFFFF;
-        border-style: solid;
-        border-width: 1px;
-        border-color:transparent;
-        padding: 2px;
-    }
+	#footer .cancel-link {
+		float: left;
+		margin-left: 20px;
+		background-color: #FFFFFF;
+		border-style: solid;
+		border-width: 1px;
+		border-color:transparent;
+		padding: 2px;
+	}
 	#cancelButton button {
 		background-color: #FFFFFF;
 		border-style: none;
@@ -643,13 +662,13 @@ SET `value` = '
 		display: none;
 	}
 	#footer .help-link {
-	    float: right;
-        margin-right: 20px;
-        background-color: #FFFFFF;
-        border-style: solid;
-        border-width: 1px;
-        border-color:transparent;
-        padding: 2px;
+		float: right;
+		margin-right: 20px;
+		background-color: #FFFFFF;
+		border-style: solid;
+		border-width: 1px;
+		border-color:transparent;
+		padding: 2px;
 	}
 	#helpButton button {
 		background-color: #FFFFFF;
@@ -676,90 +695,93 @@ SET `value` = '
 	#helpButton .fa-info {
 		display:none;
 	}
-    @media all and (min-width: 601px) and (max-width: 1199px) {
+	@media all and (min-width: 601px) and (max-width: 1199px) {
 		div#optGblPage { font-size : 14px; }
 		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
 		.paragraph { font-size : 14px; text-align:center; }
-        #displayLayout {display: none}
+		#displayLayout {display: none}
 		#pageHeader {height: 90px}
 		#issuerLogo {max-height: 50px; }
 		#networkLogo {max-height: 50px; }
-        .leftColumn {margin-top: 10px; width : 100%; float : none}
-        .rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
-        #reOPT {margin-bottom: 10px;}
-        .validateButton {margin-bottom: 5px;}
-        #footer { width:100%; margin-left:0%;}
-    }
-    @media all and (min-width: 501px) and (max-width: 600px) {
+		.leftColumn {margin-top: 10px; width : 100%; float : none}
+		.rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
+		#reOPT {margin-bottom: 10px;}
+		.validateButton {margin-bottom: 5px;}
+		#footer { width:100%; margin-left:0%;}
+	}
+	@media all and (min-width: 501px) and (max-width: 600px) {
 		div#optGblPage { font-size : 14px;}
 		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
 		.paragraph { font-size : 14px; text-align:center; }
-        #displayLayout {display: none}
+		#displayLayout {display: none}
 		#pageHeader {height: 70px}
 		#issuerLogo {max-height: 50px; }
 		#networkLogo {max-height: 50px; }
-        .leftColumn {margin-top: 10px; width : 100%; float : none}
-        .rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
-        #reOPT {margin-bottom: 10px;}
-        .validateButton {margin-bottom: 5px;}
-        #footer { width:100%; margin-left:0%;}
-    }
-    @media all and (min-width: 390px) and (max-width: 500px) {
+		.leftColumn {margin-top: 10px; width : 100%; float : none}
+		.rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
+		#reOPT {margin-bottom: 10px;}
+		.validateButton {margin-bottom: 5px;}
+		#footer { width:100%; margin-left:0%;}
+	}
+	@media all and (min-width: 390px) and (max-width: 500px) {
 		div#optGblPage { font-size : 14px;}
 		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
 		.paragraph { font-size : 14px; text-align:center; }
-        #displayLayout {display: none}
+		#displayLayout {display: none}
 		#pageHeader {height: 70px}
 		#issuerLogo {max-height: 45px; }
 		#networkLogo {max-height: 40px; }
-        .leftColumn {margin-top: 10px; width : 100%; float : none}
-        .rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
-        #reOPT {margin-bottom: 10px;}
-        .validateButton {margin-bottom: 5px;}
-        #footer { width:100%; margin-left:0%;}
-    }
-    @media all and (min-width: 250px) and (max-width: 390px) {
+		.leftColumn {margin-top: 10px; width : 100%; float : none}
+		.rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
+		#reOPT {margin-bottom: 10px;}
+		.validateButton {margin-bottom: 5px;}
+		#footer { width:100%; margin-left:0%;}
+	}
+	@media all and (min-width: 250px) and (max-width: 390px) {
 		div#optGblPage { font-size : 12px; }
 		div.side-menu div.menu-title { font-size : 12px; display:block; text-align:center; }
 		.paragraph { font-size : 12px; text-align:center; }
-        #displayLayout {display: none}
+		#displayLayout {display: none}
 		#pageHeader {height: 65px}
 		#issuerLogo {max-height: 35px; }
 		#networkLogo {max-height: 30px; }
-        .leftColumn {margin-top: 10px; width : 100%; float : none}
-        .rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
-        #reOPT {margin-bottom: 10px;}
-        .validateButton {margin-bottom: 5px;}
-        #footer { width:100%; margin-left:0%;}
-    }
+		.leftColumn {margin-top: 10px; width : 100%; float : none}
+		.rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
+		#reOPT {margin-bottom: 10px;}
+		.validateButton {margin-bottom: 5px;}
+		#footer { width:100%; margin-left:0%;}
+	}
 	@media all and (min-width: 250px) and (max-width: 261px) {
-        div.side-menu { font-size : 11px}
-    }
+		div.side-menu { font-size : 11px}
+	}
 	@media all and (max-width: 250px) {
 		div#optGblPage { font-size : 12px; }
-        .paragraph { font-size : 12px; text-align:center; }
-        div.side-menu div.menu-title { font-size : 12px; display:block; text-align:center; }
-        side-menu div.text-center { font-size : 11px}
-        #pageHeader {height: 50px}
+		.paragraph { font-size : 12px; text-align:center; }
+		div.side-menu div.menu-title { font-size : 12px; display:block; text-align:center; }
+		side-menu div.text-center { font-size : 11px}
+		#pageHeader {height: 50px}
 		#networkLogo {max-height: 25px; }
-        #displayLayout {display: none}
-        .leftColumn {margin-top: 10px; width : 100%; float : none}
-        .rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
-        #reOPT {margin-bottom: 10px;}
-        .validateButton {margin-bottom: 5px;}
-        #footer { width:100%; margin-left:0%;}
+		#displayLayout {display: none}
+		.leftColumn {margin-top: 10px; width : 100%; float : none}
+		.rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
+		#reOPT {margin-bottom: 10px;}
+		.validateButton {margin-bottom: 5px;}
+		#footer { width:100%; margin-left:0%;}
 	}
 </style>
 <div id="optGblPage">
 	<div id="pageHeader" ng-style="style" class="ng-scope">
 		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
-			<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+			<div id="issuerLogoDiv">
+				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+			</div>
 		</div>
 		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
-			<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+			<div id="networkLogoDiv">
+				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+			</div>
 		</div>
 	</div>
-
 	<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
 
 	<div id="displayLayout" class="row">
@@ -807,7 +829,6 @@ SET `value` = '
 </div>' where fk_id_layout = @pageLayoutIdSMS;
 
 
-
 set @pageLayoutIdPhotoTAN = (select id from `CustomPageLayout` where `pageType` = 'PHOTO_TAN_OTP_FORM_PAGE' and DESCRIPTION = 'PhotoTAN OTP Form Page (Commerzbank AG)');
 
 UPDATE `CustomComponent`
@@ -822,28 +843,36 @@ SET `value` = '
 	}
 	#pageHeader {
 		width: 100%;
-		height: 96px;
+		height: 95px;
 		border-bottom: 1px solid #dcdcdc;
 	}
 	#pageHeaderLeft {
 		width: 50%;
-		float: left;
-		padding-left: 16px;
 		height: 100%;
-		display: flex;
-		align-items: center;
+		display: inline-flex;
+		float: left;
 	}
 	#pageHeaderRight {
 		width: 50%;
-		float: right;
-		padding-right: 16px;
 		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: right;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
 	}
 	#issuerLogo {
-		max-height: 64px;
+		max-height: 65px;
 		max-width: 100%;
 	}
 	#networkLogo {
@@ -864,7 +893,7 @@ SET `value` = '
 	}
 	.rightColumn {
 		width:60%;
-        float:left;
+		float:left;
 		display:block;
 		text-align:center;
 		padding:20px 10px 20px;
@@ -956,7 +985,7 @@ SET `value` = '
 	div#otp-form div.tooltips span:after {
 		border-top: 8px solid #545454;
 	}
-    .validateButton{
+	.validateButton{
 		text-align: center;
 	}
 	#validateButton button {
@@ -994,19 +1023,19 @@ SET `value` = '
 		padding-top: 12px;
 		padding-bottom:12px;
 		width:60%;
-        margin-left:38%;
+		margin-left:38%;
 		background-color: #FFFFFF;
-        clear: both;
+		clear: both;
 	}
-    #footer .cancel-link {
-        float: left;
-        margin-left: 20px;
-        background-color: #FFFFFF;
-        border-style: solid;
-        border-width: 1px;
-        border-color:transparent;
-        padding: 2px;
-    }
+	#footer .cancel-link {
+		float: left;
+		margin-left: 20px;
+		background-color: #FFFFFF;
+		border-style: solid;
+		border-width: 1px;
+		border-color:transparent;
+		padding: 2px;
+	}
 	#cancelButton button {
 		background-color: #FFFFFF;
 		border-style: none;
@@ -1041,12 +1070,12 @@ SET `value` = '
 	}
 	#footer .help-link {
 		float: right;
-        margin-right: 20px;
-        background-color: #FFFFFF;
-        border-style: solid;
-        border-width: 1px;
-        border-color:transparent;
-        padding: 2px;
+		margin-right: 20px;
+		background-color: #FFFFFF;
+		border-style: solid;
+		border-width: 1px;
+		border-color:transparent;
+		padding: 2px;
 	}
 	#helpButton button {
 		background-color: #FFFFFF;
@@ -1073,88 +1102,92 @@ SET `value` = '
 	#helpButton .fa-info {
 		display:none;
 	}
-    @media all and (min-width: 601px) and (max-width: 1199px) {
+	@media all and (min-width: 601px) and (max-width: 1199px) {
 		div#optGblPage { font-size : 14px; }
 		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
 		.paragraph { font-size : 14px; text-align:center; }
-        #displayLayout {display: none}
+		#displayLayout {display: none}
 		#pageHeader {height: 70px}
 		#issuerLogo {max-height: 50px; }
 		#networkLogo {max-height: 50px; }
-        .leftColumn {margin-top: 5px; width : 100%; float : none}
-        .rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
-        .externalImage {margin:0px; padding:0px; max-height: 100px; max-width:100%;}
-        .validateButton {margin-bottom: 5px;}
-        #footer { width:100%; margin-left:0%;}
-    }
-    @media all and (min-width: 501px) and (max-width: 600px) {
+		.leftColumn {margin-top: 5px; width : 100%; float : none}
+		.rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
+		.externalImage {margin:0px; padding:0px; max-height: 100px; max-width:100%;}
+		.validateButton {margin-bottom: 5px;}
+		#footer { width:100%; margin-left:0%;}
+	}
+	@media all and (min-width: 501px) and (max-width: 600px) {
 		div#optGblPage { font-size : 12px;}
 		div.side-menu div.menu-title { font-size : 12px; display:block; text-align:center; }
 		.paragraph { font-size : 12px; text-align:center; }
-        #displayLayout {display: none}
+		#displayLayout {display: none}
 		#pageHeader {height: 50px}
 		#issuerLogo {max-height: 35px; }
 		#networkLogo {max-height: 30px; }
-        .leftColumn {margin-top: 5px; width : 100%; float : none}
-        .rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
-        .externalImage {margin:0px; padding:0px; max-height: 80px; max-width:100%;}
-        .validateButton {margin-bottom: 5px;}
-        #footer { width:100%; margin-left:0%; padding-top: 8px;}
-    }
-    @media all and (min-width: 390px) and (max-width: 500px) {
+		.leftColumn {margin-top: 5px; width : 100%; float : none}
+		.rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
+		.externalImage {margin:0px; padding:0px; max-height: 80px; max-width:100%;}
+		.validateButton {margin-bottom: 5px;}
+		#footer { width:100%; margin-left:0%; padding-top: 8px;}
+	}
+	@media all and (min-width: 390px) and (max-width: 500px) {
 		div#optGblPage { font-size : 12px;}
 		div.side-menu div.menu-title { font-size : 12px; display:block; text-align:center; }
 		.paragraph { font-size : 12px; text-align:center; }
-        #displayLayout {display: none}
+		#displayLayout {display: none}
 		#pageHeader {height: 50px}
 		#issuerLogo {max-height: 35px; }
 		#networkLogo {max-height: 30px; }
-        .leftColumn {margin-top: 5px; width : 100%; float : none}
-        .rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
-        .externalImage {margin:0px; padding:0px; max-height: 80px; max-width:100%;}
-        .validateButton {margin-bottom: 5px;}
-        #footer { width:100%; margin-left:0%; padding-top: 8px;}
-    }
-    @media all and (min-width: 250px) and (max-width: 390px) {
+		.leftColumn {margin-top: 5px; width : 100%; float : none}
+		.rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
+		.externalImage {margin:0px; padding:0px; max-height: 80px; max-width:100%;}
+		.validateButton {margin-bottom: 5px;}
+		#footer { width:100%; margin-left:0%; padding-top: 8px;}
+	}
+	@media all and (min-width: 250px) and (max-width: 390px) {
 		div#optGblPage { font-size : 12px; }
 		div.side-menu div.menu-title { font-size : 12px; display:block; text-align:center; }
 		.paragraph { font-size : 12px; text-align:center; }
-        #displayLayout {display: none}
+		#displayLayout {display: none}
 		#pageHeader {height: 50px}
 		#issuerLogo {max-height: 35px; }
 		#networkLogo {max-height: 30px; }
-        .leftColumn {margin-top: 5px; width : 100%; float : none}
-        .rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
-        .externalImage {margin:0px; padding:0px; max-height: 80px;max-width:100%;}
-        .validateButton {margin-bottom: 5px;}
-        #footer { width:100%; margin-left:0%; padding-top: 8px;}
-    }
+		.leftColumn {margin-top: 5px; width : 100%; float : none}
+		.rightColumn {margin-top : 10px; width:100%; margin-left:0px; padding:0}
+		.externalImage {margin:0px; padding:0px; max-height: 80px;max-width:100%;}
+		.validateButton {margin-bottom: 5px;}
+		#footer { width:100%; margin-left:0%; padding-top: 8px;}
+	}
 	@media all and (min-width: 250px) and (max-width: 261px) {
-        div.side-menu { font-size : 11px}
-    }
+		div.side-menu { font-size : 11px}
+	}
 	@media all and (max-width: 250px) {
-        .paragraph { font-size : 11px; text-align:center; }
-        div.side-menu div.menu-title { font-size : 11px; display:block; text-align:center; }
-        side-menu div.text-center { font-size : 10px}
-        #pageHeader {height: 50px}
+		.paragraph { font-size : 11px; text-align:center; }
+		div.side-menu div.menu-title { font-size : 11px; display:block; text-align:center; }
+		side-menu div.text-center { font-size : 10px}
+		#pageHeader {height: 50px}
 		#networkLogo {max-height: 25px; }
-        #displayLayout {display: none}
-        .leftColumn {margin-top: 5px; width : 100%; float : none}
-        .rightColumn {width:100%; margin-top : 10px; margin-left:0px; padding:0}
-        .externalImage {margin:0px; padding:0px; max-height: 80px;max-width:100%;}
-        .validateButton {margin-bottom: 5px;}
-        #footer { width:100%; margin-left:0%;}
-        #footer .cancel-link {margin-left: 10px;}
-        #footer .help-link {margin-right: 10px;}
+		#displayLayout {display: none}
+		.leftColumn {margin-top: 5px; width : 100%; float : none}
+		.rightColumn {width:100%; margin-top : 10px; margin-left:0px; padding:0}
+		.externalImage {margin:0px; padding:0px; max-height: 80px;max-width:100%;}
+		.validateButton {margin-bottom: 5px;}
+		#footer { width:100%; margin-left:0%;}
+		#footer .cancel-link {margin-left: 10px;}
+		#footer .help-link {margin-right: 10px;}
 	}
 </style>
 <div id="optGblPage">
 	<div id="pageHeader" ng-style="style" class="ng-scope">
 		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
-			<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+			<div id="issuerLogoDiv">
+				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+			</div>
 		</div>
 		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
-			<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+			<div id="networkLogoDiv">
+				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+			</div>
 		</div>
 	</div>
 
@@ -1202,7 +1235,6 @@ SET `value` = '
 </div>' where fk_id_layout = @pageLayoutIdPhotoTAN;
 
 
-
 set @pageLayoutIdPolling = (select id from `CustomPageLayout` where `pageType` = 'POLLING_PAGE' and DESCRIPTION = 'Polling Page (Commerzbank AG)');
 
 UPDATE `CustomComponent`
@@ -1216,28 +1248,36 @@ SET `value` = '
 	}
 	#pageHeader {
 		width: 100%;
-		height: 96px;
+		height: 95px;
 		border-bottom: 1px solid #dcdcdc;
 	}
 	#pageHeaderLeft {
 		width: 50%;
-		float: left;
-		padding-left: 16px;
 		height: 100%;
-		display: flex;
-		align-items: center;
+		display: inline-flex;
+		float: left;
 	}
 	#pageHeaderRight {
 		width: 50%;
-		float: right;
-		padding-right: 16px;
 		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: right;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
 	}
 	#issuerLogo {
-		max-height: 64px;
+		max-height: 65px;
 		max-width: 100%;
 	}
 	#networkLogo {
@@ -1258,7 +1298,7 @@ SET `value` = '
 	}
 	.rightColumn {
 		width:60%;
-        float:left;
+		float:left;
 		display:block;
 		text-align:center;
 		padding:20px 10px 20px;
@@ -1347,7 +1387,7 @@ SET `value` = '
 	div#otp-form div.tooltips span:after {
 		border-top: 8px solid #545454;
 	}
-    .validateButton{
+	.validateButton{
 		text-align: center;
 	}
 	#validateButton button {
@@ -1385,19 +1425,19 @@ SET `value` = '
 		padding-top: 12px;
 		padding-bottom:12px;
 		width:60%;
-        margin-left:38%;
+		margin-left:38%;
 		background-color: #FFFFFF;
-        clear:both;
+		clear:both;
 	}
-    #footer .cancel-link {
-        float: left;
-        margin-left: 20px;
-        background-color: #FFFFFF;
-        border-style: solid;
-        border-width: 1px;
-        border-color:transparent;
-        padding: 2px;
-    }
+	#footer .cancel-link {
+		float: left;
+		margin-left: 20px;
+		background-color: #FFFFFF;
+		border-style: solid;
+		border-width: 1px;
+		border-color:transparent;
+		padding: 2px;
+	}
 	#cancelButton button {
 		background-color: #FFFFFF;
 		border-style: none;
@@ -1432,12 +1472,12 @@ SET `value` = '
 	}
 	#footer .help-link {
 		float: right;
-        margin-right: 20px;
-        background-color: #FFFFFF;
-        border-style: solid;
-        border-width: 1px;
-        border-color:transparent;
-        padding: 2px;
+		margin-right: 20px;
+		background-color: #FFFFFF;
+		border-style: solid;
+		border-width: 1px;
+		border-color:transparent;
+		padding: 2px;
 	}
 	#helpButton button {
 		background-color: #FFFFFF;
@@ -1464,81 +1504,84 @@ SET `value` = '
 	#helpButton .fa-info {
 		display:none;
 	}
-    @media all and (min-width: 601px) and (max-width: 1199px) {
-        div#optGblPage { font-size : 14px; }
+	@media all and (min-width: 601px) and (max-width: 1199px) {
+		div#optGblPage { font-size : 14px; }
 		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
 		.paragraph { font-size: 14px; }
 		#pageHeader {height: 80px}
 		#issuerLogo {max-height: 50px; }
 		#networkLogo {max-height: 50px; }
-        span#message {font-size: 14px !important; padding-left: 0}
-        #displayLayout {display: none}
+		span#message {font-size: 14px !important; padding-left: 0}
+		#displayLayout {display: none}
 		.leftColumn {margin-top: 5px; width: 100%; float: none}
-        .rightColumn {margin-top: 10px; width:100%; margin-left:0px; padding:0}
-        #footer { width:100%; margin-left:0%;}
-    }
-    @media all and (min-width: 501px) and (max-width: 600px) {
-        div#optGblPage { font-size : 14px; }
+		.rightColumn {margin-top: 10px; width:100%; margin-left:0px; padding:0}
+		#footer { width:100%; margin-left:0%;}
+	}
+	@media all and (min-width: 501px) and (max-width: 600px) {
+		div#optGblPage { font-size : 14px; }
 		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
 		.paragraph { font-size: 14px; }
 		#pageHeader {height: 65px}
 		#issuerLogo {max-height: 35px; }
 		#networkLogo {max-height: 30px; }
-        span#message {font-size: 14px !important; padding-left: 0}
-        #displayLayout {display: none}
+		span#message {font-size: 14px !important; padding-left: 0}
+		#displayLayout {display: none}
 		.leftColumn {margin-top: 5px; width: 100%; float: none}
-        .rightColumn {margin-top: 10px; width:100%; margin-left:0px; padding:0}
-        #footer { width:100%; margin-left:0%;}
-    }
-    @media all and (min-width: 390px) and (max-width: 500px) {
-        div#optGblPage { font-size : 14px; }
+		.rightColumn {margin-top: 10px; width:100%; margin-left:0px; padding:0}
+		#footer { width:100%; margin-left:0%;}
+	}
+	@media all and (min-width: 390px) and (max-width: 500px) {
+		div#optGblPage { font-size : 14px; }
 		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
 		.paragraph { font-size: 14px; }
 		#pageHeader {height: 65px}
 		#issuerLogo {max-height: 35px; }
 		#networkLogo {max-height: 30px; }
-        span#message {font-size: 14px !important; padding-left: 0}
-        #displayLayout {display: none}
+		span#message {font-size: 14px !important; padding-left: 0}
+		#displayLayout {display: none}
 		.leftColumn {margin-top: 5px; width: 100%; float: none}
-        .rightColumn {margin-top: 10px; width:100%; margin-left:0px; padding:0}
-        #footer { width:100%; margin-left:0%;}
-    }
-    @media all and (min-width: 250px) and (max-width: 390px) {
-        div#optGblPage { font-size : 12px; }
+		.rightColumn {margin-top: 10px; width:100%; margin-left:0px; padding:0}
+		#footer { width:100%; margin-left:0%;}
+	}
+	@media all and (min-width: 250px) and (max-width: 390px) {
+		div#optGblPage { font-size : 12px; }
 		div.side-menu div.menu-title { font-size : 12px; display:block; text-align:center; }
 		.paragraph { font-size: 12px; }
 		#pageHeader {height: 65px}
 		#issuerLogo {max-height: 35px; }
 		#networkLogo {max-height: 30px; }
-        span#message {font-size: 12px !important; padding-left: 40px;}
-        #displayLayout {display: none}
+		span#message {font-size: 12px !important; padding-left: 40px;}
+		#displayLayout {display: none}
 		.leftColumn {margin-top: 5px; width: 100%; float: none}
-        .rightColumn {margin-top: 10px; width:100%; margin-left:0px; padding:0}
-        #footer { width:100%; margin-left:0%;}
-    }
+		.rightColumn {margin-top: 10px; width:100%; margin-left:0px; padding:0}
+		#footer { width:100%; margin-left:0%;}
+	}
 	@media all and (max-width: 250px) {
-        div#optGblPage { font-size : 10px; }
+		div#optGblPage { font-size : 10px; }
 		div.side-menu div.menu-title { font-size : 10px; display:block; text-align:center; }
 		.paragraph { font-size: 10px; }
-        #pageHeader {height: 50px}
-        #networkLogo {max-height: 25px; }
-        span#message {font-size: 10px !important; padding-left: 25px;}
-        #displayLayout {display: none}
+		#pageHeader {height: 50px}
+		#networkLogo {max-height: 25px; }
+		span#message {font-size: 10px !important; padding-left: 25px;}
+		#displayLayout {display: none}
 		.leftColumn {margin-top: 5px; width: 100%; float: none}
-        .rightColumn {margin-top: 10px; width:100%; margin-left:0px; padding:0}
-        #footer { width:100%; margin-left:0%;}
+		.rightColumn {margin-top: 10px; width:100%; margin-left:0px; padding:0}
+		#footer { width:100%; margin-left:0%;}
 	}
 </style>
 <div id="optGblPage">
 	<div id="pageHeader" ng-style="style" class="ng-scope">
 		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
-			<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+			<div id="issuerLogoDiv">
+				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+			</div>
 		</div>
 		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
-			<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+			<div id="networkLogoDiv">
+				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+			</div>
 		</div>
 	</div>
-
 	<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
 
 	<div id="displayLayout" class="row">
@@ -1572,4 +1615,709 @@ SET `value` = '
 				<span class="fa fa-angle-right"></span>
 		</div>
 	</div>
+</div>' where fk_id_layout = @pageLayoutIdPolling;
+
+
+set @pageLayoutIdPolling = (select id from `CustomPageLayout` where `pageType` = 'INFO_REFUSAL_PAGE' and DESCRIPTION = 'INFO Refusal Page (Commerzbank AG)');
+
+UPDATE `CustomComponent`
+SET `value` = '
+
+<style>
+	div#optGblPage {
+		font-family: Arial,bold;
+		color: #333333;
+		font-size:14px;
+		overflow:auto;
+	}
+	#footer #cancelButton button span:before {
+		content:'''';
+	}
+	div#message-container.info {
+		background-color:#DB1818 !important;
+		font-family: Arial, standard;
+		font-size:12px;
+		color: #EAEAEA;
+	}
+	#footer {
+		padding-top: 12px;
+		padding-bottom:12px;
+		clear:both;
+		width:100%;
+		background-color:#FFFFFF;
+		text-align:center;
+		margin-top: 15px;
+		margin-bottom : 15px;
+	}
+	#pageHeader {
+		width: 100%;
+		height: 95px;
+		border-bottom: 1px solid #dcdcdc;
+	}
+	#pageHeaderLeft {
+		width: 50%;
+		height: 100%;
+		display: inline-flex;
+		float: left;
+	}
+	#pageHeaderRight {
+		width: 50%;
+		height: 100%;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: right;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
+	}
+	#issuerLogo {
+		max-height: 65px;
+		max-width: 100%;
+	}
+	#networkLogo {
+		max-height: 65px;
+		max-width: 100%;
+	}
+	.leftColumn {
+		width:65%;
+		display:block;
+		float:left;
+		padding:1em;
+	}
+	.rightColumn {
+		width: 100%;
+		margin-top: 10%;
+		display: block;
+		text-align: center;
+		padding: 10px 62px 10px;
+		border: 1px solid;
+		background-color: #EAEAEA;
+		border-color: #C1C1C1;
+	}
+	.contentRow {
+		width:100%;
+		padding:1em;
+		padding:0px;
+		padding-top:1em;
+		clear:both;
+	}
+	side-menu .text-left {
+		padding-right: 5px;
+		padding-left: 5px;
+		text-align: start;
+	}
+	side-menu .text-right {
+		padding-right: 5px;
+		padding-left: 5px;
+		text-align: right;
+	}
+	side-menu div.text-center {
+		text-align:left;
+	}
+	div.side-menu div.menu-title::before {
+		display:inline;
+	}
+	div.side-menu div.menu-title::after {
+		display:inline;
+	}
+	div.side-menu div.menu-title {
+		display:block;
+		text-align:center;
+		font-size: 16px;
+	}
+	div.side-menu div.menu-elements {
+		margin-top:5px;
+	}
+	div#displayLayout {
+		display: none;
+	}
+	@media all and (max-width: 1199px) and (min-width: 701px) {
+		h1 {font-size:24px;}
+		#pageHeader {height: 90px;}
+		#issuerLogo {max-height: 50px; }
+		#networkLogo {max-height: 50px; }
+		div#optGblPage { font-size : 14px; }
+		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
+		.paragraph { font-size : 14px; text-align: center; }
+		.leftColumn { display:block; float:none; width:100%; }
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 80px; text-align: center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
+		side-menu div.text-center { text-align:center; }
+		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
+		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
+	}
+	@media all and (max-width: 700px) and (min-width: 481px) {
+		h1 { font-size:18px; }
+		div#optGblPage { font-size : 14px;}
+		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
+		.paragraph { font-size : 14px; text-align: center; }
+		#pageHeader {height: 70px;}
+		#issuerLogo {max-height: 45px; }
+		#networkLogo {max-height: 45px; }
+		.leftColumn { display:block; float:none; width:100%; }
+		.rightColumn { margin-left:0px; margin-top: 80px; display:block; float:none; width:100%; text-align: center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
+		side-menu div.text-center { text-align:center; }
+		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
+		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
+	}
+	@media all and (max-width: 480px) {
+		h1 { font-size:16px; }
+		div#optGblPage { font-size : 14px;}
+		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
+		.paragraph { font-size : 14px; text-align: center; }
+		#pageHeader {height: 65px;}
+		#issuerLogo {max-height: 35px; }
+		#networkLogo {max-height: 30px; }
+		.leftColumn { display:block; float:none; width:100%; }
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 105px; text-align: center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
+		side-menu div.text-center { text-align:center; }
+		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
+		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
+		#footer { margin-top: 7px; margin-bottom : 10px; padding-top: 6px; padding-bottom: 6px; }
+		#pageHeader { height: 75px; }
+	}
+	@media all and (max-width: 347px) {
+		h1 { font-size:14px; }
+		div#optGblPage { font-size : 12px; }
+		div.side-menu div.menu-title { font-size : 12px; display:block; text-align:center; }
+		.paragraph { font-size : 12px; text-align: center; }
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 90px; text-align: center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
+		#pageHeader {height: 60px;}
+	}
+	@media all and (max-width: 309px) {
+		h1 { font-size:12px; }
+		div#optGblPage { font-size : 10px; }
+		div.side-menu div.menu-title { font-size : 10px; display:block; text-align:center; }
+		.paragraph { font-size : 10px; text-align: center; }
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 80px; text-align: center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
+	}
+	@media all and (max-width: 250px) {
+		h1 { font-size:10px; }
+		div#optGblPage { font-size : 8px; }
+		div.side-menu div.menu-title { font-size : 8px; display:block; text-align:center; }
+		.paragraph { font-size : 8px; text-align: center; }
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 70px; text-align: center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
+	}
+</style>
+<div id="optGblPage">
+	<div id="pageHeader" ng-style="style" class="ng-scope">
+		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
+			<div id="issuerLogoDiv">
+				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+			</div>
+		</div>
+		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
+			<div id="networkLogoDiv">
+				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+			</div>
+		</div>
+	</div>
+
+	<alternative-display attribute="''externalWSResponse''" value="''UNKNOWN_USER''"
+		enabled="''unknownUser''"
+		disabled="''defaultContent''"
+		default-fallback="''defaultContent''">
+   </alternative-display>
+
+	<alternative-display attribute="''externalWSResponse''" value="''TECHNICAL_ERROR''"
+		enabled="''technicalError''"
+		disabled="''defaultContent''"
+		default-fallback="''defaultContent''">
+   </alternative-display>
+
+   <!-- Display - REFUSAL_CAUSE : UNKNOWN_USER -->
+
+   <div class="unknownUser" style="display: none;">
+	<message-banner display-type="''1''"
+		heading-attr="''network_means_pageType_22''"
+		message-attr="''network_means_pageType_201''"
+		close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"
+		show=true >
+	</message-banner>
+   </div>
+
+   <div class="technicalError" style="display: none;">
+	<message-banner display-type="''1''"
+		heading-attr="''network_means_pageType_32''"
+		message-attr="''network_means_pageType_33''"
+		close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"
+		show=true >
+	</message-banner>
+   </div>
+
+   <div class="defaultContent" style="display: none;">
+	<message-banner display-type="''1''"
+		heading-attr="''network_means_pageType_22''"
+		message-attr="''network_means_pageType_23''"
+		close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"
+		show=true >
+	</message-banner>
+   </div>
+
+	<div id="displayLayout" class="row">
+		<div id="green-banner"></div>
+	</div>
+	<style>
+		div#green-banner {
+			height: 50px !important;
+			background-color: #FFFFFF;
+			border-bottom: 5px solid #FFFFFF;
+			width: 100%;
+		}
+	</style>
+	<div class="contentRow">
+		<div x-ms-format-detection="none" class="leftColumn">
+			<side-menu menu-title="''<b>Zahlungsdetails</b>''"></side-menu>
+		</div>
+		<div class="rightColumn">
+			<div class="paragraph">
+				<custom-text custom-text-key="''network_means_pageType_1''" id="paragraph1"></custom-text>
+			</div>
+		</div>
+	</div>
+	<div id="footer"></div>
+</div>' where fk_id_layout = @pageLayoutIdPolling;
+
+
+set @pageLayoutIdPolling = (select id from `CustomPageLayout` where `pageType` = 'REFUSAL_PAGE' and DESCRIPTION = 'Refusal Page (Commerzbank AG)');
+
+UPDATE `CustomComponent`
+SET `value` = '
+
+<style>
+	div#optGblPage {
+		font-family: Arial,bold;
+		color: #333333;
+		font-size:14px;
+		overflow:auto;
+	}
+	#footer #cancelButton button span:before {
+		content:'''';
+	}
+	#footer {
+		padding-top: 12px;
+		padding-bottom:12px;
+		clear:both;
+		width:100%;
+		background-color:#FFFFFF;
+		text-align:center;
+		margin-top: 15px;
+		margin-bottom : 15px;
+	}
+	#pageHeader {
+		width: 100%;
+		height: 95px;
+		border-bottom: 1px solid #dcdcdc;
+	}
+	#pageHeaderLeft {
+		width: 50%;
+		height: 100%;
+		display: inline-flex;
+		float: left;
+	}
+	#pageHeaderRight {
+		width: 50%;
+		height: 100%;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: right;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
+	}
+	#issuerLogo {
+		max-height: 65px;
+		max-width: 100%;
+	}
+	#networkLogo {
+		max-height: 65px;
+		max-width: 100%;
+	}
+	.leftColumn {
+		width:65%;
+		display:block;
+		float:left;
+		padding:1em;
+	}
+	.rightColumn {
+		width: 100%;
+		margin-top: 10%;
+		display: block;
+		text-align: center;
+		padding: 10px 62px 10px;
+		border: 1px solid;
+		background-color: #EAEAEA;
+		border-color: #C1C1C1;
+	}
+	.contentRow {
+		width:100%;
+		padding:1em;
+		padding:0px;
+		padding-top:1em;
+		clear:both;
+	}
+	side-menu .text-left {
+		padding-right: 5px;
+		padding-left: 5px;
+		text-align: start;
+	}
+	side-menu .text-right {
+		padding-right: 5px;
+		padding-left: 5px;
+		text-align: right;
+	}
+	side-menu div.text-center {
+		text-align:left;
+	}
+	div.side-menu div.menu-title::before {
+		display:inline;
+	}
+	div.side-menu div.menu-title::after {
+		display:inline;
+	}
+	div.side-menu div.menu-title {
+		display:block;
+		text-align:center;
+		font-size: 16px;
+	}
+	div.side-menu div.menu-elements {
+		margin-top:5px;
+	}
+	div#displayLayout {
+		display: none;
+	}
+	@media all and (max-width: 1199px) and (min-width: 701px) {
+		h1 {font-size:24px;}
+		#pageHeader {height: 90px;}
+		#issuerLogo {max-height: 50px; }
+		#networkLogo {max-height: 50px; }
+		div#optGblPage { font-size : 14px; }
+		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
+		.paragraph { font-size : 14px; text-align: center; }
+		.leftColumn { display:block; float:none; width:100%; }
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 80px; text-align: center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
+		side-menu div.text-center { text-align:center; }
+		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
+		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
+	}
+	@media all and (max-width: 700px) and (min-width: 481px) {
+		h1 { font-size:18px; }
+		div#optGblPage { font-size : 14px;}
+		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
+		.paragraph { font-size : 14px; text-align: center; }
+		#pageHeader {height: 70px;}
+		#issuerLogo {max-height: 45px; }
+		#networkLogo {max-height: 45px; }
+		.leftColumn { display:block; float:none; width:100%; }
+		.rightColumn { margin-left:0px; margin-top: 80px; display:block; float:none; width:100%; text-align: center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
+		side-menu div.text-center { text-align:center; }
+		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
+		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
+	}
+	@media all and (max-width: 480px) {
+		h1 { font-size:16px; }
+		div#optGblPage { font-size : 14px;}
+		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
+		.paragraph { font-size : 14px; text-align: center; }
+		#pageHeader {height: 65px;}
+		#issuerLogo {max-height: 35px; }
+		#networkLogo {max-height: 30px; }
+		.leftColumn { display:block; float:none; width:100%; }
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 105px; text-align: center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
+		side-menu div.text-center { text-align:center; }
+		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
+		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
+		#footer { margin-top: 7px; margin-bottom : 10px; padding-top: 6px; padding-bottom: 6px; }
+		#pageHeader { height: 75px; }
+	}
+	@media all and (max-width: 347px) {
+		h1 { font-size:14px; }
+		div#optGblPage { font-size : 12px; }
+		div.side-menu div.menu-title { font-size : 12px; display:block; text-align:center; }
+		.paragraph { font-size : 12px; text-align: center; }
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 90px; text-align: center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
+		#pageHeader {height: 60px;}
+	}
+	@media all and (max-width: 309px) {
+		h1 { font-size:12px; }
+		div#optGblPage { font-size : 10px; }
+		div.side-menu div.menu-title { font-size : 10px; display:block; text-align:center; }
+		.paragraph { font-size : 10px; text-align: center; }
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 80px; text-align: center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
+	}
+	@media all and (max-width: 250px) {
+		h1 { font-size:10px; }
+		div#optGblPage { font-size : 8px; }
+		div.side-menu div.menu-title { font-size : 8px; display:block; text-align:center; }
+		.paragraph { font-size : 8px; text-align: center; }
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 70px; text-align: center; border: 1px solid; background-color: #EAEAEA; border-color: #C1C1C1;}
+	}
+</style>
+<div id="optGblPage">
+	<div id="pageHeader" ng-style="style" class="ng-scope">
+		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
+			<div id="issuerLogoDiv">
+				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+			</div>
+		</div>
+		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
+			<div id="networkLogoDiv">
+				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+			</div>
+		</div>
+	</div>
+
+	<message-banner></message-banner>
+
+	<div id="displayLayout" class="row">
+		<div id="green-banner"></div>
+	</div>
+	<style>
+		div#green-banner {
+			height: 50px !important;
+			background-color: #FFFFFF;
+			border-bottom: 5px solid #FFFFFF;
+			width: 100%;
+		}
+	</style>
+	<div class="contentRow">
+		<div x-ms-format-detection="none" class="leftColumn">
+			<side-menu menu-title="''<b>Zahlungsdetails</b>''"></side-menu>
+		</div>
+		<div class="rightColumn">
+			<div class="paragraph">
+				<custom-text custom-text-key="''network_means_pageType_1''" id="paragraph1"></custom-text>
+			</div>
+		</div>
+	</div>
+	<div id="footer"></div>
+</div>
+' where fk_id_layout = @pageLayoutIdPolling;
+
+
+set @pageLayoutIdPolling = (select id from `CustomPageLayout` where `pageType` = 'FAILURE_PAGE' and DESCRIPTION = 'Failure Page (Commerzbank AG)');
+
+UPDATE `CustomComponent`
+SET `value` = '<style>
+	div#optGblPage {
+		font-family: Arial,bold;
+		color: #333333;
+		font-size:14px;
+		overflow:auto;
+	}
+	#footer {
+		padding-top: 12px;
+		padding-bottom:12px;
+		clear:both;
+		width:100%;
+		background-color:#FFFFFF;
+		text-align:center;
+		margin-top: 15px;
+		margin-bottom : 15px;
+	}
+	#pageHeader {
+		width: 100%;
+		height: 95px;
+		border-bottom: 1px solid #dcdcdc;
+	}
+	#pageHeaderLeft {
+		width: 50%;
+		height: 100%;
+		display: inline-flex;
+		float: left;
+	}
+	#pageHeaderRight {
+		width: 50%;
+		height: 100%;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: right;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
+	}
+	#issuerLogo {
+		max-height: 65px;
+		max-width: 100%;
+	}
+	#networkLogo {
+		max-height: 65px;
+		max-width: 100%;
+	}
+	.leftColumn {
+		width:65%;
+		display:block;
+		float:left;
+		padding:1em;
+	}
+	.rightColumn {
+		width:60%;
+		margin-left:30%;
+		display:block;
+		text-align:left;
+		padding:20px 10px;
+	}
+	.contentRow {
+		width:100%;
+		padding:1em;
+		padding:0px;
+		padding-top:1em;
+		clear:both;
+	}
+	side-menu .text-left {
+		padding-right: 5px;
+		padding-left: 5px;
+		text-align: start;
+	}
+	side-menu .text-right {
+		padding-right: 5px;
+		padding-left: 5px;
+		text-align: right;
+	}
+	side-menu div.text-center {
+		text-align:left;
+	}
+	div.side-menu div.menu-title::before {
+		display:inline;
+	}
+	div.side-menu div.menu-title::after {
+		display:inline;
+	}
+	div.side-menu div.menu-title {
+		display:block;
+		text-align:center;
+		font-size: 16px;
+	}
+	div.side-menu div.menu-elements {
+		margin-top:5px;
+	}
+	div#displayLayout {
+		display: none;
+	}
+	@media all and (max-width: 1199px) and (min-width: 701px) {
+		h1 {font-size:24px;}
+		#pageHeader {height: 90px;}
+		#issuerLogo {max-height: 50px; }
+		#networkLogo {max-height: 50px; }
+		div#optGblPage { font-size : 14px; }
+		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
+		.paragraph { font-size : 14px; }
+		.leftColumn { display:block; float:none; width:100%; }
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px;}
+		side-menu div.text-center { text-align:center; }
+		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
+		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
+	}
+	@media all and (max-width: 700px) and (min-width: 481px) {
+		h1 { font-size:18px; }
+		div#optGblPage { font-size : 14px;}
+		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
+		.paragraph { font-size : 14px; }
+		#pageHeader {height: 70px;}
+		#issuerLogo {max-height: 45px; }
+		#networkLogo {max-height: 45px; }
+		.leftColumn { display:block; float:none; width:100%; }
+		.rightColumn { margin-left:0px; display:block; float:none; width:100%;}
+		side-menu div.text-center { text-align:center; }
+		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
+		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
+	}
+	@media all and (max-width: 480px) {
+		h1 { font-size:16px; }
+		div#optGblPage { font-size : 14px;}
+		div.side-menu div.menu-title { font-size : 14px; display:block; text-align:center; }
+		.paragraph { font-size : 14px; }
+		#pageHeader {height: 65px;}
+		#issuerLogo {max-height: 35px; }
+		#networkLogo {max-height: 30px; }
+		.leftColumn { display:block; float:none; width:100%; }
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px;}
+		side-menu div.text-center { text-align:center; }
+		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
+		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
+		#footer { margin-top: 7px; margin-bottom : 10px; padding-top: 6px; padding-bottom: 6px; }
+		#pageHeader { height: 75px; }
+	}
+	@media all and (max-width: 347px) {
+		h1 { font-size:14px; }
+		div#optGblPage { font-size : 12px; }
+		div.side-menu div.menu-title { font-size : 12px; display:block; text-align:center; }
+		.paragraph { font-size : 12px; }
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 80px;}
+		#pageHeader {height: 60px;}
+	}
+	@media all and (max-width: 309px) {
+		h1 { font-size:12px; }
+		div#optGblPage { font-size : 10px; }
+		div.side-menu div.menu-title { font-size : 10px; display:block; text-align:center; }
+		.paragraph { font-size : 10px; }
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 80px;}
+	}
+	@media all and (max-width: 250px) {
+		h1 { font-size:10px; }
+		div#optGblPage { font-size : 8px; }
+		div.side-menu div.menu-title { font-size : 8px; display:block; text-align:center; }
+		.paragraph { font-size : 8px; }
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 70px;}
+	}
+</style>
+<div id="optGblPage">
+	<div id="pageHeader" ng-style="style" class="ng-scope">
+		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
+			<div id="issuerLogoDiv">
+				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+			</div>
+		</div>
+		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
+			<div id="networkLogoDiv">
+				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
+			</div>
+		</div>
+	</div>
+	<message-banner close-button="''network_means_pageType_174''" back-button="''network_means_pageType_175''"></message-banner>
+
+	<div id="displayLayout" class="row">
+		<div id="green-banner"></div>
+	</div>
+	<style>
+		div#green-banner {
+			height: 50px !important;
+			background-color: #FFFFFF;
+			border-bottom: 5px solid #FFFFFF;
+			width: 100%;
+		}
+	</style>
+	<div class="contentRow">
+		<div x-ms-format-detection="none" class="leftColumn">
+			<side-menu menu-title="''<b>Details</b>''"></side-menu>
+		</div>
+		<div class="rightColumn"> </div>
+	</div>
+	<div id="footer"> </div>
 </div>' where fk_id_layout = @pageLayoutIdPolling;
