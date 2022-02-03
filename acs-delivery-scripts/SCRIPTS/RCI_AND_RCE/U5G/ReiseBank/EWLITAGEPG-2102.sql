@@ -13,23 +13,40 @@ UPDATE `CustomComponent`
 SET `value` = '
 <style>
 	#pageHeader {
-		margin-top: 1em;
-		margin-bottom: 1em;
+		width: 100%;
+		height: 95px;
+		border-bottom: 1px solid #dcdcdc;
 	}
-	#issuerLogo{
-		max-height: 46px;
-		max-width: 100%;
+	#pageHeaderLeft {
+		width: 50%;
+		height: 100%;
+		display: inline-flex;
 		float: left;
-		height: auto;
-		padding: 0px;
-
+	}
+	#pageHeaderRight {
+		width: 50%;
+		height: 100%;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: right;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
+	}
+	#issuerLogo {
+		max-height: 65px;
 	}
 	#networkLogo {
-		max-height: 46px;
-		max-width: 100%;
-		float: right;
-		height: auto;
-		padding: 0px;
+		max-height: 65px;
 	}
 	#centeredTitle {
 		color: rgb(0, 100, 62);
@@ -81,7 +98,7 @@ SET `value` = '
 		width: 40%;
 	}
 	#centerPieceLayout {
-		padding: 5px 10px 0px;
+		padding: 10px;
 		min-height: 150px;
 		width: fit-content;
 		width: auto;
@@ -91,6 +108,7 @@ SET `value` = '
 	}
 	#rightContainer {
 		width: 60%;
+		padding-top: 10px;
 		display: inline-block;
 	}
 	.paragraph {
@@ -162,17 +180,14 @@ SET `value` = '
 		#rightContainer {display:block; float:none; width:100%; margin-left:0px;}
 		.paragraph{ margin: 0px 0px 10px;text-align: center;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
-		div.side-menu{padding-bottom: 0px;}
+		div.side-menu{padding-bottom: 0px; padding-top: 20px}
 		div#leftMenuLayout {width: 100%;min-height: 10px;}
 		#switchId {padding-left: 10px;}
 		#bottomLayout {display: block !important;}
-		div#centerPieceLayout {width: 100%;min-height: 10px;}
+		div#centerPieceLayout {width: 100%}
 		#i18n-container{padding-bottom: 0px;}
 	}
-
-
-
-	@media (max-width: 600px) {
+	@media (max-width: 601px) {
 		#main-container{max-width: 600px; overflow: hidden;}
 		#rightContainer {width: 100%;}
 		.col-lg-3{padding: 0px;}
@@ -180,15 +195,17 @@ SET `value` = '
 		#centeredTitle {margin-top: 3px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
 		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; min-height: 10px;}
-		div.side-menu{padding-bottom: 0px;}
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		.paragraph {text-align: center;}
 		#switchId button {min-width: 20rem;}
 		#i18n-container{padding-bottom: 0px;}
-}
-
-	@media (max-width: 500px) {
+		#pageHeader { height: 85px; }
+		#issuerLogo { max-height: 50px; }
+		#networkLogo { max-height: 50px; }
+	}
+	@media (max-width: 501px) {
 		#main-container{max-width: 500px; overflow: hidden;}
 		#rightContainer {width: 100%;}
 		.col-lg-3{padding: 0px;}
@@ -199,17 +216,18 @@ SET `value` = '
 		div#centerPieceLayout {min-height: 50px; padding-left: 10px;padding-top: 0px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
 		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
-		div.side-menu{padding-bottom: 0px;}
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		.paragraph {text-align: center;}
 		#switchId button {min-width: 20rem;}
 		#i18n-container{padding-bottom: 0px;}
 		#bottomMenu {margin-top: 0px;}
-}
-
-
-	@media (max-width: 390px) {
+		#pageHeader { height: 70px; }
+		#issuerLogo { max-height: 40px; }
+		#networkLogo { max-height: 40px; }
+	}
+	@media (max-width: 391px) {
 		#main-container{max-width: 390px; overflow: hidden;}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
@@ -224,9 +242,10 @@ SET `value` = '
 		.paragraph{text-align: center;}
 		#switchId button {min-width: 20rem;}
 		#i18n-container{padding-bottom: 0px;}
-
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
+		#pageHeader { height: 70px; }
 	}
-	@media (max-width: 250px) {
+	@media (max-width: 251px) {
 		#main-container{max-width: 250px; overflow: hidden;}
 		body {font-size: 8px;}
 		.btn {font-size: 8px;}
@@ -241,45 +260,23 @@ SET `value` = '
 		#bottomMenu {width: 100%;}
 		.paragraph{text-align: center;font-size: 11px;}
 		#i18n-container{padding-bottom: 0px;}
-		.noLeftRightPadding {padding-left: 10px; font-size: 11px;}
-		#issuerLogo {padding-left: 3px; padding-top: 5px}
+		.noLeftRightPadding { font-size: 10px;}
+		#issuerLogo {padding-left: 3px; padding-top: 5px;}
 		.btn {font-size: 11px;}
-
-		#main-container #pageHeader {padding-left: 0px; }
-		#main-container #pageHeaderLeft {padding-left: 0px; }
-		#main-container #pageHeaderRight {padding-right: 0px; }
-		#main-container #content { width: 100%; text-align: left; margin-left: 0em; }
-		#main-container .ng-isolate-scope .text-right { text-align: left; padding-left: 0px;}
-		#main-container .menu-elements { width: auto; }
-		.break-word.ng-scope {width: 100%; display: inline-flex;}
-		#main-container .col-sm-5 {width: auto; display: inline-table;}
-		#main-container .col-sm-6 {width: auto; display: inline-table;}
-		#main-container .col-sm-4 { margin-bottom: 0px; }
-		div#message-controls { margin-top: 0px; }
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
+		#pageHeader { height: 60px; }
 	}
 </style>
 <div id="main-container" class="container-fluid">
-	<div id="headerLayout" class="row">
-		<div id="pageHeader" class="text-center col-xs-12">
-			<div class="row">
-				<div class=" col-xs-4 col-lg-3">
-					<custom-image id="issuerLogo"
-								alt-key="''network_means_pageType_1_IMAGE_ALT''"
-								image-key="''network_means_pageType_1_IMAGE_DATA''"
-								straight-mode="false">
-					</custom-image>
-				</div>
-				<div class=" col-xs-4 col-lg-6">
-					<div id="centeredTitle">
-					</div>
-				</div>
-				<div class=" col-xs-4 col-lg-3">
-					<custom-image id="networkLogo"
-								alt-key="''network_means_pageType_2_IMAGE_ALT''"
-								image-key="''network_means_pageType_2_IMAGE_DATA''"
-								straight-mode="false">
-					</custom-image>
-				</div>
+	<div id="pageHeader" ng-style="style" class="ng-scope">
+		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
+			<div id="issuerLogoDiv">
+				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+			</div>
+		</div>
+		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
+			<div id="networkLogoDiv">
+			<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
 			</div>
 		</div>
 	</div>
@@ -337,23 +334,40 @@ SET @idRefusalFormPage = (SELECT id
 UPDATE `CustomComponent`
 SET `value` = '<style>
 	#pageHeader {
-		margin-top: 1em;
-		margin-bottom: 1em;
+		width: 100%;
+		height: 95px;
+		border-bottom: 1px solid #dcdcdc;
 	}
-	#issuerLogo{
-		max-height: 46px;
-		max-width: 100%;
+	#pageHeaderLeft {
+		width: 50%;
+		height: 100%;
+		display: inline-flex;
 		float: left;
-		height: auto;
-		padding: 0px;
-
+	}
+	#pageHeaderRight {
+		width: 50%;
+		height: 100%;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: right;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
+	}
+	#issuerLogo {
+		max-height: 65px;
 	}
 	#networkLogo {
-		max-height: 46px;
-		max-width: 100%;
-		float: right;
-		height: auto;
-		padding: 0px;
+		max-height: 65px;
 	}
 	#centeredTitle {
 		color: rgb(0, 100, 62);
@@ -388,7 +402,7 @@ SET `value` = '<style>
 		width: 40%;
 	}
 	#centerPieceLayout {
-		padding: 5px 10px 0px;
+		padding: 10px 10px 0px;
 		min-height: 200px;
 		width: 60%;
 	}
@@ -450,17 +464,14 @@ SET `value` = '<style>
 		#rightContainer {display:block; float:none; width:100%; margin-left:0px;}
 		.paragraph{ margin: 0px 0px 10px;text-align: center;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
-		div.side-menu{padding-bottom: 0px;}
+		div.side-menu{padding-bottom: 0px; padding-top: 20px}
 		div#leftMenuLayout {width: 100%;min-height: 10px;}
 		#switchId {padding-left: 10px;}
 		#bottomLayout {display: block !important;}
-		div#centerPieceLayout {width: 100%;min-height: 10px;}
+		div#centerPieceLayout {width: 100%;min-height: 10px ;padding-top: 10px;}
 		#i18n-container{padding-bottom: 0px;}
 	}
-
-
-
-	@media (max-width: 600px) {
+	@media (max-width: 601px) {
 		#main-container{max-width: 600px; overflow: hidden;}
 		#rightContainer {width: 100%;}
 		.col-lg-3{padding: 0px;}
@@ -468,15 +479,18 @@ SET `value` = '<style>
 		#centeredTitle {margin-top: 3px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
 		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; min-height: 10px;}
-		div.side-menu{padding-bottom: 0px;}
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		.paragraph {text-align: center;}
 		#switchId button {min-width: 20rem;}
 		#i18n-container{padding-bottom: 0px;}
-}
-
-	@media (max-width: 500px) {
+		div#centerPieceLayout {padding-top: 10px;}
+		#pageHeader { height: 85px; }
+		#issuerLogo { max-height: 50px; }
+		#networkLogo { max-height: 50px; }
+	}
+	@media (max-width: 501px) {
 		#main-container{max-width: 500px; overflow: hidden;}
 		#rightContainer {width: 100%;}
 		.col-lg-3{padding: 0px;}
@@ -484,26 +498,27 @@ SET `value` = '<style>
 		.btn {font-size: 12px;}
 		div.hideable-text {display: block !important;}
 		#centeredTitle {margin-top: 3px;}
-		div#centerPieceLayout {min-height: 50px; padding-left: 10px;padding-top: 0px;}
+		div#centerPieceLayout {min-height: 50px; padding-left: 10px;padding-top: 10px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
 		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
-		div.side-menu{padding-bottom: 0px;}
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		.paragraph {text-align: center;}
 		#switchId button {min-width: 20rem;}
 		#i18n-container{padding-bottom: 0px;}
 		#bottomMenu {margin-top: 0px;}
-}
-
-
-	@media (max-width: 390px) {
+		#pageHeader { height: 70px; }
+		#issuerLogo { max-height: 40px; }
+		#networkLogo { max-height: 40px; }
+	}
+	@media (max-width: 391px) {
 		#main-container{max-width: 390px; overflow: hidden;}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		body {font-size: 11px;}
 		.btn {font-size: 11px;}
-		div#centerPieceLayout {min-height: 50px; padding-left: 10px;}
+		div#centerPieceLayout {min-height: 50px; padding-left: 10px;padding-top: 10px;}
 		#centeredTitle {margin-top: 3px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
 		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; padding-bottom: 3px;}
@@ -512,9 +527,10 @@ SET `value` = '<style>
 		.paragraph{text-align: center;}
 		#switchId button {min-width: 20rem;}
 		#i18n-container{padding-bottom: 0px;}
-
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
+		#pageHeader { height: 70px; }
 	}
-	@media (max-width: 250px) {
+	@media (max-width: 251px) {
 		#main-container{max-width: 250px; overflow: hidden;}
 		body {font-size: 8px;}
 		.btn {font-size: 8px;}
@@ -523,7 +539,7 @@ SET `value` = '<style>
 		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; padding-bottom: 3px;}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
-		div#centerPieceLayout {min-height: 50px; padding-left: 10px; padding-right: 10px;}
+		div#centerPieceLayout {min-height: 50px; padding-left: 10px; padding-right: 10px;padding-top: 10px;}
 		#switchId {padding-right: 0px;}
 		#switchId button {min-width: 16rem;}
 		#bottomMenu {width: 100%;}
@@ -532,45 +548,22 @@ SET `value` = '<style>
 		.noLeftRightPadding {padding-left: 10px; font-size: 11px;}
 		#issuerLogo {padding-left: 3px; padding-top: 5px}
 		.btn {font-size: 11px;}
-
-		#main-container #pageHeader {padding-left: 0px; }
-		#main-container #pageHeaderLeft {padding-left: 0px; }
-		#main-container #pageHeaderRight {padding-right: 0px; }
-		#main-container #content { width: 100%; text-align: left; margin-left: 0em; }
-		#main-container .ng-isolate-scope .text-right { text-align: left; padding-left: 0px;}
-		#main-container .menu-elements { width: auto; }
-		.break-word.ng-scope {width: 100%; display: inline-flex;}
-		#main-container .col-sm-5 {width: auto; display: inline-table;}
-		#main-container .col-sm-6 {width: auto; display: inline-table;}
-		#main-container .col-sm-4 { margin-bottom: 0px; }
 		div#message-controls { margin-top: 0px; }
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
+		#pageHeader { height: 60px; }
 	}
 
 </style>
 <div id = "main-container" class="container-fluid">
-	<div id="headerLayout" class="row">
-		<div id="pageHeader" class="text-center col-xs-12">
-			<div class="row">
-				<div class=" col-xs-4 col-lg-3">
-					<custom-image id="issuerLogo"
-								alt-key="''network_means_pageType_1_IMAGE_ALT''"
-								image-key="''network_means_pageType_1_IMAGE_DATA''"
-								straight-mode="false">
-					</custom-image>
-				</div>
-				<div class=" col-xs-4 col-lg-6">
-					<div id="centeredTitle">
-						<custom-text id="page-title" custom-text-key="''network_means_pageType_20''">
-						</custom-text>
-					</div>
-				</div>
-				<div class=" col-xs-4 col-lg-3">
-					<custom-image id="networkLogo"
-								alt-key="''network_means_pageType_2_IMAGE_ALT''"
-								image-key="''network_means_pageType_2_IMAGE_DATA''"
-								straight-mode="false">
-					</custom-image>
-				</div>
+	<div id="pageHeader" ng-style="style" class="ng-scope">
+		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
+			<div id="issuerLogoDiv">
+				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+			</div>
+		</div>
+		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
+			<div id="networkLogoDiv">
+				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
 			</div>
 		</div>
 	</div>
@@ -620,23 +613,40 @@ UPDATE `CustomComponent`
 SET `value` = '
  <style>
 	#pageHeader {
-		margin-top: 1em;
-		margin-bottom: 1em;
+		width: 100%;
+		height: 95px;
+		border-bottom: 1px solid #dcdcdc;
 	}
-	#issuerLogo{
-		max-height: 46px;
-		max-width: 100%;
+	#pageHeaderLeft {
+		width: 50%;
+		height: 100%;
+		display: inline-flex;
 		float: left;
-		height: auto;
-		padding: 0px;
-
+	}
+	#pageHeaderRight {
+		width: 50%;
+		height: 100%;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: right;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
+	}
+	#issuerLogo {
+		max-height: 65px;
 	}
 	#networkLogo {
-		max-height: 46px;
-		max-width: 100%;
-		float: right;
-		height: auto;
-		padding: 0px;
+		max-height: 65px;
 	}
 	#centeredTitle {
 		color: rgb(0, 100, 62);
@@ -683,7 +693,7 @@ SET `value` = '
 		width: 40%;
 	}
 	#centerPieceLayout {
-		padding: 5px 10px 0px;
+		padding: 10px 10px 0px;
 		min-height: 200px;
 		width: 60%;
 	}
@@ -745,17 +755,14 @@ SET `value` = '
 		#rightContainer {display:block; float:none; width:100%; margin-left:0px;}
 		.paragraph{ margin: 0px 0px 10px;text-align: center;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
-		div.side-menu{padding-bottom: 0px;}
+		div.side-menu{padding-bottom: 0px; padding-top: 20px}
 		div#leftMenuLayout {width: 100%;min-height: 10px;}
 		#switchId {padding-left: 10px;}
 		#bottomLayout {display: block !important;}
-		div#centerPieceLayout {width: 100%;min-height: 10px;}
+		div#centerPieceLayout {width: 100%;min-height: 10px; padding-top: 10px;}
 		#i18n-container{padding-bottom: 0px;}
 	}
-
-
-
-	@media (max-width: 600px) {
+	@media (max-width: 601px) {
 		#main-container{max-width: 600px; overflow: hidden;}
 		#rightContainer {width: 100%;}
 		.col-lg-3{padding: 0px;}
@@ -763,15 +770,18 @@ SET `value` = '
 		#centeredTitle {margin-top: 3px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
 		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; min-height: 10px;}
-		div.side-menu{padding-bottom: 0px;}
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		.paragraph {text-align: center;}
 		#switchId button {min-width: 20rem;}
 		#i18n-container{padding-bottom: 0px;}
-}
+		#pageHeader { height: 85px; }
+		#issuerLogo { max-height: 50px; }
+		#networkLogo { max-height: 50px; }
+	}
 
-	@media (max-width: 500px) {
+	@media (max-width: 501px) {
 		#main-container{max-width: 500px; overflow: hidden;}
 		#rightContainer {width: 100%;}
 		.col-lg-3{padding: 0px;}
@@ -779,37 +789,39 @@ SET `value` = '
 		.btn {font-size: 12px;}
 		div.hideable-text {display: block !important;}
 		#centeredTitle {margin-top: 3px;}
-		div#centerPieceLayout {min-height: 50px; padding-left: 10px;padding-top: 0px;}
+		div#centerPieceLayout {min-height: 50px; padding-left: 10px;padding-top: 10px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
 		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
-		div.side-menu{padding-bottom: 0px;}
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		.paragraph {text-align: center;}
 		#switchId button {min-width: 20rem;}
 		#i18n-container{padding-bottom: 0px;}
 		#bottomMenu {margin-top: 0px;}
-}
-
-
-	@media (max-width: 390px) {
+		#pageHeader { height: 70px; }
+		#issuerLogo { max-height: 40px; }
+		#networkLogo { max-height: 40px; }
+	}
+	@media (max-width: 391px) {
 		#main-container{max-width: 390px; overflow: hidden;}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		body {font-size: 11px;}
 		.btn {font-size: 11px;}
-		div#centerPieceLayout {min-height: 50px; padding-left: 10px;}
+		div#centerPieceLayout {min-height: 50px; padding-left: 10px;padding-top: 10px;}
 		#centeredTitle {margin-top: 3px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
-		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; padding-bottom: 3px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; padding-bottom: 3px; }
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		.paragraph{text-align: center;}
 		#switchId button {min-width: 20rem;}
 		#i18n-container{padding-bottom: 0px;}
-
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
+		#pageHeader { height: 70px; }
 	}
-	@media (max-width: 250px) {
+	@media (max-width: 251px) {
 		#main-container{max-width: 250px; overflow: hidden;}
 		body {font-size: 8px;}
 		.btn {font-size: 8px;}
@@ -818,7 +830,7 @@ SET `value` = '
 		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; padding-bottom: 3px;}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
-		div#centerPieceLayout {min-height: 50px; padding-left: 10px; padding-right: 10px;}
+		div#centerPieceLayout {min-height: 50px; padding-left: 10px; padding-right: 10px;padding-top: 10px;}
 		#switchId {padding-right: 0px;}
 		#switchId button {min-width: 16rem;}
 		#bottomMenu {width: 100%;}
@@ -827,49 +839,25 @@ SET `value` = '
 		.noLeftRightPadding {padding-left: 10px; font-size: 11px;}
 		#issuerLogo {padding-left: 3px; padding-top: 5px}
 		.btn {font-size: 11px;}
-
-		#main-container #pageHeader {padding-left: 0px; }
-		#main-container #pageHeaderLeft {padding-left: 0px; }
-		#main-container #pageHeaderRight {padding-right: 0px; }
-		#main-container #content { width: 100%; text-align: left; margin-left: 0em; }
-		#main-container .ng-isolate-scope .text-right { text-align: left; padding-left: 0px;}
-		#main-container .menu-elements { width: auto; }
-		.break-word.ng-scope {width: 100%; display: inline-flex;}
-		#main-container .col-sm-5 {width: auto; display: inline-table;}
-		#main-container .col-sm-6 {width: auto; display: inline-table;}
-		#main-container .col-sm-4 { margin-bottom: 0px; }
 		div#message-controls { margin-top: 0px; }
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
+		#pageHeader { height: 60px; }
 	}
 
 </style>
 <div id = "main-container" class="container-fluid">
-	<div id="headerLayout" class="row">
-		<div id="pageHeader" class="text-center col-xs-12">
-			<div class="row">
-				<div class=" col-xs-4 col-lg-3">
-					<custom-image id="issuerLogo"
-								alt-key="''network_means_pageType_1_IMAGE_ALT''"
-								image-key="''network_means_pageType_1_IMAGE_DATA''"
-								straight-mode="false">
-					</custom-image>
-				</div>
-				<div class=" col-xs-4 col-lg-6">
-					<div id="centeredTitle">
-						<custom-text id="page-title" custom-text-key="''network_means_pageType_20''">
-						</custom-text>
-					</div>
-				</div>
-				<div class=" col-xs-4 col-lg-3">
-					<custom-image id="networkLogo"
-								alt-key="''network_means_pageType_2_IMAGE_ALT''"
-								image-key="''network_means_pageType_2_IMAGE_DATA''"
-								straight-mode="false">
-					</custom-image>
-				</div>
+	<div id="pageHeader" ng-style="style" class="ng-scope">
+		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
+			<div id="issuerLogoDiv">
+				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+			</div>
+		</div>
+		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
+			<div id="networkLogoDiv">
+				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
 			</div>
 		</div>
 	</div>
-
 	<message-banner display-type="''1''" heading-attr="''network_means_pageType_22''" message-attr="''network_means_pageType_23''"
 	back-button="''network_means_pageType_175''" show=true></message-banner>
 
@@ -918,23 +906,40 @@ UPDATE `CustomComponent`
 SET `value` = '
 <style>
 	#pageHeader {
-		margin-top: 1em;
-		margin-bottom: 1em;
+		width: 100%;
+		height: 95px;
+		border-bottom: 1px solid #dcdcdc;
 	}
-	#issuerLogo{
-		max-height: 46px;
-		max-width: 100%;
+	#pageHeaderLeft {
+		width: 50%;
+		height: 100%;
+		display: inline-flex;
 		float: left;
-		height: auto;
-		padding: 0px;
-
+	}
+	#pageHeaderRight {
+		width: 50%;
+		height: 100%;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: right;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
+	}
+	#issuerLogo {
+		max-height: 65px;
 	}
 	#networkLogo {
-		max-height: 46px;
-		max-width: 100%;
-		float: right;
-		height: auto;
-		padding: 0px;
+		max-height: 65px;
 	}
 	#centeredTitle {
 		color: rgb(0, 100, 62);
@@ -969,7 +974,7 @@ SET `value` = '
 		width: 40%;
 	}
 	#centerPieceLayout {
-		padding: 5px 10px 0px;
+		padding: 10px 10px 0px;
 		min-height: 200px;
 		width: fit-content;
 		width: auto;
@@ -1057,34 +1062,33 @@ SET `value` = '
 		.paragraph{ margin: 0px 0px 10px;text-align: center;}
 		.paragraphFooter{ margin: 0px 0px 10px 3px ;text-align: center;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
-		div.side-menu{padding-bottom: 0px;}
+		div.side-menu{padding-bottom: 0px; padding-top: 20px}
 		div#leftMenuLayout {width: 100%;min-height: 10px;}
 		#switchId {padding-left: 10px;}
 		#bottomLayout {display: block !important;}
-		div#centerPieceLayout {width: 100%;min-height: 10px;}
+		div#centerPieceLayout {width: 100%;min-height: 10px;padding-top: 10px;}
 		#i18n-container{padding-bottom: 0px;}
 	}
-
-
-
-	@media (max-width: 600px) {
+	@media (max-width: 601px) {
 		#main-container{max-width: 600px; overflow: hidden;}
 		#rightContainer {width: 100%;}
 		.col-lg-3{padding: 0px;}
 		div.hideable-text {display: block !important;}
 		#centeredTitle {margin-top: 3px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
-		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; min-height: 10px;}
-		div.side-menu{padding-bottom: 0px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; min-height: 10px; }
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		.paragraph {text-align: center;}
 		.paragraphFooter {text-align: center; margin-top: 3px;}
 		#switchId button {min-width: 20rem;}
 		#i18n-container{padding-bottom: 0px;}
-}
-
-	@media (max-width: 500px) {
+		#pageHeader { height: 85px; }
+		#issuerLogo { max-height: 50px; }
+		#networkLogo { max-height: 50px; }
+	}
+	@media (max-width: 501px) {
 		#main-container{max-width: 500px; overflow: hidden;}
 		#rightContainer {width: 100%;}
 		.col-lg-3{padding: 0px;}
@@ -1092,10 +1096,10 @@ SET `value` = '
 		.btn {font-size: 12px;}
 		div.hideable-text {display: block !important;}
 		#centeredTitle {margin-top: 3px;}
-		div#centerPieceLayout {min-height: 50px; padding-left: 10px;padding-top: 0px;}
+		div#centerPieceLayout {min-height: 50px; padding-left: 10px;padding-top: 10px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
-		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
-		div.side-menu{padding-bottom: 0px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; }
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		.paragraph {text-align: center;}
@@ -1103,37 +1107,39 @@ SET `value` = '
 		#switchId button {min-width: 20rem;}
 		#i18n-container{padding-bottom: 0px;}
 		#bottomMenu {margin-top: 0px;}
-}
-
-
-	@media (max-width: 390px) {
+		#pageHeader { height: 70px; }
+		#issuerLogo { max-height: 40px; }
+		#networkLogo { max-height: 40px; }
+	}
+	@media (max-width: 391px) {
 		#main-container{max-width: 390px; overflow: hidden;}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		body {font-size: 11px;}
 		.btn {font-size: 11px;}
-		div#centerPieceLayout {min-height: 50px; padding-left: 10px;}
+		div#centerPieceLayout {min-height: 50px; padding-left: 10px;padding-top: 10px;}
 		#centeredTitle {margin-top: 3px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
-		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; padding-bottom: 3px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; padding-bottom: 3px; }
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		.paragraph{text-align: center;}
 		.paragraphFooter{text-align: center; margin-top: 3px;}
 		#switchId button {min-width: 20rem;}
 		#i18n-container{padding-bottom: 0px;}
-
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
+		#pageHeader { height: 70px; }
 	}
-	@media (max-width: 250px) {
+	@media (max-width: 251px) {
 		#main-container{max-width: 250px; overflow: hidden;}
 		body {font-size: 8px;}
 		.btn {font-size: 8px;}
 		#centeredTitle {margin-top: 3px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
-		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; padding-bottom: 3px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; padding-bottom: 3px; }
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
-		div#centerPieceLayout {min-height: 50px; padding-left: 10px; padding-right: 10px;}
+		div#centerPieceLayout {min-height: 50px; padding-left: 10px; padding-right: 10px;padding-top: 10px;}
 		#switchId {padding-right: 0px;}
 		#switchId button {min-width: 16rem;}
 		#bottomMenu {width: 100%;}
@@ -1143,49 +1149,24 @@ SET `value` = '
 		.noLeftRightPadding {padding-left: 10px; font-size: 11px;}
 		#issuerLogo {padding-left: 3px; padding-top: 5px;}
 		.btn {font-size: 11px;}
-
-		#main-container #pageHeader {padding-left: 0px; }
-		#main-container #pageHeaderLeft {padding-left: 0px; }
-		#main-container #pageHeaderRight {padding-right: 0px; }
-		#main-container #content { width: 100%; text-align: left; margin-left: 0em; }
-		#main-container .ng-isolate-scope .text-right { text-align: left; padding-left: 0px;}
-		#main-container .menu-elements { width: auto; }
-		.break-word.ng-scope {width: 100%; display: inline-flex;}
-		#main-container .col-sm-5 {width: auto; display: inline-table;}
-		#main-container .col-sm-6 {width: auto; display: inline-table;}
-		#main-container .col-sm-4 { margin-bottom: 0px; }
 		div#message-controls { margin-top: 0px; }
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
+		#pageHeader { height: 60px; }
 	}
-
-
 </style>
 <div id="main-container" class="container-fluid">
-	<div id="headerLayout" class="row">
-		<div id="pageHeader" class="text-center col-xs-12">
-			<div class="row">
-				<div class=" col-xs-4 col-lg-3">
-					<custom-image id="issuerLogo"
-								alt-key="''network_means_pageType_1_IMAGE_ALT''"
-								image-key="''network_means_pageType_1_IMAGE_DATA''"
-								straight-mode="false">
-					</custom-image>
+	<div id="pageHeader" ng-style="style" class="ng-scope">
+			<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
+				<div id="issuerLogoDiv">
+					<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
 				</div>
-				<div class=" col-xs-4 col-lg-6">
-					<div id="centeredTitle">
-						<custom-text id="page-title" custom-text-key="''network_means_pageType_20''">
-						</custom-text>
-					</div>
-				</div>
-				<div class=" col-xs-4 col-lg-3">
-					<custom-image id="networkLogo"
-								alt-key="''network_means_pageType_2_IMAGE_ALT''"
-								image-key="''network_means_pageType_2_IMAGE_DATA''"
-								straight-mode="false">
-					</custom-image>
+			</div>
+			<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
+				<div id="networkLogoDiv">
+					<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
 				</div>
 			</div>
 		</div>
-	</div>
 	<message-banner back-button="''network_means_pageType_99''"></message-banner>
 	<div id="i18n-container">
 		<div id="i18n-inner">
@@ -1246,22 +1227,40 @@ SET @idFailureFormPage = (SELECT id
 UPDATE `CustomComponent`
 SET `value` = '<style>
 	#pageHeader {
-		margin-top: 1em;
-		margin-bottom: 1em;
+		width: 100%;
+		height: 95px;
+		border-bottom: 1px solid #dcdcdc;
 	}
-	#issuerLogo,
+	#pageHeaderLeft {
+		width: 50%;
+		height: 100%;
+		display: inline-flex;
+		float: left;
+	}
+	#pageHeaderRight {
+		width: 50%;
+		height: 100%;
+		display: inline-flex;
+	}
+	div#networkLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: right;
+		align-self: center;
+		padding-right: 16px;
+	}
+	div#issuerLogoDiv {
+		display: inline-block;
+		width: 100%;
+		text-align: left;
+		align-self: center;
+		padding-left: 16px;
+	}
+	#issuerLogo {
+		max-height: 65px;
+	}
 	#networkLogo {
-		max-height: 46px;
-		max-width: 100%;
-		height: auto;
-		padding: 0px;
-	}
-	#centeredTitle {
-		color: rgb(0, 100, 62);
-		font-weight: 500;
-		display: block;
-		font-size: 150%;
-		margin-top: 10px;
+		max-height: 65px;
 	}
 	#i18n-container {
 		width: 100%;
@@ -1289,7 +1288,7 @@ SET `value` = '<style>
 		width: 40%;
 	}
 	#centerPieceLayout {
-		padding: 5px 10px 0px;
+		padding: 10px 10px 0px;
 		min-height: 200px;
 		width: 60%;
 	}
@@ -1351,30 +1350,31 @@ SET `value` = '<style>
 		#rightContainer {display:block; float:none; width:100%; margin-left:0px;}
 		.paragraph{ margin: 0px 0px 10px;text-align: center;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
-		div.side-menu{padding-bottom: 0px;}
+		div.side-menu{padding-bottom: 0px; padding-top: 20px}
 		div#leftMenuLayout {width: 100%;min-height: 10px;}
 		#switchId {padding-left: 10px;}
 		#bottomLayout {display: block !important;}
-		div#centerPieceLayout {width: 100%;min-height: 10px;}
+		div#centerPieceLayout {width: 100%;min-height: 10px;,Padding-top: 10px;}
 		#i18n-container{padding-bottom: 0px;}
 	}
-
-	@media (max-width: 600px) {
+	@media (max-width: 601px) {
 		#main-container{max-width: 600px; overflow: hidden;}
 		#rightContainer {width: 100%;}
 		.col-lg-3{padding: 0px;}
 		div.hideable-text {display: block !important;}
 		#centeredTitle {margin-top: 3px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
-		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; min-height: 10px;}
-		div.side-menu{padding-bottom: 0px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; min-height: 10px; }
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
 		div.hideable-text {display: block !important;}
 		.paragraph {text-align: center;}
 		#switchId button {min-width: 20rem;}
 		#i18n-container{padding-bottom: 0px;}
-}
-
-	@media (max-width: 500px) {
+		#pageHeader { height: 85px; }
+		#issuerLogo { max-height: 50px; }
+		#networkLogo { max-height: 50px; }
+	}
+	@media (max-width: 501px) {
 		#main-container{max-width: 500px; overflow: hidden;}
 		#rightContainer {width: 100%;}
 		.col-lg-3{padding: 0px;}
@@ -1384,16 +1384,19 @@ SET `value` = '<style>
 		#centeredTitle {margin-top: 3px;}
 		div#centerPieceLayout {min-height: 50px; padding-left: 10px;padding-top: 0px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
-		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
-		div.side-menu{padding-bottom: 0px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; }
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
 		div.hideable-text {display: block !important;}
 		.paragraph {text-align: center;}
 		#switchId button {min-width: 20rem;}
 		#i18n-container{padding-bottom: 0px;}
 		#bottomMenu {margin-top: 0px;}
-}
+		#pageHeader { height: 70px; }
+		#issuerLogo { max-height: 40px; }
+		#networkLogo { max-height: 40px; }
 
-	@media (max-width: 390px) {
+	}
+	@media (max-width: 391px) {
 		#main-container{max-width: 390px; overflow: hidden;}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
@@ -1402,20 +1405,21 @@ SET `value` = '<style>
 		div#centerPieceLayout {min-height: 50px; padding-left: 10px;}
 		#centeredTitle {margin-top: 3px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
-		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; padding-bottom: 3px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; padding-bottom: 3px; }
 		div.hideable-text {display: block !important;}
 		.paragraph{text-align: center;}
 		#switchId button {min-width: 20rem;}
 		#i18n-container{padding-bottom: 0px;}
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
+		#pageHeader { height: 70px; }
 	}
-
-	@media (max-width: 250px) {
+	@media (max-width: 251px) {
 		#main-container{max-width: 250px; overflow: hidden;}
 		body {font-size: 8px;}
 		.btn {font-size: 8px;}
 		#centeredTitle {margin-top: 3px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
-		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; padding-bottom: 3px;}
+		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; padding-bottom: 3px; }
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		div#centerPieceLayout {min-height: 50px; padding-left: 10px; padding-right: 10px;}
@@ -1427,38 +1431,21 @@ SET `value` = '<style>
 		.noLeftRightPadding {padding-left: 10px; font-size: 11px;}
 		#issuerLogo {padding-left: 3px; padding-top: 5px}
 		.btn {font-size: 11px;}
-		.break-word.ng-scope {width: 100%; display: inline-flex;}
-		#main-container .col-sm-5 {width: auto; display: inline-table;}
-		#main-container .col-sm-6 {width: auto; display: inline-table;}
-		#main-container .col-sm-4 { margin-bottom: 0px; }
 		div#message-controls { margin-top: 0px; }
+		div.side-menu{padding-bottom: 0px; padding-top: 10px}
+		#pageHeader { height: 60px; }
 	}
-
 	</style>
 	<div id="main-container" class="container-fluid">
-		<div id="headerLayout" class="row">
-			<div id="pageHeader" class="text-center col-xs-12">
-				<div class="row">
-					<div class=" col-xs-4 col-lg-3">
-						<custom-image id="issuerLogo"
-									alt-key="''network_means_pageType_1_IMAGE_ALT''"
-									image-key="''network_means_pageType_1_IMAGE_DATA''"
-									straight-mode="false">
-						</custom-image>
-					</div>
-					<div class=" col-xs-4 col-lg-6">
-						<div id="centeredTitle">
-							<custom-text id="page-title" custom-text-key="''network_means_pageType_20''">
-							</custom-text>
-						</div>
-					</div>
-					<div class=" col-xs-4 col-lg-3">
-						<custom-image id="networkLogo"
-									alt-key="''network_means_pageType_2_IMAGE_ALT''"
-									image-key="''network_means_pageType_2_IMAGE_DATA''"
-									straight-mode="false">
-						</custom-image>
-					</div>
+		<div id="pageHeader" ng-style="style" class="ng-scope">
+			<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
+				<div id="issuerLogoDiv">
+					<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
+				</div>
+			</div>
+			<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
+				<div id="networkLogoDiv">
+					<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
 				</div>
 			</div>
 		</div>
