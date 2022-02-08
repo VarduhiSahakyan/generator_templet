@@ -1683,7 +1683,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	#cancelButton button {
 		font: 300 16px/20px Arial,bold;
 		color: #333333;
-		display:inline-block;
+		display: block;
 		white-space: nowrap;
 		text-align: center;
 		height: 40px;
@@ -1699,7 +1699,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	#cancelButton button:disabled {
 		font: 300 16px/20px Arial,bold;
 		color: #858585;
-		display:inline-block;
+		display: block;
 		white-space: nowrap;
 		text-align: center;
 		height: 40px;
@@ -1860,6 +1860,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
 		div#green-banner { height: 0px !important; }
 		div#displayLayout { display: none; }
+		#cancelButton button { display: inherit;}
 	}
 	@media all and (max-width: 700px) and (min-width: 600px) {
 		h1 { font-size:18px; }
@@ -1874,6 +1875,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
 		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
 		div#displayLayout { display: none; }
+		#cancelButton button { display: inherit;}
 	}
 	@media all and (max-width: 600px) and (min-width: 500px) {
 		h1 { font-size:18px; }
@@ -1888,6 +1890,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
 		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
 		div#displayLayout { display: none; }
+		#cancelButton button { display: inherit;}
 	}
 	@media all and (max-width: 500px) and (min-width: 480px) {
 		h1 { font-size:16px; }
@@ -1904,6 +1907,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
 		#footer { margin-top: 7px; margin-bottom : 10px; padding-top: 6px; padding-bottom: 6px; }
 		div#displayLayout { display: none; }
+		#cancelButton button { display: inherit;}
 	}
 	@media all and (max-width: 480px)  {
 		h1 { font-size:16px; }
@@ -1920,6 +1924,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
 		#footer { margin-top: 7px; margin-bottom : 10px; padding-top: 6px; padding-bottom: 6px; }
 		div#displayLayout { display: none; }
+		#cancelButton button { display: inherit;}
 	}
 	@media all and (max-width: 390px) {
 		h1 { font-size:14px; }
@@ -1932,6 +1937,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#networkLogo {max-height: 30px; }
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 0px; text-align: center; padding-bottom: 0px;}
 		div#displayLayout { display: none; }
+		#cancelButton button { display: inherit;}
 	}
 
 	@media all and (max-width: 250px) {
@@ -1942,6 +1948,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.paragraph { font-size : 10px; text-align: center;}
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 0px; text-align: center; padding-bottom: 0px;}
 		#helpButton button { margin-left: auto; }
+		#cancelButton button { display: inherit;}
 	}
 </style>
 <div id="optGblPage">
@@ -2728,6 +2735,8 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
 		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
 		div#displayLayout { display: none; }
+		#meanParagraph{ text-align: center; font-size : 14px; }
+		#meanchoice{ text-align: center;padding-right: 0rem;padding-left: 1.3rem;}
 	}
 	@media all and (max-width: 500px) and (min-width: 480px) {
 		h1 { font-size:16px; }
@@ -2744,6 +2753,8 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
 		#footer { margin-top: 7px; margin-bottom : 10px; padding-top: 6px; padding-bottom: 6px; }
 		div#displayLayout { display: none; }
+		#meanParagraph{ text-align: center; font-size : 14px; }
+		#meanchoice{ text-align: center;padding-right: 0rem;padding-left: 1.3rem;}
 	}
 	@media all and (max-width: 480px)  {
 		h1 { font-size:16px; }
@@ -3005,8 +3016,8 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		margin-bottom : 20px;
 	}
 	#meanchoice{
-		text-align: center;
-		display: block;
+		text-align: left;
+		display: flex;
 		padding-bottom: initial;
 	}
 	#meanchoice .text-center {
@@ -3068,7 +3079,6 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	@media all and (max-width: 1278px) and (min-width: 764px) {
 		#meanParagraph{ text-align: left;}
-		#meanchoice{ text-align: center; display: block;}
 		.rightColumn { display:table-cell; float:none; width:100%; }
 		.paragraph{ text-align: left;}
 	}
@@ -3089,7 +3099,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#meanParagraph{ text-align: center; font-size : 14px; }
 		#meanchoice{ text-align: center; padding-left: 1.3rem; display: block; }
 	}
-	@media all and (max-width: 700px) and (min-width: 600px) {
+	@media all and (max-width: 700px) and (min-width: 601px) {
 		h1 { font-size:18px; }
 		div#optGblPage { font-size : 12px;}
 		.paragraph { font-size : 14px; text-align: center;}
@@ -3136,6 +3146,8 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
 		#footer { margin-top: 7px; margin-bottom : 10px; padding-top: 6px; padding-bottom: 6px; }
 		div#displayLayout { display: none; }
+		#meanParagraph{ text-align: center; font-size : 14px; }
+		#meanchoice{ text-align: center; padding-left: 1.3rem; display: block; }
 	}
 	@media all and (max-width: 480px)  {
 		h1 { font-size:16px; }
@@ -5047,7 +5059,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	#cancelButton button {
 		font: 300 16px/20px Arial,bold;
 		color: #333333;
-		display:inline-block;
+		display: block;
 		white-space: nowrap;
 		text-align: center;
 		height: 40px;
@@ -5064,7 +5076,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	#cancelButton button:disabled {
 		font: 300 16px/20px Arial,bold;
 		color: #858585;
-		display:inline-block;
+		display: block;
 		white-space: nowrap;
 		text-align: center;
 		height: 40px;
@@ -5222,6 +5234,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
 		div#green-banner { height: 0px !important; }
 		div#displayLayout { display: none; }
+		#cancelButton button { display: inherit;}
 	}
 	@media all and (max-width: 700px) and (min-width: 600px) {
 		h1 { font-size:18px; }
@@ -5236,6 +5249,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
 		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
 		div#displayLayout { display: none; }
+		#cancelButton button { display: inherit;}
 	}
 	@media all and (max-width: 600px) and (min-width: 500px) {
 		h1 { font-size:18px; }
@@ -5250,6 +5264,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		side-menu .text-left { padding-right: 5px; padding-left: 5px; text-align: start;}
 		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
 		div#displayLayout { display: none; }
+		#cancelButton button { display: inherit;}
 	}
 	@media all and (max-width: 500px) and (min-width: 480px) {
 		h1 { font-size:16px; }
@@ -5266,6 +5281,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
 		#footer { margin-top: 7px; margin-bottom : 10px; padding-top: 6px; padding-bottom: 6px; }
 		div#displayLayout { display: none; }
+		#cancelButton button { display: inherit;}
 	}
 	@media all and (max-width: 480px)  {
 		h1 { font-size:16px; }
@@ -5282,6 +5298,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
 		#footer { margin-top: 7px; margin-bottom : 10px; padding-top: 6px; padding-bottom: 6px; }
 		div#displayLayout { display: none; }
+		#cancelButton button { display: inherit;}
 	}
 	@media all and (max-width: 390px) {
 		h1 { font-size:14px; }
@@ -5294,6 +5311,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#networkLogo {max-height: 30px; }
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 0px; text-align: center; padding-bottom: 0px;}
 		div#displayLayout { display: none; }
+		#cancelButton button { display: inherit;}
 	}
 	@media all and (max-width: 250px) {
 		h1 { font-size:10px; }
@@ -5303,6 +5321,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.paragraph { font-size : 10px; text-align: center;}
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 0px; text-align: center; padding-bottom: 0px;}
 		#helpButton button { margin-left: auto; }
+		#cancelButton button { display: inherit;}
 	}
 </style>
 <div id="optGblPage">
@@ -5441,7 +5460,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	#cancelButton button:disabled {
 		font: 300 16px/20px Arial,bold;
 		color: #858585;
-		display:inline-block;
+		display: block;
 		white-space: nowrap;
 		text-align: center;
 		height: 40px;
@@ -5529,8 +5548,8 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		margin-bottom : 20px;
 	}
 	#meanchoice{
-		text-align: center;
-		display: block;
+		text-align: left;
+		display: flex;
 		padding-bottom: initial;
 	}
 	#meanchoice .text-center {
@@ -5592,7 +5611,6 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	@media all and (max-width: 1278px) and (min-width: 764px) {
 		#meanParagraph{ text-align: left;}
-		#meanchoice{ text-align: center; padding-left: 1.3rem; display: block;}
 		.rightColumn { display:table-cell; float:none; width:100%; }
 		.paragraph{ text-align: left;}
 	}
@@ -5611,9 +5629,9 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		div#green-banner { height: 0px !important; }
 		div#displayLayout { display: none; }
 		#meanParagraph{ text-align: center; font-size : 14px; }
-		#meanchoice{ text-align: center; padding-left: 1.3rem; display: block;}
+		#meanchoice{ text-align: center; padding-left: 1.3rem; display: block; }
 	}
-	@media all and (max-width: 700px) and (min-width: 600px) {
+	@media all and (max-width: 700px) and (min-width: 601px) {
 		h1 { font-size:18px; }
 		div#optGblPage { font-size : 12px;}
 		.paragraph { font-size : 14px; text-align: center;}
@@ -5660,6 +5678,8 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		side-menu .text-right { padding-right: 5px; padding-left: 5px; text-align: right;}
 		#footer { margin-top: 0px; margin-bottom : 0px; padding-top: 6px; padding-bottom: 6px; }
 		div#displayLayout { display: none; }
+		#meanParagraph{ text-align: center; font-size : 14px; }
+		#meanchoice{ text-align: center; padding-left: 1.3rem; display: block; }
 	}
 	@media all and (max-width: 480px)  {
 		h1 { font-size:16px; }
