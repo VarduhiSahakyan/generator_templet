@@ -48,6 +48,6 @@ SET @textValue = 'Freigabe mit photoTAN App';
 
 UPDATE CustomItem SET value = @textValue WHERE  fk_id_customItemSet = @mobileAppCustomSetId  AND ordinal =151 AND pageTypes = @appViewPageType;
 
-SET @textValue = 'Ihr Kontozugang wurde aus Sicherheitsgründen gesperrt.\nZur Entsperrung rufen Sie uns bitte an unter 04106 – 708 25 00. Geben Sie keine Zugangsdaten am Servicecomputer ein. Sie werden automatisch an einen Kundenbetreuer weitergeleitet.';
+SET @textValue = 'Öffnen Sie zunächst die photoTAN App und geben Sie die folgende Anfrage frei. Nach der Freigabe klicken Sie unten bitte auf „Weiter“.\n\nHändler: @merchant\nBetrag: @amount\nDatum: @formattedDate\nKartennummer: @maskedPan\n';
 
 UPDATE CustomItem SET value = @textValue WHERE  fk_id_customItemSet = @mobileAppCustomSetId  AND ordinal =160 AND pageTypes = @appViewPageType;
