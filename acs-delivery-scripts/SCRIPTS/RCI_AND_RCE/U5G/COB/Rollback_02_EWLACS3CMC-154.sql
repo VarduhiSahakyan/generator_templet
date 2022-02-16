@@ -59,6 +59,10 @@ SET `value` = '<style>
 	}
 	.acs-challengeInfoText {
 		margin-bottom: 2em;
+		white-space: pre-line;
+	}
+	div#acs-challenge-info-text {
+		width: 90%;
 	}
 	.acs-footer {
 		font-size: 0.9em;
@@ -178,8 +182,20 @@ SET `value` = '<style>
 		background-color: #286090;
 		border-color: #204d74;
 	}
+	div#footer {
+		display: inline-flex;
+		padding-left: 15px;
+		padding-right: 15px;
+	}
 
+	div#whyInfoLabel {
+		width: 50%;
+	}
 
+	div#whyInfoCheckbox {
+		width: 50%;
+		text-align: right;
+	}
 	 #show,#content{display:none;}
 
 	[data-tooltip],
@@ -302,63 +318,61 @@ SET `value` = '<style>
 </head>
 <body>
 	<div class="acs-container">
-			<div class="scrollbar col-md-12">
-				<!-- ACS HEADER | Branding zone-->
-				<div class="acs-header row branding-zone">
-					<div class="col-md-6">
-						<img src="network_means_pageType_251" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
-					</div>
-					<div class="col-md-6 card-logo-container">
-						<img src="network_means_pageType_254" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
-					</div>
+		<div class="scrollbar col-md-12">
+			<!-- ACS HEADER | Branding zone-->
+			<div class="acs-header row branding-zone">
+				<div class="col-md-6">
+					<img src="network_means_pageType_251" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
 				</div>
-				<!-- ACS BODY | Challenge/Processing zone -->
-				<div class="acs-purchase-context col-md-12 challenge-processing-zone">
-					<div class="row">
-						<div class="acs-challengeInfoHeader col-md-12" data-cy="CHALLENGE_INFO_HEADER">
-							network_means_pageType_151
-						</div>
-						<div class="row">
-							<div class="acs-challengeInfoText col-md-10" id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
-								network_means_pageType_152
-							</div>
-						</div>
-						<div class="col-md-12">
-							<form action="HTTPS://EMV3DS/challenge" method="get" data-cy="CHALLENGE_FORM">
-								<div class="form-group">
-									<label for="challenge-html-data-entry" data-cy="CHALLENGE_INFO_LABEL">
-										network_means_pageType_153
-									</label>
-									<input id="challenge-html-data-entry" name="submitted-otp-value"
-										type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY" required />
-								</div>
-								<input type="submit" value="network_means_pageType_154" class="btn btn-primary"
-									id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
-							</form>
-							<form action="HTTPS://EMV3DS/challenge" method="get" id="challenge-resend-form">
-								<div>
-									<!-- The name and value attribute MUST NOT be changed -->
-									<input type="hidden" name="challenge-resend" value="Y"/>
-									<input type="submit" id="challenge-resend-submit" value="network_means_pageType_155"/>
-								</div>
-							</form>
-						</div>
-					</div>
+				<div class="col-md-6 card-logo-container">
+					<img src="network_means_pageType_254" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
 				</div>
 			</div>
-			<!-- ACS FOOTER | Information zone -->
-			<div class="acs-footer col-md-12 information-zone">
+			<!-- ACS BODY | Challenge/Processing zone -->
+			<div class="acs-purchase-context col-md-12 challenge-processing-zone">
 				<div class="row">
-					<div class="col-md-10">network_means_pageType_156</div>
-					<div class="acs-footer-icon col-md-2">
-							<input type=checkbox id="show" class="div-right">
-							<label for="show"><a data-tooltip="network_means_pageType_157">
-							<i class="fa fa-plus"></i></a></label>
-							<span id="content">network_means_pageType_157 </span>
+					<div class="acs-challengeInfoHeader col-md-12" data-cy="CHALLENGE_INFO_HEADER">
+						network_means_pageType_151
+					</div>
+					<div class="row">
+						<div class="acs-challengeInfoText col-md-10" id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
+							network_means_pageType_152
+						</div>
+					</div>
+					<div class="col-md-12">
+						<form action="HTTPS://EMV3DS/challenge" method="get" data-cy="CHALLENGE_FORM">
+							<div class="form-group">
+								<label for="challenge-html-data-entry" data-cy="CHALLENGE_INFO_LABEL">
+									network_means_pageType_153
+								</label>
+								<input id="challenge-html-data-entry" name="submitted-otp-value"
+									type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY"/>
+							</div>
+							<input type="submit" value="network_means_pageType_154" class="btn btn-primary"
+								id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
+						</form>
+						<form action="HTTPS://EMV3DS/challenge" method="get" id="challenge-resend-form">
+							<div>
+								<!-- The name and value attribute MUST NOT be changed -->
+								<input type="hidden" name="challenge-resend" value="Y"/>
+								<input type="submit" id="challenge-resend-submit" value="network_means_pageType_155"/>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
+		<!-- ACS FOOTER | Information zone -->
+		<div id="footer" class="acs-footer col-md-12 information-zone">
+			<div id="whyInfoLabel" class="col-md-10">network_means_pageType_156</div>
+			<div id="whyInfoCheckbox" class="acs-footer-icon col-md-2">
+					<input type=checkbox id="show" class="div-right">
+					<label for="show"><a data-tooltip="network_means_pageType_157">
+					<i class="fa fa-plus"></i></a></label>
+					<span id="content">network_means_pageType_157 </span>
+			</div>
+		</div>
+	</div>
 '
 WHERE `fk_id_layout` = @idAppViewPage;
 
@@ -416,6 +430,10 @@ SET `value` = '<style>
 	}
 	.acs-challengeInfoText {
 		margin-bottom: 2em;
+		white-space: pre-line;
+	}
+	div#acs-challenge-info-text {
+		width: 90%;
 	}
 	.acs-footer {
 		font-size: 0.9em;
@@ -536,6 +554,20 @@ SET `value` = '<style>
 		border-color: #204d74;
 	}
 
+	div#footer {
+		display: inline-flex;
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+
+	div#whyInfoLabel {
+		width: 50%;
+	}
+
+	div#whyInfoCheckbox {
+		width: 50%;
+		text-align: right;
+	}
 
 	 #show,#content{display:none;}
 
@@ -659,56 +691,54 @@ SET `value` = '<style>
 </head>
 <body>
 	<div class="acs-container">
-			<div class="scrollbar col-md-12">
-				<!-- ACS HEADER | Branding zone-->
-				<div class="acs-header row branding-zone">
-					<div class="col-md-6">
-						<img src="network_means_pageType_251" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
-					</div>
-					<div class="col-md-6 card-logo-container">
-						<img src="network_means_pageType_254" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
-					</div>
+		<div class="scrollbar col-md-12">
+			<!-- ACS HEADER | Branding zone-->
+			<div class="acs-header row branding-zone">
+				<div class="col-md-6">
+					<img src="network_means_pageType_251" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
 				</div>
-				<!-- ACS BODY | Challenge/Processing zone -->
-				<div class="acs-purchase-context col-md-12 challenge-processing-zone">
-					<div class="row">
-						<div class="acs-challengeInfoHeader col-md-12" data-cy="CHALLENGE_INFO_HEADER">
-							network_means_pageType_151
-						</div>
-						<div class="row">
-							<div class="acs-challengeInfoText col-md-10" id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
-								network_means_pageType_152
-							</div>
-						</div>
-						<div class="col-md-12">
-							<form action="HTTPS://EMV3DS/challenge" method="get" data-cy="CHALLENGE_FORM">
-								<div class="form-group">
-									<label for="challenge-html-data-entry" data-cy="CHALLENGE_INFO_LABEL">
-										network_means_pageType_153
-									</label>
-									<input id="challenge-html-data-entry" name="submitted-otp-value"
-										type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY" required />
-								</div>
-								<input type="submit" value="network_means_pageType_154" class="btn btn-primary"
-									id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
-							</form>
-						</div>
-					</div>
+				<div class="col-md-6 card-logo-container">
+					<img src="network_means_pageType_254" alt="Card network image" data-cy="CARD_NETWORK_IMAGE"/>
 				</div>
 			</div>
-			<!-- ACS FOOTER | Information zone -->
-			<div class="acs-footer col-md-12 information-zone">
+			<!-- ACS BODY | Challenge/Processing zone -->
+			<div class="acs-purchase-context col-md-12 challenge-processing-zone">
 				<div class="row">
-					<div class="col-md-10">network_means_pageType_156</div>
-					<div class="acs-footer-icon col-md-2">
-							<input type=checkbox id="show" class="div-right">
-							<label for="show"><a data-tooltip="network_means_pageType_157">
-							<i class="fa fa-plus"></i></a></label>
-							<span id="content">network_means_pageType_157 </span>
+					<div class="acs-challengeInfoHeader col-md-12" data-cy="CHALLENGE_INFO_HEADER">
+						network_means_pageType_151
+					</div>
+					<div class="row">
+						<div class="acs-challengeInfoText col-md-10" id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
+							network_means_pageType_152
+						</div>
+					</div>
+					<div class="col-md-12">
+						<form action="HTTPS://EMV3DS/challenge" method="get" data-cy="CHALLENGE_FORM">
+							<div class="form-group">
+								<label for="challenge-html-data-entry" data-cy="CHALLENGE_INFO_LABEL">
+									network_means_pageType_153
+								</label>
+								<input id="challenge-html-data-entry" name="submitted-otp-value"
+									type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY"/>
+							</div>
+							<input type="submit" value="network_means_pageType_154" class="btn btn-primary"
+								id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
+		<!-- ACS FOOTER | Information zone -->
+		<div id="footer" class="acs-footer col-md-12 information-zone">
+			<div id="whyInfoLabel" class="col-md-10">network_means_pageType_156</div>
+			<div id="whyInfoCheckbox" class="acs-footer-icon col-md-2">
+					<input type=checkbox id="show" class="div-right">
+					<label for="show"><a data-tooltip="network_means_pageType_157">
+					<i class="fa fa-plus"></i></a></label>
+					<span id="content">network_means_pageType_157 </span>
+			</div>
+		</div>
+	</div>
 '
 WHERE `fk_id_layout` = @idAppViewPage;
 
