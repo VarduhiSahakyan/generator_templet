@@ -4,17 +4,20 @@ set @customPageLayoutDesc_appView = 'EXT_PASSWORD_App_View (COZ)';
 set @pageType = 'EXT_PASSWORD_APP_VIEW';
 
 set @idAppViewPage = (select id
-                      from `CustomPageLayout`
-                      where `pageType` = @pageType
-                        and DESCRIPTION = @customPageLayoutDesc_appView);
+					  from `CustomPageLayout`
+					  where `pageType` = @pageType
+						and DESCRIPTION = @customPageLayoutDesc_appView);
 
 UPDATE `CustomComponent`
-SET `value` = '<style>
+SET `value` = '
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
     .acs-container {
         padding: 0em;
     }
     .scrollbar{
         overflow: auto;
+        height: 90vh;
     }
     .acs-header {
         display: flex;
@@ -28,7 +31,7 @@ SET `value` = '<style>
     .acs-purchase-context {
         margin-bottom: 2em;
         margin-top: 0.5em;
-        height: 24.5em;
+        min-height: 22em !important;
     }
     .acs-purchase-context button{
         width: 100%;
@@ -52,17 +55,21 @@ SET `value` = '<style>
     }
     .acs-challengeInfoText {
         margin-bottom: 2em;
+        white-space: pre-line;
     }
     .acs-footer {
         font-size: 0.9em;
-        margin-bottom: 0.5em;
+        padding-bottom: 2em;
     }
     .acs-footer-icon {
         text-align: right;
     }
-    .row {
-        margin-right: -15px;
-        margin-left: -15px;
+    .sides-padding {
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+    .leftPadding {
+        padding-left: 15px;
     }
     .col-md-12,
     .col-md-10,
@@ -70,8 +77,6 @@ SET `value` = '<style>
     .col-md-2 {
         position: relative;
         min-height: 1px;
-        padding-right: 15px;
-        padding-left: 15px;
     }
     .col-md-12 {
         width: 100%;
@@ -87,6 +92,16 @@ SET `value` = '<style>
     }
     .form-group {
         margin-bottom: 15px;
+    }
+    .challenge-form {
+        text-align: center;
+    }
+    label#challenge-form-label {
+        float: left !important;
+        text-align: left;
+    }
+    .challenge-submit-button {
+        width: auto !important;
     }
     .form-control {
         display: block;
@@ -172,132 +187,76 @@ SET `value` = '<style>
         border-color: #204d74;
     }
 
-	#show,#content {display:none;}
+    #show,#content{display:none;}
+    #show:checked~#content {display:block;}
+    .div-left {
+        float:left;
+        padding-left:10px;
+    }
+    .div-right {
+        float:right;
+        padding-right:10px;
+    }
 
-	[data-tooltip],
-	.tooltip {
-		position: relative;
-		cursor: pointer;
-	}
+    /* Tooltip container */
+    .tooltip {
+        float:right;
+        padding-right:10px;
+    }
 
-	[data-tooltip]:before,
-	[data-tooltip]:after,
-	.tooltip:before,
-	.tooltip:after {
-		position: absolute;
-		visibility: hidden;
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-		filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-		opacity: 0;
-		-webkit-transition:
-		opacity 0.2s ease-in-out,
-		visibility 0.2s ease-in-out,
-		-webkit-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-		-moz-transition:
-		opacity 0.2s ease-in-out,
-		visibility 0.2s ease-in-out,
-		-moz-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-		transition:
-		opacity 0.2s ease-in-out,
-		visibility 0.2s ease-in-out,
-		transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-		-webkit-transform: translate3d(0, 0, 0);
-		-moz-transform:	 translate3d(0, 0, 0);
-		transform:		 translate3d(0, 0, 0);
-		pointer-events: none;
-	}
+    /* Tooltip text */
+    .tooltip .tooltiptext {
 
-	[data-tooltip]:hover:before,
-	[data-tooltip]:hover:after,
-	[data-tooltip]:focus:before,
-	[data-tooltip]:focus:after,
-	.tooltip:hover:before,
-	.tooltip:hover:after,
-	.tooltip:focus:before,
-	.tooltip:focus:after {
-		visibility: visible;
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-		filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-		opacity: 1;
-	}
-
-	.tooltip:before,
-	[data-tooltip]:before {
-		z-index: 1001;
-		border: 6px solid transparent;
-		background: transparent;
-		content: "";
-	}
-
-	.tooltip:after,
-	[data-tooltip]:after {
-		z-index: 1001;
-		padding: 8px;
-		width: 250px;
-		border-radius: 4px;
-		border: 1px solid #d3d3d3;
-		background-color: #fff;
-		background-color: #fff;;
-		color: #333;
-		content: attr(data-tooltip);
-		font-size: 0.95em;
-		font-weight: normal;
-		line-height: 1.42857143;
-		vertical-align: middle;
-		text-align:start;
-	}
+        visibility: hidden;
+        background-color: white;
+        color: #000;
+        text-align: center;
+        padding: 9px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: left;
+        text-align: start;
+        text-decoration: none;
+        text-shadow: none;
+        text-transform: none;
+        letter-spacing: normal;
+        word-break: normal;
+        word-spacing: normal;
+        word-wrap: normal;
+        white-space: normal;
+        background-color: #fff;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        border: 1px solid #ccc;
+        border: 1px solid rgba(0,0,0,.2);
+        border-radius: 6px;
+        -webkit-box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+        box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
 
 
-	[data-tooltip]:before,
-	[data-tooltip]:after,
-	.tooltip:before,
-	.tooltip:after,
-	.tooltip-top:before,
-	.tooltip-top:after {
-		bottom: 100%;
-		left: 50%;
-	}
+        position: absolute;
+        width: 70%;
+        z-index: 1;
+        bottom: 100%;
+        left: 30%;
+        margin-left: -60px;
+    }
 
-	[data-tooltip]:before,
-	.tooltip:before,
-	.tooltip-top:before {
-		margin-left: -6px;
-		margin-bottom: -12px;
-		color: #000;
-		border-top-color: #fff;
-	}
+    /* Show the tooltip text when you mouse over the tooltip container */
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
 
-	[data-tooltip]:after,
-	.tooltip:after,
-	.tooltip-top:after {
-		margin-left: -235px;
-	}
-
-	[data-tooltip]:hover:before,
-	[data-tooltip]:hover:after,
-	[data-tooltip]:focus:before,
-	[data-tooltip]:focus:after,
-	.tooltip:hover:before,
-	.tooltip:hover:after,
-	.tooltip:focus:before,
-	.tooltip:focus:after,
-	.tooltip-top:hover:before,
-	.tooltip-top:hover:after,
-	.tooltip-top:focus:before,
-	.tooltip-top:focus:after {
-		-webkit-transform: translateY(-12px);
-		-moz-transform:	 translateY(-12px);
-		transform:		 translateY(-12px);
-	}
-
-
-</style>
-</head>
-<body>
+    </style>
+    </head>
+    <body>
     <div class="acs-container">
             <div class="scrollbar col-md-12">
                 <!-- ACS HEADER | Branding zone-->
-                <div class="acs-header row branding-zone">
+                <div class="acs-header sides-padding branding-zone">
                     <div class="col-md-6">
                         <img src="network_means_pageType_251" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
                     </div>
@@ -307,44 +266,39 @@ SET `value` = '<style>
                 </div>
                 <!-- ACS BODY | Challenge/Processing zone -->
                 <div class="acs-purchase-context col-md-12 challenge-processing-zone">
-                    <div class="row">
+                    <div class="sides-padding">
                         <div class="acs-challengeInfoHeader col-md-12" data-cy="CHALLENGE_INFO_HEADER">
                             network_means_pageType_151
                         </div>
-                        <div class="row">
-                            <div class="acs-challengeInfoText col-md-10" id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
-                                network_means_pageType_152
-                            </div>
+                        <div class="acs-challengeInfoText leftPadding" id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
+                            network_means_pageType_152
                         </div>
                         <div class="col-md-12">
-                            <form action="HTTPS://EMV3DS/challenge" method="get" data-cy="CHALLENGE_FORM">
+                            <form action="HTTPS://EMV3DS/challenge" method="get" data-cy="CHALLENGE_FORM" class="challenge-form">
                                 <div class="form-group">
-                                    <label for="challenge-html-data-entry" data-cy="CHALLENGE_INFO_LABEL">
+                                    <label for="challenge-html-data-entry" data-cy="CHALLENGE_INFO_LABEL" id="challenge-form-label">
                                         network_means_pageType_153
                                     </label>
-                                    <input id="challenge-html-data-entry" name="submitted-otp-value"
-                                        type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY" required />
+                                    <input id="challenge-html-data-entry" name="submitted-otp-value" type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY" required>
                                 </div>
-                                <input type="submit" value="network_means_pageType_154" class="btn btn-primary"
-                                    id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
+                                <input type="submit" value="network_means_pageType_154" class="btn btn-primary challenge-submit-button" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-			<!-- ACS FOOTER | Information zone-->
-			<div class="acs-footer col-md-12 information-zone">
-				<div class="row">
-					<div class="col-md-10">network_means_pageType_156</div>
-					<div class="acs-footer-icon col-md-2">
-						<input type=checkbox id="show" class="div-right">
-							<label for="show"><a data-tooltip="network_means_pageType_157">
-							<i class="fa fa-plus"></i></a></label>
-							<span id="content">network_means_pageType_157 </span>
-					</div>
-				</div>
-			</div>
-		</div>
+            <!-- ACS FOOTER | Information zone -->
+            <div class="acs-footer col-md-12 information-zone">
+                <div class="sides-padding">
+                    <div class="div-left">network_means_pageType_156</div>
+                    <input type="checkbox" id="show" class="div-right">
+                    <div for="show" class="div-right tooltip">
+                        <img class="plus-image" src="data:image/svg+xml;base64,PHN2ZyBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSIgZGF0YS1wcmVmaXg9ImZhcyIgZGF0YS1pY29uPSJwbHVzIiBjbGFzcz0ic3ZnLWlubGluZS0tZmEgZmEtcGx1cyBmYS13LTE0IiByb2xlPSJpbWciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDQ0OCA1MTIiPjxwYXRoIGZpbGw9ImN1cnJlbnRDb2xvciIgZD0iTTQxNiAyMDhIMjcyVjY0YzAtMTcuNjctMTQuMzMtMzItMzItMzJoLTMyYy0xNy42NyAwLTMyIDE0LjMzLTMyIDMydjE0NEgzMmMtMTcuNjcgMC0zMiAxNC4zMy0zMiAzMnYzMmMwIDE3LjY3IDE0LjMzIDMyIDMyIDMyaDE0NHYxNDRjMCAxNy42NyAxNC4zMyAzMiAzMiAzMmgzMmMxNy42NyAwIDMyLTE0LjMzIDMyLTMyVjMwNGgxNDRjMTcuNjcgMCAzMi0xNC4zMyAzMi0zMnYtMzJjMC0xNy42Ny0xNC4zMy0zMi0zMi0zMnoiPjwvcGF0aD48L3N2Zz4=" alt="Plus" style="height:1em;">
+                        <span class="tooltiptext">network_means_pageType_157</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 '
 WHERE `fk_id_layout` = @idAppViewPage;
 
@@ -354,17 +308,20 @@ set @customPageLayoutDesc_appView = 'SMS_App_View (COZ)';
 set @pageType = 'OTP_SMS_EXT_MESSAGE_APP_VIEW';
 
 set @idAppViewPage = (select id
-                      from `CustomPageLayout`
-                      where `pageType` = @pageType
-                        and DESCRIPTION = @customPageLayoutDesc_appView);
+					  from `CustomPageLayout`
+					  where `pageType` = @pageType
+						and DESCRIPTION = @customPageLayoutDesc_appView);
 
 UPDATE `CustomComponent`
-SET `value` = '<style>
+SET `value` = '
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
     .acs-container {
         padding: 0em;
     }
     .scrollbar{
         overflow: auto;
+        height: 90vh;
     }
     .acs-header {
         display: flex;
@@ -378,7 +335,7 @@ SET `value` = '<style>
     .acs-purchase-context {
         margin-bottom: 2em;
         margin-top: 0.5em;
-        height: 24.5em;
+        min-height: 22em !important;
     }
     .acs-purchase-context button{
         width: 100%;
@@ -402,17 +359,21 @@ SET `value` = '<style>
     }
     .acs-challengeInfoText {
         margin-bottom: 2em;
+        white-space: pre-line;
     }
     .acs-footer {
         font-size: 0.9em;
-        margin-bottom: 0.5em;
+        padding-bottom: 2em;
     }
     .acs-footer-icon {
         text-align: right;
     }
-    .row {
-        margin-right: -15px;
-        margin-left: -15px;
+    .sides-padding {
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+    .leftPadding {
+        padding-left: 15px;
     }
     .col-md-12,
     .col-md-10,
@@ -420,8 +381,6 @@ SET `value` = '<style>
     .col-md-2 {
         position: relative;
         min-height: 1px;
-        padding-right: 15px;
-        padding-left: 15px;
     }
     .col-md-12 {
         width: 100%;
@@ -437,6 +396,16 @@ SET `value` = '<style>
     }
     .form-group {
         margin-bottom: 15px;
+    }
+    .challenge-form {
+        text-align: center;
+    }
+    label#challenge-form-label {
+        float: left !important;
+        text-align: left;
+    }
+    .challenge-submit-button {
+        width: auto !important;
     }
     .form-control {
         display: block;
@@ -522,132 +491,76 @@ SET `value` = '<style>
         border-color: #204d74;
     }
 
-	#show,#content {display:none;}
+    #show,#content{display:none;}
+    #show:checked~#content {display:block;}
+    .div-left {
+        float:left;
+        padding-left:10px;
+    }
+    .div-right {
+        float:right;
+        padding-right:10px;
+    }
 
-	[data-tooltip],
-	.tooltip {
-		position: relative;
-		cursor: pointer;
-	}
+    /* Tooltip container */
+    .tooltip {
+        float:right;
+        padding-right:10px;
+    }
 
-	[data-tooltip]:before,
-	[data-tooltip]:after,
-	.tooltip:before,
-	.tooltip:after {
-		position: absolute;
-		visibility: hidden;
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-		filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-		opacity: 0;
-		-webkit-transition:
-		opacity 0.2s ease-in-out,
-		visibility 0.2s ease-in-out,
-		-webkit-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-		-moz-transition:
-		opacity 0.2s ease-in-out,
-		visibility 0.2s ease-in-out,
-		-moz-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-		transition:
-		opacity 0.2s ease-in-out,
-		visibility 0.2s ease-in-out,
-		transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-		-webkit-transform: translate3d(0, 0, 0);
-		-moz-transform:	 translate3d(0, 0, 0);
-		transform:		 translate3d(0, 0, 0);
-		pointer-events: none;
-	}
+    /* Tooltip text */
+    .tooltip .tooltiptext {
 
-	[data-tooltip]:hover:before,
-	[data-tooltip]:hover:after,
-	[data-tooltip]:focus:before,
-	[data-tooltip]:focus:after,
-	.tooltip:hover:before,
-	.tooltip:hover:after,
-	.tooltip:focus:before,
-	.tooltip:focus:after {
-		visibility: visible;
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-		filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-		opacity: 1;
-	}
-
-	.tooltip:before,
-	[data-tooltip]:before {
-		z-index: 1001;
-		border: 6px solid transparent;
-		background: transparent;
-		content: "";
-	}
-
-	.tooltip:after,
-	[data-tooltip]:after {
-		z-index: 1001;
-		padding: 8px;
-		width: 250px;
-		border-radius: 4px;
-		border: 1px solid #d3d3d3;
-		background-color: #fff;
-		background-color: #fff;;
-		color: #333;
-		content: attr(data-tooltip);
-		font-size: 0.95em;
-		font-weight: normal;
-		line-height: 1.42857143;
-		vertical-align: middle;
-		text-align:start;
-	}
+        visibility: hidden;
+        background-color: white;
+        color: #000;
+        text-align: center;
+        padding: 9px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: left;
+        text-align: start;
+        text-decoration: none;
+        text-shadow: none;
+        text-transform: none;
+        letter-spacing: normal;
+        word-break: normal;
+        word-spacing: normal;
+        word-wrap: normal;
+        white-space: normal;
+        background-color: #fff;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        border: 1px solid #ccc;
+        border: 1px solid rgba(0,0,0,.2);
+        border-radius: 6px;
+        -webkit-box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+        box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
 
 
-	[data-tooltip]:before,
-	[data-tooltip]:after,
-	.tooltip:before,
-	.tooltip:after,
-	.tooltip-top:before,
-	.tooltip-top:after {
-		bottom: 100%;
-		left: 50%;
-	}
+        position: absolute;
+        width: 70%;
+        z-index: 1;
+        bottom: 100%;
+        left: 30%;
+        margin-left: -60px;
+    }
 
-	[data-tooltip]:before,
-	.tooltip:before,
-	.tooltip-top:before {
-		margin-left: -6px;
-		margin-bottom: -12px;
-		color: #000;
-		border-top-color: #fff;
-	}
+    /* Show the tooltip text when you mouse over the tooltip container */
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
 
-	[data-tooltip]:after,
-	.tooltip:after,
-	.tooltip-top:after {
-		margin-left: -235px;
-	}
-
-	[data-tooltip]:hover:before,
-	[data-tooltip]:hover:after,
-	[data-tooltip]:focus:before,
-	[data-tooltip]:focus:after,
-	.tooltip:hover:before,
-	.tooltip:hover:after,
-	.tooltip:focus:before,
-	.tooltip:focus:after,
-	.tooltip-top:hover:before,
-	.tooltip-top:hover:after,
-	.tooltip-top:focus:before,
-	.tooltip-top:focus:after {
-		-webkit-transform: translateY(-12px);
-		-moz-transform:	 translateY(-12px);
-		transform:		 translateY(-12px);
-	}
-
-
-</style>
-</head>
-<body>
+    </style>
+    </head>
+    <body>
     <div class="acs-container">
             <div class="scrollbar col-md-12">
                 <!-- ACS HEADER | Branding zone-->
-                <div class="acs-header row branding-zone">
+                <div class="acs-header sides-padding branding-zone">
                     <div class="col-md-6">
                         <img src="network_means_pageType_251" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
                     </div>
@@ -657,51 +570,46 @@ SET `value` = '<style>
                 </div>
                 <!-- ACS BODY | Challenge/Processing zone -->
                 <div class="acs-purchase-context col-md-12 challenge-processing-zone">
-                    <div class="row">
+                    <div class="sides-padding">
                         <div class="acs-challengeInfoHeader col-md-12" data-cy="CHALLENGE_INFO_HEADER">
                             network_means_pageType_151
                         </div>
-                        <div class="row">
-                            <div class="acs-challengeInfoText col-md-10" id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
-                                network_means_pageType_152
-                            </div>
+                        <div class="acs-challengeInfoText leftPadding" id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
+                            network_means_pageType_152
                         </div>
                         <div class="col-md-12">
-                            <form action="HTTPS://EMV3DS/challenge" method="get" data-cy="CHALLENGE_FORM">
+                            <form action="HTTPS://EMV3DS/challenge" method="get" data-cy="CHALLENGE_FORM" class="challenge-form">
                                 <div class="form-group">
-                                    <label for="challenge-html-data-entry" data-cy="CHALLENGE_INFO_LABEL">
+                                    <label for="challenge-html-data-entry" data-cy="CHALLENGE_INFO_LABEL" id="challenge-form-label">
                                         network_means_pageType_153
                                     </label>
-                                    <input id="challenge-html-data-entry" name="submitted-otp-value"
-                                        type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY" required />
+                                    <input id="challenge-html-data-entry" name="submitted-otp-value" type="text" class="form-control" data-cy="CHALLENGE_HTML_DATA_ENTRY" required>
                                 </div>
-                                <input type="submit" value="network_means_pageType_154" class="btn btn-primary"
-                                    id="challenge-submit" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
+                                <input type="submit" value="network_means_pageType_154" class="btn btn-primary challenge-submit-button" data-cy="CHALLENGE_HTML_DATA_ENTRY_FORM_SUBMIT"/>
                             </form>
-                            <form action="HTTPS://EMV3DS/challenge" method="get" id="challenge-resend-form">
+                            <form action="HTTPS://EMV3DS/challenge" method="get" class="challenge-form">
                                 <div>
                                     <!-- The name and value attribute MUST NOT be changed -->
                                     <input type="hidden" name="challenge-resend" value="Y"/>
-                                    <input type="submit" id="challenge-resend-submit" value="network_means_pageType_155"/>
+                                    <input type="submit" class="challenge-submit-button" value="network_means_pageType_155"/>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-			<!-- ACS FOOTER | Information zone-->
-			<div class="acs-footer col-md-12 information-zone">
-				<div class="row">
-					<div class="col-md-10">network_means_pageType_156</div>
-					<div class="acs-footer-icon col-md-2">
-						<input type=checkbox id="show" class="div-right">
-							<label for="show"><a data-tooltip="network_means_pageType_157">
-							<i class="fa fa-plus"></i></a></label>
-							<span id="content">network_means_pageType_157 </span>
-					</div>
-				</div>
-			</div>
-		</div>
+            <!-- ACS FOOTER | Information zone -->
+            <div class="acs-footer col-md-12 information-zone">
+                <div class="sides-padding">
+                    <div class="div-left">network_means_pageType_156</div>
+                    <input type="checkbox" id="show" class="div-right">
+                    <div for="show" class="div-right tooltip">
+                        <img class="plus-image" src="data:image/svg+xml;base64,PHN2ZyBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSIgZGF0YS1wcmVmaXg9ImZhcyIgZGF0YS1pY29uPSJwbHVzIiBjbGFzcz0ic3ZnLWlubGluZS0tZmEgZmEtcGx1cyBmYS13LTE0IiByb2xlPSJpbWciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDQ0OCA1MTIiPjxwYXRoIGZpbGw9ImN1cnJlbnRDb2xvciIgZD0iTTQxNiAyMDhIMjcyVjY0YzAtMTcuNjctMTQuMzMtMzItMzItMzJoLTMyYy0xNy42NyAwLTMyIDE0LjMzLTMyIDMydjE0NEgzMmMtMTcuNjcgMC0zMiAxNC4zMy0zMiAzMnYzMmMwIDE3LjY3IDE0LjMzIDMyIDMyIDMyaDE0NHYxNDRjMCAxNy42NyAxNC4zMyAzMiAzMiAzMmgzMmMxNy42NyAwIDMyLTE0LjMzIDMyLTMyVjMwNGgxNDRjMTcuNjcgMCAzMi0xNC4zMyAzMi0zMnYtMzJjMC0xNy42Ny0xNC4zMy0zMi0zMi0zMnoiPjwvcGF0aD48L3N2Zz4=" alt="Plus" style="height:1em;">
+                        <span class="tooltiptext">network_means_pageType_157</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 '
 WHERE `fk_id_layout` = @idAppViewPage;
 
@@ -712,17 +620,20 @@ set @customPageLayoutDesc_appView = 'MOBILE_APP_EXT_App_View (COZ)';
 set @pageType = 'MOBILE_APP_EXT_APP_VIEW';
 
 set @idAppViewPage = (select id
-                      from `CustomPageLayout`
-                      where `pageType` = @pageType
-                        and DESCRIPTION = @customPageLayoutDesc_appView);
+					  from `CustomPageLayout`
+					  where `pageType` = @pageType
+						and DESCRIPTION = @customPageLayoutDesc_appView);
 
 UPDATE `CustomComponent`
-SET `value` = '<style>
+SET `value` = '
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
     .acs-container {
         padding: 0em;
     }
     .scrollbar{
         overflow: auto;
+        height: 90vh;
     }
     .acs-header {
         display: flex;
@@ -736,7 +647,7 @@ SET `value` = '<style>
     .acs-purchase-context {
         margin-bottom: 2em;
         margin-top: 0.5em;
-        height: 24.5em;
+        min-height: 22em !important;
     }
     .acs-purchase-context button{
         width: 100%;
@@ -760,17 +671,21 @@ SET `value` = '<style>
     }
     .acs-challengeInfoText {
         margin-bottom: 2em;
+        white-space: pre-line;
     }
     .acs-footer {
         font-size: 0.9em;
-        margin-bottom: 0.5em;
+        padding-bottom: 2em;
     }
     .acs-footer-icon {
         text-align: right;
     }
-    .row {
-        margin-right: -15px;
-        margin-left: -15px;
+    .sides-padding {
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+    .leftPadding {
+        padding-left: 15px;
     }
     .col-md-12,
     .col-md-10,
@@ -778,8 +693,6 @@ SET `value` = '<style>
     .col-md-2 {
         position: relative;
         min-height: 1px;
-        padding-right: 15px;
-        padding-left: 15px;
     }
     .col-md-12 {
         width: 100%;
@@ -795,6 +708,16 @@ SET `value` = '<style>
     }
     .form-group {
         margin-bottom: 15px;
+    }
+    .challenge-form {
+        text-align: center;
+    }
+    label#challenge-form-label {
+        float: left !important;
+        text-align: left;
+    }
+    .challenge-submit-button {
+        width: auto !important;
     }
     .form-control {
         display: block;
@@ -880,133 +803,76 @@ SET `value` = '<style>
         border-color: #204d74;
     }
 
-	#show,#content {display:none;}
+    #show,#content{display:none;}
+    #show:checked~#content {display:block;}
+    .div-left {
+        float:left;
+        padding-left:10px;
+    }
+    .div-right {
+        float:right;
+        padding-right:10px;
+    }
 
-	[data-tooltip],
-	.tooltip {
-		position: relative;
-		cursor: pointer;
-	}
+    /* Tooltip container */
+    .tooltip {
+        float:right;
+        padding-right:10px;
+    }
 
-	[data-tooltip]:before,
-	[data-tooltip]:after,
-	.tooltip:before,
-	.tooltip:after {
-		position: absolute;
-		visibility: hidden;
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-		filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-		opacity: 0;
-		-webkit-transition:
-		opacity 0.2s ease-in-out,
-		visibility 0.2s ease-in-out,
-		-webkit-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-		-moz-transition:
-		opacity 0.2s ease-in-out,
-		visibility 0.2s ease-in-out,
-		-moz-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-		transition:
-		opacity 0.2s ease-in-out,
-		visibility 0.2s ease-in-out,
-		transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-		-webkit-transform: translate3d(0, 0, 0);
-		-moz-transform:	 translate3d(0, 0, 0);
-		transform:		 translate3d(0, 0, 0);
-		pointer-events: none;
-	}
+    /* Tooltip text */
+    .tooltip .tooltiptext {
 
-	[data-tooltip]:hover:before,
-	[data-tooltip]:hover:after,
-	[data-tooltip]:focus:before,
-	[data-tooltip]:focus:after,
-	.tooltip:hover:before,
-	.tooltip:hover:after,
-	.tooltip:focus:before,
-	.tooltip:focus:after {
-		visibility: visible;
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-		filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-		opacity: 1;
-	}
-
-	.tooltip:before,
-	[data-tooltip]:before {
-		z-index: 1001;
-		border: 6px solid transparent;
-		background: transparent;
-		content: "";
-	}
-
-	.tooltip:after,
-	[data-tooltip]:after {
-		z-index: 1001;
-		padding: 8px;
-		width: 250px;
-		border-radius: 4px;
-		border: 1px solid #d3d3d3;
-		background-color: #fff;
-		background-color: #fff;;
-		color: #333;
-		content: attr(data-tooltip);
-		font-size: 0.95em;
-		font-weight: normal;
-		line-height: 1.42857143;
-		vertical-align: middle;
-		text-align:start;
-	}
+        visibility: hidden;
+        background-color: white;
+        color: #000;
+        text-align: center;
+        padding: 9px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: left;
+        text-align: start;
+        text-decoration: none;
+        text-shadow: none;
+        text-transform: none;
+        letter-spacing: normal;
+        word-break: normal;
+        word-spacing: normal;
+        word-wrap: normal;
+        white-space: normal;
+        background-color: #fff;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        border: 1px solid #ccc;
+        border: 1px solid rgba(0,0,0,.2);
+        border-radius: 6px;
+        -webkit-box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+        box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
 
 
-	[data-tooltip]:before,
-	[data-tooltip]:after,
-	.tooltip:before,
-	.tooltip:after,
-	.tooltip-top:before,
-	.tooltip-top:after {
-		bottom: 100%;
-		left: 50%;
-	}
+        position: absolute;
+        width: 70%;
+        z-index: 1;
+        bottom: 100%;
+        left: 30%;
+        margin-left: -60px;
+    }
 
-	[data-tooltip]:before,
-	.tooltip:before,
-	.tooltip-top:before {
-		margin-left: -6px;
-		margin-bottom: -12px;
-		color: #000;
-		border-top-color: #fff;
-	}
+    /* Show the tooltip text when you mouse over the tooltip container */
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
 
-	[data-tooltip]:after,
-	.tooltip:after,
-	.tooltip-top:after {
-		margin-left: -235px;
-	}
-
-	[data-tooltip]:hover:before,
-	[data-tooltip]:hover:after,
-	[data-tooltip]:focus:before,
-	[data-tooltip]:focus:after,
-	.tooltip:hover:before,
-	.tooltip:hover:after,
-	.tooltip:focus:before,
-	.tooltip:focus:after,
-	.tooltip-top:hover:before,
-	.tooltip-top:hover:after,
-	.tooltip-top:focus:before,
-	.tooltip-top:focus:after {
-		-webkit-transform: translateY(-12px);
-		-moz-transform:	 translateY(-12px);
-		transform:		 translateY(-12px);
-	}
-
-
-
-</style>
-</head>
-<body>
+    </style>
+    </head>
+    <body>
     <div class="acs-container">
             <div class="scrollbar col-md-12">
                 <!-- ACS HEADER | Branding zone-->
-                <div class="acs-header row branding-zone">
+                <div class="acs-header sides-padding branding-zone">
                     <div class="col-md-6">
                         <img src="network_means_pageType_251" alt="Issuer image" data-cy="ISSUER_IMAGE"/>
                     </div>
@@ -1016,37 +882,34 @@ SET `value` = '<style>
                 </div>
                 <!-- ACS BODY | Challenge/Processing zone -->
                 <div class="acs-purchase-context col-md-12 challenge-processing-zone">
-                    <div class="row">
+                    <div class="sides-padding">
                         <div class="acs-challengeInfoHeader col-md-12" data-cy="CHALLENGE_INFO_HEADER">
                             network_means_pageType_151
                         </div>
-                        <div class="row">
-                            <div class="acs-challengeInfoText col-md-10" id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
-                                network_means_pageType_152
-                            </div>
+                        <div class="acs-challengeInfoText leftPadding" id="acs-challenge-info-text" data-cy="CHALLENGE_INFO_TEXT">
+                            network_means_pageType_152
                         </div>
                         <div class="col-md-12">
-                            <form action="HTTPS://EMV3DS/challenge" method="get">
+                            <form action="HTTPS://EMV3DS/challenge" method="get" class="challenge-form">
                               <input type="hidden" name="submitted-oob-continue-value" value="Y">
-                              <input type="submit" value="network_means_pageType_165" class="btn btn-primary" id="challenge-oob-continue-submit" data-cy="CHALLENGE_OOB_CONTINUE_FORM_SUBMIT"/>
+                              <input type="submit" value="network_means_pageType_165" class="btn btn-primary challenge-submit-button" data-cy="CHALLENGE_OOB_CONTINUE_FORM_SUBMIT"/>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- ACS FOOTER | Information zone (No text for footer present in the customitem)-->
-			<div class="acs-footer col-md-12 information-zone">
-				<div class="row">
-					<div class="col-md-10">network_means_pageType_156</div>
-					<div class="acs-footer-icon col-md-2">
-						<input type=checkbox id="show" class="div-right">
-							<label for="show"><a data-tooltip="network_means_pageType_157">
-							<i class="fa fa-plus"></i></a></label>
-							<span id="content">network_means_pageType_157 </span>
-					</div>
-				</div>
-			</div>
-		</div>
+            <!-- ACS FOOTER | Information zone -->
+            <div class="acs-footer col-md-12 information-zone">
+                <div class="sides-padding">
+                    <div class="div-left">network_means_pageType_156</div>
+                    <input type="checkbox" id="show" class="div-right">
+                    <div for="show" class="div-right tooltip">
+                        <img class="plus-image" src="data:image/svg+xml;base64,PHN2ZyBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSIgZGF0YS1wcmVmaXg9ImZhcyIgZGF0YS1pY29uPSJwbHVzIiBjbGFzcz0ic3ZnLWlubGluZS0tZmEgZmEtcGx1cyBmYS13LTE0IiByb2xlPSJpbWciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDQ0OCA1MTIiPjxwYXRoIGZpbGw9ImN1cnJlbnRDb2xvciIgZD0iTTQxNiAyMDhIMjcyVjY0YzAtMTcuNjctMTQuMzMtMzItMzItMzJoLTMyYy0xNy42NyAwLTMyIDE0LjMzLTMyIDMydjE0NEgzMmMtMTcuNjcgMC0zMiAxNC4zMy0zMiAzMnYzMmMwIDE3LjY3IDE0LjMzIDMyIDMyIDMyaDE0NHYxNDRjMCAxNy42NyAxNC4zMyAzMiAzMiAzMmgzMmMxNy42NyAwIDMyLTE0LjMzIDMyLTMyVjMwNGgxNDRjMTcuNjcgMCAzMi0xNC4zMyAzMi0zMnYtMzJjMC0xNy42Ny0xNC4zMy0zMi0zMi0zMnoiPjwvcGF0aD48L3N2Zz4=" alt="Plus" style="height:1em;">
+                        <span class="tooltiptext">network_means_pageType_157</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 '
 WHERE `fk_id_layout` = @idAppViewPage;
 
