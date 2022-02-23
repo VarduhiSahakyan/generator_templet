@@ -370,6 +370,7 @@ SET `value` = '
 			#pageHeaderRight{ width: 25%; float: right;text-align: right; padding-right: 5px}
 			#pageHeaderCenter {width: 50%;}
 			h1 {font-size: 26px;}
+            div#message-content #headingTxt {width: 80%;  font-size: 18px;}
 		}
 
 		@media (max-width: 501px) {
@@ -385,6 +386,7 @@ SET `value` = '
 			#validateButton {padding-top: 0px;}
 			#pageHeaderRight{ padding-right: 16px}
 			#validateButton button {font-size: 16px; padding: 5px;10px;5px;10px}
+            div#message-content #headingTxt {width: 80%;  font-size: 18px;}
 		}
 
 
