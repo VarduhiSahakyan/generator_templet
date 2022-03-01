@@ -338,6 +338,10 @@ SET `value` = '
 			max-height: 65px;
 		}
 
+        div#message-content {
+            padding-bottom: 45px;
+        }
+
 		@media (max-width: 1200px){
 			#main-container{max-width: 1200px}
 		}
