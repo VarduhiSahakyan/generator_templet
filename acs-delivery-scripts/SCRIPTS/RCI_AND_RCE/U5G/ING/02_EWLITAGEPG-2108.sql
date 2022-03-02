@@ -351,7 +351,7 @@ UPDATE `CustomComponent` SET `value` = '<custom-font straight-mode="false" mime-
 		#optGblPage .otp-field input { width: 218px; }
 		.col1 { width: 2%; }
 		#centerLayout { display: block;  margin-left: 28%;}
-		.img-text { width: 100%;}
+		.img-text { width: 100%; display: flex;}
 		div#left { width: 0%; }
 		div#helpDiv { width: 42%; }
 		div#buttonsDiv { display: flex; width: 58%; }
