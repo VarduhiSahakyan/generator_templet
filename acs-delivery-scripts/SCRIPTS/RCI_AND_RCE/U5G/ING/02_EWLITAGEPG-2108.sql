@@ -331,8 +331,9 @@ UPDATE `CustomComponent` SET `value` = '<custom-font straight-mode="false" mime-
 		.col1 { width: 5%; }
 		.col2 { width: 35%; }
 		.col3 { margin-left: 5%; }
-		#centerLayout { margin-left: 5%;}
-		.img-text { width: 40%;}
+		#centerLayout { margin-left: 1%;}
+		.img-text { width: 40%; display: contents;}
+		.img-text custom-text { text-align: start; }
 		#deviceChoice { margin-left: 0px;}
 		div#left { width: 5%; }
 		div#helpDiv { width: 40%; }
