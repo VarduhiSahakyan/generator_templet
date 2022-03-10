@@ -52,6 +52,7 @@ snapshot_deploy:
     - /^request/.+$/
     - specific_artifacts
     - master
+    - /^epic-.*$/
     - /^[HU][0-9X][BFGMAH]$/
   
 make_release: 
@@ -81,7 +82,8 @@ make_release:
     - git push --tags
   when: manual
   only:
-  - master
+    - master
+    - /^epic-.*$/
   tags:
     - kazan-S
     - docker-S
