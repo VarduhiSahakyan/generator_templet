@@ -1,6 +1,5 @@
 USE `U5G_ACS_BO`;
 
-
 SET @pollingPageLayoutDesc = 'Polling Page (12000)';
 SET @pollingPageType = 'POLLING_PAGE';
 
@@ -182,10 +181,11 @@ SET `value` = '
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
 		div.side-menu{padding-bottom: 0px; padding-top: 20px}
 		div#leftMenuLayout {width: 100%;min-height: 10px;}
-		#switchId {padding-left: 10px;}
+		#switchId {padding-left: 10px;display: none;}
 		#bottomLayout {display: block !important;}
-		div#centerPieceLayout {width: 100%}
+		div#centerPieceLayout {width: 100%;padding: 0px;padding-top: 10px;}
 		#i18n-container{padding-bottom: 0px;}
+        #bottomMenu {width: 100%;margin-top: 0px;}
 	}
 	@media (max-width: 601px) {
 		#main-container{max-width: 600px; overflow: hidden;}
@@ -199,11 +199,12 @@ SET `value` = '
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		.paragraph {text-align: center;}
-		#switchId button {min-width: 20rem;}
+		#switchId button {min-width: 20rem;display: none;}
 		#i18n-container{padding-bottom: 0px;}
 		#pageHeader { height: 85px; }
 		#issuerLogo { max-height: 50px; }
 		#networkLogo { max-height: 50px; }
+        #bottomMenu {width: 100%;margin-top: 0px;}
 	}
 	@media (max-width: 501px) {
 		#main-container{max-width: 500px; overflow: hidden;}
@@ -213,16 +214,16 @@ SET `value` = '
 		.btn {font-size: 12px;}
 		div.hideable-text {display: block !important;}
 		#centeredTitle {margin-top: 3px;}
-		div#centerPieceLayout {min-height: 50px; padding-left: 10px;padding-top: 0px;}
+		div#centerPieceLayout {min-height: 50px; padding-left: 10px;padding-top: 0px; padding: 0px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
 		div#leftMenuLayout {padding-left: 0px;padding-right: 0px;}
 		div.side-menu{padding-bottom: 0px; padding-top: 10px}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		.paragraph {text-align: center;}
-		#switchId button {min-width: 20rem;}
+		#switchId button {min-width: 20rem;display: none;}
 		#i18n-container{padding-bottom: 0px;}
-		#bottomMenu {margin-top: 0px;}
+		#bottomMenu {margin-top: 0px;margin-top: 0px;}
 		#pageHeader { height: 70px; }
 		#issuerLogo { max-height: 40px; }
 		#networkLogo { max-height: 40px; }
@@ -233,17 +234,18 @@ SET `value` = '
 		div.hideable-text {display: block !important;}
 		body {font-size: 11px;}
 		.btn {font-size: 11px;}
-		div#centerPieceLayout {min-height: 50px; padding-left: 10px;}
+		div#centerPieceLayout {min-height: 50px; padding-left: 10px; padding: 0px;}
 		#centeredTitle {margin-top: 3px;}
 		.side-menu .text-left, .side-menu .text-right {padding-right: 0px;padding-left: 3px;}
 		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; padding-bottom: 3px;}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
 		.paragraph{text-align: center;}
-		#switchId button {min-width: 20rem;}
+		#switchId button {min-width: 20rem;display: none;}
 		#i18n-container{padding-bottom: 0px;}
 		div.side-menu{padding-bottom: 0px; padding-top: 10px}
 		#pageHeader { height: 70px; }
+        #bottomMenu {width: 100%;margin-top: 0px;}
 	}
 	@media (max-width: 251px) {
 		#main-container{max-width: 250px; overflow: hidden;}
@@ -254,10 +256,10 @@ SET `value` = '
 		div#leftMenuLayout {padding-left: 0px;padding-right: 0px; padding-bottom: 3px;}
 		#rightContainer {width: 100%;}
 		div.hideable-text {display: block !important;}
-		div#centerPieceLayout {min-height: 50px; padding-left: 10px; padding-right: 10px;}
+		div#centerPieceLayout {min-height: 50px; padding-left: 10px; padding-right: 10px; padding: 0px;}
 		#switchId {padding-right: 0px;}
-		#switchId button {min-width: 16rem;}
-		#bottomMenu {width: 100%;}
+		#switchId button {min-width: 16rem;display: none;}
+		#bottomMenu {width: 100%;margin-top: 0px;}
 		.paragraph{text-align: center;font-size: 11px;}
 		#i18n-container{padding-bottom: 0px;}
 		.noLeftRightPadding { font-size: 10px;}
