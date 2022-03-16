@@ -1393,7 +1393,7 @@ SET `value` = '
 			</div>
 		</div>
 
-		div id="footer">
+		<div id="footer">
 			<div class="help-area">
 				<div class="help-link">
 					<help help-label="''network_means_pageType_5''" id="helpButton" class="helpButtonClass"></help>
