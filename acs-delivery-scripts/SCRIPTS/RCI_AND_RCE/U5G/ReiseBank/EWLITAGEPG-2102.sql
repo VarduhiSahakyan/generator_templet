@@ -1492,6 +1492,7 @@ SET @idHelpFormPage = (SELECT id
 				WHERE `pageType` = @helpPageType
 				AND DESCRIPTION = @helpPageLayoutDesc);
 
+
 UPDATE `CustomComponent`
 SET `value` = '<div class="container-fluid">
     <div class=" col-xs-12 col-md-10 col-md-offset-1">
@@ -1510,12 +1511,32 @@ SET `value` = '<div class="container-fluid">
 <style>
     #helpContent {
         padding: 5px 10px 0px;
-        height: auto;
+        min-height: 200px;
         text-align: center;
     }
     .paragraph {
         margin: 0px 0px 10px;
-        text-align: center;
+        text-align: justify;
+    }
+    @media (max-width: 1200px){
+    .paragraph {text-align: center;}
+    #helpContent {text-align: center;height: auto; min-height: 10px;}
+	}
+ 	@media (max-width: 601px) {
+    .paragraph {text-align: center;}
+    #helpContent {text-align: center;height: auto; min-height: 10px;}
+    }
+	@media (max-width: 501px) {
+    .paragraph {text-align: center;}
+    #helpContent {text-align: center;height: auto; min-height: 10px;}
+    }
+	@media (max-width: 391px) {
+    .paragraph {text-align: center;}
+    #helpContent {text-align: center;height: auto; min-height: 10px;}
+    }
+	@media (max-width: 251px) {
+    .paragraph {text-align: center;}
+    #helpContent {text-align: center;height: auto; min-height: 10px;}
     }
 </style>
 ' where fk_id_layout = @idHelpFormPage;
