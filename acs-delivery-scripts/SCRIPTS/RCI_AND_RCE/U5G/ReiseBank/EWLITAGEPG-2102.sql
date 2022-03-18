@@ -1482,4 +1482,40 @@ SET `value` = '<style>
 			</div>
 		</div>
 	</div>
-' where fk_id_layout = @idFailureFormPage
+' where fk_id_layout = @idFailureFormPage;
+
+SET @helpPageLayoutDesc = 'Help Page (ReiseBank)';
+SET @helpPageType = 'HELP_PAGE';
+
+SET @idHelpFormPage = (SELECT id
+				FROM `CustomPageLayout`
+				WHERE `pageType` = @helpPageType
+				AND DESCRIPTION = @helpPageLayoutDesc);
+
+UPDATE `CustomComponent`
+SET `value` = '<div class="container-fluid">
+    <div class=" col-xs-12 col-md-10 col-md-offset-1">
+        <div id="helpContent">
+            <div class="paragraph">
+                <custom-text custom-text-key="''network_means_HELP_PAGE_1''" id="paragraph1">
+                </custom-text>
+                <custom-text custom-text-key="''network_means_HELP_PAGE_2''" id="paragraph1">
+                </custom-text>
+            </div>
+            <help-close-button id="helpCloseButton"></help-close-button>
+        </div>
+    </div>
+</div>
+
+<style>
+    #helpContent {
+        padding: 5px 10px 0px;
+        height: auto;
+        text-align: center;
+    }
+    .paragraph {
+        margin: 0px 0px 10px;
+        text-align: center;
+    }
+</style>
+' where fk_id_layout = @idHelpFormPage;
