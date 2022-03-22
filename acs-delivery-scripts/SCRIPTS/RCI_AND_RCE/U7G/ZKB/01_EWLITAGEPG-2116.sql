@@ -21,22 +21,15 @@ UPDATE `CustomComponent` SET `value` = '
 		border-bottom: 1px solid #dcdcdc;
 	}
 	#pageHeaderLeft {
-		width: 40%;
+		width: 50%;
 		float: left;
 		padding-left: 16px;
 		height: 100%;
 		display: flex;
 		align-items: center;
 	}
-	#pageHeaderCenter {
-		width: 30%;
-		float: left;
-		text-align: center;
-		line-height: 70px;
-		padding-top: 16px;
-	}
 	#pageHeaderRight {
-		width: 30%;
+		width: 50%;
 		float: right;
 		padding-right: 16px;
 		height: 100%;
@@ -82,7 +75,6 @@ UPDATE `CustomComponent` SET `value` = '
 	}
 	.paragraph {
 		text-align: left;
-		margin-bottom: 10px;
 		font-size: 12px;
 	}
 	.paragraphDescription {
@@ -109,7 +101,7 @@ UPDATE `CustomComponent` SET `value` = '
 		width: 100%;
 		padding: 1em;
 		padding: 0px;
-		padding-top: 1em;
+		padding-top: 0.5em;
 		clear: both;
 		font-size: 12px;
 		color: #000000;
@@ -162,7 +154,6 @@ UPDATE `CustomComponent` SET `value` = '
 	div#otp-fields-container {
 		width: 100%;
 		text-align: left;
-		margin-top: 10px;
 		margin-bottom: 10px;
 	}
 	div#otp-fields {
@@ -299,8 +290,6 @@ UPDATE `CustomComponent` SET `value` = '
 		width: 100%;
 		background-color: #ada398;
 		text-align: center;
-		margin-top: 15px;
-		margin-bottom: 15px;
 	}
 	#footer #cancelButton button span.fa {
 		background-image: url(data:image/png;base64,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);
@@ -346,39 +335,45 @@ UPDATE `CustomComponent` SET `value` = '
 		.paragraphDescription {text-align: left;}
 	}
 	@media all and (max-width: 1278px) and (min-width: 701px) {
-		#pageHeader {height: 96px;}
-		#issuerLogo {max-height: 55px; }
-		#networkLogo {max-height: 55px; }
+		#pageHeader {height: 80px;}
+		#issuerLogo {max-height: 50px; }
+		#networkLogo {max-height: 50px; }
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; }
 		.paragraph { text-align: left;}
 		.paragraphDescription {text-align: left; }
 	}
 	@media all and (max-width: 700px) and (min-width: 601px) {
-		#pageHeader {height: 96px;}
+		#pageHeader {height: 80px;}
+		#issuerLogo {max-height: 50px; }
+		#networkLogo {max-height: 50px; }
 		span.ng-binding { word-break: break-word; }
 		.rightColumn { display: block; float: none; width: 100%; }
 		.paragraph { text-align: left;}
 		.paragraphDescription {text-align: left;}
 	}
 	@media all and (max-width: 600px) and (min-width: 501px) {
-		#pageHeader {height: 80px;}
+		#pageHeader {height: 70px;}
+		#issuerLogo {max-height: 45px; }
+		#networkLogo {max-height: 45px; }
 		span.ng-binding { word-break: break-word; }
 		.contentRow { padding-top: 0px; }
 		.rightColumn { display: block; float: none; width: 50%; margin-left: 50%; padding: 5px 0px}
 		.leftColumn { width: 50%; padding-top: 5px;}
 		.paragraph { text-align: left; margin-bottom: 5px; }
 		.paragraphDescription {text-align: left;}
-		div#otp-fields-container { margin-top: 5px; margin-bottom: 5px;}
+		div#otp-fields-container { margin-bottom: 5px;}
 		#validateButton {margin-left: 0em;}
 		#footer { margin-top: 0px; display: inline-block; }
 	}
 	 @media all and (max-width: 500px) and (min-width: 481px) {
-		#pageHeader {height: 80px;}
+		#pageHeader {height: 70px;}
+		#issuerLogo {max-height: 45px; }
+		#networkLogo {max-height: 45px; }
 		span.ng-binding { word-break: break-word; }
 		.contentRow { padding-top: 0px; }
 		.leftColumn { display: block; float: none; width: 100%; padding-top: 0.5em; padding-bottom: 0em; }
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0%; padding: 0px; }
-		.paragraph { text-align: center;}
+		.paragraph { text-align: center; margin-bottom: 5px;}
 		.paragraphDescription {text-align: center;}
 		div#otp-fields-container { margin-top: 0px; margin-bottom: 5px; text-align: center;}
 		#validateButton {margin-left: 0em;}
@@ -395,8 +390,8 @@ UPDATE `CustomComponent` SET `value` = '
 		#networkLogo {max-height: 30px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
-		.leftColumn { display: block; float: none; width: 100%; padding-bottom: 0em; }
-		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 10px; }
+		.leftColumn { display: block; float: none; width: 100%; padding-bottom: 0em; padding-top: 0em;}
+		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; margin-top: 0px; padding: 0px 10px;}
 		#otp-form { display: block; width: 200px; margin-left: auto; margin-right: auto; }
 		#otp-form input { width: 100%; padding: 0px; }
 		div#otp-fields { width: 100%; }
@@ -405,14 +400,14 @@ UPDATE `CustomComponent` SET `value` = '
 	}
 	@media all and (max-width: 391px) {
 		h1 { font-size: 24px; }
-		#pageHeader {height: 50px;}
-		#issuerLogo {max-height: 50px; }
-		#networkLogo {max-height: 50px; }
+		#pageHeader {height: 65px;}
+		#issuerLogo {max-height: 35px; }
+		#networkLogo {max-height: 30px; }
 		#optGblPage { font-size: 14px; }
 		div#green-banner { display: none; }
 		span.ng-binding { word-break: break-word; }
 		.contentRow { padding-top: 0px}
-		.paragraph { text-align: center;}
+		.paragraph { text-align: center; margin-bottom: 5px;}
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display: block; float: none; width: 100%; padding-top: 0.5em; padding-bottom: 0em; }
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; padding: 0px 10px; }
@@ -447,9 +442,6 @@ UPDATE `CustomComponent` SET `value` = '
 			<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
 				<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
 			</div>
-
-			<div id="pageHeaderCenter" ng-style="style" class="ng-scope"></div>
-
 			<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
 				<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
 			</div>
@@ -526,15 +518,8 @@ UPDATE `CustomComponent` SET `value` = '
 		display: flex;
 		align-items: center;
 	}
-	#pageHeaderCenter {
-		width: 30%;
-		float: left;
-		text-align: center;
-		line-height: 70px;
-		padding-top: 16px;
-	}
 	#pageHeaderRight {
-		width: 30%;
+		width: 50%;
 		float: right;
 		padding-right: 16px;
 		height: 100%;
@@ -628,8 +613,8 @@ UPDATE `CustomComponent` SET `value` = '
 		display: grid;
 	}
 	div#footer {
-		padding-top: 12px;
-		padding-bottom: 12px;
+		padding-top: 5px;
+		padding-bottom: 5px;
 		width: 100%;
 		background-color: #ada398;
 		text-align: center;
@@ -660,8 +645,8 @@ UPDATE `CustomComponent` SET `value` = '
 		margin-left: 3px;
 	}
 	div#footer {
-		padding-top: 5px;
-		padding-bottom: 5px;
+		padding-top: 12px;
+		padding-bottom: 12px;
 		clear: both;
 		width: 100%;
 		background-color: #f0f0f0;
@@ -750,15 +735,17 @@ UPDATE `CustomComponent` SET `value` = '
 		.paragraphDescription {text-align: left;}
 	}
 	@media all and (max-width: 1278px) and (min-width: 701px) {
-		#pageHeader {height: 96px;}
-		#issuerLogo {max-height: 55px; }
-		#networkLogo {max-height: 55px; }
+		#pageHeader {height: 80px;}
+		#issuerLogo {max-height: 50px; }
+		#networkLogo {max-height: 50px; }
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; }
 		.paragraph { text-align: left;}
 		.paragraphDescription {text-align: left; }
 	}
 	@media all and (max-width: 700px) and (min-width: 601px){
-		#pageHeader {height: 96px;}
+		 #pageHeader {height: 80px;}
+		#issuerLogo {max-height: 50px; }
+		#networkLogo {max-height: 50px; }
 		.leftColumn { padding-top: 0em; padding-bottom: 0em;}
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top:0px;}
 		.paragraph{ text-align: left;}
@@ -766,9 +753,9 @@ UPDATE `CustomComponent` SET `value` = '
 	}
 	@media all and (max-width: 600px) and (min-width: 501px) {
 		h1 { font-size:24px; }
-		#pageHeader {height: 90px;}
-		#issuerLogo {max-height : 50px; }
-		#networkLogo {max-height : 50px; }
+		#pageHeader {height: 70px;}
+		#issuerLogo {max-height: 45px; }
+		#networkLogo {max-height: 45px; }
 		#optGblPage {  font-size : 14px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
@@ -779,8 +766,8 @@ UPDATE `CustomComponent` SET `value` = '
 		h1 { font-size:18px; }
 		#optGblPage { font-size : 14px;}
 		#pageHeader {height: 70px;}
-		#issuerLogo {max-height : 45px; }
-		#networkLogo {max-height : 45px; }
+		#issuerLogo {max-height: 45px; }
+		#networkLogo {max-height: 45px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; padding-bottom: 5px; padding-top: 5px;}
@@ -804,14 +791,14 @@ UPDATE `CustomComponent` SET `value` = '
 		div.side-menu div.menu-title { display:inline; }
 		div#green-banner { display: none;}
 		#optGblPage {   font-size : 14px;}
-		#pageHeader {height: 55px;}
-		#issuerLogo {max-height : 35px; }
-		#networkLogo {max-height : 30px; }
+		#pageHeader {height: 65px;}
+		#issuerLogo {max-height: 35px; }
+		#networkLogo {max-height: 30px; }
 		span.ng-binding { word-break: break-word; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; padding-bottom: 5px; }
-		.rightColumn { display:block; float:none; width:100%; margin-left:0px; }
+		.rightColumn { display:block; float:none; width:100%; margin-left:0px; padding: 0px 10px;}
 	}
 	@media all and (max-width: 250px) {
 		div#green-banner { display: none;}
@@ -823,9 +810,6 @@ UPDATE `CustomComponent` SET `value` = '
 	<div id="pageHeader" ng-style="style" class="ng-scope">
 		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
 			<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
-		</div>
-		<div id="pageHeaderCenter" ng-style="style" class="ng-scope">
-
 		</div>
 		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
 			<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
@@ -888,22 +872,15 @@ UPDATE `CustomComponent` SET `value` = '
 		border-bottom: 1px solid #DCDCDC;
 	}
 	#pageHeaderLeft {
-		width: 40%;
+		width: 50%;
 		float: left;
 		padding-left: 16px;
 		height: 100%;
 		display: flex;
 		align-items: center;
 	}
-	#pageHeaderCenter {
-		width: 30%;
-		float: left;
-		text-align: center;
-		line-height: 70px;
-		padding-top: 16px;
-	}
 	#pageHeaderRight {
-		width: 30%;
+		width: 50%;
 		float: right;
 		padding-right: 16px;
 		height: 100%;
@@ -913,13 +890,12 @@ UPDATE `CustomComponent` SET `value` = '
 	}
 	#issuerLogo {
 		max-height: 64px;
-		max-width:100%;
+		max-width: 100%;
 	}
 	#networkLogo {
 		max-height: 65px;
-		max-width:100%;
+		max-width: 100%;
 	}
-
 	#i18n > button:focus {outline:0;border-color: #ff6a10;outline: #6e6e6e 1px dotted;}
 
 	#i18n-container {
@@ -1110,15 +1086,17 @@ UPDATE `CustomComponent` SET `value` = '
 		.paragraphDescription {text-align: left;}
 	}
 	@media all and (max-width: 1278px) and (min-width: 701px) {
-		#pageHeader {height: 96px;}
-		#issuerLogo {max-height: 55px; }
-		#networkLogo {max-height: 55px; }
+		#pageHeader {height: 80px;}
+		#issuerLogo {max-height: 50px; }
+		#networkLogo {max-height: 50px; }
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; }
 		.paragraph { text-align: left;}
 		.paragraphDescription {text-align: left; }
 	}
 	@media all and (max-width: 700px) and (min-width: 601px){
-		#pageHeader {height: 96px;}
+		 #pageHeader {height: 80px;}
+		#issuerLogo {max-height: 50px; }
+		#networkLogo {max-height: 50px; }
 		.leftColumn { padding-top: 0em; padding-bottom: 0em;}
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top:0px;}
 		.paragraph{ text-align: left;}
@@ -1126,9 +1104,9 @@ UPDATE `CustomComponent` SET `value` = '
 	}
 	@media all and (max-width: 600px) and (min-width: 501px) {
 		h1 { font-size:24px; }
-		#pageHeader {height: 90px;}
-		#issuerLogo {max-height : 50px; }
-		#networkLogo {max-height : 50px; }
+		#pageHeader {height: 70px;}
+		#issuerLogo {max-height: 45px; }
+		#networkLogo {max-height: 45px; }
 		#optGblPage {     font-size : 14px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
@@ -1138,9 +1116,9 @@ UPDATE `CustomComponent` SET `value` = '
 	@media all and (max-width: 500px) and (min-width: 481px) {
 		h1 { font-size:18px; }
 		#optGblPage { font-size : 14px;}
-		#pageHeader {height: 60px;}
-		#issuerLogo {max-height : 45px; }
-		#networkLogo {max-height : 45px; }
+		#pageHeader {height: 70px;}
+		#issuerLogo {max-height: 45px; }
+		#networkLogo {max-height: 45px; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
 		.leftColumn { display:block; float:none; width:100%; }
@@ -1164,9 +1142,9 @@ UPDATE `CustomComponent` SET `value` = '
 		div.side-menu div.menu-title { display:inline; }
 		div#green-banner { display: none;}
 		#optGblPage {   font-size : 14px;}
-		#pageHeader {height: 50px;}
-		#issuerLogo {max-height : 35px; }
-		#networkLogo {max-height : 30px; }
+		#pageHeader {height: 65px;}
+		#issuerLogo {max-height: 35px; }
+		#networkLogo {max-height: 30px; }
 		span.ng-binding { word-break: break-word; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
@@ -1183,8 +1161,6 @@ UPDATE `CustomComponent` SET `value` = '
 	<div id="pageHeader" ng-style="style" class="ng-scope">
 		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
 			<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
-		</div>
-		<div id="pageHeaderCenter" ng-style="style" class="ng-scope">
 		</div>
 		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
 			<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
@@ -1237,22 +1213,15 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		border-bottom: 1px solid #dcdcdc;
 	}
 	#pageHeaderLeft {
-		width: 40%;
+		width: 50%;
 		float: left;
 		padding-left: 16px;
 		height: 100%;
 		display: flex;
 		align-items: center;
 	}
-	#pageHeaderCenter {
-		width: 30%;
-		float: left;
-		text-align: center;
-		line-height: 70px;
-		padding-top: 16px;
-	}
 	#pageHeaderRight {
-		width: 30%;
+		width: 50%;
 		float: right;
 		padding-right: 16px;
 		height: 100%;
@@ -1478,15 +1447,17 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.paragraphDescription {text-align: left;}
 	}
 	@media all and (max-width: 1278px) and (min-width: 701px) {
-		#pageHeader {height: 96px;}
-		#issuerLogo {max-height: 55px; }
-		#networkLogo {max-height: 55px; }
+		#pageHeader {height: 80px;}
+		#issuerLogo {max-height: 50px; }
+		#networkLogo {max-height: 50px; }
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; }
 		.paragraph { text-align: left;}
 		.paragraphDescription {text-align: left; }
 	}
 	@media all and (max-width: 700px) and (min-width: 601px){
-		#pageHeader {height: 96px;}
+		#pageHeader {height: 80px;}
+		#issuerLogo {max-height: 50px; }
+		#networkLogo {max-height: 50px; }
 		.leftColumn { padding-top: 0em; padding-bottom: 0em;}
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top:0px;}
 		.paragraph{ text-align: left;}
@@ -1494,9 +1465,9 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	@media all and (max-width: 600px) and (min-width: 501px) {
 		h1 { font-size:24px; }
-		#pageHeader {height: 80px;}
-		#issuerLogo {max-height : 50px; }
-		#networkLogo {max-height : 50px; }
+		#pageHeader {height: 70px;}
+		#issuerLogo {max-height: 45px; }
+		#networkLogo {max-height: 45px; }
 		.contentRow { padding-top: 0em; }
 		#optGblPage {     font-size : 14px; }
 		.paragraph { text-align: center; }
@@ -1521,9 +1492,9 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		div.side-menu div.menu-title { display:inline; }
 		#optGblPage {   font-size : 14px;}
 		div#green-banner { display: none;}
-		#pageHeader {height: 55px;}
-		#issuerLogo {max-height : 35px; }
-		#networkLogo {max-height : 30px; }
+		#pageHeader {height: 65px;}
+		#issuerLogo {max-height: 35px; }
+		#networkLogo {max-height: 30px; }
 		span.ng-binding { word-break: break-word; }
 		.paragraph { text-align: center; }
 		.paragraphDescription {text-align: center;}
@@ -1533,7 +1504,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 250px) {
 		div#green-banner { display: none;}
 		.contentRow { font-size: 11px; }
-		.rightColumn { margin-top: 5px; }
+		.rightColumn { margin-top: 5px; padding: 0px 10px;}
 	}
 </style>
 <div id="optGblPage">
@@ -1541,7 +1512,6 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
 			<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
 		</div>
-		<div id="pageHeaderCenter" ng-style="style" class="ng-scope"></div>
 		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
 			<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
 		</div>
@@ -1603,22 +1573,15 @@ UPDATE `CustomComponent` SET `value` = '
 		border-bottom: 1px solid #DCDCDC;
 	}
 	#pageHeaderLeft {
-		width: 40%;
+		width: 50%;
 		float: left;
 		padding-left: 16px;
 		height: 100%;
 		display: flex;
 		align-items: center;
 	}
-	#pageHeaderCenter {
-		width: 30%;
-		float: left;
-		text-align: center;
-		line-height: 70px;
-		padding-top: 16px;
-	}
 	#pageHeaderRight {
-		width: 30%;
+		width: 50%;
 		float: right;
 		padding-right: 16px;
 		height: 100%;
@@ -1628,13 +1591,12 @@ UPDATE `CustomComponent` SET `value` = '
 	}
 	#issuerLogo {
 		max-height: 64px;
-		max-width:100%;
+		max-width: 100%;
 	}
 	#networkLogo {
 		max-height: 65px;
-		max-width:100%;
+		max-width: 100%;
 	}
-
 	#i18n > button:focus {outline:0;border-color: #ff6a10;outline: #6e6e6e 1px dotted;}
 
 	#i18n-container {
@@ -1829,9 +1791,9 @@ UPDATE `CustomComponent` SET `value` = '
 		#footer { margin-top: 0px; display: inline-block;}
 	}
 	@media all and (max-width: 1278px) and (min-width: 701px) {
-		#pageHeader {height: 96px;}
-		#issuerLogo {max-height: 55px; }
-		#networkLogo {max-height: 55px; }
+		#pageHeader {height: 80px;}
+		#issuerLogo {max-height: 50px; }
+		#networkLogo {max-height: 50px; }
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0px; }
 		.paragraph { text-align: left;}
 		.paragraphDescription {text-align: left; }
@@ -1840,7 +1802,9 @@ UPDATE `CustomComponent` SET `value` = '
 		#footer { margin-top: 0px; display: inline-block;}
 	}
 	@media all and (max-width: 700px) and (min-width: 601px) {
-		#pageHeader {height: 96px;}
+		#pageHeader {height: 80px;}
+		#issuerLogo {max-height: 50px; }
+		#networkLogo {max-height: 50px; }
 		span.ng-binding { word-break: break-word; }
 		.rightColumn { display: block; float: none; width: 100%; }
 		.paragraph { width: 60%; text-align: left;}
@@ -1850,7 +1814,9 @@ UPDATE `CustomComponent` SET `value` = '
 		#footer { margin-top: 0px; display: inline-block;}
 	}
 	@media all and (max-width: 600px) and (min-width: 501px) {
-		#pageHeader {height: 80px;}
+		#pageHeader {height: 70px;}
+		#issuerLogo {max-height: 45px; }
+		#networkLogo {max-height: 45px; }
 		.contentRow { padding-top: 0px; }
 		.rightColumn { display: block; float: none; width: 50%; margin-left: 50%; padding: 5px 0px}
 		.leftColumn { width: 50%; padding-top: 5px;}
@@ -1861,7 +1827,9 @@ UPDATE `CustomComponent` SET `value` = '
 		#footer { margin-top: 0px; display: inline-block;}
 	}
 	 @media all and (max-width: 500px) and (min-width: 481px) {
-		#pageHeader {height: 80px;}
+		#pageHeader {height: 70px;}
+		#issuerLogo {max-height: 45px; }
+		#networkLogo {max-height: 45px; }
 		.leftColumn { display: block; float: none; width: 100%; padding-top: 0.5em; padding-bottom: 0em; }
 		.rightColumn { display: block; float: none; width: 100%; margin-left: 0%; padding: 0px; }
 		.paragraph { text-align: center;}
@@ -1891,9 +1859,9 @@ UPDATE `CustomComponent` SET `value` = '
 	}
 	@media all and (max-width: 391px) {
 		h1 { font-size: 24px; }
-		#pageHeader {height: 50px;}
-		#issuerLogo {max-height: 50px; }
-		#networkLogo {max-height: 50px; }
+		#pageHeader {height: 65px;}
+		#issuerLogo {max-height: 35px; }
+		#networkLogo {max-height: 30px; }
 		#optGblPage { font-size: 14px; }
 		div#green-banner { display: none; }
 		span.ng-binding { word-break: break-word; }
@@ -1932,8 +1900,6 @@ UPDATE `CustomComponent` SET `value` = '
 	<div id="pageHeader" ng-style="style" class="ng-scope">
 		<div id="pageHeaderLeft" ng-style="style" class="ng-scope">
 			<custom-image alt-key="''network_means_pageType_1_IMAGE_ALT''" image-key="''network_means_pageType_1_IMAGE_DATA''" id="issuerLogo" straight-mode="false"></custom-image>
-		</div>
-		<div id="pageHeaderCenter" ng-style="style" class="ng-scope">
 		</div>
 		<div id="pageHeaderRight" ng-style="style" class="ng-scope" >
 			<custom-image alt-key="''network_means_pageType_2_IMAGE_ALT''"	image-key="''network_means_pageType_2_IMAGE_DATA''" id="networkLogo" straight-mode="false"></custom-image>
@@ -2080,7 +2046,7 @@ UPDATE `CustomComponent` SET `value` = '
 		margin-bottom:20px;
 	}
 	#help-container #help-modal {
-		overflow:hidden;
+		overflow:auto;
 	}
 	#helpCloseButton button {
 		display: flex;
