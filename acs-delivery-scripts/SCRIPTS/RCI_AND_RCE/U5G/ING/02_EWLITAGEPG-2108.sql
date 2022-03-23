@@ -2234,7 +2234,6 @@ UPDATE `CustomComponent` SET `value` = '<custom-font straight-mode="false" mime-
 	.hr-line {
 		position: relative;
 		display: inline-block;
-		margin-left: 5px;
 		margin-right: 5px;
 		width: 100%;
 		border-bottom: 1px solid #eaebeb;
@@ -2533,6 +2532,8 @@ UPDATE `CustomComponent` SET `value` = '
 		#optGblPage #networkLogo {padding-right: 0px; max-height: 35px;}
 		#optGblPage #content { text-align: left; margin-left: 0em; margin-right: 0em;}
 		#optGblPage .row { margin-top: 0em;}
+		#centerLayout { text-align: initial; padding-left: 8%;}
+        .mobapp-icon { margin-right: 0.3em; width: 1.5em;}
 		#mainLayout {float: left; text-align: center; line-height: 20px; }
 		span.col-sm-5.col-xs-6.col-xs-offset-0.col-sm-offset-1.text-right.padding-left {width: 40%;font-size: 10px;}
 		span.col-sm-6.col-xs-6.text-left.padding-left { width: 60%;font-size: 10px;}
