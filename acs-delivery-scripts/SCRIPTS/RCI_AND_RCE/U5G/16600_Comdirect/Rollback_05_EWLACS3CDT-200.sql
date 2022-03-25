@@ -4,6 +4,8 @@ SET @pageType = 'APP_VIEW';
 SET @subissuerId = (SELECT id from SubIssuer WHERE code = 16600);
 SET @customItemSetID = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_16600_PASSWORD' and fk_id_subIssuer = @subissuerId);
 SET @appCustomItemSetID = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_16600_APP_1' and fk_id_subIssuer = @subissuerId);
+SET @SMSCustomItemSetID = (SELECT id FROM CustomItemSet WHERE name = 'customitemset_16600_SMS_1' and fk_id_subIssuer = @subissuerId);
+
 
 SET @textValue = 'Ungültige Eingabe \n \nSie haben  eine ungültige PIN eingegeben.\r\nBitte versuchen Sie es erneut.';
 
@@ -14,3 +16,8 @@ SET @textValue = 'Öffnen Sie zunächst die photoTAN App und geben Sie die folge
 
 UPDATE CustomItem SET value = @textValue WHERE fk_id_customItemSet = @appCustomItemSetID AND pageTypes = @pageType AND ordinal = 160;
 UPDATE CustomItem SET value = @textValue WHERE fk_id_customItemSet = @appCustomItemSetID AND pageTypes = @pageType AND ordinal = 152;
+
+
+SET @textValue = 'Händler: @merchant\nBetrag: @amount\nDatum: @formattedDate \nKartennummer: @displayedPan\nSMS gesendet an: @device';
+
+UPDATE CustomItem SET value = @textValue WHERE fk_id_customItemSet = @SMSCustomItemSetID AND pageTypes = @pageType AND ordinal = 152;
