@@ -156,6 +156,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	#validateButton button custom-text {
 		vertical-align:2px;
+        margin-left: 12px;
 	}
 	#footer #validateButton button span:before {
 		content:'''';
@@ -437,7 +438,11 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 0px; text-align: center; padding-bottom: 0px;}
 		div#otp-fields {display:inherit;}
 		#otp-form input { width:100%; }
-		div#footer { height: 95px; }
+		div#footer { height: 95px; display: table-caption; margin-left: 50%;}
+        #cancelButton button { min-width: 12rem; font-size: 14px;}
+        #cancelButton button:disabled { min-width: 12rem; font-size: 14px;}
+        #validateButton button { min-width: 12rem; font-size: 14px;}
+        #validateButton button:disabled { min-width: 12rem; font-size: 14px;}
 		#helpButton button { margin-left: auto; }
 	}
 </style>
@@ -592,6 +597,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	#validateButton button custom-text {
 		vertical-align:2px;
+        margin-left: 12px;
 	}
 	#footer #validateButton button span:before {
 		content:'''';
@@ -873,7 +879,11 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 0px; text-align: center; padding-bottom: 0px;}
 		div#otp-fields {display:inherit;}
 		#otp-form input { width:100%; }
-		div#footer { height: 95px; }
+		div#footer { height: 95px; display: table-caption; margin-left: 50%;}
+        #cancelButton button { min-width: 12rem; font-size: 14px;}
+        #cancelButton button:disabled { min-width: 12rem; font-size: 14px;}
+        #validateButton button { min-width: 12rem; font-size: 14px;}
+        #validateButton button:disabled { min-width: 12rem; font-size: 14px;}
 		#helpButton button { margin-left: auto; }
 	}
 </style>
@@ -1948,7 +1958,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.paragraph { font-size : 10px; text-align: center;}
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 0px; text-align: center; padding-bottom: 0px;}
 		#helpButton button { margin-left: auto; }
-        #cancelButton button { display: inherit;}
+        #cancelButton button { display: inherit; min-width: 12rem; font-size: 14px;}
 	}
 </style>
 <div id="optGblPage">
@@ -2130,6 +2140,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	#validateButton button custom-text {
 		vertical-align:2px;
+        margin-left: 12px;
 	}
 	#footer #validateButton button span:before {
 		content:'''';
@@ -2355,7 +2366,11 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		 side-menu div.text-center { padding-bottom: 24%;}
 		.paragraph { font-size : 10px; text-align: center;}
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 0px; text-align: center; padding-bottom: 0px;}
-		div#footer { height: 95px; }
+		div#footer { height: 95px; display: table-caption; margin-left: 50%;}
+        #cancelButton button { min-width: 12rem; font-size: 14px;}
+        #cancelButton button:disabled { min-width: 12rem; font-size: 14px;}
+        #validateButton button { min-width: 12rem; font-size: 14px;}
+        #validateButton button:disabled { min-width: 12rem; font-size: 14px;}
 		#helpButton button { margin-left: auto; }
 	}
 </style>
@@ -2560,6 +2575,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	#validateButton button custom-text {
 		vertical-align:2px;
+        margin-left: 12px;
 	}
 	#footer #validateButton button span:before {
 		content:'''';
@@ -2794,7 +2810,11 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		 side-menu div.text-center { padding-bottom: 24%;}
 		.paragraph { font-size : 10px; text-align: center;}
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 0px; text-align: center; padding-bottom: 0px;}
-		div#footer { height: 95px; }
+		div#footer { height: 95px; display: table-caption; margin-left: 50%;}
+        #cancelButton button { min-width: 12rem; font-size: 14px;}
+        #cancelButton button:disabled { min-width: 12rem; font-size: 14px;}
+        #validateButton button { min-width: 12rem; font-size: 14px;}
+        #validateButton button:disabled { min-width: 12rem; font-size: 14px;}
 		#helpButton button { margin-left: auto; }
 		#meanParagraph{ text-align: center; font-size : 10px; }
 	}
@@ -3192,6 +3212,8 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#switch-means-otp_sms-img { width:40px; height:40px; margin-left: 9px;  margin-bottom : 2px; margin-top : 8px;}
 		div#footer { height: 50px; }
 		#helpButton button { margin-left: auto; }
+        #cancelButton button { min-width: 12rem; font-size: 14px;}
+        #cancelButton button:disabled { min-width: 12rem; font-size: 14px;}
 		#meanParagraph{ text-align: center; font-size : 10px; }
 		#meanchoice{ padding-left: 0px; }
 		#optGblPage #selection-group switch-means-button:nth-child(1) button { margin-right: 1px;}
@@ -3518,6 +3540,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	#validateButton button custom-text {
 		vertical-align:2px;
+        margin-left: 12px;
 	}
 	#footer #switchId button span:before {
 		content:;
@@ -3804,7 +3827,11 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 0px; text-align: center; padding-bottom: 0px;}
 		div#otp-fields {display:inherit;}
 		#otp-form input { width:100%; }
-		div#footer { height: 95px; }
+		div#footer { height: 95px; display: table-caption; margin-left: 50%;}
+        #cancelButton button { min-width: 12rem; font-size: 14px;}
+        #cancelButton button:disabled { min-width: 12rem; font-size: 14px;}
+        #validateButton button { min-width: 12rem; font-size: 14px;}
+        #validateButton button:disabled { min-width: 12rem; font-size: 14px;}
 		#helpButton button { margin-left: auto; }
 	}
 </style>
@@ -3954,6 +3981,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	}
 	#validateButton button custom-text {
 		vertical-align:2px;
+        margin-left: 12px;
 	}
 	#footer #validateButton button span:before {
 		content:'''';
@@ -4235,7 +4263,11 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 0px; text-align: center; padding-bottom: 0px;}
 		div#otp-fields {display:inherit;}
 		#otp-form input { width:100%; }
-		div#footer { height: 95px; }
+		div#footer { height: 95px; display: table-caption; margin-left: 50%;}
+        #cancelButton button { min-width: 12rem; font-size: 14px;}
+        #cancelButton button:disabled { min-width: 12rem; font-size: 14px;}
+        #validateButton button { min-width: 12rem; font-size: 14px;}
+        #validateButton button:disabled { min-width: 12rem; font-size: 14px;}
 		#helpButton button { margin-left: auto; }
 	}
 </style>
@@ -5321,7 +5353,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		.paragraph { font-size : 10px; text-align: center;}
 		.rightColumn { display:block; float:none; width:100%; margin-left:0px; margin-top: 0px; text-align: center; padding-bottom: 0px;}
 		#helpButton button { margin-left: auto; }
-        #cancelButton button { display: inherit;}
+        #cancelButton button { display: inherit; min-width: 12rem; font-size: 14px;}
 	}
 </style>
 <div id="optGblPage">
@@ -5734,7 +5766,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		#meanParagraph{ text-align: center; font-size : 10px; }
 		#meanchoice{ padding-left: 0px; }
 		#optGblPage #selection-group switch-means-button:nth-child(1) button { margin-right: 1px;}
-        #cancelButton button { margin-left: 0%;}
+        #cancelButton button { margin-left: 0%; min-width: 12rem; font-size: 14px;}
 	}
 </style>
 <div id="optGblPage">
