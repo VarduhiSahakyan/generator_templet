@@ -20,6 +20,10 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- delete Crypto Config
 DELETE FROM CryptoConfig WHERE description = 'CryptoConfig for LBB';
 
+-- delete Crypto Config for Paybox and VW_AUDI
+DELETE FROM CryptoConfig WHERE description = 'CryptoConfig for Paybox';
+DELETE FROM CryptoConfig WHERE description = 'CryptoConfig for VW_AUDI';
+
 -- delete custom items for sub issuer
 SET @customItemSetIds = (SELECT group_concat(id) FROM CustomItemSet where fk_id_subIssuer = @id_subissuer_1);
 DELETE FROM CustomItem WHERE find_in_set(fk_id_customItemSet, @customItemSetIds);
