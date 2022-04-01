@@ -373,6 +373,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 391px) {
 		div#mainContainer { width: 390px; }
 		#pageHeader { height: 70px; }
+        .rightColumn { margin-top: 0.5em; }
 	}
 	@media all and (max-width: 347px) {
 		div#mainContainer { width: 347px; }
@@ -381,7 +382,6 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		div#mainContainer { width: 309px; }
 		#networkLogo { max-height: 35px;}
 		#issuerLogo { max-height: 30px;}
-		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
 		div.side-menu div.menu-elements { margin-top: 5px; display: grid; font-size: 10px; }
 		.side-menu .text-left, .side-menu .text-right { padding-right: 0px;}
@@ -840,6 +840,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 391px) {
 		div#mainContainer { width: 390px; }
 		#pageHeader { height: 70px; }
+        .rightColumn { margin-top: 0.5em; }
 	}
 	@media all and (max-width: 347px) {
 		div#mainContainer { width: 347px; }
@@ -848,7 +849,6 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		div#mainContainer { width: 309px; }
 		#networkLogo { max-height: 35px;}
 		#issuerLogo { max-height: 30px;}
-		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
 		div.side-menu div.menu-elements { margin-top: 5px; display: grid; font-size: 10px; }
 		.side-menu .text-left, .side-menu .text-right { padding-right: 0px;}
@@ -1195,6 +1195,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 391px) {
 		div#mainContainer { width: 390px; }
 		#pageHeader { height: 70px; }
+        .rightColumn { margin-top: 0.5em; }
 	}
 	@media all and (max-width: 347px) {
 		div#mainContainer { width: 347px; }
@@ -1203,7 +1204,6 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		div#mainContainer { width: 309px; }
 		#networkLogo { max-height: 35px;}
 		#issuerLogo { max-height: 30px;}
-		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
 		div.side-menu div.menu-elements { margin-top: 5px; display: grid; font-size: 10px; }
 		.side-menu .text-left, .side-menu .text-right { padding-right: 0px;}
@@ -1509,15 +1509,16 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 391px) {
 		div#mainContainer { width: 390px; }
 		#pageHeader { height: 70px; }
+        .rightColumn { margin-top: 0.5em; }
 	}
 	@media all and (max-width: 347px) {
 		div#mainContainer { width: 347px; }
+
 	}
 	@media all and (max-width: 309px) {
 		div#mainContainer { width: 309px; }
 		#networkLogo { max-height: 35px;}
 		#issuerLogo { max-height: 30px;}
-		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
 		div.side-menu div.menu-elements { margin-top: 5px; display: grid; font-size: 10px; }
 		.side-menu .text-left, .side-menu .text-right { padding-right: 0px;}
@@ -1814,6 +1815,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 	@media all and (max-width: 391px) {
 		div#mainContainer { width: 390px; }
 		#pageHeader { height: 70px; }
+        .rightColumn { margin-top: 0.5em; }
 	}
 	@media all and (max-width: 347px) {
 		div#mainContainer { width: 347px; }
@@ -1822,7 +1824,6 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		div#mainContainer { width: 309px; }
 		#networkLogo { max-height: 35px;}
 		#issuerLogo { max-height: 30px;}
-		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
 		div.side-menu div.menu-elements { margin-top: 5px; display: grid; font-size: 10px; }
 		.side-menu .text-left, .side-menu .text-right { padding-right: 0px;}
@@ -2198,6 +2199,7 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		div#mainContainer { width: 390px; }
 		#pageHeader { height: 70px; }
 		#networkLogo { left: 20%; }
+        .rightColumn { margin-top: 0.5em; }
 	}
 	@media all and (max-width: 347px) {
 		div#mainContainer { width: 347px; }
@@ -2206,7 +2208,6 @@ UPDATE `CustomComponent` SET `value` = '<style>
 		div#mainContainer { width: 309px; }
 		#networkLogo { max-height: 35px;}
 		#issuerLogo { max-height: 30px;}
-		.rightColumn { margin-top: 5px; }
 		.paragraph { margin-bottom: 5px; }
 		div.side-menu div.menu-elements { margin-top: 5px; display: grid; font-size: 10px; }
 		.side-menu .text-left, .side-menu .text-right { padding-right: 0px;}
