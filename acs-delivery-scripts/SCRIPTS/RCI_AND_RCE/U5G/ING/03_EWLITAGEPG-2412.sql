@@ -6,7 +6,7 @@ SET @updateState =	'PUSHED_TO_CONFIG';
 SET @authMeanSmsExt = (SELECT id FROM `AuthentMeans` WHERE `name` = 'OTP_SMS_EXT_MESSAGE');
 SET @authMeanPhotoTan = (SELECT id FROM `AuthentMeans` WHERE `name` = 'PHOTO_TAN');
 SET @authMeanAttempt = (SELECT id FROM `AuthentMeans` WHERE `name` = 'ATTEMPT');
-SET @authMeanMobileApp = (SELECT id FROM `AuthentMeans` WHERE `name` = 'MOBILE_APP');
+SET @authMeanMobileApp = (SELECT id FROM `AuthentMeans` WHERE `name` = 'MOBILE_APP_EXT');
 SET @authMeanPassword = (SELECT id FROM `AuthentMeans` WHERE `name` = 'EXT_PASSWORD');
 SET @subIssuerID = (SELECT id FROM SubIssuer WHERE name = 'ING' AND code = 16500);
 SET @defaultRefusal = (SELECT id FROM Profile WHERE name = '16500_REFUSAL_01' AND fk_id_subIssuer = @subIssuerID);
@@ -46,6 +46,8 @@ SET @subissuerAuthMean = '[ {
 } ]';
 
 UPDATE SubIssuer SET authentMeans = @subissuerAuthMean WHERE id = @subIssuerID;
+
+UPDATE `Profile` SET `maxAttempts` = -1 WHERE `id` = @profileACCEPTMAINT;
 
 UPDATE Rule SET orderRule = 10 WHERE name = 'REFUSAL (DEFAULT)' and fk_id_profile = @defaultRefusal;
 
