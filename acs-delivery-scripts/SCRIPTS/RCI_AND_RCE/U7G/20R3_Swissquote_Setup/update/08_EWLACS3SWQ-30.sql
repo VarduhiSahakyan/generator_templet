@@ -8,7 +8,7 @@ SET @BankUB = 'SQB';
 SET @customItemSetSMS = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_SMS'));
 SET @currentPageType = 'MESSAGE_BODY';
 SET @locale = 'de';
-SET @text = 'Swissquote: Ihr Authentifizierungscode lautet @otp für Ihren Kauf von @amount bei @merchantr am @formatedDate.';
+SET @text = 'Swissquote: Ihr Authentifizierungscode lautet @otp für Ihren Kauf von @amount bei @merchant am @formattedDate.';
 UPDATE `CustomItem` SET value = @text WHERE `ordinal` = 0
 										AND pageTypes = @currentPageType
 										AND locale = @locale
