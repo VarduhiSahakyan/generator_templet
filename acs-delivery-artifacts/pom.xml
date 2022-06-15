@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.worldline.acs.rbu2.delivery</groupId>
         <artifactId>acs-delivery-configuration</artifactId>
-        <version>22R1-GE-3.4-SNAPSHOT</version>
+        <version>22R1-GE-3.4</version>
     </parent>
 
 
