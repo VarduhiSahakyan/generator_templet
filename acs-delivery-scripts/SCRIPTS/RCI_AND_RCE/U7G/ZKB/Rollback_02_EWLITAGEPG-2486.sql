@@ -86,6 +86,82 @@ SET @local = 'it';
 UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdSms;
 
 
+SET @pageType = 'POLLING_PAGE';
+SET @customItemSetIdApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_MOBILE_APP_EXT'));
+
+SET @ordinal = 2;
+SET @textValue = 'Damit die Zahlung abgeschlossen werden kann, müssen Sie diese in der von der Zürcher Kantonalbank zur Verfügung gestellten App freigeben. Sie sollten bereits eine entsprechende Benachrichtigung auf Ihrem Mobil-Telefon erhalten haben. Andernfalls können Sie direkt in die App einsteigen und die Zahlung dort verifizieren.';
+SET @local = 'de';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdApp;
+
+SET @textValue = 'To complete the payment, you must approve it in the app provided by Zürcher Kantonalbank. You should already have received a corresponding message on your mobile phone. Otherwise, you can open the app directly and approve the payment there.';
+SET @local = 'en';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdApp;
+
+SET @textValue = 'Pour que le paiement puisse être terminé, vous devez l''activer dans l''App mise à disposition par Zürcher Kantonalbank. Vous devriez déjà avoir reçu un message correspondant sur votre téléphone portable. Dans le cas contraire, vous pouvez aller directement dans votre App et y vérifier le paiement.';
+SET @local = 'fr';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdApp;
+
+SET @textValue = 'Per poter completare il pagamento, è necessario autorizzarlo nell’app fornita sua Zürcher Kantonalbank.  Dovrebbe aver già ricevuto una notifica sul suo cellulare.  In caso contrario può accedere direttamente all''app e verificare il pagamento lì.';
+SET @local = 'it';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdApp;
+
+
+
+SET @ordinal = 3;
+SET @textValue = 'Falls Sie die App zurzeit nicht nutzen können, können Sie die Zahlung per SMS-Code bestätigen:';
+SET @local = 'de';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdApp;
+
+SET @textValue = 'If you cannot use the app at the moment, you can confirm the payment via SMS code:';
+SET @local = 'en';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdApp;
+
+SET @textValue = 'Si vous n''êtes actuellement pas en masure d''utiliser l''app, vous pouvez confirmer le paiement par code SMS:';
+SET @local = 'fr';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdApp;
+
+SET @textValue = 'Se al momento non sei in grado di utilizzare l''app, potete confermare il pagamento via codice SMS:';
+SET @local = 'it';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdApp;
+
+
+SET @pageType = 'HELP_PAGE';
+SET @ordinal = 2;
+SET @textValue = 'Um Ihre Sicherheit bei Online-Zahlung zu erhöhen, hat die Zürcher Kantonalbank ein zweistufiges Authentifikationsverfahren eingeführt.';
+SET @local = 'de';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdApp;
+
+SET @textValue = 'To boost security while paying online, Zürcher Kantonalbank has introduced two-level authentification.';
+SET @local = 'en';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdApp;
+
+SET @textValue = 'Afin d''augmenter votre sécurité lors des paiements en ligne, Zürcher Kantonalbank a mis en place une procédure d''authentification en deux étapes.';
+SET @local = 'fr';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdApp;
+
+SET @textValue = 'Al fine di aumentare la sicurezza per i pagamenti online, Zürcher Kantonalbank ha introdotto una procedura di autenticazione in due fasi.';
+SET @local = 'it';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdApp;
+
+
+
+SET @ordinal = 3;
+SET @textValue = 'Sie können Online-Zahlungen auf Ihrem Mobil-Telefon in der von Ihrer Bank zur Verfügung gestellten Authentifikations-App freigeben. Bei Fragen oder Unklarheiten wenden Sie sich bitte an Ihre Bank.';
+SET @local = 'de';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdApp;
+
+SET @textValue = 'You can approve online payments on your mobile phone in the app provided by your bank. If you have questions, please contact your bank directly.';
+SET @local = 'en';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdApp;
+
+SET @textValue = 'Vous pouvez activer les paiements en ligne sur votre téléphone portable dans l''App d''authentificaiton mise à disposition par votre banque. En cas de questions ou d''imprécisions, veuillez vous adresser à votre banque.';
+SET @local = 'fr';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdApp;
+
+SET @textValue = 'Può autorizzare i pagamenti online sul suo cellulare nell’app di autenticazione fornita dalla sua banca. In caso di domande o chiarimenti, la preghiamo di contattare la sua banca.';
+SET @local = 'it';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdApp;
 
 SET @pageType = 'REFUSAL_PAGE';
 SET @customItemSetIdRefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_DEFAULT_REFUSAL'));
