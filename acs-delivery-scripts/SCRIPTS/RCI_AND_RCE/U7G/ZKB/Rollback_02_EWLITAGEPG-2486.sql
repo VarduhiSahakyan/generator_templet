@@ -243,7 +243,158 @@ SET @local = 'it';
 UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusal;
 
 
+SET @customItemSetIdRefusalFraud = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_REFUSAL_FRAUD'));
+SET @pageType = 'HELP_PAGE';
+SET @ordinal = 2;
+SET @textValue = 'Um Ihre Sicherheit bei Online-Zahlung zu erhöhen, hat die Zürcher Kantonalbank eine zweistufige Authentifikation eingeführt. ';
+SET @local = 'de';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalFraud;
 
+SET @textValue = 'To boost security while paying online, Zürcher Kantonalbank has introduced two-level authentification. ';
+SET @local = 'en';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalFraud;
+
+SET @textValue = 'Afin d''augmenter votre sécurité lors des paiements en ligne, Zürcher Kantonalbank a mis en place une authentification en deux étapes. ';
+SET @local = 'fr';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalFraud;
+
+SET @textValue = 'Al fine di aumentare la sicurezza per i pagamenti online, Zürcher Kantonalbank ha introdotto una procedura di autenticazione in due fasi. ';
+SET @local = 'it';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalFraud;
+
+
+
+SET @ordinal = 3;
+SET @textValue = 'Um eine Zahlung ausführen zu können, müssen Sie diese entweder anhand eines Freigabe-Codes per SMS, oder durch die Verifikation Ihrer Person auf einer Mobile Authentifikations-App bestätigen. Für diesen Service müssen Sie sich einmalig registrieren. Für den entsprechenden Registrierungsprozess, oder Änderungen Ihrer Authentifikationsmethode, wenden Sie sich bitte an die Zürcher Kantonalbank.';
+SET @local = 'de';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalFraud;
+
+SET @textValue = 'To complete a payment, you must confirm it either by means of an approval code per SMS, or through verification of your identity with a mobile authentication app. You need to register once for this service. Contact Zürcher Kantonalbank for the corresponding registration process or changes to your authentification method.';
+SET @local = 'en';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalFraud;
+
+SET @textValue = 'Afin de pouvoir effectuer un paiement, vous devez le confirmer soit au moyen d''un code d''activation par SMS, soit par la vérification de votre personne sur une App d''authentification mobile. Pour ce service, vous devez vous enregistrer une fois. Pour la procédure d''enregistrement correspondante, ou pour les modifications de votre méthode d''authentification, veuillez vous adresser à Zürcher Kantonalbank.';
+SET @local = 'fr';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalFraud;
+
+SET @textValue = ' Per poter effettuare un pagamento, deve confermarlo utilizzando un codice di autenticazione tramite SMS o verificando la sua persona su un’app di autenticazione mobile. Deve effettuare una volta la registrazione per questo servizio. Si rivolga alla Zürcher Kantonalbank per il processo di registrazione corrispondente o per modifiche al metodo di autenticazione.';
+SET @local = 'it';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalFraud;
+
+
+SET @pageType = 'REFUSAL_PAGE';
+SET @ordinal = 2;
+SET @textValue = 'Leider konnten wir Ihre Anfrage nicht ausführen, da wir keine Freigabe-Methode (SMS oder App) für Ihre Karte gefunden haben. ';
+SET @local = 'de';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalFraud;
+
+SET @textValue = 'Unfortunately, we cannot complete your request, because we could not find an approval method (SMS or app) for your card. ';
+SET @local = 'en';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalFraud;
+
+SET @textValue = '''Nous n''avons malheureusement pas pu répondre à votre demande car nous n''avons trouvé aucune méthode d''activation (SMS ou App) pour votre carte.';
+SET @local = 'fr';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalFraud;
+
+SET @textValue = 'Purtroppo non siamo riusciti a elaborare la sua richiesta perché non abbiamo trovato un metodo di autenticazione (SMS o app) per la sua carta.';
+SET @local = 'it';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalFraud;
+
+
+
+SET @ordinal = 3;
+SET @textValue = 'Bitte hinterlegen Sie für Ihre Karte eine entsprechende Freigabe-Methode im Registrierungsportal gemäss der Anleitung Ihrer Bank. ';
+SET @local = 'de';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalFraud;
+
+SET @textValue = 'Please set up a corresponding approval method for your card on the registration portal according to your bank''s instructions. ';
+SET @local = 'en';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalFraud;
+
+SET @textValue = 'Veuillez consigner une méthode d''activation pour votre carte dans le portail d’inscription, conformément aux instructions de votre banque.';
+SET @local = 'fr';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalFraud;
+
+SET @textValue = ' Stabilisca un metodo di autenticazione corrispondente per la sua carta nel portale di registrazione secondo le istruzioni della sua banca.';
+SET @local = 'it';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalFraud;
+
+
+SET @customItemSetIdRefusalMissing = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_MISSING_AUTHENTICATION_REFUSAL'));
+SET @pageType = 'HELP_PAGE';
+SET @ordinal = 2;
+SET @textValue = 'Um Ihre Sicherheit bei Online-Zahlung zu erhöhen, hat die Zürcher Kantonalbank eine zweistufige Authentifikation eingeführt.	';
+SET @local = 'de';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
+
+SET @textValue = 'To boost security while paying online, Zürcher Kantonalbank has introduced two-level authentification. ';
+SET @local = 'en';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
+
+SET @textValue = 'Afin d''augmenter votre sécurité lors des paiements en ligne, Zürcher Kantonalbank a mis en place une authentification en deux étapes. ';
+SET @local = 'fr';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
+
+SET @textValue = 'Al fine di aumentare la sicurezza per i pagamenti online, Zürcher Kantonalbank ha introdotto una procedura di autenticazione in due fasi. ';
+SET @local = 'it';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
+
+
+
+SET @ordinal = 3;
+SET @textValue = 'Um eine Zahlung ausführen zu können, müssen Sie diese entweder anhand eines Freigabe-Codes per SMS, oder durch die Verifikation Ihrer Person auf einer Mobile Authentifikations-App bestätigen. Für diesen Service müssen Sie sich einmalig registrieren. Für den entsprechenden Registrierungsprozess, oder Änderungen Ihrer Authentifikationsmethode, wenden Sie sich bitte an die Zürcher Kantonalbank.';
+SET @local = 'de';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
+
+SET @textValue = 'To complete a payment, you must confirm it either by means of an approval code per SMS, or through verification of your identity with a mobile authentication app. You need to register once for this service. Contact Zürcher Kantonalbank for the corresponding registration process or changes to your authentification method.';
+SET @local = 'en';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
+
+SET @textValue = 'Afin de pouvoir effectuer un paiement, vous devez le confirmer soit au moyen d''un code d''activation par SMS, soit par la vérification de votre personne sur une App d''authentification mobile. Pour ce service, vous devez vous enregistrer une fois. Pour la procédure d''enregistrement correspondante, ou pour les modifications de votre méthode d''authentification, veuillez vous adresser à Zürcher Kantonalbank.';
+SET @local = 'fr';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
+
+SET @textValue = 'Per poter effettuare un pagamento, deve confermarlo utilizzando un codice di autenticazione tramite SMS o verificando la sua persona su un’app di autenticazione mobile. Deve effettuare una volta la registrazione per questo servizio. Si rivolga alla Zürcher Kantonalbank per il processo di registrazione corrispondente o per modifiche al metodo di autenticazione.';
+SET @local = 'it';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
+
+
+SET @pageType = 'REFUSAL_PAGE';
+SET @ordinal = 2;
+SET @textValue = 'Leider konnten wir Ihre Anfrage nicht ausführen, da wir keine Freigabe-Methode (SMS oder App) für Ihre Karte gefunden haben. ';
+SET @local = 'de';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
+
+SET @textValue = 'Unfortunately, we cannot complete your request, because we could not find an approval method (SMS or app) for your card. ';
+SET @local = 'en';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
+
+SET @textValue = 'Nous n''avons malheureusement pas pu répondre à votre demande car nous n''avons trouvé aucune méthode d''activation (SMS ou App) pour votre carte.';
+SET @local = 'fr';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
+
+SET @textValue = 'Purtroppo non siamo riusciti a elaborare la sua richiesta perché non abbiamo trovato un metodo di autenticazione (SMS o app) per la sua carta.';
+SET @local = 'it';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
+
+
+
+SET @ordinal = 3;
+SET @textValue = 'Bitte hinterlegen Sie für Ihre Karte eine entsprechende Freigabe-Methode im Registrierungsportal gemäss der Anleitung Ihrer Bank. ';
+SET @local = 'de';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
+
+SET @textValue = 'Please set up a corresponding approval method for your card on the registration portal according to your bank''s instructions. ';
+SET @local = 'en';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
+
+SET @textValue = 'Veuillez consigner une méthode d''activation pour votre carte dans le portail d’inscription, conformément aux instructions de votre banque.';
+SET @local = 'fr';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
+
+SET @textValue = ' Stabilisca un metodo di autenticazione corrispondente per la sua carta nel portale di registrazione secondo le istruzioni della sua banca.';
+SET @local = 'it';
+UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
 
 SET @pageType = 'APP_VIEW';
 SET @customItemSetIdApp = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @BankUB, '_MOBILE_APP_EXT'));
