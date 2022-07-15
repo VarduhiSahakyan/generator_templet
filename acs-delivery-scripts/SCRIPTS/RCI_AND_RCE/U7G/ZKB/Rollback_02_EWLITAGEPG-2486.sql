@@ -360,39 +360,21 @@ UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes 
 
 
 SET @pageType = 'REFUSAL_PAGE';
-SET @ordinal = 2;
-SET @textValue = 'Leider konnten wir Ihre Anfrage nicht ausführen, da wir keine Freigabe-Methode (SMS oder App) für Ihre Karte gefunden haben. ';
+
+SET @ordinal = 33;
+SET @textValue = 'Leider konnten wir Ihre Anfrage nicht ausführen, da wir keine Freigabe-Methode (App oder SMS) für Ihre Karte gefunden haben. Bitte hinterlegen Sie für Ihre Karte eine entsprechende Freigabe-Methode im Online Banking der Zürcher Kantonalbank.';
 SET @local = 'de';
 UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
 
-SET @textValue = 'Unfortunately, we cannot complete your request, because we could not find an approval method (SMS or app) for your card. ';
+SET @textValue = 'Unfortunately, we were unable to process your request because we could not find an approval method (app or SMS) for your card. Please enter a corresponding approval method for your card in Zürcher Kantonalbank''s online banking.';
 SET @local = 'en';
 UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
 
-SET @textValue = 'Nous n''avons malheureusement pas pu répondre à votre demande car nous n''avons trouvé aucune méthode d''activation (SMS ou App) pour votre carte.';
+SET @textValue = 'Nous n’avons malheureusement pas pu traiter votre demande, car nous n’avons trouvé aucune méthode de validation (application ou SMS) pour votre carte. Veuillez enregistrer une méthode de validation correspondante pour votre carte dans la banque en ligne de la Zürcher Kantonalbank.';
 SET @local = 'fr';
 UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
 
-SET @textValue = 'Purtroppo non siamo riusciti a elaborare la sua richiesta perché non abbiamo trovato un metodo di autenticazione (SMS o app) per la sua carta.';
-SET @local = 'it';
-UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
-
-
-
-SET @ordinal = 3;
-SET @textValue = 'Bitte hinterlegen Sie für Ihre Karte eine entsprechende Freigabe-Methode im Registrierungsportal gemäss der Anleitung Ihrer Bank. ';
-SET @local = 'de';
-UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
-
-SET @textValue = 'Please set up a corresponding approval method for your card on the registration portal according to your bank''s instructions. ';
-SET @local = 'en';
-UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
-
-SET @textValue = 'Veuillez consigner une méthode d''activation pour votre carte dans le portail d’inscription, conformément aux instructions de votre banque.';
-SET @local = 'fr';
-UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
-
-SET @textValue = ' Stabilisca un metodo di autenticazione corrispondente per la sua carta nel portale di registrazione secondo le istruzioni della sua banca.';
+SET @textValue = 'Purtroppo non abbiamo potuto soddisfare la sua richiesta perché non abbiamo trovato alcun metodo di autorizzazione (app o SMS) per la sua carta. La preghiamo di immettere il metodo di approvazione corrispondente alla sua carta nell''Online Banking di Zürcher Kantonalbank.';
 SET @local = 'it';
 UPDATE CustomItem SET value = @textValue WHERE ordinal = @ordinal AND pageTypes = @pageType AND locale = @local AND fk_id_customItemSet = @customItemSetIdRefusalMissing;
 

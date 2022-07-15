@@ -22,11 +22,11 @@ SET @customItemSetBackupRefusal = (SELECT id FROM `CustomItemSet` WHERE `name` =
 SET @customItemSetDefaultRefusal = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_',@BankUB,'_DEFAULT_REFUSAL'));
 SET @profileBackupRefusal = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB,'_BACKUP_REFUSAL'));
 SET @profileRefusalFraud = (SELECT id FROM `Profile` WHERE `name` = CONCAT(@BankUB, '_REFUSAL_FRAUD'));
-SET @authMeanINFO = (SELECT id FROM `AuthentMeans` WHERE `name` = 'INFO');
+SET @authMeanREFUSAL = (SELECT id FROM `AuthentMeans` WHERE `name` = 'REFUSAL');
 SET @description = 'INFO';
 SET @refusalPageType = 'REFUSAL_PAGE';
 
-UPDATE `Profile` SET `fk_id_AuthentMeans` = @authMeanINFO,
+UPDATE `Profile` SET `fk_id_AuthentMeans` = @authMeanREFUSAL,
                      `description` = @description, `fk_id_customItemSetCurrent` = @customItemSetBackupRefusal WHERE `id` = @profileBackupRefusal;
 
 UPDATE `Profile` SET  `fk_id_customItemSetCurrent` = @customItemSetRefusalFraud WHERE `id` = @profileRefusalFraud;
