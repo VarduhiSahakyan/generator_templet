@@ -128,7 +128,10 @@ public class GenerateFile {
 
 				line = replacePropertiesForALine(prop, line);
 				
-				Files.writeString(finalFile, line + System.lineSeparator(), Charset.forName("UTF-8"), StandardOpenOption.CREATE,StandardOpenOption.APPEND);
+				String lineWithLineSeparator = line + System.lineSeparator();
+				Charset charset = Charset.forName("UTF-8");
+				
+				Files.writeString(finalFile, lineWithLineSeparator, charset, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 
 			}
 			scanner.close();    
