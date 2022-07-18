@@ -20,11 +20,13 @@ public class GenerateFile {
 	
 	static final Logger logger = LoggerFactory.getLogger(GenerateFile.class);
 
-	
+	/* Key to start at value 1 */
 	private static final String START_1 = "###START_1###";
 	private static final int START_1_VALUE = 1;
+	/* Key to start at value 1 */
 	private static final String START_2 = "###START_2###";
 	private static final int START_2_VALUE = 2;
+	/* Key to add the current value */
 	private static final String CURRENT_VALUE = "###VALUE###";
 	private final static Pattern patternKeyForOptionalLine = Pattern.compile("^\\[\\[(.*?)\\]\\]");
 	private final static Pattern patternKey = Pattern.compile("\\$\\{(.*?)\\}");
