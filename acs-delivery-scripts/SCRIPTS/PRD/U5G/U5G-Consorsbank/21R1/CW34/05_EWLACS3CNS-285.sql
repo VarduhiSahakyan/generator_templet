@@ -1,0 +1,3 @@
+USE `U5G_ACS_BO`;
+
+UPDATE Profile SET dataEntryFormat = '4:(:ALPHA_MAJ:1)&(:ALPHA_MIN:1)&(:DIGIT:1)' WHERE name = '16900_PASSWORD_01';

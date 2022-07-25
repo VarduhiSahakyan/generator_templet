@@ -1,0 +1,11 @@
+USE U7G_ACS_BO;
+
+SET @createdBy = 'A758582';
+SET @authentMeansMobileApp = (SELECT id FROM `AuthentMeans`  WHERE `name` = 'MOBILE_APP');
+
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = 'C1_P_SWISSKEY_01_OTP_APP_NORMAL'
+  AND mps.`fk_id_authentMean` = @authentMeansMobileApp
+  AND (mps.`meansProcessStatusType` = 'MEANS_PROCESS_ERROR' AND mps.`reversed` = TRUE);
