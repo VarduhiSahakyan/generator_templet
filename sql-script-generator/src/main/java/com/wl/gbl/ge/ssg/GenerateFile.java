@@ -2,17 +2,23 @@ package com.wl.gbl.ge.ssg;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hubspot.jinjava.Jinjava;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -155,5 +161,57 @@ public class GenerateFile {
 		
 		return line;
 	}
-	
+
+	public void generateFileJinja(String dataFile, String templateFile, String outputFile) {
+		logger.debug("loading Jinjava ");
+		Jinjava jinjava = new Jinjava();
+		logger.debug("Jinjava loaded");
+		// -----------------------------
+		// Convert the JSON Data to a Map
+		// -----------------------------
+		String data =null;
+		logger.debug("load data file : "+dataFile);
+		data = new Scanner(Main.class.getResourceAsStream(dataFile), "UTF-8").useDelimiter("\\A").next();
+		HashMap<String, Object> mapData = jsonTpMap(data);
+
+		String template = null;
+		logger.debug("load template file : "+templateFile);
+		template = new Scanner(Main.class.getResourceAsStream(templateFile), "UTF-8").useDelimiter("\\A").next();
+		// Final file
+		Path finalFile = Paths.get(outputFile);
+		try {
+			Files.deleteIfExists(finalFile);
+		} catch (IOException e) {
+			logger.error(e.getMessage(),e);
+		}
+		logger.debug("rendering Template : ");
+		String renderedTemplate = jinjava.render(template, mapData);
+		try {
+			Files.write(finalFile, renderedTemplate.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			logger.error(e.getMessage(),e);
+		}
+	}
+
+	private static HashMap<String, Object> jsonTpMap(String jsonFile){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		ObjectMapper mapper = new ObjectMapper();
+		try
+		{
+			//Convert Map to JSON
+			map = mapper.readValue(jsonFile, new TypeReference<Map<String, Object>>(){});
+
+			//Print JSON output
+			System.out.println(map);
+		}
+		catch (JsonGenerationException e) {
+			logger.error(e.getMessage(),e);
+		} catch (JsonMappingException e) {
+			logger.error(e.getMessage(),e);
+		} catch (IOException e) {
+			logger.error(e.getMessage(),e);
+		}
+		return map;
+	}
 }
