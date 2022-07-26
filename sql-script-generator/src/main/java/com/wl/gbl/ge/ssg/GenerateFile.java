@@ -22,10 +22,13 @@ import com.hubspot.jinjava.Jinjava;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.wl.gbl.ge.ssg.utils.HeaderManager;
+
 public class GenerateFile {
 	
 	static final Logger logger = LoggerFactory.getLogger(GenerateFile.class);
 
+	public static final String LINESEPARATOR = "\n";
 	/* Key to start at value 1 */
 	private static final String START_1 = "###START_1###";
 	private static final int START_1_VALUE = 1;
@@ -58,6 +61,12 @@ public class GenerateFile {
 		Path finalFile = Paths.get(outputFile);
 		try {
 			Files.deleteIfExists(finalFile);
+		} catch (IOException e) {
+			logger.error(e.getMessage(),e);
+		}
+		
+		try {
+			HeaderManager.addHeader(finalFile, propertiesFile, templateFile);
 		} catch (IOException e) {
 			logger.error(e.getMessage(),e);
 		}
@@ -110,7 +119,7 @@ public class GenerateFile {
 								newLine = newLine.replace(CURRENT_VALUE, String.valueOf(nb));
 								
 								if(!"".equals(newLines)) {
-									newLines = newLines + System.lineSeparator();
+									newLines = newLines + LINESEPARATOR;
 								}
 								newLines = newLines + newLine;
 								
@@ -134,7 +143,7 @@ public class GenerateFile {
 
 				line = replacePropertiesForALine(prop, line);
 				
-				String lineWithLineSeparator = line + System.lineSeparator();
+				String lineWithLineSeparator = line + LINESEPARATOR;
 				
 				byte data[] = lineWithLineSeparator.getBytes(Charset.forName("UTF-8"));
 				Files.write(finalFile, data, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
