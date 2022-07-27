@@ -7,10 +7,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -171,21 +168,54 @@ public class GenerateFile {
 		return line;
 	}
 
-	public void generateFileJinja(String dataFile, String templateFile, String outputFile) {
-		logger.debug("loading Jinjava ");
-		Jinjava jinjava = new Jinjava();
-		logger.debug("Jinjava loaded");
+	public void generateFileJinjaFromClasspath(String dataFile, String templateFile, String outputFile) {
 		// -----------------------------
 		// Convert the JSON Data to a Map
 		// -----------------------------
 		String data =null;
 		logger.debug("load data file : "+dataFile);
-		data = new Scanner(Main.class.getResourceAsStream(dataFile), "UTF-8").useDelimiter("\\A").next();
+		data = new Scanner(Objects.requireNonNull(Main.class.getResourceAsStream(dataFile)), "UTF-8").useDelimiter("\\A").next();
 		HashMap<String, Object> mapData = jsonTpMap(data);
 
 		String template = null;
 		logger.debug("load template file : "+templateFile);
-		template = new Scanner(Main.class.getResourceAsStream(templateFile), "UTF-8").useDelimiter("\\A").next();
+		template = new Scanner(Objects.requireNonNull(Main.class.getResourceAsStream(templateFile)), "UTF-8").useDelimiter("\\A").next();
+		generateFileJinja( mapData, template, outputFile);
+	}
+
+	public void generateFileJinjaFromLocal(String dataFile, String templateFile, String outputFile) {
+		// -----------------------------
+		// Convert the JSON Data to a Map
+		// -----------------------------
+		String data =null;
+		logger.debug("load data file : "+dataFile);
+		try
+		{
+			data = new String (Files.readAllBytes(Paths.get(dataFile)));
+		}
+		catch (IOException e)
+		{
+			logger.error(e.getMessage(),e);
+		}
+		HashMap<String, Object> mapData = jsonTpMap(data);
+
+		String template = null;
+		logger.debug("load template file : "+templateFile);
+		try
+		{
+			template = new String (Files.readAllBytes(Paths.get(templateFile)));
+		}
+		catch (IOException e)
+		{
+			logger.error(e.getMessage(),e);
+		}
+		generateFileJinja( mapData, template, outputFile);
+	}
+
+	private void generateFileJinja(HashMap<String, Object> mapData, String template, String outputFile){
+		logger.debug("loading Jinjava ");
+		Jinjava jinjava = new Jinjava();
+		logger.debug("Jinjava loaded");
 		// Final file
 		Path finalFile = Paths.get(outputFile);
 		try {
