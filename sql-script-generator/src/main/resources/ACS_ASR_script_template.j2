@@ -1,0 +1,74 @@
+USE H0G_ASR;
+-- ------------------------
+-- ASR CONFIG FILE
+-- service = {{service}}
+-- issuer = {{issuer}}
+-- subissuer = {{subissuer}}
+-- ------------------------
+{%set prefix = service ~ "-" ~ issuer ~ "-"%}
+{%- if subissuer is defined and subissuer|length != 0 -%}
+    {%-set prefix = prefix ~ subissuer ~ "-" -%}
+{%- endif -%}
+
+-- Beginning of data insertion --
+
+--
+--  Data for table `CONFIGS`
+--
+select count(*) as 'table_configs_count_before_inserts' from `CONFIGS`;
+{%-for key, value in propHUB_ASR_CONFIGS.items()%}
+{%- if loop.index == 1 %}
+INSERT INTO `CONFIGS` (`CODE`, `DATA`)
+    VALUES {%- endif%}
+        ('{{prefix}}{{key}}','{{value}}'){{";" if loop.last  else ","}}
+{%-endfor%}
+
+select count(*) as 'table_configs_count_after_inserts' from `CONFIGS`;
+
+select count(*) as 'table_configs_sources_count_before_inserts' from `CONFIGS_SOURCES`;
+{%- set mapCS = {
+                    'SM':'MODULES',
+                    'CR':'SOURCES',
+                    'FLASH':'SOURCES',
+                    'TA':'MEANS',
+                    'REFCLIENT':'MODULES',
+                    'AUTHENT':'MODULES',
+                    'WS':'MODULES'
+               }
+-%}
+
+{%-for typeCS,propHUB_CS in propHUB_ASR_CONFIGS_SOURCES.items()%}
+{% set outer_loop = loop %}
+{%- if outer_loop.index == 1 %}
+INSERT INTO `CONFIGS_SOURCES` (`CODE`, `TYPE`, `DATA`)
+    VALUES {%- endif%}
+    {%-for key, value in propHUB_CS.items()%}
+    {%- if loop.index == 1 %}
+    -- ACS {{typeCS}} ({{mapCS[typeCS]}}) {%- endif%}
+     ('{{prefix}}{{key}}','{{mapCS[typeCS]}}','{{value}}'){{";" if (outer_loop.last and loop.last) else ","}}
+     {%-endfor%}
+{%-endfor%}
+select count(*) as 'table_configs_sources_count_after_inserts' from `CONFIGS_SOURCES`;
+
+--
+-- Data for table `CONFIGS_URLS`
+--
+select count(*) as 'table_configs_urls_count_before_inserts' from `CONFIGS_URLS`;
+
+{%- macro getCUType(name) -%}
+    {%- if name[0:2] == 'WS_' -%}SOURCES_WS
+    {%- elif name == 'REFERENTIAL' -%}MODULES
+    {%- elif name in ['CR', 'REFERENTIAL_TA','GERMAN'] -%}SOURCES
+    {%- else -%}MEANS
+    {%- endif -%}
+{%- endmacro -%}
+{%-for key,value in propHUB_ASR_CONFIGS_URLS.items()%}
+{%- if loop.index == 1 %}
+INSERT INTO `CONFIGS_URLS` (`code`, `type`, `ping_url`, `url`)
+    VALUES {%- endif%}
+    #{{key}}#
+    ('{{prefix}}{{key}}','{{getCUType(key)}}','{{value.PINGURL}}','{{value.URL}}'){{";" if loop.last else ","}}
+{%-endfor%}
+select count(*) as 'table_configs_urls_count_after_inserts' from `CONFIGS_URLS`;
+
+-- End of data insertion

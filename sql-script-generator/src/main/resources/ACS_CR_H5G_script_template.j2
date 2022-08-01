@@ -1,0 +1,34 @@
+USE H5G_CREPO;
+-- ------------------------
+-- CR CONFIG FILE
+-- service = {{service}}
+-- issuer = {{issuer}}
+-- ------------------------
+
+-- Beginning of data insertion --
+
+SELECT `code`, `label` FROM `Customer` ;
+
+INSERT INTO `Customer` (`code`, `label`, `PARENT_ID`)
+SELECT * FROM (SELECT '*', 'root', NULL) AS tmp
+WHERE NOT EXISTS (
+	SELECT label FROM `Customer` WHERE label = 'root'
+) LIMIT 1;
+
+INSERT INTO `Customer` (`code`, `label`, `PARENT_ID`)
+SELECT * FROM (SELECT '{{propHUB_CR_Customer.code_issuer}}', '{{propHUB_CR_Customer.label_issuer}}', `id` FROM `Customer` WHERE `label` = 'root') AS tmp
+WHERE NOT EXISTS (
+	SELECT code FROM `Customer` WHERE code = '{{propHUB_CR_Customer.code_issuer}}'
+) LIMIT 1;
+
+{%- for code_subissuer,label_subissuer in propHUB_CR_Customer.subissuers.items()%}
+INSERT INTO `Customer` (`code`, `label`, `PARENT_ID`)
+SELECT * FROM (SELECT '{{code_subissuer}}', '{{label_subissuer}}', `id` FROM `Customer` WHERE `label` = '{{propHUB_CR_Customer.label_issuer}}') AS tmp
+WHERE NOT EXISTS (
+	SELECT code FROM `Customer` WHERE code = '{{code_subissuer}}'
+) LIMIT 1;
+{%- endfor %}
+
+SELECT `code`, `label` FROM `Customer` ;
+
+-- End of data insertion
