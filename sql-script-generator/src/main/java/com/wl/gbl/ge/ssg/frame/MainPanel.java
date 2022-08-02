@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Path;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.wl.gbl.ge.ssg.render.GenerateJinjaFile;
+import com.wl.gbl.ge.ssg.utils.CheckManager;
 
 public class MainPanel extends JPanel implements ActionListener {
 	
@@ -95,11 +97,16 @@ public class MainPanel extends JPanel implements ActionListener {
 			// TODO generer le nom de fichier
 			if(jsonSelectFile.fileSelected()!=null && templateSelectFile.fileSelected()!=null && nameSqlText.getText()!=null) {
 				GenerateJinjaFile generateJinjaFile = new GenerateJinjaFile();
-				generateJinjaFile.generateFileJinja(jsonSelectFile.fileSelected(), templateSelectFile.fileSelected(), nameSqlText.getText());
-				// TODO verifier si le fichier genere contient un TODO ou des balise jinja
+				Path finalFile = generateJinjaFile.generateFileJinja(jsonSelectFile.fileSelected(), templateSelectFile.fileSelected(), nameSqlText.getText());
 				
-				message = "Creation completed successfully";
-				logger.info(message);
+				boolean check = CheckManager.checkFile(finalFile);
+				if(check) {
+					message = "Creation completed successfully";
+					logger.info(message);
+				} else {
+					message = "Attention! Suspicious characters (for example: TODO, {{, ...) were found in the generate file. See the log file for more details.";
+					logger.warn(message);
+				}
 			} else {
 				message = "Error with files";
 				logger.error(message);

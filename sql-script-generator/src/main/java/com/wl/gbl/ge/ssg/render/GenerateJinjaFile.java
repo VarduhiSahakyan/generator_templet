@@ -31,7 +31,7 @@ public class GenerateJinjaFile {
 	public GenerateJinjaFile() {
 	}
 	
-	public void generateFileJinja(FileInformation dataFile, FileInformation templateFile, String outputFile) {
+	public Path generateFileJinja(FileInformation dataFile, FileInformation templateFile, String outputFile) {
 		String data = null;
 		logger.debug("load data file : {}",dataFile);
 		if(dataFile!=null) {
@@ -66,10 +66,10 @@ public class GenerateJinjaFile {
 			
 		}
 		
-		generateFileJinja(mapData, template, outputFile, dataFile.getFilePath(), templateFile.getFilePath());
+		return generateFileJinja(mapData, template, outputFile, dataFile.getFilePath(), templateFile.getFilePath());
 	}
 	
-	public void generateFileJinjaFromClasspath(String dataFile, String templateFile, String outputFile) {
+	public Path generateFileJinjaFromClasspath(String dataFile, String templateFile, String outputFile) {
 		// -----------------------------
 		// Convert the JSON Data to a Map
 		// -----------------------------
@@ -81,10 +81,10 @@ public class GenerateJinjaFile {
 		String template = null;
 		logger.debug("load template file : "+templateFile);
 		template = new Scanner(Objects.requireNonNull(Main.class.getResourceAsStream(templateFile)), "UTF-8").useDelimiter("\\A").next();
-		generateFileJinja( mapData, template, outputFile, dataFile, templateFile);
+		return generateFileJinja( mapData, template, outputFile, dataFile, templateFile);
 	}
 
-	public void generateFileJinjaFromLocal(String dataFile, String templateFile, String outputFile) {
+	public Path generateFileJinjaFromLocal(String dataFile, String templateFile, String outputFile) {
 		// -----------------------------
 		// Convert the JSON Data to a Map
 		// -----------------------------
@@ -110,17 +110,20 @@ public class GenerateJinjaFile {
 		{
 			logger.error(e.getMessage(),e);
 		}
-		generateFileJinja( mapData, template, outputFile, dataFile, templateFile);
+		return generateFileJinja( mapData, template, outputFile, dataFile, templateFile);
 	}
 
-	private void generateFileJinja(HashMap<String, Object> mapData, String template, String outputFile, String jsonName, String templateName){
+	private Path generateFileJinja(HashMap<String, Object> mapData, String template, String outputFile, String jsonName, String templateName){
 		logger.debug("loading Jinjava ");
 		Jinjava jinjava = new Jinjava();
 		logger.debug("Jinjava loaded");
 		// Final file
 		Path finalFile = Paths.get(outputFile);
 		try {
-			Files.deleteIfExists(finalFile);
+			boolean isDeleted = Files.deleteIfExists(finalFile);
+			if(isDeleted) {
+				logger.info("Old result file deleted");
+			}
 		} catch (IOException e) {
 			logger.error(e.getMessage(),e);
 		}
@@ -132,6 +135,7 @@ public class GenerateJinjaFile {
 		} catch (IOException e) {
 			logger.error(e.getMessage(),e);
 		}
+		return finalFile;
 	}
 
 	private static HashMap<String, Object> jsonTpMap(String jsonFile){
