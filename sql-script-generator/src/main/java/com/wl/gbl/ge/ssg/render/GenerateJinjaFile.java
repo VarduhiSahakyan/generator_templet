@@ -22,6 +22,7 @@ import com.hubspot.jinjava.Jinjava;
 import com.wl.gbl.ge.ssg.Main;
 import com.wl.gbl.ge.ssg.frame.FileInformation;
 import com.wl.gbl.ge.ssg.frame.TypeFileEnum;
+import com.wl.gbl.ge.ssg.utils.HeaderManager;
 
 public class GenerateJinjaFile {
 	
@@ -65,7 +66,7 @@ public class GenerateJinjaFile {
 			
 		}
 		
-		generateFileJinja(mapData, template, outputFile);
+		generateFileJinja(mapData, template, outputFile, dataFile.getFilePath(), templateFile.getFilePath());
 	}
 	
 	public void generateFileJinjaFromClasspath(String dataFile, String templateFile, String outputFile) {
@@ -80,7 +81,7 @@ public class GenerateJinjaFile {
 		String template = null;
 		logger.debug("load template file : "+templateFile);
 		template = new Scanner(Objects.requireNonNull(Main.class.getResourceAsStream(templateFile)), "UTF-8").useDelimiter("\\A").next();
-		generateFileJinja( mapData, template, outputFile);
+		generateFileJinja( mapData, template, outputFile, dataFile, templateFile);
 	}
 
 	public void generateFileJinjaFromLocal(String dataFile, String templateFile, String outputFile) {
@@ -109,10 +110,10 @@ public class GenerateJinjaFile {
 		{
 			logger.error(e.getMessage(),e);
 		}
-		generateFileJinja( mapData, template, outputFile);
+		generateFileJinja( mapData, template, outputFile, dataFile, templateFile);
 	}
 
-	private void generateFileJinja(HashMap<String, Object> mapData, String template, String outputFile){
+	private void generateFileJinja(HashMap<String, Object> mapData, String template, String outputFile, String jsonName, String templateName){
 		logger.debug("loading Jinjava ");
 		Jinjava jinjava = new Jinjava();
 		logger.debug("Jinjava loaded");
@@ -126,6 +127,7 @@ public class GenerateJinjaFile {
 		logger.debug("rendering Template");
 		String renderedTemplate = jinjava.render(template, mapData);
 		try {
+			HeaderManager.addHeader(finalFile, jsonName, templateName);
 			Files.write(finalFile, renderedTemplate.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 		} catch (IOException e) {
 			logger.error(e.getMessage(),e);

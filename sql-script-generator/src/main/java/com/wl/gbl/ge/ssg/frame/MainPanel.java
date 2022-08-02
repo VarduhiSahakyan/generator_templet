@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.slf4j.Logger;
@@ -18,7 +19,7 @@ public class MainPanel extends JPanel implements ActionListener {
 	
 	static final Logger logger = LoggerFactory.getLogger(MainPanel.class);
 	
-	private static final String CUSTOM_JSON = "Custom template";
+	private static final String CUSTOM_JSON = "Custom json";
 	private static final String CUSTOM_TEMPLATE = "Custom template";
 	private static final String FOLDER_JSON = "/json";
 	private static final String FOLDER_TEMPLATE = "/templates";
@@ -87,20 +88,29 @@ public class MainPanel extends JPanel implements ActionListener {
 		logger.debug("json file: {}",String.valueOf(jsonSelectFile.fileSelected()));
 		logger.debug("template file: {}",String.valueOf(templateSelectFile.fileSelected()));
 		logger.debug("sql file: {}",nameSqlText.getText());
+		String message = "";
 		
 		try {
+
+			// TODO generer le nom de fichier
 			if(jsonSelectFile.fileSelected()!=null && templateSelectFile.fileSelected()!=null && nameSqlText.getText()!=null) {
 				GenerateJinjaFile generateJinjaFile = new GenerateJinjaFile();
 				generateJinjaFile.generateFileJinja(jsonSelectFile.fileSelected(), templateSelectFile.fileSelected(), nameSqlText.getText());
+				// TODO verifier si le fichier genere contient un TODO ou des balise jinja
+				
+				message = "Creation completed successfully";
+				logger.info(message);
 			} else {
-				logger.error("Error with files");
+				message = "Error with files";
+				logger.error(message);
 			}
 		} catch(Exception ex) {
 			logger.error(ex.getMessage(),ex);
+			message = ex.getMessage();
 		}
 		
-		// TODO verifier si le fichier genere contient un TODO
-		// TODO afficher une fenetre avec le resultat
+		JOptionPane.showMessageDialog(null, message);
+		
 	}
 	
 }
