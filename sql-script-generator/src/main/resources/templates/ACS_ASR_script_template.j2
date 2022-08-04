@@ -21,7 +21,7 @@ select count(*) as 'table_configs_count_before_inserts' from `CONFIGS`;
 INSERT INTO `CONFIGS` (`CODE`, `DATA`)
     VALUES {%- endif%}
         ('{{prefix}}{{key}}','{{value}}'){{";" if loop.last  else ","}}
-{%-endfor%}
+{%- endfor %}
 
 select count(*) as 'table_configs_count_after_inserts' from `CONFIGS`;
 
