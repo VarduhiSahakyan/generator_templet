@@ -1,6 +1,6 @@
 USE `{{propACS_BO_General.databaseACS_BO}}`;
 
-{%- if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleADMIN is defined and propACS_BO_Userroles.roleADMIN == true -%}
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleADMIN is defined and propACS_BO_Userroles.roleADMIN == true %}
 INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}', 'ADMIN');
 
 SELECT @adminId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}' AND role = 'ADMIN';
@@ -13,9 +13,9 @@ SELECT @adminId, p.id FROM Permission p WHERE p.name IN ("PAN:READ","TRANSACTION
 "CARD_PROFILESET_NAME:READ","CARD_EXEMPTION:READ","CARD_EXEMPTION:WRITE","BATCH_REPORTS:READ","RBA_CONFIGURATION:READ","PSD2_REPORTS:READ","BIN_EMERGENCY:WRITE","RBA_CONFIGURATION_DETAILS:READ","ENROLMENT:READ",
 "RBA_CONFIGURATION_DETAILS:WRITE","ENROLMENT_REPORT:READ","Authent_DATA:WRITE","IMPORT_EXPORT_TOOL:IMPORT","AUDIT_CONFIGURATION:WRITE","AUDIT_CONFIGURATION:READ","TRUSTED_BENEFICIARIES:READ","CRYPTO_CONFIG:READ","AUTHENTICATION_HEX:READ",
 "REPORT_PROFILESET:READ","REPORT_BIN_RANGE:READ","AUDIT_PCI:READ","SEARCH_CARD_FRAUD:READ","APM_COUNTER:READ","RBA_MERCHANT_CONFIGURATIONS:READ","RBA_MERCHANT_CONFIGURATIONS:WRITE","DECOUPLED:READ","PSD2_EBA_REPORTS:READ","RBA_RULES_ORDER:WRITE","IMPORT_EXPORT_TOOL:EXPORT");
-{%- endif -%}
+{%- endif %}
 
-{%- if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleHELPDESK is defined and propACS_BO_Userroles.roleHELPDESK == true -%}
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleHELPDESK is defined and propACS_BO_Userroles.roleHELPDESK == true %}
 INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}', 'HELPDESK');
 
 SELECT @helpdeskId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}' AND role = 'HELPDESK';
@@ -34,9 +34,9 @@ SELECT @helpdeskId, p.id FROM Permission p WHERE p.name IN (
 	"FRAUD:READ",
 	"RBA_DECISION:READ",
 	"DECOUPLED:READ");
-{%- endif -%}
+{%- endif %}
 
-{%- if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleREPORTING is defined and propACS_BO_Userroles.roleREPORTING == true -%}
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleREPORTING is defined and propACS_BO_Userroles.roleREPORTING == true %}
 INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}', 'REPORTING');
 
 SELECT @reportingId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}' AND role = 'REPORTING';
@@ -48,10 +48,10 @@ SELECT @reportingId, p.id FROM Permission p WHERE p.name IN (
 	"PROTOCOL_VERSION_2:READ",
 	"PROTOCOL_VERSION_102:READ",
 	"DECOUPLED:READ");
-{%- endif -%}
+{%- endif %}
 
 
-{%- if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleFRAUD is defined and propACS_BO_Userroles.roleFRAUD == true -%}
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleFRAUD is defined and propACS_BO_Userroles.roleFRAUD == true %}
 INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}', 'FRAUD');
 
 SELECT @fraudId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}' AND role = 'FRAUD';
@@ -86,9 +86,9 @@ SELECT @fraudId, p.id FROM Permission p WHERE p.name IN (
 	"IP_FILTERS:WRITE",
 	"DECOUPLED:READ"
 	);
-{%- endif -%}
+{%- endif %}
 
-{%- if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleEMPLOYEE is defined and propACS_BO_Userroles.roleEMPLOYEE == true -%}
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleEMPLOYEE is defined and propACS_BO_Userroles.roleEMPLOYEE == true %}
 INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}', 'EMPLOYEE');
 
 SELECT @employeeId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}' AND role = 'EMPLOYEE';
@@ -105,13 +105,12 @@ SELECT @employeeId, p.id FROM Permission p WHERE p.name IN (
 	"USER_XP:READ",
 	"DECOUPLED:READ"
 	);
-{%- endif -%}
+{%- endif %}
 
-{%- if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleCONSULTANT is defined and propACS_BO_Userroles.roleCONSULTANT == true -%}
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleCONSULTANT is defined and propACS_BO_Userroles.roleCONSULTANT == true %}
 INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}', 'CONSULTANT');
 	
 SELECT @consultantId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}' AND role = 'CONSULTANT';
-
 	
 INSERT INTO PermissionAssociation (associationId, permissionId)
 SELECT @consultantId, p.id FROM Permission p WHERE p.name IN (
@@ -131,4 +130,4 @@ SELECT @consultantId, p.id FROM Permission p WHERE p.name IN (
 	"SEARCH_CARD_FRAUD:READ",
 	"DECOUPLED:READ"
 	);
-{%- endif -%}
+{%- endif %}
