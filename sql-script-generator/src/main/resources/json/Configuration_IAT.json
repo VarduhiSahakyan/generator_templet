@@ -110,7 +110,7 @@
 ,"bankName":"Triodos Bank"
 ,"bankNameShort":"TRB"
 ,"authenticationTimeOut":300
-,"backupLanguages":"fr"
+,"backupLanguages":"fr,nl"
 ,"subIssuerCode":50010
 ,"subIssuerCodeSvi":50010
 ,"currencyCode":978
@@ -152,6 +152,7 @@
 ,"combinedAuthenticationAllowed":false
 ,"protocol2FlowMode":"AUTHENT_AND_CHALLENGE_MODE"
 ,"displayLanguageSelectPage":true
+,"trustedBeneficiariesAllowed":false
 ,"subIssuerAuthentMeans":["MOBILE_APP_EXT"]
 ,"npaEnabled":true
 ,"hubMaintenanceModeEnabled":false
