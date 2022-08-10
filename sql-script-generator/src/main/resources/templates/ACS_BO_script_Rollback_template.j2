@@ -12,7 +12,6 @@ SET @subIssuerID = (SELECT id FROM `SubIssuer` WHERE `code` = @subIssuerCode AND
 SET @cryptoConfigID = (SELECT id FROM CryptoConfig where description = '{{propACS_BO_Crypto.cryptoDescription}}');
 SET @BankUB = '{{propACS_BO_SUBISSUER.bankNameShort}}';
 
-
 /* BinRange_SubIssuer */
 DELETE from `BinRange_SubIssuer`
   WHERE id_subIssuer=@subIssuerID;
