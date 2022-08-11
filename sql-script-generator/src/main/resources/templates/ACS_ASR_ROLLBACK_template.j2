@@ -15,14 +15,14 @@ SELECT "{{prefix}}%" INTO @service_code;
 
 SELECT * FROM `CONFIGS` WHERE `CODE` like @service_code;
 DELETE FROM `CONFIGS` WHERE `CODE` like @service_code;
+SELECT * FROM `CONFIGS` WHERE `CODE` like @service_code;
 
 SELECT * FROM `CONFIGS_SOURCES` WHERE `CODE` like @service_code;
 DELETE FROM `CONFIGS_SOURCES` WHERE `CODE` like @service_code;
+SELECT * FROM `CONFIGS_SOURCES` WHERE `CODE` like @service_code;
 
 SELECT * FROM `CONFIGS_URLS` WHERE `CODE` like @service_code;
 DELETE FROM `CONFIGS_URLS` WHERE `CODE` like @service_code;
-
-SELECT * FROM `SERVICE` WHERE label like @service_code;
-DELETE FROM `SERVICE` WHERE label like @service_code;
+SELECT * FROM `CONFIGS_URLS` WHERE `CODE` like @service_code;
 
 -- End of data deletion

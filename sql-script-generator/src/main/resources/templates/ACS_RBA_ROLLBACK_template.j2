@@ -3,24 +3,24 @@ USE `H0G_RBA`;
 SET @service = '{{service}}';
 SET @issuer = '{{issuer}}';
 
-SELECT count(*) as countRulesetBeforeDelete FROM RULESET;
+SELECT count(*) as countRulesetBeforeDelete FROM RULE_SET;
 {%- macro equalOrNULL(name) %}
-    {%- if name is defined -%}= '{{name}}'{%- else -%}is NULL{%- endif -%}
+    {%- if name is defined and name != "*" -%}= '{{name}}'{%- else -%}is NULL{%- endif -%}
 {%- endmacro %}
 
-{%- for codeSubissuer,subissuer r in subissuers.items() %}
+{%- for codeSubissuer,subissuer in subissuers.items() %}
 -- -----------------------------------------------------------------------------
 -- DELETE of rulesets linked to :
 -- service   : {{service}}
 -- issuer    : {{issuer}}
 -- subissuer : {{codeSubissuer}}
---------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
 {%- if codeSubissuer == "*" %}
 SET @subIssuer = NULL;
 {% else %}
 SET @subIssuer = '{{codeSubissuer}}';
 {%- endif %}
-SELECT ID FROM `ISSUER_CONFIG` WHERE `issuer` = @issuer AND `sub_issuer` = @subIssuer ORDER BY id DESC LIMIT 1 INTO @issuerConfigId;
+SELECT ID FROM `ISSUER_CONFIG` WHERE `issuer` = @issuer AND `sub_issuer` {{equalOrNULL(codeSubissuer)}} ORDER BY id DESC LIMIT 1 INTO @issuerConfigId;
 
 DELETE sp
 FROM `SCORING_PROVIDER` sp
@@ -39,7 +39,7 @@ WHERE ic.id = @issuerConfigId;
 -- location : {{ruleset.location}}
 -- device_channel : {{ruleset.device_channel}}
 -- --------------------------------------------
-SELECT id FROM RULE_SET WHERE issuer = @issuer AND subIssuer = @subIssuer AND service = @service AND transaction_type {{equalOrNULL(ruleset.transaction_type)}} AND device_channel {{equalOrNULL(ruleset.device_channel)}} AND location {{equalOrNULL(ruleset.location)}} ORDER BY id DESC LIMIT 1 INTO @rule_set_id;
+SELECT id FROM RULE_SET WHERE issuer = @issuer AND subIssuer {{equalOrNULL(codeSubissuer)}} AND service = @service AND transaction_type {{equalOrNULL(ruleset.transaction_type)}} AND device_channel {{equalOrNULL(ruleset.device_channel)}} AND location {{equalOrNULL(ruleset.location)}} ORDER BY id DESC LIMIT 1 INTO @rule_set_id;
 
 DELETE ov
 FROM OPERAND_VALUE ov
@@ -66,4 +66,4 @@ WHERE rs.id = @rule_set_id;
 {% endfor %}
 {% endfor %}
 
-SELECT count(*) as countRulesetAfterDelete FROM RULESET;
+SELECT count(*) as countRulesetAfterDelete FROM RULE_SET;

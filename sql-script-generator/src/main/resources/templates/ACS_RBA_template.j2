@@ -4,7 +4,7 @@ SET @service = '{{service}}';
 SET @issuer = '{{issuer}}';
 
 {%- macro equalOrNULL(name) %}
-    {%- if name is defined -%}= '{{name}}'{%- else -%}is NULL{%- endif -%}
+    {%- if name is defined and name != "*" -%}= '{{name}}'{%- else -%}is NULL{%- endif -%}
 {%- endmacro %}
 {%- macro print(name) %}
     {%- if name is defined -%}'{{name}}'{%- else -%}NULL{%- endif -%}
@@ -12,13 +12,13 @@ SET @issuer = '{{issuer}}';
 {%- macro isActive(name) -%}
     {%- if name == 'active' -%}1{%- else -%}0{%- endif -%}
 {%- endmacro -%}
-{%- for codeSubissuer,subissuer r in subissuers.items() %}
+{%- for codeSubissuer,subissuer in subissuers.items() %}
 -- -----------------------------------------------------------------------------
 -- INSERT of rulesets linked to :
 -- service   : {{service}}
 -- issuer    : {{issuer}}
 -- subissuer : {{codeSubissuer}}
---------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
 {% if codeSubissuer == "*" %}
 SET @subIssuer = NULL;
 {% else %}
@@ -29,7 +29,7 @@ SET @subIssuer = '{{codeSubissuer}}';
 INSERT INTO `ISSUER_CONFIG` (`interface_type`, `is_active`, `service`, `issuer`, `sub_issuer`, `origin_priority`, `relevant_score`, `always_retrieve_external_scoring`, `default_score`, `default_decision`, `trustedbeneficiaries_active`, `eligible_merchant_active`, `skip_counters`, `bypass_3ds1`, `created_time`, `updated_time`, `deleted_time`)
 VALUES ('{{subissuer.interface_type}}',{{subissuer.is_active}} , @service, @issuer, @subIssuer, '{{subissuer.origin_priority}}', {{subissuer.relevant_score}}, {{subissuer.always_retrieve_external_scoring}}, {{subissuer.default_score}}, '{{subissuer.default_decision}}', {{subissuer.trustedbeneficiaries_active}}, {{subissuer.eligible_merchant_active}}, {{subissuer.skip_counters}}, {{subissuer.bypass3DS1}}, now(), NULL, NULL);
 
-SELECT ID FROM `ISSUER_CONFIG` WHERE `issuer` = @issuer AND `sub_issuer` {%-if codeSubissuer == "*" %}is NULL{%-else %}= '{{codeSubissuer}}'{%- endif%} @subIssuer ORDER BY id DESC LIMIT 1 INTO @issuerConfigId;
+SELECT ID FROM `ISSUER_CONFIG` WHERE `issuer` = @issuer AND `sub_issuer` {{equalOrNULL(codeSubissuer)}} ORDER BY id DESC LIMIT 1 INTO @issuerConfigId;
 
 INSERT INTO `SCORING_PROVIDER` (`issuer_config_id`, `is_active`, `ordinal`, `score_type`, `provider_type`, `score_service_url`, `advice_service_url`, `bypass_npa`, `created_time`, `updated_time`, `deleted_time`) VALUES
 (@issuerConfigId, {{subissuer.is_active}}, 1, '{{subissuer.scoring_provider.score_type}}', '{{subissuer.scoring_provider.provider_type}}', '{{subissuer.scoring_provider.score_service_url}}', '{{subissuer.scoring_provider.advice_service_url}}', 0, now(), NULL, NULL);
@@ -40,9 +40,9 @@ INSERT INTO `SCORING_PROVIDER` (`issuer_config_id`, `is_active`, `ordinal`, `sco
 -- ---------------------------------
 -- ------ RULE_SET TABLE -------- --
 INSERT INTO `RULE_SET` (issuer, subissuer, service, transaction_type, card_scheme,device_channel, location, created_time, updated_time, deleted_time) VALUES
-(@issuer, @subIssuer, @service, {{print(ruleset.transactionType)}}, NULL, {{print(ruleset.device_channel)}}, {{print(ruleset.location)}}, NOW(), NULL, NULL);
+(@issuer, @subIssuer, @service, {{print(ruleset.transaction_type)}}, NULL, {{print(ruleset.device_channel)}}, {{print(ruleset.location)}}, NOW(), NULL, NULL);
 
-SELECT id FROM RULE_SET WHERE issuer = @issuer AND subIssuer = @subIssuer AND service = @service AND transaction_type {{equalOrNULL(ruleset.transactionType)}} AND device_channel {{equalOrNULL(ruleset.device_channel)}}  AND location {{equalOrNULL(ruleset.location)}} ORDER BY id DESC LIMIT 1 INTO @rule_set_id;
+SELECT id FROM RULE_SET WHERE issuer = @issuer AND subIssuer {{equalOrNULL(codeSubissuer)}} AND service = @service AND transaction_type {{equalOrNULL(ruleset.transaction_type)}} AND device_channel {{equalOrNULL(ruleset.device_channel)}}  AND location {{equalOrNULL(ruleset.location)}} ORDER BY id DESC LIMIT 1 INTO @rule_set_id;
 {% set ordinal = 1 %}
 -- -------- RULE TABLE -------- --
 INSERT INTO `RULE` (rule_set_id, name, ordinal, active, auth_type, reason_type, created_time, updated_time, deleted_time) VALUES
@@ -87,7 +87,7 @@ INSERT INTO `RULE` (rule_set_id, name, ordinal, active, auth_type, reason_type, 
 (@rule_set_id, 'TRN_3RI_ADD_CARD_RULE'             ,{{ordinal}} , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_ADD_CARD'  ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
 (@rule_set_id, 'TRN_3RI_PAYMENT_RULE'              ,{{ordinal}} , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_PAYMENT'   ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
 {%- endif %}
-(@rule_set_id, 'DEFAULT_AUTHENT'        ,           {{ordinal}} , NULL, 'SCA'          ,'NO_RULES'         ,   now(), NULL, NULL);
+(@rule_set_id, 'DEFAULT_AUTHENT'                   ,{{ordinal}} , NULL, 'SCA'          ,'NO_RULES'         ,   now(), NULL, NULL);
 
 {% if ruleset.options.id_v is defined %}
 SELECT id FROM `RULE` WHERE name='TRN_ID&V'                                  AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_IDV;
