@@ -105,7 +105,7 @@ SET @protocol1 = '
     "cipherKeyIdentifier": "{{propACS_BO_Crypto.protocolOne.cipherKeyIdentifier}}",
     "acsIdForCrypto": "{{propACS_BO_Crypto.protocolOne.acsIdForCrypto}}",
     "binKeyIdentifier": "{{propACS_BO_Crypto.protocolOne.binKeyIdentifier}}",
-    "hubAESKey": {{propACS_BO_Crypto.protocolOne.hubAESKey}},
+    "hubAESKey": "{{propACS_BO_Crypto.protocolOne.hubAESKey}}",
     "informationalData": "{{propACS_BO_Crypto.protocolOne.informationalData}}",
     "cardNetworkAlgorithmMap": { {% if propACS_BO_Crypto.protocolOne.cardNetworkAlgorithmMap.MASTERCARD|length > 0 %}
         "MASTERCARD": "{{propACS_BO_Crypto.protocolOne.cardNetworkAlgorithmMap.MASTERCARD}}"{% endif %}{% if propACS_BO_Crypto.protocolOne.cardNetworkAlgorithmMap.MASTERCARD|length > 0 and propACS_BO_Crypto.protocolOne.cardNetworkAlgorithmMap.VISA|length > 0 %},{% endif %}{% if propACS_BO_Crypto.protocolOne.cardNetworkAlgorithmMap.VISA|length > 0 %}
@@ -151,7 +151,7 @@ SET @protocol2 = '
     "cipherKeyIdentifier": "{{propACS_BO_Crypto.protocolTwo.cipherKeyIdentifier}}",
     "acsIdForCrypto": "{{propACS_BO_Crypto.protocolTwo.acsIdForCrypto}}",
     "binKeyIdentifier": "{{propACS_BO_Crypto.protocolTwo.binKeyIdentifier}}",
-    "hubAESKey": {{propACS_BO_Crypto.protocolTwo.hubAESKey}},
+    "hubAESKey": "{{propACS_BO_Crypto.protocolTwo.hubAESKey}}",
     "informationalData": "{{propACS_BO_Crypto.protocolTwo.informationalData}}",
     "cardNetworkAlgorithmMap": { {% if propACS_BO_Crypto.protocolTwo.cardNetworkAlgorithmMap.MASTERCARD|length > 0 %}
         "MASTERCARD": "{{propACS_BO_Crypto.protocolTwo.cardNetworkAlgorithmMap.MASTERCARD}}"{% endif %}{% if propACS_BO_Crypto.protocolTwo.cardNetworkAlgorithmMap.MASTERCARD|length > 0 and propACS_BO_Crypto.protocolTwo.cardNetworkAlgorithmMap.VISA|length > 0 %},{% endif %}{% if propACS_BO_Crypto.protocolTwo.cardNetworkAlgorithmMap.VISA|length > 0 %}
