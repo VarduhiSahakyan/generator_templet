@@ -1,0 +1,67 @@
+USE `H0G_RBA`;
+
+SET @service = '{{propHUB_APM.service}}';
+SET @issuer = '{{propHUB_APM.issuer}}';
+
+SELECT count(*) as countRulesetBeforeDelete FROM RULE_SET;
+{%- macro equalOrNULL(name) %}
+    {%- if name is defined and name|string != "*" -%}= '{{name}}'{%- else -%}is NULL{%- endif -%}
+{%- endmacro %}
+
+-- -----------------------------------------------------------------------------
+-- DELETE of rulesets linked to :
+-- service   : {{propHUB_APM.service}}
+-- issuer    : {{propHUB_APM.issuer}}
+-- subissuer : {{propHUB_APM.subissuer}}
+-- -----------------------------------------------------------------------------
+{%- if propHUB_APM.subissuer|string == "*" %}
+SET @subIssuer = NULL;
+{% else %}
+SET @subIssuer = '{{propHUB_APM.subissuer}}';
+{%- endif %}
+SELECT ID FROM `ISSUER_CONFIG` WHERE `issuer` = @issuer AND `sub_issuer` {{equalOrNULL(propHUB_APM.subissuer)}} ORDER BY id DESC LIMIT 1 INTO @issuerConfigId;
+
+DELETE sp
+FROM `SCORING_PROVIDER` sp
+WHERE sp.issuer_config_id = @issuerConfigId;
+
+DELETE ic
+FROM `ISSUER_CONFIG` ic
+WHERE ic.id = @issuerConfigId;
+
+{%- for codeRuleset,ruleset in propHUB_APM.rulesets.items() %}
+-- --------------------------------------------
+-- DELETE ruleset {{codeRuleset}}
+-- issuer    : {{propHUB_APM.issuer}}
+-- subissuer : {{propHUB_APM.subissuer}}
+-- transaction_type : {{ruleset.transaction_type}}
+-- location : {{ruleset.location}}
+-- device_channel : {{ruleset.device_channel}}
+-- --------------------------------------------
+SELECT id FROM RULE_SET WHERE issuer = @issuer AND subIssuer {{equalOrNULL(propHUB_APM.subissuer)}} AND service = @service AND transaction_type {{equalOrNULL(ruleset.transaction_type)}} AND device_channel {{equalOrNULL(ruleset.device_channel)}} AND location {{equalOrNULL(ruleset.location)}} ORDER BY id DESC LIMIT 1 INTO @rule_set_id;
+
+DELETE ov
+FROM OPERAND_VALUE ov
+WHERE ov.rule_set_id = @rule_set_id;
+
+DELETE o
+FROM OPERAND o
+WHERE o.condition_id in (SELECT rc.id FROM RULE_CONDITION rc
+                         JOIN RULE r on rc.rule_id=r.id
+                         WHERE r.rule_set_id = @rule_set_id);
+
+DELETE  rc
+FROM RULE_CONDITION rc
+WHERE rc.rule_id in (SELECT r.id FROM RULE r
+                     WHERE r.rule_set_id = @rule_set_id);
+
+DELETE r
+FROM RULE r
+WHERE r.rule_set_id = @rule_set_id;
+
+DELETE rs
+FROM RULE_SET rs
+WHERE rs.id = @rule_set_id;
+{% endfor %}
+
+SELECT count(*) as countRulesetAfterDelete FROM RULE_SET;

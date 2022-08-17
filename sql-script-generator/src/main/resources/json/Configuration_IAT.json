@@ -1,6 +1,8 @@
 
 {
-
+"service" : "ACS_U5G",
+"issuer" : 50000,
+"subissuer" : "",
 "propACS_BO_BinRange":{
 
 "BinRanges":[
@@ -176,25 +178,14 @@
 
 "CHECK_EXPIRY":false
 ,"cr.favoreAll":true
-,"default.language":"EN"
+,"default.language":"en"
 ,"default.masked.pan":"######xxxxxx####"
 ,"DEK_01":"TODO"
 ,"DETOKENIZE_DESE":false
 ,"hotp.method":"HOTP_SOFT"
-,"KEYS":"CN="
-,"request.attr.version":1
-,"request.header.apiKey":"TODO"
-,"request.header.locale":"EN"
-,"request.header.senderId":"Worldline"
-,"request.header.userId":"NEEDED?"
-,"request.payload.transactionDescription":"WL ACS Transaction"
-,"request.payload.verificationDevice":"MOBILE_APP"
-,"request.payload.verificationLevel":2
-,"request.payload.verificationType":"PWE"
-,"RBA_SCORING_WS_VERSION":"22R1"
-,"referential.languages":"en,de,nl"
+,"KEYS":"CN=test-acs.wlp-acs.com,CN=test-hub.wlp-acs.com,CN =Triodos_3DS_client_auth_TEST"
+,"referential.languages":"en,fr,nl"
 ,"SMS_PHONE_PREFIXES":"0031,+31"
-,"keys_common name":"CN="
 
 }
 ,
@@ -222,8 +213,9 @@
 "SM_SESSION_SLEEP_BEFORE_DELETE":250,
 "SM_SPLUNK_TIMER_ENABLED":false},
 "WS_WSSTANDARD":{
-"WS_WSSTANDARD_KEY_TAG":1,
-"WS_WSSTANDARD_KEY_VAL":"ACS_U5G-50000-01"}
+"WS_WSSTANDARD_PRINCIPAL_TYPE":"CARD_HOLDER_ID",
+"WS_WSSTANDARD_KEY_TAG":"",
+"WS_WSSTANDARD_KEY_VAL":""}
 
 }
 ,
@@ -240,8 +232,8 @@
 "PING_URL":"http://qlf-h5g-fo-hub-cr.vdm.qvmbfi.svc.meshcore.net/referential/rest/referential/serviceAvailable",
 "URL":"http://qlf-h5g-fo-hub-cr.vdm.qvmbfi.svc.meshcore.net/referential/rest/"},
 "WS_EXTMOBAPP":{
-"PING_URL":"todo",
-"URL":"todo"}
+"PING_URL":"http://qlf-h0g-fo-hub-as.qvmbfi.svc.meshcore.net/wsstandard/rest/mean/serviceAvailable",
+"URL":"https://test-ideal.triodos.com/soso/purple/worldline-card/services/sca/initiateAuthenticate"}
 
 }
 ,

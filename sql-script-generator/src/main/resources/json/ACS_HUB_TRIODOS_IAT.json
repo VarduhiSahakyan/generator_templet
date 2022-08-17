@@ -177,10 +177,10 @@
   },
 
   "propHUB_ASR_CONFIGS_URLS":{
-    "CR" : {"PINGURL":"todoURLping1","URL":"http://qlf-h5g-fo-hub-cr.vdm.qvmbfi.svc.meshcore.net/referential/rest/referential/serviceAvailable,http://qlf-h5g-fo-hub-cr.vdm.qvmbfi.svc.meshcore.net/referential/rest/referential/serviceAvailable;src?url=http://cr/api//cr/api/&type=CrRDA&order=1&mandatory=true,snk?url=http://cr/api//cr/api/&type=CrRDA&order=1&mandatory=true"},
-    "EXTMOBAPP" : {"PINGURL":"todoURLping2","URL":"http://qlf-h0g-fo-hub-as.qvmbfi.svc.meshcore.net/wsstandard/rest/mean/serviceAvailable;http://qlf-h0g-fo-hub-as.qvmbfi.svc.meshcore.net/wsstandard/rest/"},
-    "REFERENTIAL" : {"PINGURL":"todoURLping1","URL":"http://qlf-h5g-fo-hub-cr.vdm.qvmbfi.svc.meshcore.net/referential/rest/referential/serviceAvailable;http://qlf-h5g-fo-hub-cr.vdm.qvmbfi.svc.meshcore.net/referential/rest/"},
-    "WS_EXTMOBAPP" : {"PINGURL":"todoURLping2","URL":"todo"}
+    "CR" : {"PING_URL":"todoURLping1","URL":"http://qlf-h5g-fo-hub-cr.vdm.qvmbfi.svc.meshcore.net/referential/rest/referential/serviceAvailable,http://qlf-h5g-fo-hub-cr.vdm.qvmbfi.svc.meshcore.net/referential/rest/referential/serviceAvailable;src?url=http://cr/api//cr/api/&type=CrRDA&order=1&mandatory=true,snk?url=http://cr/api//cr/api/&type=CrRDA&order=1&mandatory=true"},
+    "EXTMOBAPP" : {"PING_URL":"todoURLping2","URL":"http://qlf-h0g-fo-hub-as.qvmbfi.svc.meshcore.net/wsstandard/rest/mean/serviceAvailable;http://qlf-h0g-fo-hub-as.qvmbfi.svc.meshcore.net/wsstandard/rest/"},
+    "REFERENTIAL" : {"PING_URL":"todoURLping1","URL":"http://qlf-h5g-fo-hub-cr.vdm.qvmbfi.svc.meshcore.net/referential/rest/referential/serviceAvailable;http://qlf-h5g-fo-hub-cr.vdm.qvmbfi.svc.meshcore.net/referential/rest/"},
+    "WS_EXTMOBAPP" : {"PING_URL":"todoURLping2","URL":"todo"}
   },
 
   "propHUB_CR_Customer":{

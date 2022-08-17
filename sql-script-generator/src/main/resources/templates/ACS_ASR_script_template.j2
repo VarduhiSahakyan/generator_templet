@@ -20,7 +20,7 @@ select count(*) as 'table_configs_count_before_inserts' from `CONFIGS`;
 {%- if loop.index == 1 %}
 INSERT INTO `CONFIGS` (`CODE`, `DATA`)
     VALUES {%- endif%}
-        ('{{prefix}}{{key}}','{{value}}'){{";" if loop.last  else ","}}
+        {% if value|string|upper != 'TODO' and value|string|length != 0 %}('{{prefix}}{{key}}','{{value}}'){{";" if loop.last  else ","}}{% endif%}
 {%- endfor %}
 
 select count(*) as 'table_configs_count_after_inserts' from `CONFIGS`;
@@ -33,6 +33,7 @@ select count(*) as 'table_configs_sources_count_before_inserts' from `CONFIGS_SO
                     'TA':'MEANS',
                     'REFCLIENT':'MODULES',
                     'AUTHENT':'MODULES',
+                    'WS_WSSTANDARD':'SOURCES',
                     'WS':'MODULES'
                }
 -%}
@@ -45,7 +46,7 @@ INSERT INTO `CONFIGS_SOURCES` (`CODE`, `TYPE`, `DATA`)
     {%-for key, value in propHUB_CS.items()%}
     {%- if loop.index == 1 %}
     -- ACS {{typeCS}} ({{mapCS[typeCS]}}) {%- endif%}
-     ('{{prefix}}{{key}}','{{mapCS[typeCS]}}','{{value}}'){{";" if (outer_loop.last and loop.last) else ","}}
+     {% if value|string|upper != 'TODO' and value|string|length != 0 %}('{{prefix}}{{key}}','{{mapCS[typeCS]}}','{{value}}'){{";" if (outer_loop.last and loop.last) else ","}}{% endif %}
      {%-endfor%}
 {%-endfor%}
 select count(*) as 'table_configs_sources_count_after_inserts' from `CONFIGS_SOURCES`;
@@ -56,7 +57,7 @@ select count(*) as 'table_configs_sources_count_after_inserts' from `CONFIGS_SOU
 select count(*) as 'table_configs_urls_count_before_inserts' from `CONFIGS_URLS`;
 
 {%- macro getCUType(name) -%}
-    {%- if name[0:2] == 'WS_' -%}SOURCES_WS
+    {%- if name[0:3] == 'WS_' -%}SOURCES_WS
     {%- elif name == 'REFERENTIAL' -%}MODULES
     {%- elif name in ['CR', 'REFERENTIAL_TA','GERMAN'] -%}SOURCES
     {%- else -%}MEANS
@@ -67,7 +68,7 @@ select count(*) as 'table_configs_urls_count_before_inserts' from `CONFIGS_URLS`
 INSERT INTO `CONFIGS_URLS` (`code`, `type`, `ping_url`, `url`)
     VALUES {%- endif%}
     #{{key}}#
-    ('{{prefix}}{{key}}','{{getCUType(key)}}','{{value.PINGURL}}','{{value.URL}}'){{";" if loop.last else ","}}
+    {% if value|string|upper != 'TODO' and value|string|length != 0 %}('{{prefix}}{{key}}','{{getCUType(key)}}','{{value.PING_URL}}','{{value.URL}}'){{";" if loop.last else ","}}{% endif %}
 {%-endfor%}
 select count(*) as 'table_configs_urls_count_after_inserts' from `CONFIGS_URLS`;
 

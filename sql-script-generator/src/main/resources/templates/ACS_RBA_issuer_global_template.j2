@@ -1,10 +1,10 @@
 USE `H0G_RBA`;
 
-SET @service = '{{service}}';
-SET @issuer = '{{issuer}}';
+SET @service = '{{propHUB_APM.service}}';
+SET @issuer = '{{propHUB_APM.issuer}}';
 
 {%- macro equalOrNULL(name) %}
-    {%- if name is defined and name != "*" -%}= '{{name}}'{%- else -%}is NULL{%- endif -%}
+    {%- if name is defined and name|string != "*" -%}= '{{name}}'{%- else -%}is NULL{%- endif -%}
 {%- endmacro %}
 {%- macro print(name) %}
     {%- if name is defined -%}'{{name}}'{%- else -%}NULL{%- endif -%}
@@ -12,29 +12,28 @@ SET @issuer = '{{issuer}}';
 {%- macro isActive(name) -%}
     {%- if name == 'active' -%}1{%- else -%}0{%- endif -%}
 {%- endmacro -%}
-{%- for codeSubissuer,subissuer in subissuers.items() %}
 -- -----------------------------------------------------------------------------
 -- INSERT of rulesets linked to :
--- service   : {{service}}
--- issuer    : {{issuer}}
--- subissuer : {{codeSubissuer}}
+-- service   : {{propHUB_APM.service}}
+-- issuer    : {{propHUB_APM.issuer}}
+-- subissuer : {{propHUB_APM.subissuer}}
 -- -----------------------------------------------------------------------------
-{% if codeSubissuer == "*" %}
+{% if propHUB_APM.subissuer|string == "*" %}
 SET @subIssuer = NULL;
 {% else %}
-SET @subIssuer = '{{codeSubissuer}}';
+SET @subIssuer = '{{propHUB_APM.subissuer}}';
 {% endif %}
 -- -------- ISSUER_CONFIG TABLE -------- --
 
 INSERT INTO `ISSUER_CONFIG` (`interface_type`, `is_active`, `service`, `issuer`, `sub_issuer`, `origin_priority`, `relevant_score`, `always_retrieve_external_scoring`, `default_score`, `default_decision`, `trustedbeneficiaries_active`, `eligible_merchant_active`, `skip_counters`, `bypass_3ds1`, `created_time`, `updated_time`, `deleted_time`)
-VALUES ('{{subissuer.interface_type}}',{{subissuer.is_active}} , @service, @issuer, @subIssuer, '{{subissuer.origin_priority}}', {{subissuer.relevant_score}}, {{subissuer.always_retrieve_external_scoring}}, {{subissuer.default_score}}, '{{subissuer.default_decision}}', {{subissuer.trustedbeneficiaries_active}}, {{subissuer.eligible_merchant_active}}, {{subissuer.skip_counters}}, {{subissuer.bypass3DS1}}, now(), NULL, NULL);
+VALUES ('{{propHUB_APM.interface_type}}',{{propHUB_APM.is_active}} , @service, @issuer, @subIssuer, '{{propHUB_APM.origin_priority}}', {{propHUB_APM.relevant_score}}, {{propHUB_APM.always_retrieve_external_scoring}}, {{propHUB_APM.default_score}}, '{{propHUB_APM.default_decision}}', {{propHUB_APM.trustedbeneficiaries_active}}, {{propHUB_APM.eligible_merchant_active}}, {{propHUB_APM.skip_counters}}, {{propHUB_APM.bypass3DS1}}, now(), NULL, NULL);
 
-SELECT ID FROM `ISSUER_CONFIG` WHERE `issuer` = @issuer AND `sub_issuer` {{equalOrNULL(codeSubissuer)}} ORDER BY id DESC LIMIT 1 INTO @issuerConfigId;
+SELECT ID FROM `ISSUER_CONFIG` WHERE `issuer` = @issuer AND `sub_issuer` {{equalOrNULL(propHUB_APM.subissuer)}} ORDER BY id DESC LIMIT 1 INTO @issuerConfigId;
 
 INSERT INTO `SCORING_PROVIDER` (`issuer_config_id`, `is_active`, `ordinal`, `score_type`, `provider_type`, `score_service_url`, `advice_service_url`, `bypass_npa`, `created_time`, `updated_time`, `deleted_time`) VALUES
-(@issuerConfigId, {{subissuer.is_active}}, 1, '{{subissuer.scoring_provider.score_type}}', '{{subissuer.scoring_provider.provider_type}}', '{{subissuer.scoring_provider.score_service_url}}', '{{subissuer.scoring_provider.advice_service_url}}', 0, now(), NULL, NULL);
+(@issuerConfigId, {{propHUB_APM.is_active}}, 1, '{{propHUB_APM.scoring_provider.score_type}}', '{{propHUB_APM.scoring_provider.provider_type}}', '{{propHUB_APM.scoring_provider.score_service_url}}', '{{propHUB_APM.scoring_provider.advice_service_url}}', 0, now(), NULL, NULL);
 
-{%- for codeRuleset,ruleset in subissuer.rulesets.items() %}
+{%- for codeRuleset,ruleset in propHUB_APM.rulesets.items() %}
 -- ---------------------------------
 -- RULESET {{codeRuleset}}
 -- ---------------------------------
@@ -326,4 +325,3 @@ INSERT INTO `OPERAND` (condition_id, name, type, operand_value_label, reversed, 
 (@rule_condition_28_id, 'DEFAULT'                      , 'DEFAULT'       , 'DEFAULT'        , 0  , now(), NULL, NULL);
 
 {% endfor %}
-{%- endfor %}
