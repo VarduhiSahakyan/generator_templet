@@ -4,7 +4,7 @@
 "propHUB_APM":{
 
 "service":"ACS_U5G"
-,"issuer":50000
+,"issuer":10000
 ,"subissuer":"*"
 ,"default_score":85
 ,"always_retrieve_external_scoring":true
@@ -21,7 +21,7 @@
 ,"scoring_provider" : {
 "score_service_url":"https://rss-ewl-internal-dev.inform-software.com:3334/services/AuthHubRBAService/RBArequest"
 ,"advice_service_url":"https://rss-ewl-internal-dev.inform-software.com:3334/services/AuthHubAdviceService/RBArequest"
-,"score_type":"EXTERNAL"
+,"score_type":"EXTERNAL/DS"
 ,"provider_type":"INFORM"
 },
 "rulesets": {

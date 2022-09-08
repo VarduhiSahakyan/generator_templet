@@ -1,0 +1,475 @@
+USE `H0G_RBA`;
+
+SET @service = '{{service}}';
+SET @issuer = '{{issuer}}';
+
+{%- macro equalOrNULL(name) %}
+    {%- if name is defined and name != "*" -%}= '{{name}}'{%- else -%}is NULL{%- endif -%}
+{%- endmacro %}
+{%- macro print(name) %}
+    {%- if name is defined -%}'{{name}}'{%- else -%}NULL{%- endif -%}
+{%- endmacro %}
+{%- macro isActive(name) -%}
+    {%- if name == 'active' -%}1{%- else -%}0{%- endif -%}
+{%- endmacro -%}
+{%- for codeSubissuer,subissuer in subissuers.items() %}
+-- -----------------------------------------------------------------------------
+-- INSERT of rulesets linked to :
+-- service   : {{service}}
+-- issuer    : {{issuer}}
+-- subissuer : {{codeSubissuer}}
+-- -----------------------------------------------------------------------------
+{% if codeSubissuer == "*" %}
+SET @subIssuer = NULL;
+{% else %}
+SET @subIssuer = '{{codeSubissuer}}';
+{% endif %}
+-- -------- ISSUER_CONFIG TABLE -------- --
+
+INSERT INTO `ISSUER_CONFIG` (`interface_type`, `is_active`, `service`, `issuer`, `sub_issuer`, `origin_priority`, `relevant_score`, `always_retrieve_external_scoring`, `default_score`, `default_decision`, `trustedbeneficiaries_active`, `eligible_merchant_active`, `skip_counters`, `bypass_3ds1`, `created_time`, `updated_time`, `deleted_time`)
+VALUES ('{{subissuer.interface_type}}',{{subissuer.is_active}} , @service, @issuer, @subIssuer, '{{subissuer.origin_priority}}', {{subissuer.relevant_score}}, {{subissuer.always_retrieve_external_scoring}}, {{subissuer.default_score}}, '{{subissuer.default_decision}}', {{subissuer.trustedbeneficiaries_active}}, {{subissuer.eligible_merchant_active}}, {{subissuer.skip_counters}}, {{subissuer.bypass3DS1}}, now(), NULL, NULL)
+ON DUPLICATE KEY UPDATE 
+`interface_type`  ='{{subissuer.interface_type}}',
+`is_active`       ={{subissuer.is_active}},
+`service`         =@service,
+`origin_priority` ='{{subissuer.origin_priority}}',
+`relevant_score`  ={{subissuer.relevant_score}},
+`always_retrieve_external_scoring` ={{subissuer.always_retrieve_external_scoring}},
+`default_score`   ={{subissuer.default_score}},
+`default_decision`='{{subissuer.default_decision}}',
+`trustedbeneficiaries_active`={{subissuer.trustedbeneficiaries_active}},
+`eligible_merchant_active`={{subissuer.eligible_merchant_active}},
+`skip_counters`   ={{subissuer.skip_counters}},
+`bypass_3ds1`     ={{subissuer.bypass3DS1}};
+
+SELECT ID FROM `ISSUER_CONFIG` WHERE `issuer` = @issuer AND `sub_issuer` {{equalOrNULL(codeSubissuer)}} ORDER BY id DESC LIMIT 1 INTO @issuerConfigId;
+
+INSERT INTO `SCORING_PROVIDER` (`issuer_config_id`, `is_active`, `ordinal`, `score_type`, `provider_type`, `score_service_url`, `advice_service_url`, `bypass_npa`, `created_time`, `updated_time`, `deleted_time`) VALUES
+(@issuerConfigId, {{subissuer.is_active}}, 1, '{{subissuer.scoring_provider.score_type}}', '{{subissuer.scoring_provider.provider_type}}', '{{subissuer.scoring_provider.score_service_url}}', '{{subissuer.scoring_provider.advice_service_url}}', 0, now(), NULL, NULL)
+ON DUPLICATE KEY UPDATE
+`is_active`={{subissuer.is_active}},
+`ordinal`=1,
+`score_type`='{{subissuer.scoring_provider.score_type}}',
+`provider_type`='{{subissuer.scoring_provider.provider_type}}',
+`score_service_url`='{{subissuer.scoring_provider.score_service_url}}',
+`advice_service_url`='{{subissuer.scoring_provider.advice_service_url}}',
+`bypass_npa`=0;
+
+{%- for codeRuleset,ruleset in subissuer.rulesets.items() %}
+-- ---------------------------------
+-- RULESET {{codeRuleset}}
+-- ---------------------------------
+-- ------ RULE_SET TABLE -------- --
+INSERT INTO `RULE_SET` (issuer, subissuer, service, transaction_type, card_scheme,device_channel, location, created_time, updated_time, deleted_time) VALUES
+(@issuer, @subIssuer, @service, {{print(ruleset.transaction_type)}}, {{print(ruleset.card_scheme)}}, {{print(ruleset.device_channel)}}, {{print(ruleset.location)}}, NOW(), NULL, NULL);
+
+SELECT id FROM RULE_SET WHERE issuer = @issuer AND subIssuer {{equalOrNULL(codeSubissuer)}} AND service = @service AND transaction_type {{equalOrNULL(ruleset.transaction_type)}} AND card_scheme {{equalOrNULL(ruleset.card_scheme)}} AND device_channel {{equalOrNULL(ruleset.device_channel)}}  AND location {{equalOrNULL(ruleset.location)}} ORDER BY id DESC LIMIT 1 INTO @rule_set_id;
+{% set ordinal = 1 %}
+-- -------- RULE TABLE -------- --
+INSERT INTO `RULE` (rule_set_id, name, ordinal, active, auth_type, reason_type, created_time, updated_time, deleted_time) VALUES
+{%- if ruleset.options.id_v is defined %}
+(@rule_set_id, 'TRN_ID&V'               ,           {{ordinal}}  , {{ isActive(ruleset.options.id_v) }}   , 'SCA'          ,'ID_V_SCA_REQ'     ,   now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+{%- endif %}
+{%- if ruleset.options.acquirerExemption is defined %}
+(@rule_set_id, 'TRN_FIRST_REC_PAYMENT'  ,           {{ordinal}}  , {{ isActive(ruleset.options.acquirerExemption) }}   , 'SCA'          ,'FIRST_RECURRING'  ,   now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_SUB_REC_PAYMENT'    ,           {{ordinal}}  , {{ isActive(ruleset.options.acquirerExemption) }}   , 'FRICTIONLESS' ,'RECURRING'        ,   now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_FIRST_INS_PAYMENT'  ,           {{ordinal}}  , {{ isActive(ruleset.options.acquirerExemption) }}   , 'SCA'          ,'FIRST_INSTALMENT' ,   now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_SUB_INS_PAYMENT'    ,           {{ordinal}}  , {{ isActive(ruleset.options.acquirerExemption) }}   , 'FRICTIONLESS' ,'INSTALMENT'       ,   now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_ACQ_EXEMPTION'      ,           {{ordinal}}  , {{ isActive(ruleset.options.acquirerExemption) }}   , 'FRICTIONLESS' ,'ACQ_EXEMPTION'    ,   now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_SEC_CORPORATE'      ,           {{ordinal}}  , {{ isActive(ruleset.options.acquirerExemption) }}   , 'FRICTIONLESS' ,'SEC_CORPORATE'    ,   now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_ACQ_SCA_REQ'        ,           {{ordinal}}  , {{ isActive(ruleset.options.acquirerExemption) }}   , 'SCA'          ,'ACQ_SCA_REQ'      ,   now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+{%- endif %}
+{%- if ruleset.options.standard3DS2 is defined %}
+(@rule_set_id, 'TRN_MAX_LOW_VALUE'      ,           {{ordinal}}  , {{ isActive(ruleset.options.standard3DS2) }}   , 'FRICTIONLESS' ,'LOW_VALUE'        ,   now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_SUM_LOW_VALUE'      ,           {{ordinal}}  , {{ isActive(ruleset.options.standard3DS2) }}   , 'FRICTIONLESS' ,'LOW_VALUE'        ,   now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_HIGH_VALUE'         ,           {{ordinal}}  , {{ isActive(ruleset.options.standard3DS2) }}   , 'SCA'          ,'HIGH_VALUE'       ,   now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+{%- endif %}
+{%- if ruleset.options.standard3DS2 is defined or ruleset.options.standard3DS2NonEEA is defined %}
+(@rule_set_id, 'TRN_SCORING_LOW_VALUE'  ,           {{ordinal}}  , 1   , 'FRICTIONLESS' ,'LOW_SCORE'        ,   now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_SCORING_HIGH_VALUE' ,           {{ordinal}}  , 1   , 'SCA'          ,'HIGH_SCORE'       ,   now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_SCORING_MID_VALUE'  ,           {{ordinal}}  , 1   , 'SCA'          ,'MID_SCORE'        ,   now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+{%- endif %}
+{%- if ruleset.options.standard3DS2 is defined %}
+(@rule_set_id, 'DEFAULT_LOW_VALUE'      ,           {{ordinal}}  , {{ isActive(ruleset.options.standard3DS2) }}   , 'SCA'          ,'MAX_FRICTIONLESS' ,   now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+{%- endif %}
+{%- if ruleset.options.trustedBeneficiary is defined and subissuer.trustedbeneficiaries_active == '1' %}
+(@rule_set_id, 'TRN_ENROLL_TRUSTED_BENEFICIARY_ACS',{{ordinal}}  , {{ isActive(ruleset.options.trustedBeneficiary) }}   , 'SCA'         ,'SCA_TRUSTED_BENEF_ACS',now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_TRUSTED_BENEFICIARY_ACS'       ,{{ordinal}}  , {{ isActive(ruleset.options.trustedBeneficiary) }}   , 'SCA','FRICTIONLESS_TRUSTED_BENEF_ACS',now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_ENROLL_TRUSTED_BENEFICIARY_3DS_SERVER',{{ordinal}},{{ isActive(ruleset.options.trustedBeneficiary) }},'SCA','SCA_TRUSTED_BENEF_3DSSERVER'  ,now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_TRUSTED_BENEFICIARY_3DS_SERVER',{{ordinal}}  , {{ isActive(ruleset.options.trustedBeneficiary) }}   , 'SCA','FRICTIONLESS_TRUSTED_BENEF_3DSSERVER',now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+{%- endif %}
+{%- if ruleset.options.standard3RI is defined %}
+    {%- if ruleset.card_scheme is defined and ruleset.card_scheme == 'VISA' %}
+(@rule_set_id, 'TRN_3RI_DECOUPLED'                 ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'SCA'         , 'THREE_RI_DECOUPLED' ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_REC_PAYMENT'                   ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'DECLINE'     , 'THREE_RI_NOT_SUPPORTED',  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_INS_PAYMENT'                   ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'DECLINE'     , 'THREE_RI_NOT_SUPPORTED',  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_ADD_CARD'                      ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'SCA'         , 'THREE_RI_SCA_ADD_CARD',  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_MAIN_CARD_INFO'                ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_CARDINFO'  ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_ACCOUNT_VERIFICATION'          ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_ACCOUNT'   ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_TOP_UP'                        ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'DECLINE'     , 'THREE_RI_NOT_SUPPORTED'  ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_MOTO'                          ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'DECLINE'     , 'THREE_RI_NOT_SUPPORTED'      ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_WHITELIST'                     ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'DECLINE'     , 'THREE_RI_NOT_SUPPORTED' ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_OTHER_PAYMENT'                 ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_PAYMENT'   ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+    {%- elif ruleset.card_scheme is defined and ruleset.card_scheme == 'MASTERCARD' %}
+(@rule_set_id, 'TRN_3RI_DECOUPLED'                 ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'SCA'         , 'THREE_RI_DECOUPLED' ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_3RI_REC_PAYMENT'               ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_RECURRING' ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_3RI_INS_PAYMENT'               ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_INSTALMENT',  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_3RI_ADD_CARD_RULE'             ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'DECLINE'     , 'THREE_RI_DECLINE_ADD_CARD',  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_3RI_CARDINFO'                  ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_CARDINFO'  ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_ACCOUNT_VERIFICATION'          ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_ACCOUNT'   ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_TOP_UP'                        ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'DECLINE'     , 'THREE_RI_NOT_SUPPORTED',  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_3RI_MOTO_NO_DECOUPLED'         ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_MOTO'      ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_3RI_WHITELIST'                 ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_WHITELIST' ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_3RI_PAYMENT_RULE'              ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_PAYMENT'   ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+    {%- else %}
+(@rule_set_id, 'TRN_3RI_REC_PAYMENT'               ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_RECURRING' ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_3RI_INS_PAYMENT'               ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_INSTALMENT',  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_3RI_DECOUPLED'                 ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'SCA'         , 'THREE_RI_DECOUPLED' ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_3RI_MOTO_NO_DECOUPLED'         ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_MOTO'      ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_3RI_WHITELIST'                 ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_WHITELIST' ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_3RI_CARDINFO'                  ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_CARDINFO'  ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_ACCOUNT_VERIFICATION'          ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_ACCOUNT'   ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_TOP_UP'                        ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'DECLINE'     , 'THREE_RI_NOT_SUPPORTED',  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_3RI_ADD_CARD_RULE'             ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_ADD_CARD'  ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_3RI_PAYMENT_RULE'              ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_PAYMENT'   ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+    {%- endif %}
+(@rule_set_id, 'DEFAULT_AUTHENT'                   ,{{ordinal}}  , NULL, 'DECLINE'      ,'THREE_RI_NOT_SUPPORTED',   now(), NULL, NULL);
+{%- else %}
+(@rule_set_id, 'DEFAULT_AUTHENT'                   ,{{ordinal}}  , NULL, 'SCA'          ,'NO_RULES'         ,   now(), NULL, NULL);
+{%- endif %}
+
+{% if ruleset.options.id_v is defined %}
+SELECT id FROM `RULE` WHERE name='TRN_ID&V'                                  AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_IDV;
+{%- endif %}
+{%- if ruleset.options.acquirerExemption is defined %}
+SELECT id FROM `RULE` WHERE name='TRN_FIRST_REC_PAYMENT'                     AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_FIRST_REC_PAYMENT;
+SELECT id FROM `RULE` WHERE name='TRN_SUB_REC_PAYMENT'                       AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_SUB_REC_PAYMENT;
+SELECT id FROM `RULE` WHERE name='TRN_FIRST_INS_PAYMENT'                     AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_FIRST_INS_PAYMENT;
+SELECT id FROM `RULE` WHERE name='TRN_SUB_INS_PAYMENT'                       AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_SUB_INS_PAYMENT;
+SELECT id FROM `RULE` WHERE name='TRN_ACQ_EXEMPTION'                         AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_ACQ_EXEMPTION;
+SELECT id FROM `RULE` WHERE name='TRN_SEC_CORPORATE'                         AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_SEC_CORPORATE;
+SELECT id FROM `RULE` WHERE name='TRN_ACQ_SCA_REQ'                           AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_ACQ_SCA_REQ;
+{%- endif %}
+{%- if ruleset.options.standard3DS2 is defined %}
+SELECT id FROM `RULE` WHERE name='TRN_MAX_LOW_VALUE'                         AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_MAX_LOW_VALUE;
+SELECT id FROM `RULE` WHERE name='TRN_SUM_LOW_VALUE'                         AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_SUM_LOW_VALUE;
+SELECT id FROM `RULE` WHERE name='TRN_HIGH_VALUE'                            AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_HIGH_VALUE;
+{%- endif %}
+{%- if ruleset.options.standard3DS2 is defined or ruleset.options.standard3DS2NonEEA is defined %}
+SELECT id FROM `RULE` WHERE name='TRN_SCORING_LOW_VALUE'                     AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_SCORING_LOW_VALUE;
+SELECT id FROM `RULE` WHERE name='TRN_SCORING_HIGH_VALUE'                    AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_SCORING_HIGH_VALUE;
+SELECT id FROM `RULE` WHERE name='TRN_SCORING_MID_VALUE'                     AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_SCORING_MID_VALUE;
+{%- endif %}
+{%- if ruleset.options.standard3DS2 is defined %}
+SELECT id FROM `RULE` WHERE name='DEFAULT_LOW_VALUE'                         AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_DEFAULT_LOW_VALUE;
+{%- endif %}
+{%- if ruleset.options.trustedBeneficiary is defined and subissuer.trustedbeneficiaries_active == '1' %}
+SELECT id FROM `RULE` WHERE name='TRN_ENROLL_TRUSTED_BENEFICIARY_ACS'        AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_ENROLL_TRUSTED_BENEFICIARY_ACS;
+SELECT id FROM `RULE` WHERE name='TRN_TRUSTED_BENEFICIARY_ACS'               AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_TRUSTED_BENEFICIARY_ACS;
+SELECT id FROM `RULE` WHERE name='TRN_ENROLL_TRUSTED_BENEFICIARY_3DS_SERVER' AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_ENROLL_TRUSTED_BENEFICIARY_3DS_SERVER;
+SELECT id FROM `RULE` WHERE name='TRN_TRUSTED_BENEFICIARY_3DS_SERVER'        AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_TRN_TRUSTED_BENEFICIARY_3DS_SERVER;
+{%- endif %}
+{%- if ruleset.options.standard3RI is defined %}
+    {%- if ruleset.card_scheme is defined and ruleset.card_scheme == 'VISA' %}
+SELECT id FROM `RULE` WHERE name='TRN_REC_PAYMENT'                           AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3RI_REC_PAYMENT;
+SELECT id FROM `RULE` WHERE name='TRN_INS_PAYMENT'                           AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3RI_INS_PAYMENT;
+SELECT id FROM `RULE` WHERE name='TRN_3RI_DECOUPLED'                         AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3RI_DECOUPLED;
+SELECT id FROM `RULE` WHERE name='TRN_MOTO'                                  AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3RI_MOTO;
+SELECT id FROM `RULE` WHERE name='TRN_WHITELIST'                             AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3RI_WHITELIST;
+SELECT id FROM `RULE` WHERE name='TRN_MAIN_CARD_INFO' 						 AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3RI_CARDINFO;
+SELECT id FROM `RULE` WHERE name='TRN_ACCOUNT_VERIFICATION'                  AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_ACCOUNT_VERIFICATION;
+SELECT id FROM `RULE` WHERE name='TRN_TOP_UP'                                AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_TOP_UP;
+SELECT id FROM `RULE` WHERE name='TRN_ADD_CARD'                              AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3RI_ADD_CARD_RULE;
+SELECT id FROM `RULE` WHERE name='TRN_OTHER_PAYMENT'                         AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3RI_PAYMENT_RULE;
+    {%- else %}
+SELECT id FROM `RULE` WHERE name='TRN_3RI_REC_PAYMENT'                       AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3RI_REC_PAYMENT;
+SELECT id FROM `RULE` WHERE name='TRN_3RI_INS_PAYMENT'                       AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3RI_INS_PAYMENT;
+SELECT id FROM `RULE` WHERE name='TRN_3RI_DECOUPLED'                         AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3RI_DECOUPLED;
+SELECT id FROM `RULE` WHERE name='TRN_3RI_MOTO_NO_DECOUPLED'                 AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3RI_MOTO;
+SELECT id FROM `RULE` WHERE name='TRN_3RI_WHITELIST'                         AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3RI_WHITELIST;
+SELECT id FROM `RULE` WHERE name='TRN_3RI_CARDINFO' 						 AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3RI_CARDINFO;
+SELECT id FROM `RULE` WHERE name='TRN_ACCOUNT_VERIFICATION'                  AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_ACCOUNT_VERIFICATION;
+SELECT id FROM `RULE` WHERE name='TRN_TOP_UP'                                AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_TOP_UP;
+SELECT id FROM `RULE` WHERE name='TRN_3RI_ADD_CARD_RULE'                     AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3RI_ADD_CARD_RULE;
+SELECT id FROM `RULE` WHERE name='TRN_3RI_PAYMENT_RULE'                      AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3RI_PAYMENT_RULE;
+    {%- endif %}
+{%- endif %}
+SELECT id FROM `RULE` WHERE name='DEFAULT_AUTHENT'                           AND rule_set_id = @rule_set_id ORDER BY id DESC LIMIT 1 INTO @rule_id_rs_3DS2_EEA_DEFAULT_AUTHENT;
+
+-- -------- RULE CONDITION -------- --
+INSERT INTO `RULE_CONDITION` (rule_id, name, created_time, updated_time, deleted_time) VALUES
+{%- if ruleset.options.id_v is defined %}
+(@rule_id_rs_3DS2_EEA_TRN_IDV                                  , 'C0_ID&V'                        ,  now(), NULL, NULL),
+{%- endif %}
+{%- if ruleset.options.acquirerExemption is defined %}
+(@rule_id_rs_3DS2_EEA_TRN_FIRST_REC_PAYMENT                    , 'C0_FIRST_REC_PAYMENT'           ,  now(), NULL, NULL),
+(@rule_id_rs_3DS2_EEA_TRN_SUB_REC_PAYMENT                      , 'C0_SUB_REC_PAYMENT'             ,  now(), NULL, NULL),
+(@rule_id_rs_3DS2_EEA_TRN_FIRST_INS_PAYMENT                    , 'C0_FIRST_INS_PAYMENT'           ,  now(), NULL, NULL),
+(@rule_id_rs_3DS2_EEA_TRN_SUB_INS_PAYMENT                      , 'C0_SUB_INS_PAYMENT'             ,  now(), NULL, NULL),
+(@rule_id_rs_3DS2_EEA_TRN_ACQ_EXEMPTION                        , 'C0_ACQ_EXEMPTION'               ,  now(), NULL, NULL),
+(@rule_id_rs_3DS2_EEA_TRN_SEC_CORPORATE                        , 'C0_SEC_CORPORATE'               ,  now(), NULL, NULL),
+(@rule_id_rs_3DS2_EEA_TRN_ACQ_SCA_REQ                          , 'C0_ACQ_SCA_REQ'                 ,  now(), NULL, NULL),
+{%- endif %}
+{%- if ruleset.options.standard3DS2 is defined %}
+(@rule_id_rs_3DS2_EEA_TRN_MAX_LOW_VALUE                        , 'C0_FRICTIONLESS_AMOUNT_MAX'     ,  now(), NULL, NULL),
+(@rule_id_rs_3DS2_EEA_TRN_SUM_LOW_VALUE                        , 'C0_FRICTIONLESS_AMOUNT_SUM'     ,  now(), NULL, NULL),
+(@rule_id_rs_3DS2_EEA_TRN_HIGH_VALUE                           , 'C0_SCA_AMOUNT'                  ,  now(), NULL, NULL),
+{%- endif %}
+{%- if ruleset.options.standard3DS2 is defined or ruleset.options.standard3DS2NonEEA is defined %}
+(@rule_id_rs_3DS2_EEA_TRN_SCORING_LOW_VALUE                    , 'C1_SCA_SCORE'                   ,  now(), NULL, NULL),
+(@rule_id_rs_3DS2_EEA_TRN_SCORING_HIGH_VALUE                   , 'C1_SCA_SCORE'                   ,  now(), NULL, NULL),
+(@rule_id_rs_3DS2_EEA_TRN_SCORING_MID_VALUE                    , 'C1_SCA_SCORE'                   ,  now(), NULL, NULL),
+{%- endif %}
+{%- if ruleset.options.standard3DS2 is defined %}
+(@rule_id_rs_3DS2_EEA_DEFAULT_LOW_VALUE                        , 'C0_FRICTIONLESS_AMOUNT'         ,  now(), NULL, NULL),
+{%- endif %}
+{%- if ruleset.options.trustedBeneficiary is defined and subissuer.trustedbeneficiaries_active == '1' %}
+(@rule_id_rs_3DS2_EEA_TRN_ENROLL_TRUSTED_BENEFICIARY_ACS       , 'C0_ENROLL_TRUSTED_MERCHANT_ACS' ,  now(), NULL, NULL),
+(@rule_id_rs_3DS2_EEA_TRN_TRUSTED_BENEFICIARY_ACS              , 'C0_TRUSTED_MERCHANT_ACS'        ,  now(), NULL, NULL),
+(@rule_id_rs_3DS2_EEA_TRN_ENROLL_TRUSTED_BENEFICIARY_3DS_SERVER, 'C0_ENROLL_TRUSTED_MERCHANT_3DS' ,  now(), NULL, NULL),
+(@rule_id_rs_3DS2_EEA_TRN_TRUSTED_BENEFICIARY_3DS_SERVER       , 'C0_TRUSTED_MERCHANT_3DS'        ,  now(), NULL, NULL),
+{%- endif %}
+{%- if ruleset.options.standard3RI is defined %}
+    {%- if ruleset.card_scheme is defined and ruleset.card_scheme == 'VISA' %}
+(@rule_id_rs_3RI_DECOUPLED                                     , 'C0_3RI_DECOUPLED'               ,  now(), NULL, NULL),
+(@rule_id_rs_3RI_REC_PAYMENT                                   , 'C0_REC_PAYMENT'                 ,  now(), NULL, NULL),
+(@rule_id_rs_3RI_INS_PAYMENT                                   , 'C0_INS_PAYMENT'                 ,  now(), NULL, NULL),
+(@rule_id_rs_3RI_ADD_CARD_RULE                                 , 'C0_ADD_CARD'                    ,  now(), NULL, NULL),
+(@rule_id_rs_3RI_CARDINFO                                      , 'C0_MAIN_CARD_INFO'              ,  now(), NULL, NULL),
+(@rule_id_rs_ACCOUNT_VERIFICATION                              , 'C0_ACCOUNT_VERIFICATION'        ,  now(), NULL, NULL),
+(@rule_id_rs_TOP_UP                                            , 'C0_TOP_UP'                      ,  now(), NULL, NULL),
+(@rule_id_rs_3RI_MOTO                                          , 'C0_MOTO_MO'                     ,  now(), NULL, NULL),
+(@rule_id_rs_3RI_MOTO                                          , 'C1_MOTO_TO'                     ,  now(), NULL, NULL),
+(@rule_id_rs_3RI_WHITELIST                                     , 'C0_WHITELIST'                   ,  now(), NULL, NULL),
+(@rule_id_rs_3RI_PAYMENT_RULE                                  , 'C0_OTHER_PAYMENT'               ,  now(), NULL, NULL),
+    {%- else %}
+(@rule_id_rs_3RI_DECOUPLED                                     , 'C0_3RI_DECOUPLED'               ,  now(), NULL, NULL),
+(@rule_id_rs_3RI_REC_PAYMENT                                   , 'C0_3RI_REC_PAYMENT'             ,  now(), NULL, NULL),
+(@rule_id_rs_3RI_INS_PAYMENT                                   , 'C0_3RI_INS_PAYMENT'             ,  now(), NULL, NULL),
+(@rule_id_rs_3RI_ADD_CARD_RULE                                 , 'C0_3RI_ADD_CARD_RULE'           ,  now(), NULL, NULL),
+(@rule_id_rs_3RI_CARDINFO                                      , 'C0_3RI_CARDINFO'                ,  now(), NULL, NULL),
+(@rule_id_rs_ACCOUNT_VERIFICATION                              , 'C0_ACCOUNT_VERIFICATION'        ,  now(), NULL, NULL),
+(@rule_id_rs_TOP_UP                                            , 'C0_TOP_UP'                      ,  now(), NULL, NULL),
+(@rule_id_rs_3RI_MOTO                                          , 'C0_MOTO_MO'                     ,  now(), NULL, NULL),
+(@rule_id_rs_3RI_MOTO                                          , 'C1_MOTO_TO'                     ,  now(), NULL, NULL),
+(@rule_id_rs_3RI_WHITELIST                                     , 'C0_3RI_WHITELIST'               ,  now(), NULL, NULL),
+(@rule_id_rs_3RI_PAYMENT_RULE                                  , 'C0_3RI_PAYMENT_RULE'            ,  now(), NULL, NULL),
+    {%- endif %}
+{%- endif %}
+(@rule_id_rs_3DS2_EEA_DEFAULT_AUTHENT                          , 'C0_DEFAULT_AUTHENT'             ,  now(), NULL, NULL);
+
+-- Get the Rule Conditions ids.
+{%- if ruleset.options.id_v is defined %}
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_IDV ORDER BY id DESC LIMIT 1 INTO @rule_condition_1_id;
+{%- endif %}
+{%- if ruleset.options.acquirerExemption is defined %}
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_FIRST_REC_PAYMENT ORDER BY id DESC LIMIT 1 INTO @rule_condition_2_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_SUB_REC_PAYMENT ORDER BY id DESC LIMIT 1 INTO @rule_condition_3_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_FIRST_INS_PAYMENT ORDER BY id DESC LIMIT 1 INTO @rule_condition_4_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_SUB_INS_PAYMENT ORDER BY id DESC LIMIT 1 INTO @rule_condition_5_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_ACQ_EXEMPTION ORDER BY id DESC LIMIT 1 INTO @rule_condition_6_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_SEC_CORPORATE ORDER BY id DESC LIMIT 1 INTO @rule_condition_7_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_ACQ_SCA_REQ ORDER BY id DESC LIMIT 1 INTO @rule_condition_8_id;
+{%- endif %}
+{%- if ruleset.options.standard3DS2 is defined %}
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_MAX_LOW_VALUE  ORDER BY id DESC LIMIT 1 INTO @rule_condition_9_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_SUM_LOW_VALUE ORDER BY id DESC LIMIT 1 INTO @rule_condition_10_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_HIGH_VALUE ORDER BY id DESC LIMIT 1 INTO @rule_condition_11_id;
+{%- endif %}
+{%- if ruleset.options.standard3DS2 is defined or ruleset.options.standard3DS2NonEEA is defined %}
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_SCORING_LOW_VALUE ORDER BY id DESC LIMIT 1 INTO @rule_condition_12_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_SCORING_HIGH_VALUE ORDER BY id DESC LIMIT 1 INTO @rule_condition_13_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_SCORING_MID_VALUE ORDER BY id DESC LIMIT 1 INTO @rule_condition_14_id;
+{%- endif %}
+{%- if ruleset.options.standard3DS2 is defined %}
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_DEFAULT_LOW_VALUE ORDER BY id DESC LIMIT 1 INTO @rule_condition_15_id;
+{%- endif %}
+{%- if ruleset.options.trustedBeneficiary is defined and subissuer.trustedbeneficiaries_active == '1' %}
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_ENROLL_TRUSTED_BENEFICIARY_ACS ORDER BY id DESC LIMIT 1 INTO @rule_condition_16_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_TRUSTED_BENEFICIARY_ACS ORDER BY id DESC LIMIT 1 INTO @rule_condition_17_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_ENROLL_TRUSTED_BENEFICIARY_3DS_SERVER ORDER BY id DESC LIMIT 1 INTO @rule_condition_18_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_TRN_TRUSTED_BENEFICIARY_3DS_SERVER  ORDER BY id DESC LIMIT 1 INTO @rule_condition_19_id;
+{%- endif %}
+{%- if ruleset.options.standard3RI is defined %}
+    {%- if ruleset.card_scheme is defined and ruleset.card_scheme == 'VISA' %}
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_REC_PAYMENT AND name = 'C0_REC_PAYMENT' ORDER BY id DESC LIMIT 1 INTO @rule_condition_20_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_INS_PAYMENT AND name = 'C0_INS_PAYMENT' ORDER BY id DESC LIMIT 1 INTO @rule_condition_21_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_DECOUPLED AND name = 'C0_3RI_DECOUPLED' ORDER BY id DESC LIMIT 1 INTO @rule_condition_22_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_MOTO AND name = 'C0_MOTO_MO' ORDER BY id DESC LIMIT 1 INTO @rule_condition_23_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_MOTO AND name = 'C1_MOTO_TO' ORDER BY id DESC LIMIT 1 INTO @rule_condition_23_2_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_WHITELIST AND name = 'C0_WHITELIST' ORDER BY id DESC LIMIT 1 INTO @rule_condition_24_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_CARDINFO AND name = 'C0_MAIN_CARD_INFO' ORDER BY id DESC LIMIT 1 INTO @rule_condition_25_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_ACCOUNT_VERIFICATION AND name = 'C0_ACCOUNT_VERIFICATION' ORDER BY id DESC LIMIT 1 INTO @rule_condition_26_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_TOP_UP AND name = 'C0_TOP_UP' ORDER BY id DESC LIMIT 1 INTO @rule_condition_27_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_ADD_CARD_RULE AND name = 'C0_ADD_CARD' ORDER BY id DESC LIMIT 1 INTO @rule_condition_28_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_PAYMENT_RULE AND name = 'C0_OTHER_PAYMENT' ORDER BY id DESC LIMIT 1 INTO @rule_condition_29_id;
+    {%- else %}
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_REC_PAYMENT AND name = 'C0_3RI_REC_PAYMENT' ORDER BY id DESC LIMIT 1 INTO @rule_condition_20_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_INS_PAYMENT AND name = 'C0_3RI_INS_PAYMENT' ORDER BY id DESC LIMIT 1 INTO @rule_condition_21_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_DECOUPLED AND name = 'C0_3RI_DECOUPLED' ORDER BY id DESC LIMIT 1 INTO @rule_condition_22_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_MOTO AND name = 'C0_MOTO_MO' ORDER BY id DESC LIMIT 1 INTO @rule_condition_23_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_MOTO AND name = 'C1_MOTO_TO' ORDER BY id DESC LIMIT 1 INTO @rule_condition_23_2_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_WHITELIST AND name = 'C0_3RI_WHITELIST' ORDER BY id DESC LIMIT 1 INTO @rule_condition_24_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_CARDINFO AND name = 'C0_3RI_CARDINFO' ORDER BY id DESC LIMIT 1 INTO @rule_condition_25_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_ACCOUNT_VERIFICATION AND name = 'C0_ACCOUNT_VERIFICATION' ORDER BY id DESC LIMIT 1 INTO @rule_condition_26_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_TOP_UP AND name = 'C0_TOP_UP' ORDER BY id DESC LIMIT 1 INTO @rule_condition_27_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_ADD_CARD_RULE AND name = 'C0_3RI_ADD_CARD_RULE' ORDER BY id DESC LIMIT 1 INTO @rule_condition_28_id;
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3RI_PAYMENT_RULE AND name = 'C0_3RI_PAYMENT_RULE' ORDER BY id DESC LIMIT 1 INTO @rule_condition_29_id;
+    {%- endif %}
+{%- endif %}
+SELECT id FROM `RULE_CONDITION` WHERE rule_id = @rule_id_rs_3DS2_EEA_DEFAULT_AUTHENT ORDER BY id DESC LIMIT 1 INTO @rule_condition_30_id;
+
+-- -------- OPERAND_VALUE TABLE -------- --
+INSERT INTO `OPERAND_VALUE`(`label`,`value`,`rule_set_id`) VALUES
+{%- if ruleset.options.id_v is defined or (ruleset.options.standard3RI is defined and ruleset.card_scheme is not defined)%}
+('02 (MESSAGE_CATEGORY)'        , 2     , @rule_set_id),
+{%- endif %}
+{%- if ruleset.options.id_v is defined %}
+('06 (AUTHENTICATION_INDICATOR)', 6     , @rule_set_id),
+{%- endif %}
+('True value'                   , 1     , @rule_set_id),
+{%- if ruleset.options.standard3DS2 is defined %}
+('MAX_FRICT'                    , {{ruleset.params.MAX_FRICT}}     , @rule_set_id),
+('SUM_FRICT'                    , {{ruleset.params.SUM_FRICT}} , @rule_set_id),
+{%- endif %}
+{%- if ruleset.options.standard3DS2 is defined or ruleset.options.standard3DS2NonEEA is defined %}
+('ETV'                          , {{ruleset.params.ETV}} , @rule_set_id),
+('LV'                           , {{ruleset.params.LV}}  , @rule_set_id),
+('LOW_SCORE'                    , {{ruleset.params.LOW_SCORE}}    , @rule_set_id),
+('HIGH_SCORE'                   , {{ruleset.params.HIGH_SCORE}}    , @rule_set_id),
+{%- endif %}
+{%- if ruleset.options.trustedBeneficiary is defined and subissuer.trustedbeneficiaries_active == '1' %}
+('01 (WHITELIST_STATUS_SOURCE)' , 1     , @rule_set_id),
+('08 (3DS_CHALLENGE_IND)'       , 8     , @rule_set_id),
+('09 (3DS_CHALLENGE_IND)'       , 9     , @rule_set_id),
+('TML_ACS_THRESHOLD'            , {{ruleset.params.TML_ACS_THRESHOLD}}     , @rule_set_id),
+('TML_3DS_SERVER_THRESHOLD'     , {{ruleset.params.TML_3DS_SERVER_THRESHOLD}}    , @rule_set_id),
+{%- endif %}
+{%- if ruleset.options.standard3RI is defined %}
+('1 (3RI IND)'                  , 1     , @rule_set_id),
+('2 (3RI IND)'                  , 2     , @rule_set_id),
+('3 (3RI IND)'                  , 3     , @rule_set_id),
+('4 (3RI IND)'                  , 4     , @rule_set_id),
+('5 (3RI IND)'                  , 5     , @rule_set_id),
+('7 (3RI IND)'                  , 7     , @rule_set_id),
+('8 (3RI IND)'                  , 8     , @rule_set_id),
+('9 (3RI IND)'                  , 9     , @rule_set_id),
+('10 (3RI IND)'                 ,10     , @rule_set_id),
+('11 (3RI IND)'                 ,11     , @rule_set_id),
+    {%- if ruleset.card_scheme is defined and ruleset.card_scheme == 'MASTERCARD' %}
+('80 (TRUST_AMOUNT)'            ,80     , @rule_set_id),
+    {%- elif ruleset.card_scheme is not defined or ruleset.card_scheme != 'VISA'%}
+('01 (MESSAGE_CATEGORY)'        , 1     , @rule_set_id),
+    {%- endif %}
+{%- endif %}
+('DEFAULT'                      , 0     , @rule_set_id);
+-- -------- OPERAND TABLE -------- --
+INSERT INTO `OPERAND` (condition_id, name, type, operand_value_label, reversed, created_time, updated_time, deleted_time)
+ VALUES
+{%- if ruleset.options.id_v is defined %}
+(@rule_condition_1_id, 'MESSAGE_CATEGORY'              , 'EQUALS'        , '02 (MESSAGE_CATEGORY)', 0, now(), NULL, NULL),
+(@rule_condition_1_id, 'AUTHENTICATION_INDICATOR'      , 'EQUALS'        , '06 (AUTHENTICATION_INDICATOR)', 0, now(), NULL, NULL),
+{%- endif %}
+{%- if ruleset.options.acquirerExemption is defined %}
+(@rule_condition_2_id, 'FIRST_RECURRING'               , 'STATUS'        , 'True value'     , 0  , now(), NULL, NULL),
+(@rule_condition_3_id, 'RECURRING'                     , 'STATUS'        , 'True value'     , 0  , now(), NULL, NULL),
+(@rule_condition_4_id, 'FIRST_INSTALMENT'              , 'STATUS'        , 'True value'     , 0  , now(), NULL, NULL),
+(@rule_condition_5_id, 'INSTALMENT'                    , 'STATUS'        , 'True value'     , 0  , now(), NULL, NULL),
+(@rule_condition_6_id, 'ACQ_EXEMPTION'                 , 'STATUS'        , 'True value'     , 0  , now(), NULL, NULL),
+(@rule_condition_7_id, 'SEC_CORPORATE'                 , 'STATUS'        , 'True value'     , 0  , now(), NULL, NULL),
+(@rule_condition_8_id, 'ACQ_SCA_REQ'                   , 'STATUS'        , 'True value'     , 0  , now(), NULL, NULL),
+{%- endif %}
+{%- if ruleset.options.standard3DS2 is defined %}
+(@rule_condition_9_id, 'THRESHOLD_AMOUNT'              , 'STRICTLY_ABOVE', 'LV'             , 1  , now(), NULL, NULL),
+(@rule_condition_9_id, 'FRICTIONLESS_TRN_COUNT'        , 'STRICTLY_UNDER', 'MAX_FRICT'      , 0  , now(), NULL, NULL),
+(@rule_condition_10_id, 'THRESHOLD_AMOUNT'             , 'STRICTLY_ABOVE', 'LV'             , 1  , now(), NULL, NULL),
+(@rule_condition_10_id, 'FRICTIONLESS_TRN_TOTAL_AMOUNT', 'STRICTLY_UNDER', 'SUM_FRICT'      , 0  , now(), NULL, NULL),
+(@rule_condition_11_id, 'THRESHOLD_AMOUNT'             , 'STRICTLY_ABOVE', 'ETV'            , 0  , now(), NULL, NULL),
+{%- endif %}
+{%- if ruleset.options.standard3DS2 is defined or ruleset.options.standard3DS2NonEEA is defined %}
+(@rule_condition_12_id, 'THRESHOLD_AMOUNT'             , 'STRICTLY_ABOVE', 'LV'             , 0  , now(), NULL, NULL),
+(@rule_condition_12_id, 'THRESHOLD_AMOUNT'             , 'STRICTLY_ABOVE', 'ETV'            , 1  , now(), NULL, NULL),
+(@rule_condition_12_id, 'THRESHOLD_SCORE'              , 'STRICTLY_ABOVE', 'LOW_SCORE'      , 1  , now(), NULL, NULL),
+(@rule_condition_13_id, 'THRESHOLD_AMOUNT'             , 'STRICTLY_ABOVE', 'LV'             , 0  , now(), NULL, NULL),
+(@rule_condition_13_id, 'THRESHOLD_AMOUNT'             , 'STRICTLY_ABOVE', 'ETV'            , 1  , now(), NULL, NULL),
+(@rule_condition_13_id, 'THRESHOLD_SCORE'              , 'STRICTLY_ABOVE', 'HIGH_SCORE'     , 0  , now(), NULL, NULL),
+(@rule_condition_14_id, 'THRESHOLD_AMOUNT'             , 'STRICTLY_ABOVE', 'LV'             , 0  , now(), NULL, NULL),
+(@rule_condition_14_id, 'THRESHOLD_AMOUNT'             , 'STRICTLY_ABOVE', 'ETV'            , 1  , now(), NULL, NULL),
+(@rule_condition_14_id, 'THRESHOLD_SCORE'              , 'STRICTLY_ABOVE', 'HIGH_SCORE'     , 1  , now(), NULL, NULL),
+(@rule_condition_14_id, 'THRESHOLD_SCORE'              , 'STRICTLY_ABOVE', 'LOW_SCORE'      , 0  , now(), NULL, NULL),
+{%- endif %}
+{%- if ruleset.options.standard3DS2 is defined %}
+(@rule_condition_15_id, 'THRESHOLD_AMOUNT'             , 'STRICTLY_ABOVE', 'LV'             , 1  , now(), NULL, NULL),
+{%- endif %}
+{%- if ruleset.options.trustedBeneficiary is defined and subissuer.trustedbeneficiaries_active == '1' %}
+(@rule_condition_16_id, 'THREE_DS_CHALLENGE_IND'       , 'EQUALS' , '08 (3DS_CHALLENGE_IND)', 1  , now(), NULL, NULL),
+(@rule_condition_16_id, 'THREE_DS_CHALLENGE_IND'       , 'EQUALS' , '09 (3DS_CHALLENGE_IND)', 1  , now(), NULL, NULL),
+(@rule_condition_16_id, 'WHITELIST'                    , 'STATUS'       ,  'True value'     , 1  , now(), NULL, NULL),
+(@rule_condition_16_id, 'THRESHOLD_SCORE'              ,'STRICTLY_ABOVE','TML_ACS_THRESHOLD', 1  , now(), NULL, NULL),
+(@rule_condition_17_id, 'THREE_DS_CHALLENGE_IND'       , 'EQUALS' , '08 (3DS_CHALLENGE_IND)', 1  , now(), NULL, NULL),
+(@rule_condition_17_id, 'THREE_DS_CHALLENGE_IND'       , 'EQUALS' , '09 (3DS_CHALLENGE_IND)', 1  , now(), NULL, NULL),
+(@rule_condition_17_id, 'WHITELIST'                    , 'STATUS'       ,  'True value'     , 0  , now(), NULL, NULL),
+(@rule_condition_17_id, 'THRESHOLD_SCORE'              ,'STRICTLY_ABOVE','TML_ACS_THRESHOLD', 1  , now(), NULL, NULL),
+(@rule_condition_18_id, 'THREE_DS_CHALLENGE_IND'       , 'EQUALS' , '09 (3DS_CHALLENGE_IND)', 0  , now(), NULL, NULL),
+(@rule_condition_18_id, 'WHITELIST'                    , 'STATUS'       , 'True value'      , 1  , now(), NULL, NULL),
+(@rule_condition_18_id, 'WHITELIST_STATUS_SOURCE'      , 'EQUALS','01 (WHITELIST_STATUS_SOURCE)', 0, now(), NULL, NULL),
+(@rule_condition_18_id, 'THRESHOLD_SCORE'              ,'STRICTLY_ABOVE','TML_3DS_SERVER_THRESHOLD', 1, now(), NULL, NULL),
+(@rule_condition_19_id, 'THREE_DS_CHALLENGE_IND'       , 'EQUALS', '08 (3DS_CHALLENGE_IND)' , 0  , now(), NULL, NULL),
+(@rule_condition_19_id, 'WHITELIST'                    , 'STATUS', 'True value', 0, now(), NULL, NULL),
+(@rule_condition_19_id, 'WHITELIST_STATUS_SOURCE'      , 'EQUALS', '01 (WHITELIST_STATUS_SOURCE)', 0, now(), NULL, NULL),
+(@rule_condition_19_id, 'THRESHOLD_SCORE'              , 'STRICTLY_ABOVE','TML_3DS_SERVER_THRESHOLD', 1, now(), NULL, NULL),
+{%- endif %}
+{%- if ruleset.options.standard3RI is defined %}
+    {%- if ruleset.card_scheme is defined and ruleset.card_scheme == 'VISA' %}
+(@rule_condition_20_id, 'THREE_RI_IND'                 , 'EQUALS', '1 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_21_id, 'THREE_RI_IND'                 , 'EQUALS', '2 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_22_id, 'THREE_RI_DECOUPLED'           , 'STATUS', 'True value', 0, now(), NULL, NULL),
+(@rule_condition_23_id, 'THREE_RI_IND'                 , 'EQUALS', '8 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_23_2_id, 'THREE_RI_IND'               , 'EQUALS', '9 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_24_id, 'THREE_RI_WHITELIST'           , 'EQUALS', '10 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_25_id, 'THREE_RI_CARDINFO'            , 'EQUALS', '4 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_26_id, 'THREE_RI_IND'                 , 'EQUALS', '5 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_27_id, 'THREE_RI_IND'                 , 'EQUALS', '7 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_28_id, 'THREE_RI_IND'                 , 'EQUALS', '3 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_29_id, 'THREE_RI_IND'                 , 'EQUALS', '11 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_29_id, 'PRIOR_REFERENCE'              , 'STATUS', 'True value', 0, now(), NULL, NULL),
+(@rule_condition_29_id, 'PRIOR_CURRENCY'               , 'STATUS', 'True value', 0, now(), NULL, NULL),
+(@rule_condition_29_id, 'PRIOR_AMOUNT_EQ'              , 'STATUS', 'True value', 0, now(), NULL, NULL),
+(@rule_condition_29_id, 'PRIOR_AMOUNT_LEQ'             , 'STATUS', 'True value', 0, now(), NULL, NULL),
+(@rule_condition_29_id, 'MERCHANT_MCC'                 , 'STATUS', 'True value', 0, now(), NULL, NULL),
+    {%- elif ruleset.card_scheme is defined and ruleset.card_scheme == 'MASTERCARD' %}
+(@rule_condition_20_id, 'THREE_RI_RECURRING'           , 'STATUS', 'True value', 0, now(), NULL, NULL),
+(@rule_condition_20_id, 'THREE_RI_IND'                 , 'EQUALS', '1 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_21_id, 'THREE_RI_INSTALMENT'          , 'STATUS', 'True value', 0, now(), NULL, NULL),
+(@rule_condition_21_id, 'THREE_RI_IND'                 , 'EQUALS', '2 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_22_id, 'THREE_RI_DECOUPLED'           , 'STATUS', 'True value', 0, now(), NULL, NULL),
+(@rule_condition_23_id, 'THREE_RI_IND'                 , 'EQUALS', '8 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_23_2_id, 'THREE_RI_IND'               , 'EQUALS', '9 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_24_id, 'THREE_RI_WHITELIST'           , 'EQUALS', '10 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_25_id, 'THREE_RI_CARDINFO'            , 'EQUALS', '4 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_26_id, 'THREE_RI_IND'                 , 'EQUALS', '5 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_27_id, 'THREE_RI_IND'                 , 'EQUALS', '7 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_28_id, 'THREE_RI_IND'                 , 'EQUALS', '3 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_29_id, 'THREE_RI_IND'                 , 'EQUALS', '11 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_29_id, 'THRESHOLD_AMOUNT'             , 'STRICTLY_UNDER', '80 (TRUST_AMOUNT)', 1, now(), NULL, NULL),
+    {% else %}
+(@rule_condition_20_id, 'THREE_RI_RECURRING'           , 'STATUS', 'True value', 0, now(), NULL, NULL),
+(@rule_condition_20_id, 'THREE_RI_IND'                 , 'EQUALS', '1 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_21_id, 'THREE_RI_INSTALMENT'          , 'STATUS', 'True value', 0, now(), NULL, NULL),
+(@rule_condition_21_id, 'THREE_RI_IND'                 , 'EQUALS', '2 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_22_id, 'THREE_RI_DECOUPLED'           , 'STATUS', 'True value', 0, now(), NULL, NULL),
+(@rule_condition_23_id, 'THREE_RI_MOTO'                , 'STATUS', 'True value', 0, now(), NULL, NULL),
+(@rule_condition_24_id, 'THREE_RI_WHITELIST'           , 'EQUALS', '10 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_25_id, 'THREE_RI_CARDINFO'            , 'EQUALS', '4 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_26_id, 'THREE_RI_IND'                 , 'EQUALS', '5 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_27_id, 'THREE_RI_IND'                 , 'EQUALS', '7 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_28_id, 'THREE_RI_IND'                 , 'EQUALS', '3 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_28_id, 'MESSAGE_CATEGORY'             , 'EQUALS', '02 (MESSAGE_CATEGORY)', 0, now(), NULL, NULL),
+(@rule_condition_29_id, 'THREE_RI_IND'                 , 'EQUALS', '11 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_29_id, 'MESSAGE_CATEGORY'             , 'EQUALS', '01 (MESSAGE_CATEGORY)', 0, now(), NULL, NULL),
+    {%- endif %}
+{%- endif %}
+(@rule_condition_30_id, 'DEFAULT'                      , 'DEFAULT'       , 'DEFAULT'        , 0  , now(), NULL, NULL);
+
+{% endfor %}
+{%- endfor %}

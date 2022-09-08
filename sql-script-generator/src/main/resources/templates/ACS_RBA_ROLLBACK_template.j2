@@ -35,11 +35,12 @@ WHERE ic.id = @issuerConfigId;
 -- DELETE ruleset {{codeRuleset}}
 -- issuer    : {{issuer}}
 -- subissuer : {{codeSubissuer}}
+-- card_scheme : {{ruleset.card_scheme}}
 -- transaction_type : {{ruleset.transaction_type}}
 -- location : {{ruleset.location}}
 -- device_channel : {{ruleset.device_channel}}
 -- --------------------------------------------
-SELECT id FROM RULE_SET WHERE issuer = @issuer AND subIssuer {{equalOrNULL(codeSubissuer)}} AND service = @service AND transaction_type {{equalOrNULL(ruleset.transaction_type)}} AND device_channel {{equalOrNULL(ruleset.device_channel)}} AND location {{equalOrNULL(ruleset.location)}} ORDER BY id DESC LIMIT 1 INTO @rule_set_id;
+SELECT id FROM RULE_SET WHERE issuer = @issuer AND subIssuer {{equalOrNULL(codeSubissuer)}} AND service = @service AND transaction_type {{equalOrNULL(ruleset.transaction_type)}} AND card_scheme {{equalOrNULL(ruleset.card_scheme)}} AND device_channel {{equalOrNULL(ruleset.device_channel)}} AND location {{equalOrNULL(ruleset.location)}} ORDER BY id DESC LIMIT 1 INTO @rule_set_id;
 
 DELETE ov
 FROM OPERAND_VALUE ov

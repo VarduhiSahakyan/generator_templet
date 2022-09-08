@@ -1,6 +1,6 @@
 { 
   "service" : "ACS_U5G",
-  "issuer" : 50000,
+  "issuer" : 10000,
   "subissuer" : "",
   "propACS_BO_BinRange": {
     "bin1":{
