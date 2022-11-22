@@ -1,0 +1,3 @@
+USE U5G_ACS_BO;
+
+SELECT * FROM CustomItem WHERE name IS NULL;

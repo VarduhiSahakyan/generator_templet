@@ -3,7 +3,7 @@
 USE `U7G_ACS_BO`;
 
 SET @createdBy ='A709391';
-SET @BankB = 'SQN';
+SET @BankB = 'SQB';
 SET @Banklb = LOWER(@BankB);
 SET @IssuerCode = '00601';
 SET @SubIssuerCode = '00601';

@@ -10,7 +10,6 @@ SET @SubIssuerCodeA = '00601';
 SET @Role1 = 'Swissquote Admin';
 SET @Role2 = 'Swissquote Helpdesk';
 
-START TRANSACTION;
 
 SET FOREIGN_KEY_CHECKS = 0;
 -- 1. Remove Role-Permission
@@ -39,4 +38,3 @@ FROM Customer
 WHERE find_in_set(id, @customer_ids);
 
 SET FOREIGN_KEY_CHECKS = 1;
-COMMIT;
