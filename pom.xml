@@ -21,7 +21,6 @@
         <module>acs-delivery-artifacts</module>
         <!--<module>acs-delivery-scripts</module>-->
         <module>sql-script-generator</module>
-        <module>template-generator-maven-plugin</module>
     </modules>
     
 	<url>
