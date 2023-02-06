@@ -54,8 +54,23 @@ ON DUPLICATE KEY UPDATE
 `score_service_url`='{{subissuer.scoring_provider.score_service_url}}',
 `advice_service_url`='{{subissuer.scoring_provider.advice_service_url}}',
 `bypass_npa`=0;
+{%- elif subissuer.trustedbeneficiaries_active is defined  or subissuer.eligible_merchant_active is defined  %}
+-- -------- UPDATE ISSUER_CONFIG TABLE -------- --
+UPDATE `ISSUER_CONFIG`
+SET 
+{% if subissuer.trustedbeneficiaries_active is defined and subissuer.eligible_merchant_active is defined %}
+trustedbeneficiaries_active = {{subissuer.trustedbeneficiaries_active}},
+eligible_merchant_active = {{subissuer.eligible_merchant_active}}
+{% elif subissuer.trustedbeneficiaries_active is defined %}
+trustedbeneficiaries_active = {{subissuer.trustedbeneficiaries_active}}
+{% else %}
+eligible_merchant_active = {{subissuer.eligible_merchant_active}}
+{% endif %}
+WHERE service = @service
+AND issuer = @issuer
+AND sub_issuer =  @subIssuer;
 {%- endif %}
-
+SELECT count(*) as countRulesetBeforeInsert FROM RULE_SET;
 {%- for codeRuleset,ruleset in subissuer.rulesets.items() %}
 -- ---------------------------------
 -- RULESET {{codeRuleset}}
@@ -94,10 +109,10 @@ INSERT INTO `RULE` (rule_set_id, name, ordinal, active, auth_type, reason_type, 
 (@rule_set_id, 'DEFAULT_LOW_VALUE'      ,           {{ordinal}}  , {{ isActive(ruleset.options.standard3DS2) }}   , 'SCA'          ,'MAX_FRICTIONLESS' ,   now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
 {%- endif %}
 {%- if ruleset.options.trustedBeneficiary is defined and subissuer.trustedbeneficiaries_active == '1' %}
-(@rule_set_id, 'TRN_ENROLL_TRUSTED_BENEFICIARY_ACS',{{ordinal}}  , {{ isActive(ruleset.options.trustedBeneficiary) }}   , 'SCA'         ,'SCA_TRUSTED_BENEF_ACS',now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
-(@rule_set_id, 'TRN_TRUSTED_BENEFICIARY_ACS'       ,{{ordinal}}  , {{ isActive(ruleset.options.trustedBeneficiary) }}   , 'SCA','FRICTIONLESS_TRUSTED_BENEF_ACS',now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_TRUSTED_BENEFICIARY_3DS_SERVER',{{ordinal}}  , {{ isActive(ruleset.options.trustedBeneficiary) }}   , 'FRICTIONLESS','FRICTIONLESS_TRUSTED_BENEF_3DSSERVER',now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_TRUSTED_BENEFICIARY_ACS'       ,{{ordinal}}  , {{ isActive(ruleset.options.trustedBeneficiary) }}   , 'FRICTIONLESS','FRICTIONLESS_TRUSTED_BENEF_ACS',now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
 (@rule_set_id, 'TRN_ENROLL_TRUSTED_BENEFICIARY_3DS_SERVER',{{ordinal}},{{ isActive(ruleset.options.trustedBeneficiary) }},'SCA','SCA_TRUSTED_BENEF_3DSSERVER'  ,now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
-(@rule_set_id, 'TRN_TRUSTED_BENEFICIARY_3DS_SERVER',{{ordinal}}  , {{ isActive(ruleset.options.trustedBeneficiary) }}   , 'SCA','FRICTIONLESS_TRUSTED_BENEF_3DSSERVER',now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_ENROLL_TRUSTED_BENEFICIARY_ACS',{{ordinal}}  , {{ isActive(ruleset.options.trustedBeneficiary) }}   , 'SCA'         ,'SCA_TRUSTED_BENEF_ACS',now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
 {%- endif %}
 {%- if ruleset.options.standard3RI is defined %}
     {%- if ruleset.card_scheme is defined and ruleset.card_scheme == 'VISA' %}
@@ -111,7 +126,7 @@ INSERT INTO `RULE` (rule_set_id, name, ordinal, active, auth_type, reason_type, 
 (@rule_set_id, 'TRN_TOP_UP'                        ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'DECLINE'     , 'THREE_RI_NOT_SUPPORTED'  ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
 (@rule_set_id, 'TRN_MOTO'                          ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'DECLINE'     , 'THREE_RI_NOT_SUPPORTED'      ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
 (@rule_set_id, 'TRN_WHITELIST'                     ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'DECLINE'     , 'THREE_RI_NOT_SUPPORTED' ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
-(@rule_set_id, 'TRN_OTHER_PAYMENT'                 ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_PAYMENT'   ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_OTHER_PAYMENT'                 ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_SPLIT_TRN'   ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
     {%- elif ruleset.card_scheme is defined and ruleset.card_scheme == 'MASTERCARD' %}
 (@rule_set_id, 'TRN_3RI_DECOUPLED'                 ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'SCA'         , 'THREE_RI_DECOUPLED' ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
 (@rule_set_id, 'TRN_3RI_REC_PAYMENT'               ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_RECURRING' ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
@@ -123,7 +138,7 @@ INSERT INTO `RULE` (rule_set_id, name, ordinal, active, auth_type, reason_type, 
 (@rule_set_id, 'TRN_TOP_UP'                        ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'DECLINE'     , 'THREE_RI_NOT_SUPPORTED',  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
 (@rule_set_id, 'TRN_3RI_MOTO_NO_DECOUPLED'         ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_MOTO'      ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
 (@rule_set_id, 'TRN_3RI_WHITELIST'                 ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_WHITELIST' ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
-(@rule_set_id, 'TRN_3RI_PAYMENT_RULE'              ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_PAYMENT'   ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
+(@rule_set_id, 'TRN_3RI_PAYMENT_RULE'              ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_SPLIT_TRN'   ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
     {%- else %}
 (@rule_set_id, 'TRN_3RI_REC_PAYMENT'               ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_RECURRING' ,  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
 (@rule_set_id, 'TRN_3RI_INS_PAYMENT'               ,{{ordinal}}  , {{ isActive(ruleset.options.standard3RI) }}, 'FRICTIONLESS', 'THREE_RI_INSTALMENT',  now(), NULL, NULL),{% set ordinal = ordinal + 1 %}
@@ -377,8 +392,8 @@ INSERT INTO `OPERAND_VALUE`(`label`,`value`,`rule_set_id`) VALUES
 ('SUM_FRICT'                    , {{ruleset.params.SUM_FRICT}} , @rule_set_id),
 {%- endif %}
 {%- if ruleset.options.standard3DS2 is defined or ruleset.options.standard3DS2NonEEA is defined %}
-('ETV'                          , {{ruleset.params.ETV}} , @rule_set_id),
-('LV'                           , {{ruleset.params.LV}}  , @rule_set_id),
+{% if ruleset.params.ETV is defined  %}('ETV'                          , {{ruleset.params.ETV}} , @rule_set_id),{%- endif %}
+{% if ruleset.params.LV is defined  %}('LV'                           , {{ruleset.params.LV}}  , @rule_set_id),{%- endif %}
 ('LOW_SCORE'                    , {{ruleset.params.LOW_SCORE}}    , @rule_set_id),
 ('HIGH_SCORE'                   , {{ruleset.params.HIGH_SCORE}}    , @rule_set_id),
 {%- endif %}
@@ -456,18 +471,22 @@ INSERT INTO `OPERAND` (condition_id, name, type, operand_value_label, reversed, 
 (@rule_condition_16_id, 'THREE_DS_CHALLENGE_IND'       , 'EQUALS' , '09 (3DS_CHALLENGE_IND)', 1  , now(), NULL, NULL),
 (@rule_condition_16_id, 'WHITELIST'                    , 'STATUS'       ,  'True value'     , 1  , now(), NULL, NULL),
 (@rule_condition_16_id, 'THRESHOLD_SCORE'              ,'STRICTLY_ABOVE','TML_ACS_THRESHOLD', 1  , now(), NULL, NULL),
+(@rule_condition_16_id, 'MERCHANT_TRUSTED_BENEFICIARIES_ACS', 'STATUS'       , 'True value'      , 0  , now(), NULL, NULL),
 (@rule_condition_17_id, 'THREE_DS_CHALLENGE_IND'       , 'EQUALS' , '08 (3DS_CHALLENGE_IND)', 1  , now(), NULL, NULL),
 (@rule_condition_17_id, 'THREE_DS_CHALLENGE_IND'       , 'EQUALS' , '09 (3DS_CHALLENGE_IND)', 1  , now(), NULL, NULL),
 (@rule_condition_17_id, 'WHITELIST'                    , 'STATUS'       ,  'True value'     , 0  , now(), NULL, NULL),
 (@rule_condition_17_id, 'THRESHOLD_SCORE'              ,'STRICTLY_ABOVE','TML_ACS_THRESHOLD', 1  , now(), NULL, NULL),
+(@rule_condition_17_id, 'MERCHANT_TRUSTED_BENEFICIARIES_ACS', 'STATUS'       , 'True value'      , 0  , now(), NULL, NULL),
 (@rule_condition_18_id, 'THREE_DS_CHALLENGE_IND'       , 'EQUALS' , '09 (3DS_CHALLENGE_IND)', 0  , now(), NULL, NULL),
 (@rule_condition_18_id, 'WHITELIST'                    , 'STATUS'       , 'True value'      , 1  , now(), NULL, NULL),
 (@rule_condition_18_id, 'WHITELIST_STATUS_SOURCE'      , 'EQUALS','01 (WHITELIST_STATUS_SOURCE)', 0, now(), NULL, NULL),
 (@rule_condition_18_id, 'THRESHOLD_SCORE'              ,'STRICTLY_ABOVE','TML_3DS_SERVER_THRESHOLD', 1, now(), NULL, NULL),
+(@rule_condition_18_id, 'MERCHANT_TRUSTED_BENEFICIARIES_3DS_SERVER', 'STATUS'       , 'True value'      , 0  , now(), NULL, NULL),
 (@rule_condition_19_id, 'THREE_DS_CHALLENGE_IND'       , 'EQUALS', '08 (3DS_CHALLENGE_IND)' , 0  , now(), NULL, NULL),
 (@rule_condition_19_id, 'WHITELIST'                    , 'STATUS', 'True value', 0, now(), NULL, NULL),
 (@rule_condition_19_id, 'WHITELIST_STATUS_SOURCE'      , 'EQUALS', '01 (WHITELIST_STATUS_SOURCE)', 0, now(), NULL, NULL),
 (@rule_condition_19_id, 'THRESHOLD_SCORE'              , 'STRICTLY_ABOVE','TML_3DS_SERVER_THRESHOLD', 1, now(), NULL, NULL),
+(@rule_condition_19_id, 'MERCHANT_TRUSTED_BENEFICIARIES_3DS_SERVER', 'STATUS'       , 'True value'      , 0  , now(), NULL, NULL),
 {%- endif %}
 {%- if ruleset.options.standard3RI is defined %}
     {%- if ruleset.card_scheme is defined and ruleset.card_scheme == 'VISA' %}
@@ -483,18 +502,14 @@ INSERT INTO `OPERAND` (condition_id, name, type, operand_value_label, reversed, 
 (@rule_condition_28_id, 'THREE_RI_IND'                 , 'EQUALS', '3 (3RI IND)', 0, now(), NULL, NULL),
 (@rule_condition_29_id, 'THREE_RI_IND'                 , 'EQUALS', '11 (3RI IND)', 0, now(), NULL, NULL),
 (@rule_condition_29_id, 'PROTOCOL_VERSION'             , 'STRICTLY_UNDER', '2.2 (PROTOCOL_VERSION)', 1, now(), NULL, NULL),
-(@rule_condition_29_id, 'PRIOR_REFERENCE'              , 'STATUS', 'True value', 0, now(), NULL, NULL),
-(@rule_condition_29_id, 'PRIOR_CURRENCY'               , 'STATUS', 'True value', 0, now(), NULL, NULL),
-(@rule_condition_29_id, 'PRIOR_AMOUNT_LEQ'             , 'STATUS', 'True value', 0, now(), NULL, NULL),
+(@rule_condition_29_id, 'SPLIT_TRN_STATUS'           , 'STATUS', 'True value', 0, now(), NULL, NULL),
 (@rule_condition_29_2_id, 'THREE_RI_IND'               , 'EQUALS', '80 (3RI IND)', 0, now(), NULL, NULL),
 (@rule_condition_29_2_id, 'PROTOCOL_VERSION'           , 'STRICTLY_UNDER', '2.1 (PROTOCOL_VERSION)', 1, now(), NULL, NULL),
 (@rule_condition_29_2_id, 'PROTOCOL_VERSION'           , 'STRICTLY_UNDER', '2.2 (PROTOCOL_VERSION)', 0, now(), NULL, NULL),
-(@rule_condition_29_2_id, 'PRIOR_REFERENCE'            , 'STATUS', 'True value', 0, now(), NULL, NULL),
-(@rule_condition_29_2_id, 'PRIOR_CURRENCY'             , 'STATUS', 'True value', 0, now(), NULL, NULL),
-(@rule_condition_29_2_id, 'PRIOR_AMOUNT_LEQ'           , 'STATUS', 'True value', 0, now(), NULL, NULL),
-(@rule_condition_30_id, 'THREE_RI_IND'                 , 'EQUALS', '6 (3RI IND)', 0, now(), NULL, NULL),
-(@rule_condition_30_id, 'PROTOCOL_VERSION'             , 'STRICTLY_UNDER', '2.2 (PROTOCOL_VERSION)', 1, now(), NULL, NULL),
-(@rule_condition_30_id, 'SPLIT_TRN_STATUS'             , 'STATUS', 'True value', 0, now(), NULL, NULL),
+(@rule_condition_29_2_id, 'SPLIT_TRN_STATUS'           , 'STATUS', 'True value', 0, now(), NULL, NULL),
+(@rule_condition_30_id,   'THREE_RI_IND'               , 'EQUALS', '6 (3RI IND)', 0, now(), NULL, NULL),
+(@rule_condition_30_id,   'PROTOCOL_VERSION'           , 'STRICTLY_UNDER', '2.2 (PROTOCOL_VERSION)', 1, now(), NULL, NULL),
+(@rule_condition_30_id,   'SPLIT_TRN_STATUS'           , 'STATUS', 'True value', 0, now(), NULL, NULL),
 (@rule_condition_30_2_id, 'THREE_RI_IND'               , 'EQUALS', '80 (3RI IND)', 0, now(), NULL, NULL),
 (@rule_condition_30_2_id, 'PROTOCOL_VERSION'           , 'STRICTLY_UNDER', '2.1 (PROTOCOL_VERSION)', 1, now(), NULL, NULL),
 (@rule_condition_30_2_id, 'PROTOCOL_VERSION'           , 'STRICTLY_UNDER', '2.2 (PROTOCOL_VERSION)', 0, now(), NULL, NULL),
@@ -514,6 +529,7 @@ INSERT INTO `OPERAND` (condition_id, name, type, operand_value_label, reversed, 
 (@rule_condition_28_id, 'THREE_RI_IND'                 , 'EQUALS', '3 (3RI IND)', 0, now(), NULL, NULL),
 (@rule_condition_29_id, 'THREE_RI_IND'                 , 'EQUALS', '11 (3RI IND)', 0, now(), NULL, NULL),
 (@rule_condition_29_id, 'THRESHOLD_AMOUNT'             , 'STRICTLY_UNDER', '80 (TRUST_AMOUNT)', 1, now(), NULL, NULL),
+(@rule_condition_29_id, 'SPLIT_TRN_STATUS'             , 'STATUS', 'True value', 0, now(), NULL, NULL),
 (@rule_condition_30_id, 'THREE_RI_IND'                 , 'EQUALS', '6 (3RI IND)', 0, now(), NULL, NULL),
 (@rule_condition_30_id, 'PROTOCOL_VERSION'             , 'STRICTLY_UNDER', '2.2 (PROTOCOL_VERSION)', 1, now(), NULL, NULL),
 (@rule_condition_30_id, 'SPLIT_TRN_STATUS'             , 'STATUS', 'True value', 0, now(), NULL, NULL),
@@ -537,3 +553,4 @@ INSERT INTO `OPERAND` (condition_id, name, type, operand_value_label, reversed, 
 
 {% endfor %}
 {%- endfor %}
+SELECT count(*) as countRulesetAfterInsert FROM RULE_SET;

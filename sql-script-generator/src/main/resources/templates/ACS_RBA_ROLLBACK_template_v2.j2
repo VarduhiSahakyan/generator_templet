@@ -30,6 +30,13 @@ WHERE sp.issuer_config_id = @issuerConfigId;
 DELETE ic
 FROM `ISSUER_CONFIG` ic
 WHERE ic.id = @issuerConfigId;
+{%- elif subissuer.trustedbeneficiaries_active == 1 %}
+-- -------- UPDATE ISSUER_CONFIG TABLE -------- --
+UPDATE `ISSUER_CONFIG`
+SET trustedbeneficiaries_active = 0
+WHERE service = @service
+AND issuer = @issuer
+AND sub_issuer =  @subIssuer;
 {%- endif %}
 
 {%- for codeRuleset,ruleset in subissuer.rulesets.items() %}

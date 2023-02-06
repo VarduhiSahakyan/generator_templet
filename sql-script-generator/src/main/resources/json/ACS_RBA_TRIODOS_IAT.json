@@ -6,7 +6,7 @@
       "default_score" : 85,
       "always_retrieve_external_scoring" : 1,
       "relevant_score" : 1,
-      "origin_priority" : "EXTERNAL",
+      "origin_priority" : "EXTERNAL/DS",
       "default_decision" : "SCA",
       "interface_type" : "THREE_DS",
       "important" : 1,
@@ -18,7 +18,7 @@
       "scoring_provider" : {
         "score_service_url" : "https://rss-ewl-internal-dev.inform-software.com:3334/services/AuthHubRBAService/RBArequest" ,
         "advice_service_url" : "https://rss-ewl-internal-dev.inform-software.com:3334/services/AuthHubAdviceService/RBArequest",
-        "score_type" : "EXTERNAL/DS",
+        "score_type" : "EXTERNAL",
         "provider_type" : "INFORM"
       },
       "rulesets": {
@@ -64,32 +64,11 @@
           "params": {
           }
         },
-        "3RI_NON-EEA_MASTERCARD": {
-          "transaction_type": "PROT_2X_3DS",
-          "device_channel": "03",
-          "card_scheme":"MASTERCARD",
-          "options": {
-            "standard3RI" : "inactive"
-          },
-          "params": {
-          }
-        },
         "3RI_EEA_VISA": {
           "transaction_type": "PROT_2X_3DS",
           "device_channel": "03",
           "location": "EEA",
           "card_scheme":"VISA",
-          "options": {
-            "standard3RI" : "inactive"
-          },
-          "params": {
-          }
-        },
-        "3RI_EEA_MASTERCARD": {
-          "transaction_type": "PROT_2X_3DS",
-          "device_channel": "03",
-          "location": "EEA",
-          "card_scheme":"MASTERCARD",
           "options": {
             "standard3RI" : "inactive"
           },

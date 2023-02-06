@@ -30,6 +30,21 @@ WHERE sp.issuer_config_id = @issuerConfigId;
 DELETE ic
 FROM `ISSUER_CONFIG` ic
 WHERE ic.id = @issuerConfigId;
+{%- elif subissuer.trustedbeneficiaries_active is defined  or subissuer.eligible_merchant_active is defined  %}
+-- -------- UPDATE ISSUER_CONFIG TABLE -------- --
+UPDATE `ISSUER_CONFIG`
+SET 
+{% if subissuer.trustedbeneficiaries_active is defined and subissuer.eligible_merchant_active is defined %}
+trustedbeneficiaries_active = !{{subissuer.trustedbeneficiaries_active}},
+eligible_merchant_active = !{{subissuer.eligible_merchant_active}}
+{% elif subissuer.trustedbeneficiaries_active is defined %}
+trustedbeneficiaries_active = !{{subissuer.trustedbeneficiaries_active}}
+{% else %}
+eligible_merchant_active = !{{subissuer.eligible_merchant_active}}
+{% endif %}
+WHERE service = @service
+AND issuer = @issuer
+AND sub_issuer {{equalOrNULL(codeSubissuer)}};
 {%- endif %}
 
 {%- for codeRuleset,ruleset in subissuer.rulesets.items() %}
