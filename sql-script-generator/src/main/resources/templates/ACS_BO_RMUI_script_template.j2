@@ -1,9 +1,9 @@
 USE `{{propACS_BO_General.databaseACS_BO}}`;
 
 {%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleADMIN is defined and propACS_BO_Userroles.roleADMIN == true %}
-INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}', 'ADMIN');
+INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}', 'ADMIN');
 
-SELECT @adminId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}' AND role = 'ADMIN';
+SELECT @adminId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'ADMIN';
 
 INSERT INTO PermissionAssociation (associationId, permissionId)
 SELECT @adminId, p.id FROM Permission p WHERE p.name IN ("PAN:READ","TRANSACTION:READ","REPORTING:READ","BIN:READ","BIN:WRITE","BIN_EXPORT:READ","CARD:READ","AUTH_MEANS:WRITE","STATIC_COUNTER:WRITE","FRAUD:READ","FRAUD:DELETE","CARD_BLACKLIST:WRITE",
@@ -16,9 +16,9 @@ SELECT @adminId, p.id FROM Permission p WHERE p.name IN ("PAN:READ","TRANSACTION
 {%- endif %}
 
 {%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleHELPDESK is defined and propACS_BO_Userroles.roleHELPDESK == true %}
-INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}', 'HELPDESK');
+INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}', 'HELPDESK');
 
-SELECT @helpdeskId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}' AND role = 'HELPDESK';
+SELECT @helpdeskId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'HELPDESK';
 
 INSERT INTO PermissionAssociation (associationId, permissionId)
 SELECT @helpdeskId, p.id FROM Permission p WHERE p.name IN (
@@ -37,9 +37,9 @@ SELECT @helpdeskId, p.id FROM Permission p WHERE p.name IN (
 {%- endif %}
 
 {%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleREPORTING is defined and propACS_BO_Userroles.roleREPORTING == true %}
-INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}', 'REPORTING');
+INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}', 'REPORTING');
 
-SELECT @reportingId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}' AND role = 'REPORTING';
+SELECT @reportingId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'REPORTING';
 
 INSERT INTO PermissionAssociation (associationId, permissionId)
 SELECT @reportingId, p.id FROM Permission p WHERE p.name IN (
@@ -52,9 +52,9 @@ SELECT @reportingId, p.id FROM Permission p WHERE p.name IN (
 
 
 {%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleFRAUD is defined and propACS_BO_Userroles.roleFRAUD == true %}
-INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}', 'FRAUD');
+INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}', 'FRAUD');
 
-SELECT @fraudId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}' AND role = 'FRAUD';
+SELECT @fraudId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'FRAUD';
 
 INSERT INTO PermissionAssociation (associationId, permissionId)
 SELECT @fraudId, p.id FROM Permission p WHERE p.name IN (
@@ -89,9 +89,9 @@ SELECT @fraudId, p.id FROM Permission p WHERE p.name IN (
 {%- endif %}
 
 {%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleEMPLOYEE is defined and propACS_BO_Userroles.roleEMPLOYEE == true %}
-INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}', 'EMPLOYEE');
+INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}', 'EMPLOYEE');
 
-SELECT @employeeId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}' AND role = 'EMPLOYEE';
+SELECT @employeeId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'EMPLOYEE';
 	
 INSERT INTO PermissionAssociation (associationId, permissionId)
 SELECT @employeeId, p.id FROM Permission p WHERE p.name IN (
@@ -108,9 +108,9 @@ SELECT @employeeId, p.id FROM Permission p WHERE p.name IN (
 {%- endif %}
 
 {%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleCONSULTANT is defined and propACS_BO_Userroles.roleCONSULTANT == true %}
-INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}', 'CONSULTANT');
+INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}', 'CONSULTANT');
 	
-SELECT @consultantId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}' AND role = 'CONSULTANT';
+SELECT @consultantId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'CONSULTANT';
 	
 INSERT INTO PermissionAssociation (associationId, permissionId)
 SELECT @consultantId, p.id FROM Permission p WHERE p.name IN (

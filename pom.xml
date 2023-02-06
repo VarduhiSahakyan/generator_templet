@@ -12,7 +12,7 @@
 
     <groupId>com.worldline.acs.rbu2.delivery</groupId>
     <artifactId>acs-delivery-configuration</artifactId>
-    <version>22R1-GE-3.5-SNAPSHOT</version>
+    <version>22R1-GE-3.10-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>RBU2 Delivery configuration</name>
@@ -21,7 +21,6 @@
         <module>acs-delivery-artifacts</module>
         <!--<module>acs-delivery-scripts</module>-->
         <module>sql-script-generator</module>
-        <module>template-generator-maven-plugin</module>
     </modules>
     
 	<url>
