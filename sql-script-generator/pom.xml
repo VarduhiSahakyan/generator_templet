@@ -3,7 +3,7 @@
   <parent>
     <groupId>com.worldline.acs.rbu2.delivery</groupId>
     <artifactId>acs-delivery-configuration</artifactId>
-    <version>22R1-GE-3.11-SNAPSHOT</version>
+    <version>23R1-GE-1.00-SNAPSHOT</version>
   </parent>
   <artifactId>sql-script-generator</artifactId>
   

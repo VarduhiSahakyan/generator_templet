@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.worldline.acs.rbu2.delivery</groupId>
         <artifactId>acs-delivery-artifacts</artifactId>
-        <version>22R1-GE-3.11-SNAPSHOT</version>
+        <version>23R1-GE-1.00-SNAPSHOT</version>
     </parent>
 
     <artifactId>acs-auth-hubs-impls</artifactId>
