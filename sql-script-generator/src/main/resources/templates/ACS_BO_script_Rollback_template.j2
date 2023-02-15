@@ -1,0 +1,31 @@
+USE `{{propACS_BO_General.databaseACS_BO}}`; 
+# Test multiple key {{propACS_BO_General.createdBy}} {{propACS_BO_General.issuerCode}}
+/* Issuer */
+SET @issuerCode = '{{propACS_BO_Issuer.issuerCode}}';
+SET @subIssuerCode = '{{propACS_BO_SUBISSUER.subIssuerCode}}';
+
+/* SubIssuer */
+SET @issuerId = (SELECT `id` FROM `Issuer` WHERE `code` = @issuerCode);
+SET @subIssuerNameAndLabel = '{{propACS_BO_SUBISSUER.subIssuerLabel}}';
+SET @subIssuerID = (SELECT id FROM `SubIssuer` WHERE `code` = @subIssuerCode AND `name` = @subIssuerNameAndLabel);
+/* CryptoConfig */
+SET @cryptoConfigID = (SELECT id FROM CryptoConfig where description = '{{propACS_BO_Crypto.cryptoDescription}}');
+SET @BankUB = '{{propACS_BO_SUBISSUER.bankNameShort}}';
+
+/* BinRange_SubIssuer */
+DELETE from `BinRange_SubIssuer`
+  WHERE id_subIssuer=@subIssuerID;
+
+/* BinRange */
+{% for bin in propACS_BO_BinRange.BinRanges %}
+DELETE from `BinRange` WHERE lowerBound = '{{bin.lowerBound}}' and upperBound = '{{bin.upperBound}}';{%endfor%}
+
+/* ProfileSet */
+SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` = CONCAT('PS_', @BankUB, '_01'));
+DELETE from `ProfileSet` WHERE id = @ProfileSet;
+
+DELETE from `SubIssuer` WHERE id = @subIssuerID;
+
+DELETE from `CryptoConfig` WHERE id = @cryptoConfigID;
+
+DELETE from `Issuer` WHERE id = @issuerId;

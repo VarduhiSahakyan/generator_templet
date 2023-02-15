@@ -1,0 +1,38 @@
+USE `{{propACS_BO_General.databaseACS_BO}}`;
+
+
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleADMIN is defined and propACS_BO_Userroles.roleADMIN == true %}
+SELECT @adminId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'ADMIN';
+DELETE FROM `PermissionAssociation` WHERE associationId = @adminId;
+DELETE FROM `Association` WHERE id = @adminId;
+{%- endif %}
+
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleHELPDESK is defined and propACS_BO_Userroles.roleHELPDESK == true %}
+SELECT @helpdeskId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'HELPDESK';
+DELETE FROM `PermissionAssociation` WHERE associationId = @helpdeskId;
+DELETE FROM `Association` WHERE id = @helpdeskId;
+{%- endif %}
+
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleREPORTING is defined and propACS_BO_Userroles.roleREPORTING == true %}
+SELECT @reportingId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'REPORTING';
+DELETE FROM `PermissionAssociation` WHERE associationId = @reportingId;
+DELETE FROM `Association` WHERE id = @reportingId;
+{%- endif %}
+
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleFRAUD is defined and propACS_BO_Userroles.roleFRAUD == true %}
+SELECT @fraudId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'FRAUD';
+DELETE FROM `PermissionAssociation` WHERE associationId = @fraudId;
+DELETE FROM `Association` WHERE id = @fraudId;
+{%- endif %}
+
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleEMPLOYEE is defined and propACS_BO_Userroles.roleEMPLOYEE == true %}
+SELECT @employeeId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'EMPLOYEE';
+DELETE FROM `PermissionAssociation` WHERE associationId = @employeeId;
+DELETE FROM `Association` WHERE id = @employeeId;
+{%- endif %}
+
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleCONSULTANT is defined and propACS_BO_Userroles.roleCONSULTANT == true %}
+SELECT @consultantId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'CONSULTANT';
+DELETE FROM `PermissionAssociation` WHERE associationId = @consultantId;
+DELETE FROM `Association` WHERE id = @consultantId;
+{%- endif %}

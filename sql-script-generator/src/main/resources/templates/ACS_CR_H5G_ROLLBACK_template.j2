@@ -1,0 +1,22 @@
+USE H5G_CREPO;
+-- ------------------------
+-- CR CONFIG FILE
+-- service = {{service}}
+-- issuer = {{issuer}}
+-- ------------------------
+
+-- Beginning of data deletion --
+
+SELECT `code`, `label` FROM `Customer` ;
+
+{%- for code_subissuer,label_subissuer in propHUB_CR_Customer.subissuers.items()%}
+DELETE FROM `Customer`
+WHERE code = '{{code_subissuer}}';
+{%- endfor %}
+
+DELETE FROM `Customer`
+WHERE code = '{{propHUB_CR_Customer.code_issuer}}';
+
+SELECT `code`, `label` FROM `Customer` ;
+
+-- End of data deletion

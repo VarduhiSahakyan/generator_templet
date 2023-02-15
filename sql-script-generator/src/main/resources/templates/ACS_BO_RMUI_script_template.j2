@@ -1,0 +1,133 @@
+USE `{{propACS_BO_General.databaseACS_BO}}`;
+
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleADMIN is defined and propACS_BO_Userroles.roleADMIN == true %}
+INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}', 'ADMIN');
+
+SELECT @adminId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'ADMIN';
+
+INSERT INTO PermissionAssociation (associationId, permissionId)
+SELECT @adminId, p.id FROM Permission p WHERE p.name IN ("PAN:READ","TRANSACTION:READ","REPORTING:READ","BIN:READ","BIN:WRITE","BIN_EXPORT:READ","CARD:READ","AUTH_MEANS:WRITE","STATIC_COUNTER:WRITE","FRAUD:READ","FRAUD:DELETE","CARD_BLACKLIST:WRITE",
+"PROFILE:READ","PROFILE:WRITE","AUTH_MEANS:READ","ISSUER:READ","ISSUER:WRITE","INSTANCE:READ","INSTANCE:WRITE","HUB_DATA:READ","INTERNAL_DATA:READ","FO_SYNCHRONIZATION:WRITE","USER_XP:READ","MERCHANT_PIVOT:READ","MERCHANT_PIVOT:WRITE",
+"AUDIT:READ","EXTERNAL_WS:READ","PROTOCOL_VERSION_2:READ","PROTOCOL_VERSION_102:READ","RBA_DECISION:READ","BLACKLISTED_AUTHENTICATION_MEANS:READ","BLACKLISTED_AUTHENTICATION_MEANS:WRITE","IP_FILTERS:READ","IP_FILTERS:WRITE",
+"BLACKLISTED_MERCHANTS:READ","BLACKLISTED_MERCHANTS:WRITE","BLACKLISTED_COUNTRIES:READ","BLACKLISTED_COUNTRIES:WRITE","CARD_BLACKLIST:READ","CARD_WHITELIST:READ","CARD_WHITELIST:WRITE","INTERNAL_DATA:WRITE","CARD_PROFILESET_NAME:WRITE",
+"CARD_PROFILESET_NAME:READ","CARD_EXEMPTION:READ","CARD_EXEMPTION:WRITE","BATCH_REPORTS:READ","RBA_CONFIGURATION:READ","PSD2_REPORTS:READ","BIN_EMERGENCY:WRITE","RBA_CONFIGURATION_DETAILS:READ","ENROLMENT:READ",
+"RBA_CONFIGURATION_DETAILS:WRITE","ENROLMENT_REPORT:READ","Authent_DATA:WRITE","IMPORT_EXPORT_TOOL:IMPORT","AUDIT_CONFIGURATION:WRITE","AUDIT_CONFIGURATION:READ","TRUSTED_BENEFICIARIES:READ","CRYPTO_CONFIG:READ","AUTHENTICATION_HEX:READ",
+"REPORT_PROFILESET:READ","REPORT_BIN_RANGE:READ","AUDIT_PCI:READ","SEARCH_CARD_FRAUD:READ","APM_COUNTER:READ","RBA_MERCHANT_CONFIGURATIONS:READ","RBA_MERCHANT_CONFIGURATIONS:WRITE","DECOUPLED:READ","PSD2_EBA_REPORTS:READ","RBA_RULES_ORDER:WRITE","IMPORT_EXPORT_TOOL:EXPORT");
+{%- endif %}
+
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleHELPDESK is defined and propACS_BO_Userroles.roleHELPDESK == true %}
+INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}', 'HELPDESK');
+
+SELECT @helpdeskId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'HELPDESK';
+
+INSERT INTO PermissionAssociation (associationId, permissionId)
+SELECT @helpdeskId, p.id FROM Permission p WHERE p.name IN (
+	"PAN:READ",
+	"TRANSACTION:READ",
+	"CARD:READ",
+	"PROTOCOL_VERSION_102:READ",
+	"PROTOCOL_VERSION_2:READ",
+	"AUTH_MEANS:READ",
+	"AUTH_MEANS:WRITE",
+	"BIN:READ",
+	"USER_XP:READ",
+	"FRAUD:READ",
+	"RBA_DECISION:READ",
+	"DECOUPLED:READ");
+{%- endif %}
+
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleREPORTING is defined and propACS_BO_Userroles.roleREPORTING == true %}
+INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}', 'REPORTING');
+
+SELECT @reportingId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'REPORTING';
+
+INSERT INTO PermissionAssociation (associationId, permissionId)
+SELECT @reportingId, p.id FROM Permission p WHERE p.name IN (
+	"TRANSACTION:READ",
+	"REPORTING:READ",
+	"PROTOCOL_VERSION_2:READ",
+	"PROTOCOL_VERSION_102:READ",
+	"DECOUPLED:READ");
+{%- endif %}
+
+
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleFRAUD is defined and propACS_BO_Userroles.roleFRAUD == true %}
+INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}', 'FRAUD');
+
+SELECT @fraudId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'FRAUD';
+
+INSERT INTO PermissionAssociation (associationId, permissionId)
+SELECT @fraudId, p.id FROM Permission p WHERE p.name IN (
+	"PAN:READ"
+	"TRANSACTION:READ",
+	"REPORTING:READ",
+	"BIN:READ",
+	"CARD:READ",
+	"FRAUD:READ",
+	"AUTH_MEANS:READ",
+	"USER_XP:READ",
+	"PROTOCOL_VERSION_102:READ",
+	"PROTOCOL_VERSION_2:READ",
+	"RBA_DECISION:READ",
+	"BLACKLISTED_AUTHENTICATION_MEANS:READ",
+	"BLACKLISTED_AUTHENTICATION_MEANS:WRITE",
+	"BLACKLISTED_MERCHANTS:READ",
+	"BLACKLISTED_MERCHANTS:WRITE",
+	"BLACKLISTED_COUNTRIES:READ",
+	"BLACKLISTED_COUNTRIES:WRITE",
+	"SEARCH_CARD_FRAUD:READ",
+	"CARD_BLACKLIST:READ",
+	"CARD_BLACKLIST:WRITE",
+	"CARD_WHITELIST:READ",
+	"CARD_WHITELIST:WRITE",
+	"CARD_EXEMPTION:READ",
+	"CARD_EXEMPTION:WRITE",
+	"IP_FILTERS:READ",
+	"IP_FILTERS:WRITE",
+	"DECOUPLED:READ"
+	);
+{%- endif %}
+
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleEMPLOYEE is defined and propACS_BO_Userroles.roleEMPLOYEE == true %}
+INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}', 'EMPLOYEE');
+
+SELECT @employeeId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'EMPLOYEE';
+	
+INSERT INTO PermissionAssociation (associationId, permissionId)
+SELECT @employeeId, p.id FROM Permission p WHERE p.name IN (
+	"PAN:READ",
+	"TRANSACTION:READ",
+	"CARD:READ",
+	"PROTOCOL_VERSION_102:READ",
+	"PROTOCOL_VERSION_2:READ",
+	"AUTH_MEANS:READ",
+	"SEARCH_CARD_FRAUD:READ",
+	"USER_XP:READ",
+	"DECOUPLED:READ"
+	);
+{%- endif %}
+
+{%+ if propACS_BO_Userroles is defined and propACS_BO_Userroles.roleCONSULTANT is defined and propACS_BO_Userroles.roleCONSULTANT == true %}
+INSERT INTO `Association` (`groupPath`, `role`) VALUES ('/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}', 'CONSULTANT');
+	
+SELECT @consultantId := id FROM Association WHERE groupPath = '/All/{{propACS_BO_Issuer.issuerCode}}/{{propACS_BO_SUBISSUER.subIssuerCode}}' AND role = 'CONSULTANT';
+	
+INSERT INTO PermissionAssociation (associationId, permissionId)
+SELECT @consultantId, p.id FROM Permission p WHERE p.name IN (
+	"PAN:READ",
+	"TRANSACTION:READ",
+	"REPORTING:READ",
+	"BIN:READ",
+	"CARD:READ",
+	"AUTH_MEANS:READ",
+	"PROFILE:READ",
+	"INSTANCE:READ",
+	"USER_XP:READ",
+	"PROTOCOL_VERSION_2:READ",
+	"PROTOCOL_VERSION_102:READ",
+	"RBA_DECISION:READ",
+	"RBA_CONFIGURATION:READ",
+	"SEARCH_CARD_FRAUD:READ",
+	"DECOUPLED:READ"
+	);
+{%- endif %}

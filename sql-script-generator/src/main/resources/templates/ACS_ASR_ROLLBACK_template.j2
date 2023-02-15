@@ -1,0 +1,28 @@
+USE H0G_ASR;
+-- ------------------------
+-- ASR CONFIG FILE
+-- service = {{service}}
+-- issuer = {{issuer}}
+-- subissuer = {{subissuer}}
+-- ------------------------
+{%set prefix = service ~ "-" ~ issuer ~ "-"%}
+{%- if subissuer is defined and subissuer|length != 0 -%}
+    {%-set prefix = prefix ~ subissuer ~ "-" -%}
+{%- endif -%}
+
+-- Beginning of data deletion --
+SELECT "{{prefix}}%" INTO @service_code;
+
+SELECT * FROM `CONFIGS` WHERE `CODE` like @service_code;
+DELETE FROM `CONFIGS` WHERE `CODE` like @service_code;
+SELECT * FROM `CONFIGS` WHERE `CODE` like @service_code;
+
+SELECT * FROM `CONFIGS_SOURCES` WHERE `CODE` like @service_code;
+DELETE FROM `CONFIGS_SOURCES` WHERE `CODE` like @service_code;
+SELECT * FROM `CONFIGS_SOURCES` WHERE `CODE` like @service_code;
+
+SELECT * FROM `CONFIGS_URLS` WHERE `CODE` like @service_code;
+DELETE FROM `CONFIGS_URLS` WHERE `CODE` like @service_code;
+SELECT * FROM `CONFIGS_URLS` WHERE `CODE` like @service_code;
+
+-- End of data deletion

@@ -1,0 +1,71 @@
+{
+  "service" : "ACS_U5G",
+  "issuer" : 50000,
+  "propHUB_ASR_CONFIGS" : {
+    "CHECK_EXPIRY": false,
+    "cr.favoreAll": true,
+    "default.language": "EN",
+    "default.masked.pan": "######xxxxxx####",
+    "DEK_01": "TODO",
+    "DETOKENIZE_DESE": false,
+    "hotp.method": "HOTP_SOFT",
+    "KEYS": "CN=",
+    "request.attr.version": 1,
+    "request.header.apiKey": "TODO",
+    "request.header.locale": "EN",
+    "request.header.senderId": "Worldline",
+    "request.header.userId": "NEEDED?",
+    "request.payload.transactionDescription": "WL ACS Transaction",
+    "request.payload.verificationDevice": "MOBILE_APP",
+    "request.payload.verificationLevel": 2,
+    "request.payload.verificationType": "PWE",
+    "RBA_SCORING_WS_VERSION": "22R1",
+    "referential.languages": "en,de,nl",
+    "SMS_PHONE_PREFIXES": "0031,+31"
+  },
+  "propHUB_ASR_CONFIGS_SOURCES" : {
+    "CR" : {
+      "CR_cr.connect.timeout": 2000,
+      "CR_cr.response.timeout": 2000,
+      "CR_EHCACHE_MAX_BYTE_LOCAL_HEAP": 2000000,
+      "CR_EHCACHE_TIME_TTL_SEC": 600,
+      "CR_favoreAll": true},
+    "FLASH": {
+      "FLASH_FLASH_COEFFICIENT": 2,
+      "FLASH_FLASH_COLLECTION": "hub-authentication-rbu2-h5g",
+      "FLASH_FLASH_CONNECT_TO": 2000,
+      "FLASH_FLASH_INITIAL_DELAY": 4000,
+      "FLASH_FLASH_MAX_ALEATORY": 4000,
+      "FLASH_FLASH_MAX_TRYOUTS": 2,
+      "FLASH_FLASH_MIN_ALEATORY": 2000,
+      "FLASH_FLASH_READ_TO": 2000},
+    "SM": {
+      "SM_hub-authentication-rbu2-h5g.apikey": "TODO",
+      "SM_session.ttl": 600,
+      "SM_SESSION_SLEEP_BEFORE_DELETE": 250,
+      "SM_SPLUNK_TIMER_ENABLED": false
+      },
+    "WS_WSSTANDARD": {
+      "WS_WSSTANDARD_KEY_TAG": 1,
+      "WS_WSSTANDARD_KEY_VAL": "01"}
+  },
+  "propHUB_ASR_CONFIGS_URLS" : {
+    "CR": {"PINGURL":"todo_PINGURL1","URL":"todo_URL1"},
+    "EXTMOBAPP": {"PINGURL":"todo_PINGURL2","URL":"todo_URL2"},
+    "REFERENTIAL": {"PINGURL":"todo_PINGURL1","URL":"todo_URL1"},
+    "WS_EXTMOBAPP": {"PINGURL":"todo_PINGURL2","URL":"todo_URL2"}
+  },
+ "propHUB_CR_Customer" : {
+    "code_issuer": 50000,
+    "label_issuer": "Triodos Bank",
+    "parent_id_issuer": 1,
+    "code_subissuer": 50010,
+    "label_subissuer": "Triodos BE"
+  },
+  "propHUB_CR_DekKey" : {
+    "dekkey1_dekTag": "todo",
+    "dekkey1_algorithm": "todo",
+    "dekkey1_decSpec": "todo",
+    "dekkey1_kekTag": "todo"
+    }
+}

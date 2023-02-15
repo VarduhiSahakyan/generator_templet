@@ -1,0 +1,80 @@
+
+{
+
+    "propHUB_APM":{
+    
+    "service":"ACS_U5G"
+    ,"issuer":10000
+    ,"subissuer":"*"
+    ,"default_score":85
+    ,"always_retrieve_external_scoring":true
+    ,"relevant_score":1
+    ,"origin_priority":"EXTERNAL/DS"
+    ,"default_decision":"SCA"
+    ,"interface_type":"THREE_DS"
+    ,"important":1
+    ,"trustedbeneficiaries_active":false
+    ,"eligible_merchant_active":false
+    ,"skip_counters":false
+    ,"is_active":true
+    ,"bypass3DS1":false
+    ,"scoring_provider" : {
+    "score_service_url":"https://rss-ewl-internal-dev.inform-software.com:3334/services/AuthHubRBAService/RBArequest"
+    ,"advice_service_url":"https://rss-ewl-internal-dev.inform-software.com:3334/services/AuthHubAdviceService/RBArequest"
+    ,"score_type":"EXTERNAL"
+    ,"provider_type":"INFORM"
+    },
+    "rulesets": {
+    "3DS2_NON-EEA": {
+    "options": {
+    "standard3DS2NonEEA":"active"
+    },
+    "params" : {
+    "ETV":10000
+    ,"LV":3000
+    ,"DEFAULT":0
+    ,"LOW_SCORE":20
+    ,"HIGH_SCORE":85
+    }
+    },
+    "3DS2_EEA": {
+    "location":"EEA"
+    ,"options": {
+    "id_v":"active"
+    ,"acquirerExemption":"active"
+    ,"standard3DS2":"active"
+    ,"trustedBeneficiary":"inactive"
+    },
+    "params": {
+    "LV":3000
+    ,"MAX_FRICT":5
+    ,"SUM_FRICT":10000
+    ,"ETV":10000
+    ,"LOW_SCORE":20
+    ,"HIGH_SCORE":85
+    ,"TML_ACS_THRESHOLD":80
+    ,"TML_3DS_SERVER_THRESHOLD":80
+    ,"DEFAULT":0
+    }
+    },
+    "3RI_NON-EEA": {
+    "transaction_type":"PROT_2X_3DS"
+    ,"device_channel":3
+    ,"options": {
+    "standard3RI":"inactive"
+    }
+    },
+    "3RI_EEA": {
+    "transaction_type":"PROT_2X_3DS"
+    ,"device_channel":3
+    ,"location":"EEA"
+    ,"options": {
+    "standard3RI":"inactive"
+    }
+    }
+    }
+    
+    }
+    
+    }
+    

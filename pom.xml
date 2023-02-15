@@ -20,6 +20,7 @@
     <modules>
         <module>acs-delivery-artifacts</module>
         <!--<module>acs-delivery-scripts</module>-->
+        <module>sql-script-generator</module>
     </modules>
     
 	<url>

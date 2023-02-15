@@ -1,0 +1,250 @@
+USE `{{propACS_BO_General.databaseACS_BO}}`; 
+# Test multiple key {{propACS_BO_General.createdBy}} {{propACS_BO_General.issuerCode}}
+
+/*Common properties*/;
+SET @createdBy ='{{propACS_BO_General.createdBy}}';
+SET @updateState = '{{propACS_BO_General.updateState}}';
+
+SET @issuerCode = '{{propACS_BO_Issuer.issuerCode}}';
+SET @subIssuerCode = '{{propACS_BO_SUBISSUER.subIssuerCode}}';
+
+SET @VisaID = (SELECT `id` FROM `Network` WHERE `code` = 'VISA');
+SET @VisaName = (SELECT `name` FROM `Network` WHERE `code` = 'VISA');
+
+SET @MastercardID = (SELECT `id` FROM `Network` WHERE `code` = 'MASTERCARD');
+SET @MastercardName = (SELECT `name` FROM `Network` WHERE `code` = 'MASTERCARD');
+
+
+SET @activatedAuthMeans = '[ {
+	"authentMeans" : "REFUSAL",
+	"validate" : true
+},{% for availableMean in propACS_BO_Issuer.issuerAvailaibleAuthentMean %}
+{
+	"authentMeans" : "{{availableMean}}",
+	"validate" : true
+}{{"," if not loop.last else ""}} {% endfor %}]';
+
+SET @availableAuthMeans = 'REFUSAL|{%for availableMean in propACS_BO_Issuer.issuerAvailaibleAuthentMean %}{{availableMean}}{{"|"if not loop.last else ""}}{% endfor %}';
+SET @issuerNameAndLabel = '{{propACS_BO_Issuer.issuerLabel}}';
+
+/*!40000 ALTER TABLE `Issuer` DISABLE KEYS */;
+INSERT INTO `Issuer` (`code`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
+					  `updateState`, `label`, `availaibleAuthentMeans`) VALUES
+(@issuerCode, @createdBy, NOW(), NULL, NULL, NULL, @issuerNameAndLabel, @updateState, @issuerNameAndLabel,@availableAuthMeans);
+/*!40000 ALTER TABLE `Issuer` ENABLE KEYS */;
+
+/* SubIssuer */
+/*!40000 ALTER TABLE `SubIssuer` DISABLE KEYS */;
+SET @issuerId = (SELECT `id` FROM `Issuer` WHERE `code` = @issuerCode);
+SET @subIssuerNameAndLabel = '{{propACS_BO_SUBISSUER.subIssuerLabel}}';
+SET @authenticationTimeOut = {{propACS_BO_SUBISSUER.authenticationTimeOut}};
+SET @freshnessPeriod = {{propACS_BO_SUBISSUER.freshnessPeriod}};
+SET @transactionTimeOut = {{propACS_BO_SUBISSUER.transactionTimeOut}};
+SET @acsId = '{{propACS_BO_SUBISSUER.acsId}}';
+SET @currencyCode = '{{propACS_BO_SUBISSUER.currencyCode}}';
+/* @backUpLanguage corresponds to a (comma separated) list of locales that should be displayed to the user,
+   and @defaultLanguage a default locale which should be selected by default. */
+SET @backUpLanguages = '{{propACS_BO_SUBISSUER.backupLanguages}}';
+SET @defaultLanguage = '{{propACS_BO_SUBISSUER.defaultLanguage}}';
+/* Provides option to call the authentication HUB at PA or VE step */
+SET @HUBcallMode = '{{propACS_BO_SUBISSUER.hubCallMode}}';
+/* Correspond to URL to configure for the BinRanges extraction */
+/*IAT*/
+SET @acsURL1VEMastercard = '{{propACS_BO_SUBISSUER.acs_URL1_VE_MC}}';
+SET @acsURL2VEMastercard = '{{propACS_BO_SUBISSUER.acs_URL2_VE_MC}}';
+SET @acsURL1VEVisa = '{{propACS_BO_SUBISSUER.acs_URL1_VE_VISA}}';
+SET @acsURL2VEVisa = '{{propACS_BO_SUBISSUER.acs_URL2_VE_VISA}}';
+
+/* Corresponds to the authentication mean to use primarily */
+SET @preferredAuthMean = '{{propACS_BO_SUBISSUER.preferredAuthentMeans}}';
+/* See en_countrycode.json, 250 is France's country code. It is important in order to know if the transaction
+   was initiated from an IP from the same location as the ACS (local purchase) */
+SET @issuerCountryCode = '{{propACS_BO_SUBISSUER.issuerCountry}}';
+SET @maskParam = '{{propACS_BO_SUBISSUER.maskParams}}';
+SET @dateFormat = '{{propACS_BO_SUBISSUER.dateFormat}}';
+SET @currencyFormat = '{
+							"useAlphaCurrencySymbol":true,
+							"currencySymbolPosition":"LEFT",
+							"decimalDelimiter":".",
+							"thousandDelimiter":"''"
+						}';
+
+SET @3DS2AdditionalInfo = '{ {% if propACS_BO_SUBISSUER.ThreeDS2AdditionalInfoVisaOperatorId|length > 0 %}
+	  "VISA": {
+		"operatorId": "{{propACS_BO_SUBISSUER.ThreeDS2AdditionalInfoVisaOperatorId}}",
+		"dsKeyAlias": "{{propACS_BO_SUBISSUER.ThreeDS2AdditionalInfoVisaDsKeyAlias}}"
+	  }{% endif %}{% if propACS_BO_SUBISSUER.ThreeDS2AdditionalInfoVisaOperatorId|length > 0 and propACS_BO_SUBISSUER.ThreeDS2AdditionalInfoMastercardOperatorId|length > 0 %},{% endif %}{% if propACS_BO_SUBISSUER.ThreeDS2AdditionalInfoMastercardOperatorId|length > 0 %}
+	  "MASTERCARD": {
+      		"operatorId": "{{propACS_BO_SUBISSUER.ThreeDS2AdditionalInfoMastercardOperatorId}}",
+      		"dsKeyAlias": "{{propACS_BO_SUBISSUER.ThreeDS2AdditionalInfoMastercardDsKeyAlias}}"
+      }{% endif %}
+}';
+SET @manageBackupsCombinedAmounts = {{propACS_BO_SUBISSUER.manageBackupsCombinedAmounts}};
+SET @manageChoicesCombinedAmounts = {{propACS_BO_SUBISSUER.manageChoicesCombinedAmounts}};
+SET @personnalDataStorage = {{propACS_BO_SUBISSUER.personnalDataStorage}};
+SET @resetBackupsIfSuccess = {{propACS_BO_SUBISSUER.resetBackupsIfSuccess}};
+SET @resetChoicesIfSuccess = {{propACS_BO_SUBISSUER.resetChoicesIfSuccess}};
+
+SET @automaticDeviceSelection = {{propACS_BO_SUBISSUER.automaticDeviceSelection}};
+SET @userChoiceAllowed = {{propACS_BO_SUBISSUER.userChoiceAllowed}};
+SET @backupAllowed = {{propACS_BO_SUBISSUER.backupAllowed}};
+SET @defaultDeviceChoice = {{propACS_BO_SUBISSUER.defaultDeviceChoice}};
+SET @verifyCardStatus = {{propACS_BO_SUBISSUER.verifyCardStatus}};
+SET @resendOTPThreshold = {{propACS_BO_SUBISSUER.resendOTPThreshold}};
+SET @resendSameOTP = {{propACS_BO_SUBISSUER.resendSameOTP}};
+SET @combinedAuthenticationAllowed = {{propACS_BO_SUBISSUER.combinedAuthenticationAllowed}};
+SET @displayLanguageSelectPage = {{propACS_BO_SUBISSUER.displayLanguageSelectPage}};
+SET @trustedBeneficiariesAllowed = {{false if propACS_BO_SUBISSUER.trustedBeneficiariesAllowed == NULL else propACS_BO_SUBISSUER.trustedBeneficiariesAllowed}};
+
+SET @paChallengeURL = '{ "Vendome" : "{{propACS_BO_SUBISSUER.paChallengePublicUrlVendome}}", "Seclin" : "{{propACS_BO_SUBISSUER.paChallengePublicUrlBrussels}}", "Unknown" : "{{propACS_BO_SUBISSUER.paChallengePublicUrlUnknown}}" }';
+
+SET @protocol1 = '
+{
+    "cavvKeyIndicator": "{{propACS_BO_Crypto.protocolOne.cavvKeyIndicator}}",
+    "secondFactorAuthentication": "{{propACS_BO_Crypto.protocolOne.secondFactorAuthentication}}",
+    "cipherKeyIdentifier": "{{propACS_BO_Crypto.protocolOne.cipherKeyIdentifier}}",
+    "acsIdForCrypto": "{{propACS_BO_Crypto.protocolOne.acsIdForCrypto}}",
+    "binKeyIdentifier": "{{propACS_BO_Crypto.protocolOne.binKeyIdentifier}}",
+    "hubAESKey": "{{propACS_BO_Crypto.protocolOne.hubAESKey}}",
+    "informationalData": "{{propACS_BO_Crypto.protocolOne.informationalData}}",
+    "cardNetworkAlgorithmMap": { {% if propACS_BO_Crypto.protocolOne.cardNetworkAlgorithmMap.MASTERCARD|length > 0 %}
+        "MASTERCARD": "{{propACS_BO_Crypto.protocolOne.cardNetworkAlgorithmMap.MASTERCARD}}"{% endif %}{% if propACS_BO_Crypto.protocolOne.cardNetworkAlgorithmMap.MASTERCARD|length > 0 and propACS_BO_Crypto.protocolOne.cardNetworkAlgorithmMap.VISA|length > 0 %},{% endif %}{% if propACS_BO_Crypto.protocolOne.cardNetworkAlgorithmMap.VISA|length > 0 %}
+        "VISA": "{{propACS_BO_Crypto.protocolOne.cardNetworkAlgorithmMap.VISA}}"{% endif %}
+    },
+    "cardNetworkSeqGenerationMethodMap": { {% if propACS_BO_Crypto.protocolOne.cardNetworkSeqGenerationMethodMap.MASTERCARD|length > 0 %}
+        "MASTERCARD": "{{propACS_BO_Crypto.protocolOne.cardNetworkSeqGenerationMethodMap.MASTERCARD}}"{% endif %}{% if propACS_BO_Crypto.protocolOne.cardNetworkSeqGenerationMethodMap.MASTERCARD|length > 0 and propACS_BO_Crypto.protocolOne.cardNetworkSeqGenerationMethodMap.VISA|length > 0 %},{% endif %}{% if propACS_BO_Crypto.protocolOne.cardNetworkSeqGenerationMethodMap.VISA|length > 0 %}
+        "VISA": "{{propACS_BO_Crypto.protocolOne.cardNetworkSeqGenerationMethodMap.VISA}}"{% endif %}
+    },
+    "cardNetworkIdentifierMap": { {% if propACS_BO_Crypto.protocolOne.cardNetworkIdentifierMap.MASTERCARD|length > 0 %}
+        "MASTERCARD": "{{propACS_BO_Crypto.protocolOne.cardNetworkIdentifierMap.MASTERCARD}}"{% endif %}{% if propACS_BO_Crypto.protocolOne.cardNetworkIdentifierMap.MASTERCARD|length > 0 and propACS_BO_Crypto.protocolOne.cardNetworkIdentifierMap.VISA|length > 0 %},{% endif %}{% if propACS_BO_Crypto.protocolOne.cardNetworkIdentifierMap.VISA|length > 0 %}
+        "VISA": "{{propACS_BO_Crypto.protocolOne.cardNetworkIdentifierMap.VISA}}"{% endif %}
+    },
+    "desCipherKeyIdentifier": "{{propACS_BO_Crypto.protocolOne.desCipherKeyIdentifier}}",
+    "desKeyId": "{{propACS_BO_Crypto.protocolOne.desKeyId}}",
+    "cardNetworkSignatureKeyMap": { {% if propACS_BO_Crypto.protocolOne.cardNetworkSignatureKeyMap.MASTERCARD|length > 0 %}
+        "MASTERCARD": "{{propACS_BO_Crypto.protocolOne.cardNetworkSignatureKeyMap.MASTERCARD}}"{% endif %}{% if propACS_BO_Crypto.protocolOne.cardNetworkSignatureKeyMap.MASTERCARD|length > 0 and propACS_BO_Crypto.protocolOne.cardNetworkSignatureKeyMap.VISA|length > 0 %},{% endif %}{% if propACS_BO_Crypto.protocolOne.cardNetworkSignatureKeyMap.VISA|length > 0 %}
+        "VISA": "{{propACS_BO_Crypto.protocolOne.cardNetworkSignatureKeyMap.VISA}}"{% endif %}
+    },
+    "cardNetworkCertificateMap": { {% if propACS_BO_Crypto.protocolOne.cardNetworkCertificateMap.MASTERCARD|length > 0 %}
+        "MASTERCARD": {
+            "signingCertificate": "{{propACS_BO_Crypto.protocolOne.cardNetworkCertificateMap.MASTERCARD.signingCertificate}}",
+            "authorityCertificate": "{{propACS_BO_Crypto.protocolOne.cardNetworkCertificateMap.MASTERCARD.authorityCertificate}}",
+            "rootCertificate": "{{propACS_BO_Crypto.protocolOne.cardNetworkCertificateMap.MASTERCARD.rootCertificate}}",
+            "signingCertificateExpiryDate": "{{propACS_BO_Crypto.protocolOne.cardNetworkCertificateMap.MASTERCARD.signingCertificateExpiryDate}}",
+            "authorityCertificateExpiryDate": "{{propACS_BO_Crypto.protocolOne.cardNetworkCertificateMap.MASTERCARD.authorityCertificateExpiryDate}}",
+            "rootCertificateExpiryDate": "{{propACS_BO_Crypto.protocolOne.cardNetworkCertificateMap.MASTERCARD.rootCertificateExpiryDate}}"
+        }{% endif %}{% if propACS_BO_Crypto.protocolOne.cardNetworkCertificateMap.MASTERCARD|length > 0 and propACS_BO_Crypto.protocolOne.cardNetworkCertificateMap.VISA|length > 0 %},{% endif %} {% if propACS_BO_Crypto.protocolOne.cardNetworkCertificateMap.VISA|length > 0 %}
+        "VISA": {
+            "signingCertificate": "{{propACS_BO_Crypto.protocolOne.cardNetworkCertificateMap.VISA.signingCertificate}}",
+            "authorityCertificate": "{{propACS_BO_Crypto.protocolOne.cardNetworkCertificateMap.VISA.authorityCertificate}}",
+            "rootCertificate": "{{propACS_BO_Crypto.protocolOne.cardNetworkCertificateMap.VISA.rootCertificate}}",
+            "signingCertificateExpiryDate": "{{propACS_BO_Crypto.protocolOne.cardNetworkCertificateMap.VISA.signingCertificateExpiryDate}}",
+            "authorityCertificateExpiryDate": "{{propACS_BO_Crypto.protocolOne.cardNetworkCertificateMap.VISA.authorityCertificateExpiryDate}}",
+            "rootCertificateExpiryDate": "{{propACS_BO_Crypto.protocolOne.cardNetworkCertificateMap.VISA.rootCertificateExpiryDate}}"
+        }{% endif %}
+    }
+}';
+
+SET @protocol2 = '
+{
+    "cavvKeyIndicator": "{{propACS_BO_Crypto.protocolTwo.cavvKeyIndicator}}",
+    "cipherKeyIdentifier": "{{propACS_BO_Crypto.protocolTwo.cipherKeyIdentifier}}",
+    "acsIdForCrypto": "{{propACS_BO_Crypto.protocolTwo.acsIdForCrypto}}",
+    "binKeyIdentifier": "{{propACS_BO_Crypto.protocolTwo.binKeyIdentifier}}",
+    "hubAESKey": "{{propACS_BO_Crypto.protocolTwo.hubAESKey}}",
+    "informationalData": "{{propACS_BO_Crypto.protocolTwo.informationalData}}",
+    "cardNetworkAlgorithmMap": { {% if propACS_BO_Crypto.protocolTwo.cardNetworkAlgorithmMap.MASTERCARD|length > 0 %}
+        "MASTERCARD": "{{propACS_BO_Crypto.protocolTwo.cardNetworkAlgorithmMap.MASTERCARD}}"{% endif %}{% if propACS_BO_Crypto.protocolTwo.cardNetworkAlgorithmMap.MASTERCARD|length > 0 and propACS_BO_Crypto.protocolTwo.cardNetworkAlgorithmMap.VISA|length > 0 %},{% endif %}{% if propACS_BO_Crypto.protocolTwo.cardNetworkAlgorithmMap.VISA|length > 0 %}
+        "VISA": "{{propACS_BO_Crypto.protocolTwo.cardNetworkAlgorithmMap.VISA}}"{% endif %}
+    },
+    "cardNetworkSeqGenerationMethodMap": { {% if propACS_BO_Crypto.protocolTwo.cardNetworkSeqGenerationMethodMap.MASTERCARD|length > 0 %}
+        "MASTERCARD": "{{propACS_BO_Crypto.protocolTwo.cardNetworkSeqGenerationMethodMap.MASTERCARD}}"{% endif %}{% if propACS_BO_Crypto.protocolTwo.cardNetworkSeqGenerationMethodMap.MASTERCARD|length > 0 and propACS_BO_Crypto.protocolTwo.cardNetworkSeqGenerationMethodMap.VISA|length > 0 %},{% endif %}{% if propACS_BO_Crypto.protocolTwo.cardNetworkSeqGenerationMethodMap.VISA|length > 0 %}
+        "VISA": "{{propACS_BO_Crypto.protocolTwo.cardNetworkSeqGenerationMethodMap.VISA}}"{% endif %}
+    },
+    "cardNetworkIdentifierMap": { {% if propACS_BO_Crypto.protocolTwo.cardNetworkIdentifierMap.MASTERCARD|length > 0 %}
+        "MASTERCARD": "{{propACS_BO_Crypto.protocolTwo.cardNetworkIdentifierMap.MASTERCARD}}"{% endif %}{% if propACS_BO_Crypto.protocolTwo.cardNetworkIdentifierMap.MASTERCARD|length > 0 and propACS_BO_Crypto.protocolTwo.cardNetworkIdentifierMap.VISA|length > 0 %},{% endif %}{% if propACS_BO_Crypto.protocolTwo.cardNetworkIdentifierMap.VISA|length > 0 %}
+        "VISA": "{{propACS_BO_Crypto.protocolTwo.cardNetworkIdentifierMap.VISA}}"{% endif %}
+    },
+    "acsSignedContentCertificateKeyMap": { {% if propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateKeyMap.MASTERCARD|length > 0 %}
+        "MASTERCARD": "{{propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateKeyMap.MASTERCARD}}"{% endif %}{% if propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateKeyMap.MASTERCARD|length > 0 and propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateKeyMap.VISA|length > 0 %},{% endif %}{% if propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateKeyMap.VISA|length > 0 %}
+        "VISA": "{{propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateKeyMap.VISA}}"{% endif %}
+    },
+    "acsSignedContentCertificateMap": { {% if propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateMap.MASTERCARD|length > 0 %}
+        "MASTERCARD": {
+            "signingCertificate": "{{propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateMap.MASTERCARD.signingCertificate}}",
+            "authorityCertificate": "{{propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateMap.MASTERCARD.authorityCertificate}}",
+            "rootCertificate": "{{propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateMap.MASTERCARD.rootCertificate}}",
+            "signingCertificateExpiryDate": "{{propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateMap.MASTERCARD.signingCertificateExpiryDate}}",
+            "authorityCertificateExpiryDate": "{{propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateMap.MASTERCARD.authorityCertificateExpiryDate}}",
+            "rootCertificateExpiryDate": "{{propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateMap.MASTERCARD.rootCertificateExpiryDate}}"
+        }{% endif %}{% if propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateMap.MASTERCARD|length > 0 and propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateMap.VISA|length > 0 %},{% endif %} {% if propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateMap.VISA|length > 0 %}
+        "VISA": {
+            "signingCertificate": "{{propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateMap.VISA.signingCertificate}}",
+            "authorityCertificate": "{{propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateMap.VISA.authorityCertificate}}",
+            "rootCertificate": "{{propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateMap.VISA.rootCertificate}}",
+            "signingCertificateExpiryDate": "{{propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateMap.VISA.signingCertificateExpiryDate}}",
+            "authorityCertificateExpiryDate": "{{propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateMap.VISA.authorityCertificateExpiryDate}}",
+            "rootCertificateExpiryDate": "{{propACS_BO_Crypto.protocolTwo.acsSignedContentCertificateMap.VISA.rootCertificateExpiryDate}}"
+        }{% endif %}
+    }
+}';
+
+INSERT INTO `CryptoConfig` (`protocolOne`, `protocolTwo`, `description`) VALUES
+(@protocol1, @protocol2, '{{propACS_BO_Crypto.cryptoDescription}}');
+
+SET @cryptoConfigID = (SELECT id FROM CryptoConfig where description = '{{propACS_BO_Crypto.cryptoDescription}}');
+
+INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `code`, `codeSvi`, `currencyCode`,
+						 `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`,
+						 `defaultLanguage`, `freshnessPeriod`, `label`, `manageBackupsCombinedAmounts`, `manageChoicesCombinedAmounts`,
+						 `personnalDataStorage`, `resetBackupsIfSuccess`, `resetChoicesIfSuccess`,
+						 `transactionTimeOut`, `acs_URL1_VE_MC`, `acs_URL2_VE_MC`, `acs_URL1_VE_VISA`, `acs_URL2_VE_VISA`,
+						 `automaticDeviceSelection`, `userChoiceAllowed`, `backupAllowed`, `defaultDeviceChoice`, `preferredAuthentMeans`,
+						 `issuerCountry`, `hubCallMode`, `fk_id_issuer`, `maskParams`, `dateFormat`,`paChallengePublicUrl`,
+						 `verifyCardStatus`,`3DS2AdditionalInfo`,`resendOTPThreshold`, `resendSameOTP`,`combinedAuthenticationAllowed`,
+						 `displayLanguageSelectPage`,`trustedBeneficiariesAllowed`,`authentMeans`, `fk_id_cryptoConfig`, `currencyFormat`) VALUES
+  (@acsId, @authenticationTimeOut, @backUpLanguages, @subIssuerCode, @subIssuerCode, @currencyCode, @createdBy, NOW(), NULL, NULL, NULL, @subIssuerNameAndLabel,
+   @updateState, @defaultLanguage, @freshnessPeriod, @subIssuerNameAndLabel, @manageBackupsCombinedAmounts, @manageChoicesCombinedAmounts, @personnalDataStorage, @resetBackupsIfSuccess, @resetChoicesIfSuccess, @transactionTimeOut,
+   @acsURL1VEMastercard, @acsURL2VEMastercard, @acsURL1VEVisa, @acsURL2VEVisa, @automaticDeviceSelection, @userChoiceAllowed, @backupAllowed, @defaultDeviceChoice, @preferredAuthMean,
+   @issuerCountryCode, @HUBcallMode, @issuerId, @maskParam, @dateFormat, @paChallengeURL, @verifyCardStatus, @3DS2AdditionalInfo,@resendOTPThreshold, @resendSameOTP, @combinedAuthenticationAllowed, @displayLanguageSelectPage, @trustedBeneficiariesAllowed, @activatedAuthMeans, @cryptoConfigID, @currencyFormat);
+/*!40000 ALTER TABLE `SubIssuer` ENABLE KEYS */;
+
+
+SET @subIssuerID = (SELECT id FROM `SubIssuer` WHERE `code` = @subIssuerCode AND `name` = @subIssuerNameAndLabel);
+
+/* ProfileSet */
+/*!40000 ALTER TABLE `ProfileSet` DISABLE KEYS */;
+
+SET @BankB = '{{propACS_BO_SUBISSUER.bankName}}';
+SET @BankUB = '{{propACS_BO_SUBISSUER.bankNameShort}}';
+
+INSERT INTO `ProfileSet` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `fk_id_subIssuer`)
+SELECT @createdBy, NOW(), CONCAT(@BankB, ' profile set'), NULL, NULL, CONCAT('PS_', @BankUB, '_01'), @updateState, si.id
+FROM `SubIssuer` si
+WHERE si.fk_id_issuer = @issuerId and si.id = @subIssuerID;
+/*!40000 ALTER TABLE `ProfileSet` ENABLE KEYS */;
+
+SET @ProfileSet = (SELECT id FROM `ProfileSet` WHERE `name` = CONCAT('PS_', @BankUB, '_01'));
+
+
+
+/* BinRange */
+/* In this table, in the case of co-branding the primary network will be present as a foreign key (fk_id_network) and
+   the 'alternative' network will be present through the field 'coBrandedCardNetwork' which contains a string that matches
+   the field 'code' of the Network (it plays the same role as a foreign key, because the code is unique for each Network)
+*/
+{% for bin in propACS_BO_BinRange.BinRanges %} {% if loop.index == 1 %}
+INSERT INTO `BinRange` (`activateState`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+				`name`, `updateState`, `immediateActivation`, `activationDate`, `lowerBound`, `panLength`,
+				`sharedBinRange`, `updateDSDate`, `upperBound`, `toExport`, `fk_id_profileSet`, `fk_id_network`,
+				`coBrandedCardNetwork`) VALUES{% endif %}
+     ('{{bin.activeState}}', @createdBy, NOW(), NULL, NULL, NULL,'{{bin.name}}', @updateState, {{bin.immediateActivation}}, NOW(), {{bin.lowerBound}}, {{bin.pathLength}}, {{bin.sharedBinRange}}, NULL, {{bin.upperBound}}, {{bin.toExport}}, @ProfileSet, {% if bin.network|lower == 'visa' %} @VisaID {% else %} @MastercardID {% endif %}, NULL){{","if not loop.last else ";"}}{%endfor%}
+
+/* BinRange_SubIssuer */
+{% for bin in propACS_BO_BinRange.BinRanges %}
+INSERT INTO `BinRange_SubIssuer` (`id_binRange`, `id_subIssuer`)
+  SELECT b.id, s.id
+  FROM BinRange b, SubIssuer s
+  WHERE ((b.lowerBound = {{bin.lowerBound}} and b.upperBound = {{bin.upperBound}}) )
+    AND b.fk_id_profileSet=@ProfileSet
+    AND s.code=@subIssuerCode;{% endfor %}

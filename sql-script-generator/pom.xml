@@ -1,0 +1,102 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.worldline.acs.rbu2.delivery</groupId>
+    <artifactId>acs-delivery-configuration</artifactId>
+    <version>22R1-GE-3.11-SNAPSHOT</version>
+  </parent>
+  <artifactId>sql-script-generator</artifactId>
+  
+  	<build>
+	  <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <source>${java-version}</source>
+            <target>${java-version}</target>
+          </configuration>
+        </plugin>
+		<plugin>
+		  <artifactId>maven-assembly-plugin</artifactId>
+		  <configuration>
+		    <archive>
+		      <manifest>
+		        <mainClass>com.wl.gbl.ge.ssg.Main</mainClass>
+		      </manifest>
+		    </archive>
+		    <descriptorRefs>
+		      <descriptorRef>jar-with-dependencies</descriptorRef>
+		    </descriptorRefs>
+		    <appendAssemblyId>false</appendAssemblyId>
+		  </configuration>
+		  <executions>
+		    <execution>
+		      <id>make-assembly</id> <!-- this is used for inheritance merges -->
+		      <phase>package</phase> <!-- bind to the packaging phase -->
+		      <goals>
+		        <goal>single</goal>
+		      </goals>
+		    </execution>
+		  </executions>
+		</plugin>
+	  </plugins>
+	</build>
+  
+<!--  <build>
+     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+         
+          <delimiters>
+            <delimiter>$[*]</delimiter>
+          </delimiters>
+         
+        </configuration>
+      </plugin>
+    </plugins>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+     
+    </resources>
+ 	<filters>
+  	    <filter>src/main/resources/ACS_BO_PROD.properties</filter>
+  	</filters>
+  </build>-->
+  
+    <dependencies>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.11</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.2.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hubspot.jinjava</groupId>
+            <artifactId>jinjava</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.7.9.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+            <version>3.3.9</version>
+        </dependency>
+
+    </dependencies>
+  
+</project>
