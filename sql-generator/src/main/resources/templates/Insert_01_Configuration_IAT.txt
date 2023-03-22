@@ -1,0 +1,186 @@
+/* -------------------------------------------------------------------------------------- 01_initial_script ------------------------------------------------------------------------------------- */
+USE `[(${databaseAcsBo})]`;
+
+SET @createdBy = '[(${createdBy})]';
+SET @updateState = '[(${updateState})]';
+
+/* ---------------------------- Issuer --------------------------- */
+SET @issuerCode = '[(${issuerCode})]';
+SET @issuerName = '[(${issuerName})]';
+SET @issuerLabel = '[(${issuerLabel})]';
+SET @issuerAvailaibleAuthentMean = '[(${issuerAvailaibleAuthentMean})]';
+
+INSERT INTO `Issuer` (`code`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `label`, `availaibleAuthentMeans`) VALUES
+(@issuerCode, @createdBy, NOW(), @issuerLabel, NULL, NULL, @issuerName, @updateState, @issuerLabel, @issuerAvailaibleAuthentMean);
+
+SET @issuerId = (SELECT `id` FROM `Issuer` WHERE `code` = @issuerCode);
+
+/* ---------------------------- CryptoConfig ----------------------- */
+SET @protocol1 = '[(${protocolOne})]';
+SET @protocol2 = '[(${protocolTwo})]';
+SET @cryptoDescription  = '[(${cryptoDescription})]';
+
+INSERT INTO `CryptoConfig` (`protocolOne`, `protocolTwo`, `description`) VALUES
+(@protocol1, @protocol2, @cryptoDescription);
+
+SET @cryptoConfigId = (SELECT id FROM `CryptoConfig` where `description` = @cryptoDescription);
+
+/* ------------------------------------------------ SubIssuer ---------------------------------------------------- */
+SET @acsId  = '[(${subIssuer.acsId})]';
+SET @bankName  = '[(${subIssuer.bankName})]';
+SET @bankNameShort  = '[(${subIssuer.bankNameShort})]';
+SET @authenticationTimeOut = [(${subIssuer.authenticationTimeOut})];
+SET @backupLanguages = '[(${subIssuer.backupLanguages})]';
+SET @subIssuerCode = '[(${subIssuer.subIssuerCode})]';
+SET @codeSvi = '[(${subIssuer.subIssuerCodeSvi})]';
+SET @currencyCode = '[(${subIssuer.currencyCode})]';
+SET @subIssuerName = '[(${subIssuer.subIssuerName})]';
+SET @defaultLanguage = '[(${subIssuer.defaultLanguage})]';
+SET @freshnessPeriod = '[(${subIssuer.freshnessPeriod})]';
+SET @subIssuerLabel = '[(${subIssuer.subIssuerLabel})]';
+SET @manageBackupsCombinedAmounts = [(${subIssuer.manageBackupsCombinedAmounts})];
+SET @manageChoicesCombinedAmounts = [(${subIssuer.manageChoicesCombinedAmounts})];
+SET @personnalDataStorage = [(${subIssuer.personnalDataStorage})];
+SET @resetBackupsIfSuccess = [(${subIssuer.resetBackupsIfSuccess})];
+SET @resetChoicesIfSuccess = [(${subIssuer.resetChoicesIfSuccess})];
+SET @digitalAuthFrameworkEnabled = [(${subIssuer.digitalAuthFrameworkEnabled})];
+SET @transactionTimeOut = [(${subIssuer.transactionTimeOut})];
+SET @acsUrl1VeMc = [# th:if="${subIssuer.acsUrl1VeMc}"]'[(${subIssuer.acsUrl1VeMc})]';[/] [# th:unless="${subIssuer.acsUrl1VeMc}"]NULL;[/]
+SET @acsUrl2VeMc = [# th:if="${subIssuer.acsUrl2VeMc}"]'[(${subIssuer.acsUrl2VeMc})]';[/] [# th:unless="${subIssuer.acsUrl2VeMc}"]NULL;[/]
+SET @acsUrl1VeCb = [# th:if="${subIssuer.acsUrl1VeCb}"]'[(${subIssuer.acsUrl1VeCb})]';[/] [# th:unless="${subIssuer.acsUrl1VeCb}"]'';[/]
+SET @acsUrl2VeCb = [# th:if="${subIssuer.acsUrl2VeCb}"]'[(${subIssuer.acsUrl2VeCb})]';[/] [# th:unless="${subIssuer.acsUrl2VeCb}"]'';[/]
+SET @acsUrl1VeVisa = [# th:if="${subIssuer.acsUrl1VeVisa}"]'[(${subIssuer.acsUrl1VeVisa})]';[/] [# th:unless="${subIssuer.acsUrl1VeVisa}"]NULL;[/]
+SET @acsUrl2VeVisa = [# th:if="${subIssuer.acsUrl2VeVisa}"]'[(${subIssuer.acsUrl2VeVisa})]';[/] [# th:unless="${subIssuer.acsUrl2VeVisa}"]NULL;[/]
+SET @automaticDeviceSelection = [(${subIssuer.automaticDeviceSelection})];
+SET @userChoiceAllowed = [(${subIssuer.userChoiceAllowed})];
+SET @backupAllowed = [(${subIssuer.backupAllowed})];
+SET @defaultDeviceChoice = [(${subIssuer.defaultDeviceChoice})];
+SET @preferredAuthentMeans = '[(${subIssuer.preferredAuthentMeans})]';
+SET @issuerCountry = '[(${subIssuer.issuerCountry})]';
+SET @hubCallMode = '[(${subIssuer.hubCallMode})]';
+SET @rbaThreshold = [(${subIssuer.rbaThreshold})];
+SET @maskParams = '[(${subIssuer.maskParams})]';
+SET @dateFormat = '[(${subIssuer.dateFormat})]';
+SET @formattedDateJavaFormat = '[(${subIssuer.formattedDateJavaFormat})]';
+SET @twoStepCancellation = [(${subIssuer.twoStepCancellation})];
+SET @paChallengePublicUrl = '{
+        "Vendome": "[(${subIssuer.paChallengePublicUrl.vendome})]",
+        "Seclin": "[(${subIssuer.paChallengePublicUrl.seclin})]",
+        "Unknown": "[(${subIssuer.paChallengePublicUrl.unknown})]"
+     }';
+SET @verifyCardStatus = '[(${subIssuer.verifyCardStatus})]';
+SET @3DS2AdditionalInfo = '{
+        "VISA": {
+            "operatorId": "[(${subIssuer.threeDS2AdditionalInfo.visaObj.operatorId})]",
+            "dsKeyAlias": "[(${subIssuer.threeDS2AdditionalInfo.visaObj.dsKeyAlias})]"
+        },
+        "MASTERCARD": {
+            "operatorId": "[(${subIssuer.threeDS2AdditionalInfo.masterCard.operatorId})]",
+            "dsKeyAlias": "[(${subIssuer.threeDS2AdditionalInfo.masterCard.dsKeyAlias})]"
+        }
+    }';
+SET @permanentStrongMeansCounter = [(${subIssuer.permanentStrongMeansCounter})];
+SET @resendOTPThreshold = [(${subIssuer.resendOTPThreshold})];
+SET @resendSameOTP = [(${subIssuer.resendSameOTP})];
+SET @combinedAuthenticationAllowed = [(${subIssuer.combinedAuthenticationAllowed})];
+SET @protocol2FlowMode = '[(${subIssuer.protocol2FlowMode})]';
+SET @displayLanguageSelectPage = [(${subIssuer.displayLanguageSelectPage})];
+SET @trustedBeneficiariesAllowed = [(${subIssuer.trustedBeneficiariesAllowed})];
+SET @authMeans = '[ [# th:each="authentMeans, iStat : ${subIssuer.subIssuerAuthentMeans}"]
+        {
+            "authentMeans": "[(${authentMeans.authentMeans})]",
+            "validate": [(${authentMeans.validate})]
+        [# th:unless="${iStat.last}"]}, [/][# th:if="${iStat.last}"]} [/]
+    [/]]';
+[# th:if="${subIssuer.currencyFormat}"]
+SET @currencyFormat = '{
+        "useAlphaCurrencySymbol": [(${subIssuer.currencyFormat.useAlphaCurrencySymbol})],
+        "currencySymbolPosition": "[(${subIssuer.currencyFormat.currencySymbolPosition})]",
+        "decimalDelimiter": "[(${subIssuer.currencyFormat.decimalDelimiter})]",
+        "thousandDelimiter": "[(${subIssuer.currencyFormat.thousandDelimiter})]"
+    }';
+[/]
+[# th:if="${subIssuer.currencyFormat == null}"]SET @currencyFormat = null ;[/]
+SET @npaEnabled = [(${subIssuer.npaEnabled})];
+SET @hubMaintenanceModeEnabled = [(${subIssuer.hubMaintenanceModeEnabled})];
+
+INSERT INTO `SubIssuer` (`acsId`, `authenticationTimeOut`, `backupLanguages`, `code`, `codeSvi`, `currencyCode`,
+						 `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`,
+						 `defaultLanguage`, `freshnessPeriod`, `label`, `manageBackupsCombinedAmounts`, `manageChoicesCombinedAmounts`,
+						 `personnalDataStorage`, `resetBackupsIfSuccess`, `resetChoicesIfSuccess`, `digitalAuthFrameworkEnabled`,
+						 `transactionTimeOut`, `fk_id_issuer`, `acs_URL1_VE_MC`, `acs_URL2_VE_MC`, `acs_URL1_VE_CB`, `acs_URL2_VE_CB`, `acs_URL1_VE_VISA`, `acs_URL2_VE_VISA`,
+						 `automaticDeviceSelection`, `userChoiceAllowed`, `backupAllowed`, `defaultDeviceChoice`, `preferredAuthentMeans`,
+						 `issuerCountry`, `hubCallMode`, `rbaThreshold`, `maskParams`, `dateFormat`, `formattedDateJavaFormat`, `twoStepCancellation`, `fk_id_cryptoConfig`, `paChallengePublicUrl`,
+						 `verifyCardStatus`,`3DS2AdditionalInfo`, `permanentStrongMeansCounter`, `resendOTPThreshold`, `resendSameOTP`,`combinedAuthenticationAllowed`,
+						 `protocol2FlowMode`, `displayLanguageSelectPage`,`trustedBeneficiariesAllowed`,`authentMeans`, `currencyFormat`, `npaEnabled`, `hubMaintenanceModeEnabled`) VALUES
+(@acsId, @authenticationTimeOut, @backupLanguages, @subIssuerCode, @codeSvi, @currencyCode, @createdBy, NOW(), @subIssuerLabel, NULL, NULL, @subIssuerName, @updateState,
+ @defaultLanguage, @freshnessPeriod, @subIssuerLabel, @manageBackupsCombinedAmounts, @manageChoicesCombinedAmounts, @personnalDataStorage, @resetBackupsIfSuccess, @resetChoicesIfSuccess, @digitalAuthFrameworkEnabled,
+ @transactionTimeOut, @issuerId, @acsUrl1VeMc, @acsUrl2VeMc, @acsUrl1VeCb, @acsUrl2VeCb, @acsUrl1VeVisa, @acsUrl2VeVisa, @automaticDeviceSelection, @userChoiceAllowed, @backupAllowed, @defaultDeviceChoice, @preferredAuthentMeans,
+ @issuerCountry, @hubCallMode, @rbaThreshold, @maskParams, @dateFormat, @formattedDateJavaFormat, @twoStepCancellation, @cryptoConfigId, @paChallengePublicUrl, @verifyCardStatus, @3DS2AdditionalInfo, @permanentStrongMeansCounter, @resendOTPThreshold, @resendSameOTP,
+ @combinedAuthenticationAllowed, @protocol2FlowMode, @displayLanguageSelectPage, @trustedBeneficiariesAllowed, @authMeans, @currencyFormat, @npaEnabled, @hubMaintenanceModeEnabled);
+
+SET @subIssuerId = (SELECT id FROM `SubIssuer` WHERE `code` = @subIssuerCode AND `name` = @subIssuerName);
+
+/*------------------------------------------------------SubIssuer_Configuration---------------------------------------*/
+SET @defaultDelayInExemption = [(${subIssuerConfig.defaultDelayInExemption})];
+SET @authDataAddition = [(${subIssuerConfig.authDataAddition})];
+SET @defaultTransactionSearchPeriod = [(${subIssuerConfig.defaultTransactionSearchPeriod})];
+SET @displayCardExpiryDate = [(${subIssuerConfig.displayCardExpiryDate})];
+SET @changeCardStatus = [(${subIssuerConfig.changeCardStatus})];
+SET @displayCardId = [(${subIssuerConfig.displayCardId})];
+SET @displayCardUpdatedTime = [(${subIssuerConfig.displayCardUpdatedTime})];
+SET @displayCardDeletedTime = [(${subIssuerConfig.displayCardDeletedTime})];
+
+INSERT INTO `SubIssuer_Configuration` (`subIssuerCode`, `defaultDelayInExemption`, `authDataAddition`, `defaultTransactionSearchPeriod`, `displayCardExpiryDate`, `changeCardStatus`, `displayCardId`, `displayCardUpdatedTime`, `displayCardDeletedTime`) VALUES
+(@subIssuerCode,  @defaultDelayInExemption, @authDataAddition, @defaultTransactionSearchPeriod, @displayCardExpiryDate, @changeCardStatus, @displayCardId, @displayCardUpdatedTime, @displayCardDeletedTime);
+
+
+/* -------------------------------------------------------- Network_SubIssuer ----------------------------------------*/
+[# th:each="usedScheme : ${usedSchemes}"]
+SET @networkId = (SELECT id FROM Network WHERE code = '[(${usedScheme})]');
+INSERT INTO `Network_SubIssuer` (`id_network`, `id_subIssuer`) VALUES
+(@networkId, @subIssuerId);
+[/]
+
+/* --------------------------------------------------- ProfileSet -------------------------------------------------------------------------- */
+INSERT INTO `ProfileSet` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `fk_id_subIssuer`) VALUES
+(@createdBy, NOW(), CONCAT(@bankName, ' profile set'), NULL, NULL, CONCAT('PS_', @bankNameShort, '_01'), @updateState, @subIssuerId);
+
+SET @profileSetId = (SELECT id FROM `ProfileSet` WHERE `name` = CONCAT('PS_', @bankNameShort, '_01'));
+
+[# th:each="binRange : ${binRangeList}"]
+/* -------------------------------------------------- BinRange-[(${binRangeStat.count})] ----------------------------------------------- */
+ SET @activeState = '[(${binRange.activeState})]';
+ SET @name = '[(${binRange.name})]';
+ SET @immediateActivation = [(${binRange.immediateActivation})];
+ SET @lowerBound = [(${binRange.lowerBound})];
+ SET @upperBound = [(${binRange.upperBound})];
+ SET @panLength = [(${binRange.panLength})];
+ SET @sharedBinRange = [(${binRange.sharedBinRange})];
+ SET @toExport = [(${binRange.toExport})];
+ SET @virtualCardsOnly = [(${binRange.virtualCardsOnly})];
+ SET @associatedCardType = '[(${binRange.associatedCardType})]';
+ SET @networkCode = '[(${binRange.network})]';
+ SET @networkId = (SELECT `id` FROM `Network` WHERE `code` = @networkCode);
+
+INSERT INTO `BinRange` (`activateState`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,
+				`name`, `updateState`, `immediateActivation`, `activationDate`, `lowerBound`, `panLength`,
+				`sharedBinRange`, `updateDSDate`, `upperBound`, `toExport`, `virtualCardsOnly`, `associatedCardType`, `fk_id_profileSet`, `fk_id_network`, `coBrandedCardNetwork`) VALUES
+(@activeState, @createdBy, NOW(), NULL, NULL, NULL, @name, @updateState, @immediateActivation, NOW(), @lowerBound, @panLength, @sharedBinRange, NULL, @upperBound, @toExport, @virtualCardsOnly, @associatedCardType, @profileSetId, @networkId, NULL);
+
+SET @binRangeId = (SELECT id FROM BinRange WHERE lowerBound = @lowerBound AND upperBound = @upperBound AND fk_id_profileSet = @profileSetId);
+
+   /* --------------------------------- BinRange_SubIssuer ---------------------------------- */
+INSERT INTO `BinRange_SubIssuer` (`id_binRange`, `id_subIssuer`) VALUES (@binRangeId, @subIssuerId);
+
+[/]
+/* ----------------------------------------------------Images--------------------------------------------- */
+[# th:each="image : ${customImages}"]
+SET @imageName = '[(${image.imageName})]';
+SET @binaryData = '[(${image.binaryData})]';
+SET @imageFilePath = '[(${image.imageFilePath})]';
+
+INSERT INTO `Image` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `binaryData`, `relativePath`) VALUES
+(@createdBy, NOW(), @imageName, NULL, NULL, @imageName, @updateState, @binaryData, @imageFilePath);
+
+[/]

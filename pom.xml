@@ -21,6 +21,7 @@
         <module>acs-delivery-artifacts</module>
         <!--<module>acs-delivery-scripts</module>-->
         <module>sql-script-generator</module>
+        <module>sql-generator</module>
     </modules>
     
 	<url>

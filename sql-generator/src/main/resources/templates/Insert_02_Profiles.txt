@@ -1,0 +1,110 @@
+/* ---------------------------------------------------------------------- 02_initial_script --------------------------------------------------------------------- */
+USE `[(${databaseAcsBo})]`;
+
+SET @bankNameShort = '[(${bankNameShort})]';
+SET @createdBy = '[(${createdBy})]';
+SET @updateState = '[(${updateState})]';
+
+SET @profileSetId = (SELECT `id` FROM `ProfileSet` WHERE `name` = CONCAT('PS_', @bankNameShort, '_01'));
+SET @subIssuerId = (SELECT `fk_id_subIssuer` FROM `ProfileSet` WHERE `name` = CONCAT('PS_', @bankNameShort, '_01'));
+
+[# th:each="rule : ${rules}"]
+/* ----------------------------------------- CustomItemSet-[(${rule.profile.name})] ---------------------------------- */
+[# th:unless="${rule.profile.authentMeans} == 'ACCEPT' OR ${rule.profile.authentMeans} == 'DECLINE'"]
+SET @customItemSetName  = '[(${rule.profile.name})]';
+SET @status  = 'DEPLOYED_IN_PRODUCTION';
+SET @versionNumber  = '1';
+
+INSERT INTO `CustomItemSet` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
+                            `updateState`, `status`, `versionNumber`, `validationDate`, `deploymentDate`, `fk_id_subIssuer`) VALUES
+(@createdBy, NOW(), CONCAT('customitemset_', @customItemSetName, '_current'), NULL, NULL, CONCAT('customitemset_', @customItemSetName),
+ @updateState, @status, @versionNumber, NULL, NULL, @subIssuerId);
+
+SET @customItemSetId = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @customItemSetName)); [/]
+[# th:if="${rule.profile.authentMeans} == 'ACCEPT' OR ${rule.profile.authentMeans} == 'DECLINE'"]SET @customItemSetId = NULL; [/]
+
+/* ---------------------------------------------------- Profile-[(${rule.profile.name})] ---------------------------------- */
+SET @profileName = '[(${rule.profile.name})]';
+SET @maxAttempts = [(${rule.profile.maxAttempts})];
+SET @dataEntryFormat = '[(${rule.profile.dataEntryFormat})]';
+SET @dataEntryAllowedPattern = '[(${rule.profile.dataEntryAllowedPattern})]';
+SET @authenticationMethod  = '[(${rule.profile.authenticationMethod })]';
+SET @isCallbackCompatible  = [(${rule.profile.isCallbackCompatible })];
+SET @authentMeansId = (SELECT id FROM `AuthentMeans` WHERE `name` = '[(${rule.profile.authentMeans})]');
+
+INSERT INTO `Profile` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `maxAttempts`,`dataEntryFormat`, `dataEntryAllowedPattern`, `authenticationMethod`, `isCallbackCompatible`,
+						`fk_id_authentMeans`, `fk_id_customItemSetCurrent`, `fk_id_customItemSetOld`, `fk_id_customItemSetNew`, `fk_id_subIssuer`) VALUES
+(@createdBy, NOW(), NULL, NULL, NULL, @profileName, @updateState, @maxAttempts, @dataEntryFormat, @dataEntryAllowedPattern, @authenticationMethod, @isCallbackCompatible,
+@authentMeansId, @customItemSetId, NULL, NULL, @subIssuerId);
+
+SET @profileId = (SELECT id FROM `Profile` WHERE `name` = @profileName);
+
+/* ------------------------------------------------ Rule-[(${rule.ruleName})] ---------------------------------------- */
+SET @ruleName = '[(${rule.ruleName})]';
+SET @ruleDescription = '[(${rule.ruleName})]';
+SET @ruleOrder = [(${rule.ruleOrder})];
+
+INSERT INTO `Rule` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `orderRule`, `fk_id_profile`) VALUES
+(@createdBy, NOW(), @ruleDescription, NULL, NULL, @ruleName, @updateState, @ruleOrder, @profileId);
+
+SET @ruleId = (SELECT id FROM `Rule` WHERE `name` = @ruleName AND `fk_id_profile` = @profileId);
+
+/* ---------------------------------------------------- ProfileSet_Rule --------------------------------------------- */
+INSERT INTO `ProfileSet_Rule` (`id_profileSet`, `id_rule`) VALUES
+(@profileSetId, @ruleId);
+
+[# th:each="condition : ${rule.conditions}"]
+/* ---------------------------------------------------- Rule Condition - C[(${conditionStat.count})] - [(${rule.ruleName})] --------------------------------------------- */
+INSERT INTO `RuleCondition` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `fk_id_rule`) VALUES
+(@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C[(${conditionStat.count})]_P_', @bankNameShort, '_', @ruleName), @updateState,  @ruleId);
+
+[# th:each="transactionStatuse : ${condition.transactionStatuses}"]
+/* ---------------------------------- Condition_TransactionStatuses - [(${transactionStatuse.transactionStatusType})] ----------------------- */
+SET @transactionStatusType = '[(${transactionStatuse.transactionStatusType})]';
+SET @reversed = [(${transactionStatuse.reversed})];
+
+INSERT INTO `Condition_TransactionStatuses` (`id_condition`, `id_transactionStatuses`)
+SELECT c.id, ts.id FROM `RuleCondition` c, `TransactionStatuses` ts
+WHERE c.`name` = CONCAT('C[(${conditionStat.count})]_P_', @bankNameShort, '_', @ruleName)
+AND ts.`transactionStatusType` = @transactionStatusType AND ts.`reversed` = @reversed;
+
+[/]
+[# th:each="meansProcessStatuse : ${condition.meansProcessStatuses}"]
+/* ----------------------------- Condition_MeansProcessStatuses - [(${meansProcessStatuse.meansProcessStatusType})]---------------------------- */
+SET @meansProcessStatusType = '[(${meansProcessStatuse.meansProcessStatusType})]';
+SET @reversed = [(${meansProcessStatuse.reversed})];
+SET @authentMeansId = (SELECT id FROM `AuthentMeans` WHERE `name` = '[(${meansProcessStatuse.authentMeans})]');
+
+INSERT INTO `Condition_MeansProcessStatuses` (`id_condition`, `id_meansProcessStatuses`)
+SELECT c.id, mps.id FROM `RuleCondition` c, `MeansProcessStatuses` mps
+WHERE c.`name` = CONCAT('C[(${conditionStat.count})]_P_', @bankNameShort, '_', @ruleName)
+AND mps.`fk_id_authentMean` = @authentMeansId AND mps.`meansProcessStatusType` = @meansProcessStatusType AND mps.`reversed` = @reversed;
+
+[/][/]
+/* ------------------------------------------------ CustomItem -------------------------------------------------- */
+[# th:each="customItem : ${rule.profile.customItems}"]
+SET @dType = '[(${customItem.DType})]';
+SET @name = '[(${customItem.name})]';
+SET @ordinal = [(${customItem.ordinal})];
+SET @pageType = '[(${customItem.pageType})]';
+SET @locale = '[(${customItem.locale})]';
+SET @value = '[(${customItem.value})]';
+SET @network = '[(${customItem.network})]';
+SET @authentMeans = '[(${rule.profile.authentMeans})]';
+[# th:if="${customItem.dType} == 'I'"]
+SET @networkId = (SELECT id FROM Network WHERE code = @network);
+SET @imageId = (SELECT id FROM Image WHERE name = '[(${customItem.name})]');
+
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,`name`, `updateState`,
+                            `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet` ) VALUES
+(@dType, @createdBy, NOW(), NULL, NULL, NULL, @name, @updateState, @locale, @ordinal, @pageType, @value, @networkId, @imageId, @customItemSetId );
+
+[/][# th:if="${customItem.dType} == 'T'"]
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,`name`, `updateState`,
+                            `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet` ) VALUES
+(@dType, @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@authentMeans,'_',@pageType,'_',@ordinal), @updateState,
+ @locale, @ordinal, @pageType, @value, NULL, NULL, @customItemSetId );
+
+[/]
+[/]
+[/]

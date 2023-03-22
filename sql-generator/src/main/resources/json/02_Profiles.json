@@ -1,0 +1,1884 @@
+{
+  "name": "PS_VLK_01",
+  "createdBy": "EWLITAGEPG-2404",
+  "updateState": "PUSHED_TO_CONFIG",
+  "rules": [
+    {
+      "ruleName": "OOB (NORMAL)",
+      "ruleOrder": 4,
+      "conditions": [
+        {
+          "transactionStatuses": [
+          ],
+          "meansProcessStatuses": [
+            {
+              "reversed": true,
+              "authentMeans": "MOBILE_APP_EXT",
+              "meansProcessStatusType": "MEANS_PROCESS_ERROR",
+              "updateMode": "insert"
+            },
+            {
+              "reversed": false,
+              "authentMeans": "MOBILE_APP_EXT",
+              "meansProcessStatusType": "MEANS_AVAILABLE",
+              "updateMode": "insert"
+            },
+            {
+              "reversed": true,
+              "authentMeans": "MOBILE_APP_EXT",
+              "meansProcessStatusType": "MEANS_DISABLED",
+              "updateMode": "insert"
+            },
+            {
+              "reversed": false,
+              "authentMeans": "MOBILE_APP_EXT",
+              "meansProcessStatusType": "HUB_AUTHENTICATION_MEAN_AVAILABLE",
+              "updateMode": "insert"
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "name": "VLK_APP_EXT_01",
+        "maxAttempts": 4,
+        "dataEntryFormat": "6:(:DIGIT:1)",
+        "dataEntryAllowedPattern": "^[^OIi]*$",
+        "authentMeans": "MOBILE_APP_EXT",
+        "customItems": [
+          {
+            "DType": "I",
+            "name": "MC_ID_LOGO",
+            "ordinal": 2,
+            "pageType": "ALL",
+            "updateMode": "insert",
+            "locale": "nl",
+            "value": "Mastercard identity check™",
+            "network": "MASTERCARD",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "MASTERCARD_LOGO"
+          },
+          {
+            "DType": "I",
+            "name": "MC_small.png",
+            "ordinal": 254,
+            "pageType": "APP_VIEW",
+            "updateMode": "insert",
+            "locale": "nl",
+            "value": "MASTERCARD_SMALL_LOGO",
+            "network": "MASTERCARD",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "MASTERCARD_small.png"
+          },
+          {
+            "DType": "I",
+            "name": "MC_medium.png",
+            "ordinal": 255,
+            "pageType": "APP_VIEW",
+            "updateMode": "insert",
+            "locale": "nl",
+            "value": "MASTERCARD_MEDIUM_LOGO",
+            "network": "MASTERCARD",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "MASTERCARD_medium.png"
+          },
+          {
+            "DType": "I",
+            "name": "MC_large.png",
+            "ordinal": 256,
+            "pageType": "APP_VIEW",
+            "updateMode": "insert",
+            "locale": "nl",
+            "value": "MASTERCARD_LARGE_LOGO",
+            "network": "MASTERCARD",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "MASTERCARD_large.png"
+          },
+          {
+            "DType": "I",
+            "name": "VLK Logo",
+            "ordinal": 1,
+            "pageType": "ALL",
+            "updateMode": "insert",
+            "locale": "nl",
+            "value": "VLK",
+            "network": "",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "VLK"
+          },
+          {
+            "DType": "I",
+            "name": "vlk_small.png",
+            "ordinal": 251,
+            "pageType": "APP_VIEW",
+            "updateMode": "insert",
+            "locale": "nl",
+            "value": "VLK_SMALL_LOGO",
+            "network": "",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "vlk_small.png"
+          },
+          {
+            "DType": "I",
+            "name": "vlk_medium.png",
+            "ordinal": 252,
+            "pageType": "APP_VIEW",
+            "updateMode": "insert",
+            "locale": "nl",
+            "value": "VLK_MEDIUM_LOGO",
+            "network": "",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "vlk_medium.png"
+          },
+          {
+            "DType": "I",
+            "name": "vlk_large.png",
+            "ordinal": 253,
+            "pageType": "APP_VIEW",
+            "updateMode": "insert",
+            "locale": "nl",
+            "value": "VLK_LARGE_LOGO",
+            "network": "",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "vlk_large.png"
+          },
+          {
+            "DType": "I",
+            "name": "MC_ID_LOGO",
+            "ordinal": 2,
+            "pageType": "ALL",
+            "updateMode": "insert",
+            "locale": "en",
+            "value": "Mastercard identity check™",
+            "network": "MASTERCARD",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "MASTERCARD_LOGO"
+          },
+          {
+            "DType": "I",
+            "name": "MC_small.png",
+            "ordinal": 254,
+            "pageType": "APP_VIEW",
+            "updateMode": "insert",
+            "locale": "en",
+            "value": "MASTERCARD_SMALL_LOGO",
+            "network": "MASTERCARD",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "MASTERCARD_small.png"
+          },
+          {
+            "DType": "I",
+            "name": "MC_medium.png",
+            "ordinal": 255,
+            "pageType": "APP_VIEW",
+            "updateMode": "insert",
+            "locale": "en",
+            "value": "MASTERCARD_MEDIUM_LOGO",
+            "network": "MASTERCARD",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "MASTERCARD_medium.png"
+          },
+          {
+            "DType": "I",
+            "name": "MC_large.png",
+            "ordinal": 256,
+            "pageType": "APP_VIEW",
+            "updateMode": "insert",
+            "locale": "en",
+            "value": "MASTERCARD_LARGE_LOGO",
+            "network": "MASTERCARD",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "MASTERCARD_large.png"
+          },
+          {
+            "DType": "I",
+            "name": "VLK Logo",
+            "ordinal": 1,
+            "pageType": "ALL",
+            "updateMode": "insert",
+            "locale": "en",
+            "value": "VLK",
+            "network": "",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "VLK"
+          },
+          {
+            "DType": "I",
+            "name": "vlk_small.png",
+            "ordinal": 251,
+            "pageType": "APP_VIEW",
+            "updateMode": "insert",
+            "locale": "en",
+            "value": "VLK_SMALL_LOGO",
+            "network": "",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "vlk_small.png"
+          },
+          {
+            "DType": "I",
+            "name": "vlk_medium.png",
+            "ordinal": 252,
+            "pageType": "APP_VIEW",
+            "updateMode": "insert",
+            "locale": "en",
+            "value": "VLK_MEDIUM_LOGO",
+            "network": "",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "vlk_medium.png"
+          },
+          {
+            "DType": "I",
+            "name": "vlk_large.png",
+            "ordinal": 253,
+            "pageType": "APP_VIEW",
+            "updateMode": "insert",
+            "locale": "en",
+            "value": "VLK_LARGE_LOGO",
+            "network": "",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "vlk_large.png"
+          },
+          {
+            "DType": "T",
+            "ordinal": "1",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "nl",
+            "value": "Bevestig uw transactie",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "2",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "nl",
+            "value": "Transactie details",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "100",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "nl",
+            "value": "Webshop",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "101",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "nl",
+            "value": "Bedrag",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "102",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "nl",
+            "value": "Datum",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "103",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "nl",
+            "value": "Kaartnummer",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "3",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "nl",
+            "value": "Bevestig uw transactie met de Van Lanschot Banking app",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "4",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "nl",
+            "value": "Ga naar de Van Lanschot Banking app om uw identiteit te bevestigen en de transactie af te ronden.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "12",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "nl",
+            "value": "Verificatie bezig",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "13",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "nl",
+            "value": "Een ogenblik geduld a.u.b. terwijl we u authenticeren",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "43",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "nl",
+            "value": "Annuleren",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "175",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "nl",
+            "value": "Terug naar verkoper",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "44",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "nl",
+            "value": "Help",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "45",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "nl",
+            "value": "Help sluiten",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "2",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "nl",
+            "value": "Om veiligheidsredenen controleren we elke transactie zorgvuldig. We vragen u daarom om uw identiteit te bevestigen via de Van Lanschot Bankieren app. Heeft u hier hulp bij nodig of heeft u een andere vraag over dit onderwerp? Neem dan contact op met Van Lanschot Client Services via 0800-1737.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "3",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "nl",
+            "value": "U kunt Client Services bereiken op werkdagen van 8.00 tot 21.00 uur en op zaterdagen van 9.00 tot 17.00 uur. U kunt ook een e-mail sturen naar vanlanschot@vanlanschot.com of een WhatsApp-bericht naar +31 73 687 1897.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "26",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "nl",
+            "value": "Identiteit bevestigd",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "27",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "nl",
+            "value": "Binnen enkele seconden keert u weer terug naar de webwinkel.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "14",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "nl",
+            "value": "Transactie geannuleerd",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "15",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "nl",
+            "value": "Uw transactie is geannuleerd. U wordt automatisch doorgestuurd naar de webwinkel.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "16",
+            "updateMode": "insert",
+            "pageType": "FAILURE_PAGE",
+            "locale": "nl",
+            "value": "Identificatie mislukt",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "17",
+            "updateMode": "insert",
+            "pageType": "FAILURE_PAGE",
+            "locale": "nl",
+            "value": "Uw identiteit kon niet worden bevestigd. Start uw transactie opnieuw in de webwinkel.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "30",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "nl",
+            "value": "Identificatie time-out",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "31",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "nl",
+            "value": "Uw sessie is verlopen. Om uw transactie te voltooien, begint u opnieuw in de webwinkel.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "151",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "nl",
+            "value": "Bevestig uw transactie met de Banking app",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "152",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "nl",
+            "value": "Ga naar de Van Lanschot Banking app om uw identiteit te bevestigen. Keer vervolgens terug naar de webshop-app om de transactie te voltooien door op \"Doorgaan\" te klikken.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "153",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "nl",
+            "value": "",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "154",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "nl",
+            "value": "",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "155",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "nl",
+            "value": "",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "165",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "nl",
+            "value": "Doorgaan",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "156",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "nl",
+            "value": "Help",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "157",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "nl",
+            "value": "Om veiligheidsredenen controleren we elke transactie zorgvuldig. We vragen u daarom om uw identiteit te bevestigen via de Van Lanschot Bankieren app. Heeft u hier hulp bij nodig of heeft u een andere vraag over dit onderwerp? Neem dan contact op met Van Lanschot Client Services via 0800-1737.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "158",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "nl",
+            "value": "",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "159",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "nl",
+            "value": "",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "160",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "nl",
+            "value": "Uw identiteit kon niet worden bevestigd. Start uw transactie opnieuw in de webwinkel.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "161",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "nl",
+            "value": "",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "162",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "nl",
+            "value": "",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "165",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "nl",
+            "value": "Doorgaan",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "166",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "nl",
+            "value": "",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "1",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "en",
+            "value": "Confirm your transaction",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "2",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "en",
+            "value": "Transaction details",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "100",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "en",
+            "value": "Merchant",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "101",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "en",
+            "value": "Amount",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "102",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "en",
+            "value": "Date",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "103",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "en",
+            "value": "Card number",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "3",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "en",
+            "value": "Confirm your transaction with the Van Lanschot Banking app",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "4",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "en",
+            "value": "Go to the Van Lanschot Banking app to confirm your identity and complete the transaction.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "12",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "en",
+            "value": "Authentication in progress",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "13",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "en",
+            "value": "Please wait a moment while we authenticate you",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "43",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "en",
+            "value": "Cancel",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "175",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "en",
+            "value": "Back to merchant",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "44",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "en",
+            "value": "Help",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "45",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "en",
+            "value": "Close help",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "2",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "en",
+            "value": "For security reasons, we check every transaction carefully. We therefore ask you to confirm your identity via the Van Lanschot Banking app. Need help with this or have another question about this topic? Please contact Van Lanschot Client Services on 0800-1737.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "3",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "en",
+            "value": "You can reach Client Services on weekdays from 8:00 AM to 9:00 PM and on Saturdays from 9:00 AM to 5:00 PM. You can also send an email to vanlanschot@vanlanschot.com or a WhatsApp message to +31 73 687 1897.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "26",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "en",
+            "value": "Identity confirmed",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "27",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "en",
+            "value": "Within a few seconds you'll be transferred back to the merchant website.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "14",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "en",
+            "value": "Transaction cancelled",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "15",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "en",
+            "value": "Your transaction has been cancelled. You will be automatically redirected to the merchant website.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "16",
+            "updateMode": "insert",
+            "pageType": "FAILURE_PAGE",
+            "locale": "en",
+            "value": "Identification failed",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "17",
+            "updateMode": "insert",
+            "pageType": "FAILURE_PAGE",
+            "locale": "en",
+            "value": "Your identity could not be confirmed. Please start your transaction via the merchant website again.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "30",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "en",
+            "value": "Identification timeout",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "31",
+            "updateMode": "insert",
+            "pageType": "POLLING_PAGE",
+            "locale": "en",
+            "value": "Your session has been expired. To complete your transaction, please start again via the merchant website.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "151",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "en",
+            "value": "Confirm your transaction with the Banking app",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "152",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "en",
+            "value": "Go to the Van Lanschot Banking app to confirm your identity. Then  return back to the merchant app to complete the transaction by clicking on \"Continue\".",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "153",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "en",
+            "value": "",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "154",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "en",
+            "value": "",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "155",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "en",
+            "value": "",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "165",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "en",
+            "value": "Continue",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "156",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "en",
+            "value": "Help",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "157",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "en",
+            "value": "For security reasons, we check every transaction carefully. We therefore ask you to confirm your identity via the Van Lanschot Banking app. Need help with this or have another question about this topic? Please contact Van Lanschot Client Services on 0800-1737.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "158",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "en",
+            "value": "",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "159",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "en",
+            "value": "",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "160",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "en",
+            "value": "Your identity could not be confirmed. Please start your transaction via the merchant website again.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "161",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "en",
+            "value": "",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "162",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "en",
+            "value": "",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "165",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "en",
+            "value": "Continue",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "166",
+            "updateMode": "insert",
+            "pageType": "APP_VIEW",
+            "locale": "en",
+            "value": "",
+            "network": "2",
+            "subIssuerCode": ""
+          }
+        ]
+      }
+    },
+    {
+      "ruleName": "REFUSAL (DEFAULT)",
+      "ruleOrder": 5,
+      "conditions": [
+        {
+          "transactionStatuses": [
+            {
+              "reversed": false,
+              "transactionStatusType": "DEFAULT",
+              "updateMode": "insert"
+            }
+          ],
+          "meansProcessStatuses": [
+          ]
+        }
+      ],
+      "profile": {
+        "name": "VLK_DEFAULT_REFUSAL",
+        "maxAttempts": -1,
+        "dataEntryFormat": "6:(:DIGIT:1)",
+        "dataEntryAllowedPattern": "^[^OIi]*$",
+        "authentMeans": "REFUSAL",
+        "customItems": [
+          {
+            "DType": "I",
+            "name": "MC_ID_LOGO",
+            "ordinal": 2,
+            "pageType": "ALL",
+            "updateMode": "insert",
+            "locale": "nl",
+            "value": "Mastercard identity check™",
+            "network": "MASTERCARD",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "MASTERCARD_LOGO"
+          },
+          {
+            "DType": "I",
+            "name": "VLK Logo",
+            "ordinal": 1,
+            "pageType": "ALL",
+            "updateMode": "insert",
+            "locale": "nl",
+            "value": "VLK",
+            "network": "",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "VLK"
+          },
+          {
+            "DType": "I",
+            "name": "MC_ID_LOGO",
+            "ordinal": 2,
+            "pageType": "ALL",
+            "updateMode": "insert",
+            "locale": "en",
+            "value": "Mastercard identity check™",
+            "network": "MASTERCARD",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "MASTERCARD_LOGO"
+          },
+          {
+            "DType": "I",
+            "name": "VLK Logo",
+            "ordinal": 1,
+            "pageType": "ALL",
+            "updateMode": "insert",
+            "locale": "en",
+            "value": "VLK",
+            "network": "",
+            "subIssuerCode": "",
+            "imageBinaryDataKey": "VLK"
+          },
+          {
+            "DType": "T",
+            "ordinal": "2",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "nl",
+            "value": "Transactie details",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "100",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "nl",
+            "value": "Webshop",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "101",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "nl",
+            "value": "Bedrag",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "102",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "nl",
+            "value": "Datum",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "103",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "nl",
+            "value": "Kaartnummer",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "3",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "nl",
+            "value": "Bevestig uw transactie met de Van Lanschot Banking app",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "4",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "nl",
+            "value": "Heeft u hier hulp bij nodig of heeft u een andere vraag over dit onderwerp? Neem dan contact op met Van Lanschot Client Services via 0800-1737. U kunt Client Services bereiken op werkdagen van 8.00 tot 21.00 uur en op zaterdagen van 9.00 tot 17.00 uur.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "22",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "nl",
+            "value": "Technische fout",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "23",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "nl",
+            "value": "Door een technisch probleem kon uw identiteit niet worden bevestigd. Start uw transactie opnieuw via de webwinkel.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "43",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "nl",
+            "value": "Annuleren",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "175",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "nl",
+            "value": "Terug naar verkoper",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "174",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "nl",
+            "value": "Sluiten",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "44",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "nl",
+            "value": "Help",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "45",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "nl",
+            "value": "Help sluiten",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "2",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "nl",
+            "value": "Om veiligheidsredenen controleren we elke transactie zorgvuldig. We vragen u daarom om uw identiteit te bevestigen via de Van Lanschot Bankieren app. Heeft u hier hulp bij nodig of heeft u een andere vraag over dit onderwerp? Neem dan contact op met Van Lanschot Client Services via 0800-1737.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "3",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "nl",
+            "value": "U kunt Client Services bereiken op werkdagen van 8.00 tot 21.00 uur en op zaterdagen van 9.00 tot 17.00 uur. U kunt ook een e-mail sturen naar vanlanschot@vanlanschot.com of een WhatsApp-bericht naar +31 73 687 1897.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "2",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "en",
+            "value": "Transaction details",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "100",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "en",
+            "value": "Merchant",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "101",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "en",
+            "value": "Amount",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "102",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "en",
+            "value": "Date",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "103",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "en",
+            "value": "Card number",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "3",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "en",
+            "value": "Confirm your transaction with the Van Lanschot Banking app",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "4",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "en",
+            "value": "Need help with this or have another question about this topic? Please contact Van Lanschot Client Services on 0800-1737. You can reach Client Services on weekdays from 8:00 AM to 9:00 PM and on Saturdays from 9:00 AM to 5:00 PM.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "22",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "en",
+            "value": "Technical error",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "23",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "en",
+            "value": "Due to a technical issue, your identity could not be confirmed. Please start your transaction again via the merchant website.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "43",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "en",
+            "value": "Cancel",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "175",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "en",
+            "value": "Back to merchant",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "174",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "en",
+            "value": "Close",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "44",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "en",
+            "value": "Help",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "45",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "en",
+            "value": "Close help",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "2",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "en",
+            "value": "For security reasons, we check every transaction carefully. We therefore ask you to confirm your identity via the Van Lanschot Banking app. Need help with this or have another question about this topic? Please contact Van Lanschot Client Services on 0800-1737.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "3",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "en",
+            "value": "You can reach Client Services on weekdays from 8:00 AM to 9:00 PM and on Saturdays from 9:00 AM to 5:00 PM. You can also send an email to vanlanschot@vanlanschot.com or a WhatsApp message to +31 73 687 1897.",
+            "network": "2",
+            "subIssuerCode": ""
+          }
+        ]
+      }
+    },
+    {
+      "ruleName": "REFUSAL (FRAUD)",
+      "ruleOrder": 1,
+      "conditions": [
+        {
+          "transactionStatuses": [
+            {
+              "reversed": false,
+              "transactionStatusType": "PAYMENT_MEANS_IN_NEGATIVE_LIST",
+              "updateMode": "insert"
+            }
+          ],
+          "meansProcessStatuses": [
+          ]
+        },
+        {
+          "transactionStatuses": [
+            {
+              "reversed": false,
+              "transactionStatusType": "CARD_HOLDER_IP_IN_NEGATIVE_LIST",
+              "updateMode": "insert"
+            }
+          ],
+          "meansProcessStatuses": [
+          ]
+        },
+        {
+          "transactionStatuses": [
+            {
+              "reversed": false,
+              "transactionStatusType": "CARD_HOLDER_COUNTRY_IN_NEGATIVE_LIST",
+              "updateMode": "insert"
+            }
+          ],
+          "meansProcessStatuses": [
+          ]
+        },
+        {
+          "transactionStatuses": [
+            {
+              "reversed": false,
+              "transactionStatusType": "MERCHANT_URL_IN_NEGATIVE_LIST",
+              "updateMode": "insert"
+            }
+          ],
+          "meansProcessStatuses": [
+          ]
+        },
+        {
+          "transactionStatuses": [
+            {
+              "reversed": false,
+              "transactionStatusType": "PHONE_NUMBER_IN_NEGATIVE_LIST",
+              "updateMode": "insert"
+            }
+          ],
+          "meansProcessStatuses": [
+          ]
+        }
+      ],
+      "profile": {
+        "name": "VLK_FRAUD_REFUSAL",
+        "maxAttempts": -1,
+        "dataEntryFormat": "6:(:DIGIT:1)",
+        "dataEntryAllowedPattern": "^[^OIi]*$",
+        "authentMeans": "REFUSAL",
+        "customItems": [
+        ]
+      }
+    },
+    {
+      "ruleName": "REFUSAL(Missing Authentication)",
+      "ruleOrder": 2,
+      "conditions": [
+        {
+          "transactionStatuses": [
+          ],
+          "meansProcessStatuses": [
+            {
+              "reversed": false,
+              "authentMeans": "INFO",
+              "meansProcessStatusType": "MEANS_AVAILABLE",
+              "updateMode": "insert"
+            },
+            {
+              "reversed": true,
+              "authentMeans": "INFO",
+              "meansProcessStatusType": "MEANS_DISABLED",
+              "updateMode": "insert"
+            },
+            {
+              "reversed": true,
+              "authentMeans": "MOBILE_APP_EXT",
+              "meansProcessStatusType": "HUB_AUTHENTICATION_MEAN_AVAILABLE",
+              "updateMode": "insert"
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "name": "VLK_MISSING_AUTH_REFUSAL",
+        "maxAttempts": -1,
+        "dataEntryFormat": "6:(:DIGIT:1)",
+        "dataEntryAllowedPattern": "^[^OIi]*$",
+        "authentMeans": "REFUSAL",
+        "customItems": [
+          {
+            "DType": "T",
+            "ordinal": "2",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "nl",
+            "value": "Transactie details",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "100",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "nl",
+            "value": "Webshop",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "101",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "nl",
+            "value": "Bedrag",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "102",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "nl",
+            "value": "Datum",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "103",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "nl",
+            "value": "Kaartnummer",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "22",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "nl",
+            "value": "Technische fout",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "23",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "nl",
+            "value": "Door een technisch probleem kon uw identiteit niet worden bevestigd. Start uw transactie opnieuw via de webwinkel.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "43",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "nl",
+            "value": "Annuleren",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "175",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "nl",
+            "value": "Terug naar verkoper",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "174",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "nl",
+            "value": "Sluiten",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "44",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "nl",
+            "value": "Help",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "45",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "nl",
+            "value": "Help sluiten",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "2",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "nl",
+            "value": "Om veiligheidsredenen controleren we elke transactie zorgvuldig. We vragen u daarom om uw identiteit te bevestigen via de Van Lanschot Bankieren app. Heeft u hier hulp bij nodig of heeft u een andere vraag over dit onderwerp? Neem dan contact op met Van Lanschot Client Services via 0800-1737.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "3",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "nl",
+            "value": "U kunt Client Services bereiken op werkdagen van 8.00 tot 21.00 uur en op zaterdagen van 9.00 tot 17.00 uur. U kunt ook een e-mail sturen naar vanlanschot@vanlanschot.com of een WhatsApp-bericht naar +31 73 687 1897.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "1000",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "nl",
+            "value": "De betaling kan niet worden uitgevoerd. Neem contact op met Van Lanschot Client Services om uw kaart te registreren voor 3D Secure.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "2",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "en",
+            "value": "Transaction details",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "100",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "en",
+            "value": "Merchant",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "101",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "en",
+            "value": "Amount",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "102",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "en",
+            "value": "Date",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "103",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "en",
+            "value": "Card number",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "22",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "en",
+            "value": "Technical error",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "23",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "en",
+            "value": "Due to a technical issue, your identity could not be confirmed. Please start your transaction again via the merchant website.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "43",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "en",
+            "value": "Cancel",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "175",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "en",
+            "value": "Back to merchant",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "174",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "en",
+            "value": "Close",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "44",
+            "updateMode": "insert",
+            "pageType": "REFUSAL_PAGE",
+            "locale": "en",
+            "value": "Help",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "45",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "en",
+            "value": "Close help",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "2",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "en",
+            "value": "For security reasons, we check every transaction carefully. We therefore ask you to confirm your identity via the Van Lanschot Banking app. Need help with this or have another question about this topic? Please contact Van Lanschot Client Services on 0800-1737.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "3",
+            "updateMode": "insert",
+            "pageType": "HELP_PAGE",
+            "locale": "en",
+            "value": "You can reach Client Services on weekdays from 8:00 AM to 9:00 PM and on Saturdays from 9:00 AM to 5:00 PM. You can also send an email to vanlanschot@vanlanschot.com or a WhatsApp message to +31 73 687 1897.",
+            "network": "2",
+            "subIssuerCode": ""
+          },
+          {
+            "DType": "T",
+            "ordinal": "1000",
+            "updateMode": "insert",
+            "pageType": "ALL",
+            "locale": "en",
+            "value": "The payment cannot be processed. Please contact Van Lanschot Client Services to register your card for 3D Secure.",
+            "network": "2",
+            "subIssuerCode": ""
+          }
+        ]
+      }
+    },
+    {
+      "ruleName": "NONE (ACCEPT)",
+      "ruleOrder": 2,
+      "conditions": [
+        {
+          "transactionStatuses": [
+            {
+              "reversed": true,
+              "transactionStatusType": "ALWAYS_DECLINE"
+            },
+            {
+              "reversed": false,
+              "transactionStatusType": "ALWAYS_ACCEPT"
+            }
+          ],
+          "meansProcessStatuses": [],
+          "thresholds": [],
+          "transactionValues": []
+        }
+      ],
+      "profile": {
+        "name": "VLK_ACCEPT",
+        "authentMeans": "ACCEPT",
+        "customImages": [],
+        "customFonts": [],
+        "customTexts": []
+      }
+    },
+    {
+      "ruleName": "REFUSAL (DECLINE)",
+      "ruleOrder": 3,
+      "conditions": [
+        {
+          "complete": true,
+          "transactionStatuses": [
+            {
+              "reversed": false,
+              "transactionStatusType": "ALWAYS_DECLINE"
+            },
+            {
+              "reversed": true,
+              "transactionStatusType": "ALWAYS_ACCEPT"
+            }
+          ],
+          "meansProcessStatuses": [],
+          "thresholds": [],
+          "transactionValues": []
+        }
+      ],
+      "profile": {
+        "name": "VLK_DECLINE",
+        "authentMeans": "ACCEPT",
+        "customImages": [],
+        "customFonts": [],
+        "customTexts": []
+      }
+    }
+  ]
+}

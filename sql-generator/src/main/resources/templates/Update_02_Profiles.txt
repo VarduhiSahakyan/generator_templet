@@ -1,0 +1,71 @@
+/* ---------------------------------------------------------------------- update_02_initial_script --------------------------------------------------------------------- */
+USE `[(${databaseAcsBo})]`;
+
+SET @bankNameShort = '[(${bankNameShort})]';
+SET @createdBy = '[(${createdBy})]';
+SET @updateState = '[(${updateState})]';
+SET @subIssuerId = (SELECT `fk_id_subIssuer` FROM `ProfileSet` WHERE `name` = CONCAT('PS_', @bankNameShort, '_01'));
+[# th:each="rule : ${rules}"]
+    [# th:unless="${#lists.isEmpty(rule.profile.customItems)}"]
+/* ----------------------------------------- CustomItemSet-[(${rule.profile.name})] ---------------------------------- */
+DROP FUNCTION IF EXISTS getCustomItemSetId;
+DELIMITER //
+CREATE FUNCTION getCustomItemSetId ()
+    RETURNS int
+BEGIN
+    SET @customItemSetName  = '[(${rule.profile.name})]';
+    SET @status  = 'DEPLOYED_IN_PRODUCTION';
+    SET @versionNumber  = '1';
+    SET @customItemSetId = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @customItemSetName));
+    IF @customItemSetId IS NULL THEN
+        INSERT INTO `CustomItemSet` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`,
+                                     `updateState`, `status`, `versionNumber`, `validationDate`, `deploymentDate`, `fk_id_subIssuer`) VALUES
+                                    (@createdBy, NOW(), CONCAT('customitemset_', @customItemSetName, '_current'), NULL, NULL,
+                                    CONCAT('customitemset_', @customItemSetName), @updateState, @status, @versionNumber, NULL, NULL, @subIssuerId);
+    END IF;
+    SET @customItemSetId = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @customItemSetName));
+    RETURN @customItemSetId;
+END; //
+DELIMITER ;
+
+[# th:unless="${rule.profile.authentMeans} == 'ACCEPT' OR ${rule.profile.authentMeans} == 'DECLINE'"]SET @customItemSetId = getCustomItemSetId();[/]
+[# th:if="${rule.profile.authentMeans} == 'ACCEPT' OR ${rule.profile.authentMeans} == 'DECLINE'"] SET @customItemSetId = NULL; [/]
+
+/* --------------------------------------------------- CustomItem -------------------------------------------------- */
+        [# th:each="customItem : ${rule.profile.customItems}"]
+            [# th:if="${customItem.updateMode} == 'insert'"]
+SET @dType = '[(${customItem.DType})]';
+SET @ordinal = [(${customItem.ordinal})];
+SET @pageType = '[(${customItem.pageType})]';
+SET @locale = '[(${customItem.locale})]';
+SET @value = '[(${customItem.value})]';
+SET @network = '[(${customItem.network})]';
+SET @authentMeans = '[(${rule.profile.authentMeans})]';
+                [# th:if="${customItem.dType} == 'I'"]
+SET @name = '[(${customItem.name})]';
+SET @networkId = (SELECT id FROM Network WHERE name = @network);
+SET @imageId = (SELECT id FROM Image WHERE name = '[(${customItem.imageBinaryDataKey })]');
+                [/]
+                [# th:if="${customItem.dType} == 'T'"]
+SET @networkId = null;
+SET @imageId = null;
+SET @name = CONCAT(@authentMeans,'_',@pageType,'_',@ordinal);
+                [/]
+INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,`name`, `updateState`,
+                            `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
+(@dType, @createdBy, NOW(), NULL, NULL, NULL, @name, @updateState, @locale, @ordinal, @pageType, @value, @networkId, @imageId, @customItemSetIdr);
+            [/]
+            [# th:if="${customItem.updateMode} == 'update'"]
+SET @dType = '[(${customItem.DType})]';
+SET @ordinal = [(${customItem.ordinal})];
+SET @pageType = '[(${customItem.pageType})]';
+SET @locale = '[(${customItem.locale})]';
+SET @value = '[(${customItem.value})]';
+SET @subIssuerCode = '[(${customItem.subIssuerCode})]';
+
+UPDATE `CustomItem` SET `value` = @value
+WHERE `DTYPE` = @dType AND `pageTypes` = @pageType AND `locale` = @locale AND `ordinal` = @ordinal AND `fk_id_customItemSet` = @customItemSetId;
+            [/]
+        [/]
+    [/]
+[/]

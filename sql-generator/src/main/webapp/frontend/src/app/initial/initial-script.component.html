@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <label for="initialFileJson01" class="form-label fw-bold">Configuration IAT</label>
+      <div class="input-group mb-3">
+        <input type="file" id="initialFileJson01" class="form-control" #inputFile1
+               (change)="selectInitialFileJson01(inputFile1, $event)">
+        <button type="button" id="uploadFileJson1" class="btn btn-primary" (click)="uploadInitialFileJson01()"
+                [disabled]="disableUploadButton1">Upload
+        </button>
+      </div>
+      <div *ngIf="showSuccessMsg && errorMessage == ''" class="mb-3 text-center bg-success text-white">JSON FILE
+        UPLOADED SUCCESSFULLY
+      </div>
+      <div *ngIf="errorMessage != ''" class="mb-3 text-center bg-danger text-white">JSON FILE IS NOT VALID</div>
+      <div class="row mb-3">
+        <div class="col-4"></div>
+        <div class="col-1"><label>INSERT</label></div>
+        <div class="col-4">
+          <div class="form-check form-switch">
+            <input type="checkbox" name="sqlMode1" role="switch" class="form-check-input" #sqlModeUpdate1
+                   (change)="selectSQLMode1($event)" [disabled]="disableRadioButtonUpdate1">
+            <label>UPDATE</label>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary d-block mx-auto" [disabled]="disableGenerateButton1"
+              (click)="generateInitialScript01()">Generate 01_Configuration SQL Script
+      </button>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <label for="initialFileJson02" class="form-label fw-bold">Profiles</label>
+      <div class="input-group mb-3">
+        <input type="file" id="initialFileJson02" class="form-control" #inputFile2
+               (change)="selectInitialFileJson02(inputFile2, $event)">
+        <button type="button" id="uploadFileJson2" class="btn btn-primary" (click)="uploadInitialFileJson02()"
+                [disabled]="disableUploadButton2">Upload
+        </button>
+      </div>
+      <div *ngIf="showSuccessMsg2 && errorMessage2 == ''" class="mb-3 text-center bg-success text-white">JSON FILE
+        UPLOADED SUCCESSFULLY
+      </div>
+      <div *ngIf="errorMessage2 != ''" class="mb-3 text-center bg-danger text-white">JSON FILE IS NOT VALID</div>
+      <div class="row mb-3">
+        <div class="col-4"></div>
+        <div class="col-1"><label>INSERT</label></div>
+        <div class="col-4">
+          <div class="form-check form-switch">
+            <input type="checkbox" name="sqlMode2" role="switch" class="form-check-input" #sqlModeUpdate2
+                   (change)="selectSQLMode2($event)" [disabled]="disableRadioButtonUpdate2">
+            <label>UPDATE</label>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary d-block mx-auto" [disabled]="disableGenerateButton2"
+              (click)="generateInitialScript02()">Generate 02_Profiles SQL Script
+      </button>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col sql-script-content">
+      {{sqlScript}}
+    </div>
+  </div>
+</div>

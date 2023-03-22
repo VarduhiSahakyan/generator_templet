@@ -1,0 +1,25 @@
+/* -------------------------------------------------------------------------------------- update_01_initial_script ------------------------------------------------------------------------------------- */
+USE `[(${databaseAcsBo})]`;
+
+SET @createdBy = '[(${createdBy})]';
+SET @updateState = '[(${updateState})]';
+
+/* ---------------------------- Issuer --------------------------- */
+    SET @issuerCode = '[(${issuerCode})]';
+    SET @issuerName = '[(${issuerName})]';
+    SET @issuerLabel = '[(${issuerLabel})]';
+    SET @issuerAvailaibleAuthentMean = '[(${issuerAvailaibleAuthentMean})]';
+
+[# th:if="${updateMode} == 'update'"]
+    UPDATE `Issuer` SET `code` = @issuerCode, `lastUpdateDate` = NOW(), `name` = @issuerName, `label` = @issuerLabel, `availaibleAuthentMeans` = @issuerAvailaibleAuthentMean
+    WHERE `code` = @issuerCode ;
+
+    [/]
+
+[# th:if="${updateMode} == 'insert'"]
+
+INSERT INTO `Issuer` (`code`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `label`, `availaibleAuthentMeans`) VALUES
+(@issuerCode, @createdBy, NOW(), @issuerLabel, NULL, NULL, @issuerName, @updateState, @issuerLabel, @issuerAvailaibleAuthentMean);
+
+SET @issuerId = (SELECT `id` FROM `Issuer` WHERE `code` = @issuerCode);
+[/]
