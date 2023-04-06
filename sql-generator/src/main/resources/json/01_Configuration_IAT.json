@@ -111,10 +111,7 @@
       "Unknown": "https://ssl-qlf-u5g-fo-acs-pa.wlp-acs.com/"
     },
     "verifyCardStatus": 1,
-    "ThreeDS2AdditionalInfoVisaOperatorId": "acsOperatorVisa",
-    "ThreeDS2AdditionalInfoVisaDsKeyAlias": "3DS2-VISA-CERTIFICATION",
-    "ThreeDS2AdditionalInfoMastercardOperatorId": "acsOperatorMasterCard",
-    "ThreeDS2AdditionalInfoMastercardDsKeyAlias": "key-masterCard",
+    "ThreeDS2AdditionalInfo": "{\"VISA\": {\"operatorId\": \"acsOperatorVisa\", \"dsKeyAlias\": \"3DS2-VISA-CERTIFICATION\"}, \"MASTERCARD\": {\"operatorId\": \"acsOperatorMasterCard\", \"dsKeyAlias\": \"key-masterCard\"}}",
     "permanentStrongMeansCounter": false,
     "resendOTPThreshold": 0,
     "resendSameOTP": false,

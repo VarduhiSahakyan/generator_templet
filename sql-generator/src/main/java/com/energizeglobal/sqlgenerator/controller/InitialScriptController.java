@@ -21,8 +21,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class InitialScriptController {
 
     private final InitialScriptService initialScriptService;
-    private String SQL_FILE_PATH = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "sql_scripts" + File.separator;
-    private String JSON_FILE_PATH = File.separator + "target" + File.separator + "classes" + File.separator + "json" + File.separator;
+    private String SQL_FILE_PATH = "sql-generator" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "sql_scripts" + File.separator;
+    private String JSON_FILE_PATH = File.separator + "sql-generator" + File.separator + "target" + File.separator + "classes" + File.separator + "json" + File.separator;
 
     @PostMapping("/file/json/01/upload")
     public ResponseEntity<String> uploadFileJson01(@RequestParam MultipartFile file){

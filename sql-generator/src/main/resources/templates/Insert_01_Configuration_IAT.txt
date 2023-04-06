@@ -68,17 +68,8 @@ SET @paChallengePublicUrl = '{
         "Seclin": "[(${subIssuer.paChallengePublicUrl.seclin})]",
         "Unknown": "[(${subIssuer.paChallengePublicUrl.unknown})]"
      }';
-SET @verifyCardStatus = '[(${subIssuer.verifyCardStatus})]';
-SET @3DS2AdditionalInfo = '{
-        "VISA": {
-            "operatorId": "[(${subIssuer.threeDS2AdditionalInfo.visaObj.operatorId})]",
-            "dsKeyAlias": "[(${subIssuer.threeDS2AdditionalInfo.visaObj.dsKeyAlias})]"
-        },
-        "MASTERCARD": {
-            "operatorId": "[(${subIssuer.threeDS2AdditionalInfo.masterCard.operatorId})]",
-            "dsKeyAlias": "[(${subIssuer.threeDS2AdditionalInfo.masterCard.dsKeyAlias})]"
-        }
-    }';
+SET @verifyCardStatus = [(${subIssuer.verifyCardStatus})];
+SET @3DS2AdditionalInfo = '[(${subIssuer.threeDS2AdditionalInfo})]';
 SET @permanentStrongMeansCounter = [(${subIssuer.permanentStrongMeansCounter})];
 SET @resendOTPThreshold = [(${subIssuer.resendOTPThreshold})];
 SET @resendSameOTP = [(${subIssuer.resendSameOTP})];

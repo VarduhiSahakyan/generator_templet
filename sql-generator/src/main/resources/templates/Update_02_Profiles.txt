@@ -53,7 +53,7 @@ SET @name = CONCAT(@authentMeans,'_',@pageType,'_',@ordinal);
                 [/]
 INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`,`name`, `updateState`,
                             `locale`, `ordinal`, `pageTypes`, `value`, `fk_id_network`, `fk_id_image`, `fk_id_customItemSet`) VALUES
-(@dType, @createdBy, NOW(), NULL, NULL, NULL, @name, @updateState, @locale, @ordinal, @pageType, @value, @networkId, @imageId, @customItemSetIdr);
+(@dType, @createdBy, NOW(), NULL, NULL, NULL, @name, @updateState, @locale, @ordinal, @pageType, @value, @networkId, @imageId, @customItemSetId);
             [/]
             [# th:if="${customItem.updateMode} == 'update'"]
 SET @dType = '[(${customItem.DType})]';

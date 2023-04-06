@@ -181,6 +181,7 @@ public class SubIssuer {
     @JsonProperty("currencyFormat")
     private CurrencyFormat currencyFormat;
 
-    private ThreeDS2AdditionalInfo threeDS2AdditionalInfo = new ThreeDS2AdditionalInfo();
+    @JsonProperty("ThreeDS2AdditionalInfo")
+    private String threeDS2AdditionalInfo;
 
 }
