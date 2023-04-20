@@ -105,32 +105,19 @@
     "dateFormat": "DD.MM.YYYY HH:mm|CET",
     "formattedDateJavaFormat": "dd.MM.yyyy",
     "twoStepCancellation": false,
-    "paChallengePublicUrl": {
-      "Vendome": "https://ssl-qlf-u5g-fo-acs-pa.wlp-acs.com/",
-      "Seclin": "https://ssl-qlf-u5g-fo-acs-pa.wlp-acs.com/",
-      "Unknown": "https://ssl-qlf-u5g-fo-acs-pa.wlp-acs.com/"
-    },
+    "paChallengePublicUrl": "{\"Vendome\": \"https://ssl-qlf-u5g-fo-acs-pa.wlp-acs.com/\", \"Seclin\": \"https://ssl-qlf-u5g-fo-acs-pa.wlp-acs.com/\", \"Unknown\": \"https://ssl-qlf-u5g-fo-acs-pa.wlp-acs.com/\"}",
     "verifyCardStatus": 1,
-    "ThreeDS2AdditionalInfo": "{\"VISA\": {\"operatorId\": \"acsOperatorVisa\", \"dsKeyAlias\": \"3DS2-VISA-CERTIFICATION\"}, \"MASTERCARD\": {\"operatorId\": \"acsOperatorMasterCard\", \"dsKeyAlias\": \"key-masterCard\"}}",
-    "permanentStrongMeansCounter": false,
-    "resendOTPThreshold": 0,
-    "resendSameOTP": false,
-    "combinedAuthenticationAllowed": false,
-    "protocol2FlowMode": "AUTHENT_AND_CHALLENGE_MODE",
-    "displayLanguageSelectPage": false,
-    "trustedBeneficiariesAllowed": false,
-    "subIssuerAuthentMeans": [
-      {
-        "authentMeans": "MOBILE_APP_EXT",
-        "validate": true
-      },
-      {
-        "authentMeans": "REFUSAL",
-        "validate": true
-      }
-    ],
-    "npaEnabled": true,
-    "hubMaintenanceModeEnabled": false
+    "ThreeDS2AdditionalInfo":"{\"VISA\": {\"operatorId\":\"acsOperatorVisa\",\"dsKeyAlias\":\"3DS2-VISA-CERTIFICATION\"},\"MASTERCARD\": {\"operatorId\":\"acsOperatorMasterCard\",\"dsKeyAlias\": \"key-masterCard\"}}",
+    "permanentStrongMeansCounter":false,
+    "resendOTPThreshold":0,
+    "resendSameOTP":false,
+    "combinedAuthenticationAllowed":false,
+    "protocol2FlowMode":"AUTHENT_AND_CHALLENGE_MODE",
+    "displayLanguageSelectPage":false,
+    "trustedBeneficiariesAllowed":false,
+    "subIssuerAuthentMeans":[{"authentMeans":"MOBILE_APP_EXT","validate":true},{"authentMeans":"REFUSAL","validate":true}],
+    "npaEnabled":true,
+    "hubMaintenanceModeEnabled":false
   },
   "propACS_BO_Userroles": {
     "roleADMIN": true,
@@ -182,7 +169,7 @@
       "WS_WSSTANDARD_PRINCIPAL_TYPE": "CARD_HOLDER_ID",
       "WS_WSSTANDARD_KEY_TAG": "",
       "WS_WSSTANDARD_KEY_VAL": "",
-      "WS_WSSTANDARD_VERSION": ""
+      "WS_WSSTANDARD_VERSION": "21R3"
     }
   },
   "propHUB_ASR_CONFIGS_URLS": {

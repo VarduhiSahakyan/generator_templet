@@ -63,11 +63,7 @@ SET @maskParams = '[(${subIssuer.maskParams})]';
 SET @dateFormat = '[(${subIssuer.dateFormat})]';
 SET @formattedDateJavaFormat = '[(${subIssuer.formattedDateJavaFormat})]';
 SET @twoStepCancellation = [(${subIssuer.twoStepCancellation})];
-SET @paChallengePublicUrl = '{
-        "Vendome": "[(${subIssuer.paChallengePublicUrl.vendome})]",
-        "Seclin": "[(${subIssuer.paChallengePublicUrl.seclin})]",
-        "Unknown": "[(${subIssuer.paChallengePublicUrl.unknown})]"
-     }';
+SET @paChallengePublicUrl = '[(${subIssuer.paChallengePublicUrl})]';
 SET @verifyCardStatus = [(${subIssuer.verifyCardStatus})];
 SET @3DS2AdditionalInfo = '[(${subIssuer.threeDS2AdditionalInfo})]';
 SET @permanentStrongMeansCounter = [(${subIssuer.permanentStrongMeansCounter})];

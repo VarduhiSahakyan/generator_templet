@@ -128,7 +128,7 @@ public class SubIssuer {
     private String twoStepCancellation;
 
     @JsonProperty("paChallengePublicUrl")
-    private PaChallengePublicUrl paChallengePublicUrl;
+    private String paChallengePublicUrl;
 
     @JsonProperty("verifyCardStatus")
     private String verifyCardStatus;
