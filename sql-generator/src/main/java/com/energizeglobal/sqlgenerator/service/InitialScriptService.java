@@ -14,10 +14,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -136,14 +138,26 @@ public class InitialScriptService {
         context.setVariable("bankNameShort", acsProperties.getBankNameShort());
         context.setVariable("createdBy", acsProperties.getCreatedBy());
         context.setVariable("updateState", acsProperties.getUpdateState());
-//Rules
+
         List<Rule> rules = acsProperties.getRules();
-        context.setVariable("rules", rules);
 
         if ("insert".equalsIgnoreCase(sqlMode)) {
-             initialScript = textTemplateEngine.process("Insert_02_Profiles", context);
+            context.setVariable("rules", rules);
+            initialScript = textTemplateEngine.process("Insert_02_Profiles", context);
         }
         if ("update".equalsIgnoreCase(sqlMode)){
+            for (Rule rule : rules){
+                List<CustomItem> filteredItems = new ArrayList<>();
+                if (!CollectionUtils.isEmpty(rule.getProfile().getCustomItems())){
+                    for (CustomItem customItem : rule.getProfile().getCustomItems()){
+                        if ("insert".equalsIgnoreCase(customItem.getUpdateMode()) || "update".equalsIgnoreCase(customItem.getUpdateMode())){
+                            filteredItems.add(customItem);
+                        }
+                    }
+                }
+                rule.getProfile().setCustomItems(filteredItems);
+            }
+            context.setVariable("rules", rules);
             initialScript = textTemplateEngine.process("Update_02_Profiles", context);
         }
         return initialScript;
