@@ -29,7 +29,7 @@ public class InitialScriptService {
 
     private final TemplateEngine textTemplateEngine;
 
-    private AcsProperties getInitialScriptJsonData01(){
+    private AcsProperties getInitialScriptJsonData01() {
         AcsProperties acsProperties = null;
         try {
             acsProperties = new ObjectMapper().readValue(new ClassPathResource("json/01_Configuration_IAT.json").getFile(), AcsProperties.class);
@@ -39,7 +39,7 @@ public class InitialScriptService {
         return acsProperties;
     }
 
-    public AcsProperties getInitialScriptJsonData02(){
+    public AcsProperties getInitialScriptJsonData02() {
         AcsProperties acsProperties = null;
         try {
             acsProperties = new ObjectMapper().readValue(new ClassPathResource("json/02_Profiles.json").getFile(), AcsProperties.class);
@@ -49,7 +49,7 @@ public class InitialScriptService {
         return acsProperties;
     }
 
-    public String generateInitialScript01(String sqlMode){
+    public String generateInitialScript01(String sqlMode) {
         String initialScript1 = "";
         Context context = new Context();
         AcsProperties acsProperties = getInitialScriptJsonData01();
@@ -102,7 +102,7 @@ public class InitialScriptService {
 //        context.setVariable("signingCertificate2", protocolTwo.getCardNetworkCertificateMap().getMasterCard().getSigningCertificate());
 //        context.setVariable("authorityCertificate2", protocolTwo.getCardNetworkCertificateMap().getMasterCard().getAuthorityCertificate());
 //        context.setVariable("rootCertificate2", protocolTwo.getCardNetworkCertificateMap().getMasterCard().getRootCertificate());
-          context.setVariable("cryptoDescription", crypto.getCryptoDescription());
+        context.setVariable("cryptoDescription", crypto.getCryptoDescription());
 //SubIssuer
         SubIssuer subIssuer = acsProperties.getSubIssuer();
         context.setVariable("subIssuer", subIssuer);
@@ -122,13 +122,13 @@ public class InitialScriptService {
         if ("insert".equalsIgnoreCase(sqlMode)) {
             initialScript1 = textTemplateEngine.process("Insert_01_Configuration_IAT", context);
         }
-        if ("update".equalsIgnoreCase(sqlMode)){
+        if ("update".equalsIgnoreCase(sqlMode)) {
             initialScript1 = textTemplateEngine.process("Update_01_Configuration_IAT", context);
         }
         return initialScript1;
     }
 
-    public String generateInitialScript02(String sqlMode){
+    public String generateInitialScript02(String sqlMode) {
 
         String initialScript = "";
         Context context = new Context();
@@ -145,12 +145,12 @@ public class InitialScriptService {
             context.setVariable("rules", rules);
             initialScript = textTemplateEngine.process("Insert_02_Profiles", context);
         }
-        if ("update".equalsIgnoreCase(sqlMode)){
-            for (Rule rule : rules){
+        if ("update".equalsIgnoreCase(sqlMode)) {
+            for (Rule rule : rules) {
                 List<CustomItem> filteredItems = new ArrayList<>();
-                if (!CollectionUtils.isEmpty(rule.getProfile().getCustomItems())){
-                    for (CustomItem customItem : rule.getProfile().getCustomItems()){
-                        if ("insert".equalsIgnoreCase(customItem.getUpdateMode()) || "update".equalsIgnoreCase(customItem.getUpdateMode())){
+                if (!CollectionUtils.isEmpty(rule.getProfile().getCustomItems())) {
+                    for (CustomItem customItem : rule.getProfile().getCustomItems()) {
+                        if ("insert".equalsIgnoreCase(customItem.getUpdateMode()) || "update".equalsIgnoreCase(customItem.getUpdateMode())) {
                             filteredItems.add(customItem);
                         }
                     }
@@ -159,6 +159,76 @@ public class InitialScriptService {
             }
             context.setVariable("rules", rules);
             initialScript = textTemplateEngine.process("Update_02_Profiles", context);
+        }
+        return initialScript;
+    }
+
+    public String generateInitialRollbackScript02(String sqlMode) {
+
+        String initialScript = "";
+        Context context = new Context();
+        AcsProperties acsProperties = getInitialScriptJsonData02();
+
+        context.setVariable("databaseAcsBo", "U5G_ACS_BO");
+        context.setVariable("bankNameShort", acsProperties.getBankNameShort());
+        context.setVariable("createdBy", acsProperties.getCreatedBy());
+        context.setVariable("updateState", acsProperties.getUpdateState());
+
+        List<Rule> rules = acsProperties.getRules();
+
+        if ("insert".equalsIgnoreCase(sqlMode)) {
+            context.setVariable("rules", rules);
+            initialScript = textTemplateEngine.process("Insert_Rollback_02_Profiles", context);
+        }
+        if ("update".equalsIgnoreCase(sqlMode)) {
+            for (Rule rule : rules) {
+                List<CustomItem> filteredItems = new ArrayList<>();
+                if (!CollectionUtils.isEmpty(rule.getProfile().getCustomItems())) {
+                    for (CustomItem customItem : rule.getProfile().getCustomItems()) {
+                        if ("insert".equalsIgnoreCase(customItem.getUpdateMode()) || "update".equalsIgnoreCase(customItem.getUpdateMode())) {
+                            filteredItems.add(customItem);
+                        }
+                    }
+                }
+                rule.getProfile().setCustomItems(filteredItems);
+            }
+            context.setVariable("rules", rules);
+            initialScript = textTemplateEngine.process("Update_Rollback_02_Profiles", context);
+        }
+        return initialScript;
+    }
+
+    public String generateSelectScript02(String sqlMode) {
+
+        String initialScript = "";
+        Context context = new Context();
+        AcsProperties acsProperties = getInitialScriptJsonData02();
+
+        context.setVariable("databaseAcsBo", "U5G_ACS_BO");
+        context.setVariable("bankNameShort", acsProperties.getBankNameShort());
+        context.setVariable("createdBy", acsProperties.getCreatedBy());
+        context.setVariable("updateState", acsProperties.getUpdateState());
+
+        List<Rule> rules = acsProperties.getRules();
+
+        if ("insert".equalsIgnoreCase(sqlMode)) {
+            context.setVariable("rules", rules);
+            initialScript = textTemplateEngine.process("Select_02_Profiles", context);
+        }
+        if ("update".equalsIgnoreCase(sqlMode)) {
+            for (Rule rule : rules) {
+                List<CustomItem> filteredItems = new ArrayList<>();
+                if (!CollectionUtils.isEmpty(rule.getProfile().getCustomItems())) {
+                    for (CustomItem customItem : rule.getProfile().getCustomItems()) {
+                        if ("insert".equalsIgnoreCase(customItem.getUpdateMode()) || "update".equalsIgnoreCase(customItem.getUpdateMode())) {
+                            filteredItems.add(customItem);
+                        }
+                    }
+                }
+                rule.getProfile().setCustomItems(filteredItems);
+            }
+            context.setVariable("rules", rules);
+            initialScript = textTemplateEngine.process("Update_Select_02_Profiles", context);
         }
         return initialScript;
     }

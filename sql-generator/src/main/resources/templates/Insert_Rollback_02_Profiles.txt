@@ -1,0 +1,53 @@
+/* ---------------------------------------------------------------------- insert_rollback_02_initial_script --------------------------------------------------------------------- */
+USE `[(${databaseAcsBo})]`;
+
+SET @bankNameShort = '[(${bankNameShort})]';
+SET @profileSetId = (SELECT `id` FROM `ProfileSet` WHERE `name` = CONCAT('PS_', @bankNameShort, '_01'));
+[# th:each="rule : ${rules}"]
+SET @ruleName = '[(${rule.ruleName})]';
+SET @profileName = '[(${rule.profile.name})]';
+SET @profileId = (SELECT id FROM `Profile` WHERE `name` = @profileName);
+SET @ruleId = (SELECT id FROM `Rule` WHERE `name` = @ruleName AND `fk_id_profile` = @profileId);
+SET @customItemSetName  = '[(${rule.profile.name})]';
+SET @customItemSetId = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @customItemSetName));
+    [# th:each="condition : ${rule.conditions}"]
+        [# th:each="transactionStatuse : ${condition.transactionStatuses}"]
+/* ---------------------------------- Condition_TransactionStatuses - [(${transactionStatuse.transactionStatusType})] ----------------------- */
+
+SET @ruleConditionId = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C[(${conditionStat.count})]_P_', @bankNameShort, '_', @ruleName));
+
+DELETE FROM `Condition_TransactionStatuses` WHERE `id_condition` = @ruleConditionId;       [/]
+
+
+/* ----------------------------- Condition_MeansProcessStatuses ---------------------------- */
+
+SET @ruleConditionId = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C[(${conditionStat.count})]_P_', @bankNameShort, '_', @ruleName));
+
+DELETE FROM `Condition_MeansProcessStatuses` WHERE `id_condition` = @ruleConditionId;  [/]
+
+/* ---------------------------------------------------- Rule Condition --------------------------------------------- */
+
+DELETE FROM `RuleCondition` WHERE `fk_id_rule` = @ruleId;
+
+/* ---------------------------------------------------- ProfileSet_Rule --------------------------------------------- */
+
+DELETE FROM `ProfileSet_Rule` WHERE `id_profileSet` = @profileSetId;
+
+/* ------------------------------------------------ Rule-[(${rule.ruleName})] ---------------------------------------- */
+
+DELETE FROM `Rule` WHERE `id` = @ruleId;
+
+/* ---------------------------------------------------- Profile-[(${rule.profile.name})] --------------------------------- */
+
+DELETE FROM `Profile` WHERE `id` = @profileId;
+
+/* ------------------------------------------------ CustomItem -------------------------------------------------- */
+
+DELETE FROM `CustomItem` WHERE `fk_id_customItemSet` = @customItemSetId;
+
+/* ----------------------------------------- CustomItemSet-[(${rule.profile.name})] ---------------------------------- */
+
+DELETE FROM `CustomItemSet` WHERE `id` = @customItemSetId;
+
+[/]
+

@@ -1,0 +1,69 @@
+/* ---------------------------------------------------------------------- select_02_initial_script --------------------------------------------------------------------- */
+USE `[(${databaseAcsBo})]`;
+
+SET @bankNameShort = '[(${bankNameShort})]';
+SET @profileSetId = (SELECT `id` FROM `ProfileSet` WHERE `name` = CONCAT('PS_', @bankNameShort, '_01'));
+[# th:each="rule : ${rules}"]
+/* ----------------------------------------- CustomItemSet-[(${rule.profile.name})] ---------------------------------- */
+[# th:unless="${rule.profile.authentMeans} == 'ACCEPT' OR ${rule.profile.authentMeans} == 'DECLINE'"]
+SET @customItemSetName  = '[(${rule.profile.name})]';
+SET @customItemSetId = (SELECT id FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @customItemSetName));
+
+SELECT * FROM `CustomItemSet` WHERE `name` = CONCAT('customitemset_', @customItemSetName);[/]
+
+/* ---------------------------------------------------- Profile-[(${rule.profile.name})] ---------------------------------- */
+
+SET @profileName = '[(${rule.profile.name})]';
+
+SELECT * FROM `Profile` WHERE `name` = @profileName;
+
+/* ------------------------------------------------ Rule-[(${rule.ruleName})] ---------------------------------------- */
+
+SET @ruleName = '[(${rule.ruleName})]';
+SET @profileId = (SELECT id FROM `Profile` WHERE `name` = @profileName);
+SET @ruleId = (SELECT id FROM `Rule` WHERE `name` = @ruleName AND `fk_id_profile` = @profileId);
+
+SELECT * FROM `Rule` WHERE `name` = @ruleName AND `fk_id_profile` = @profileId;
+
+/* ---------------------------------------------------- ProfileSet_Rule --------------------------------------------- */
+
+SELECT * FROM `ProfileSet_Rule` WHERE `id_profileSet` = @profileSetId and `id_rule` = @ruleId;
+         [# th:each="condition : ${rule.conditions}"]
+/* ---------------------------------------------------- Rule Condition - C[(${conditionStat.count})] - [(${rule.ruleName})] --------------------------------------------- */
+
+SET @ruleConditionId = (SELECT `id` FROM `RuleCondition` WHERE `name` = CONCAT('C[(${conditionStat.count})]_P_', @bankNameShort, '_', @ruleName));
+
+SELECT * FROM `RuleCondition` WHERE `name` = CONCAT('C[(${conditionStat.count})]_P_', @bankNameShort, '_', @ruleName);
+
+        [# th:each="transactionStatuse : ${condition.transactionStatuses}"]
+
+/* ---------------------------------- Condition_TransactionStatuses - [(${transactionStatuse.transactionStatusType})] ----------------------- */
+
+SET @transactionStatusType = '[(${transactionStatuse.transactionStatusType})]';
+SET @reversed = [(${transactionStatuse.reversed})];
+SET @transactionStatusesId = (SELECT `id` FROM `TransactionStatuses` WHERE `transactionStatusType` = @transactionStatusType AND `reversed` = @reversed);
+
+SELECT * FROM `Condition_TransactionStatuses` WHERE `id_transactionStatuses` = @transactionStatusesId AND `id_condition` = @ruleConditionId; [/]
+
+        [# th:each="meansProcessStatuse : ${condition.meansProcessStatuses}"]
+
+/* ----------------------------- Condition_MeansProcessStatuses - [(${meansProcessStatuse.meansProcessStatusType})]---------------------------- */
+
+SET @meansProcessStatusType = '[(${meansProcessStatuse.meansProcessStatusType})]';
+SET @reversed = [(${meansProcessStatuse.reversed})];
+SET @authentMeansId = (SELECT id FROM `AuthentMeans` WHERE `name` = '[(${meansProcessStatuse.authentMeans})]');
+SET @meansProcessStatusesId = (SELECT `id` FROM `MeansProcessStatuses` WHERE `fk_id_authentMean` = @authentMeansId AND `meansProcessStatusType` = @meansProcessStatusType AND `reversed` = @reversed);
+
+SELECT * FROM `Condition_MeansProcessStatuses`  WHERE `id_meansProcessStatuses` = @meansProcessStatusesId AND `id_condition` = @ruleConditionId;     [/][/]
+
+/* ------------------------------------------------ CustomItem -------------------------------------------------- */
+
+    [# th:each="customItem : ${rule.profile.customItems}"]
+SET @dType = '[(${customItem.DType})]';
+SET @ordinal = [(${customItem.ordinal})];
+SET @pageType = '[(${customItem.pageType})]';
+SET @locale = '[(${customItem.locale})]';
+
+SELECT * FROM `CustomItem` WHERE `DTYPE` = @dType AND `pageTypes` = @pageType AND `locale` = @locale AND `ordinal` = @ordinal AND `fk_id_customItemSet` = @customItemSetId;
+
+[/][/]

@@ -84,7 +84,11 @@ public class InitialScriptController {
     public ResponseEntity<String> generateInitialScript02(@RequestBody String sqlMode){
 
         String sql = initialScriptService.generateInitialScript02(sqlMode);
+        String insertRollbackSql = initialScriptService.generateInitialRollbackScript02(sqlMode);
+        String selectSql = initialScriptService.generateSelectScript02(sqlMode);
         writeSQLToFile("02_Profiles.sql", sql);
+        writeSQLToFile("Rollback_02_Profiles.sql", insertRollbackSql);
+        writeSQLToFile("Select_02_Profiles.sql", selectSql);
         return ResponseEntity.ok(sql);
     }
 
