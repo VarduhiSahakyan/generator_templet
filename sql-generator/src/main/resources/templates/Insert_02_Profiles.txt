@@ -29,12 +29,11 @@ SET @maxAttempts = [(${rule.profile.maxAttempts})];
 SET @dataEntryFormat = '[(${rule.profile.dataEntryFormat})]';
 SET @dataEntryAllowedPattern = '[(${rule.profile.dataEntryAllowedPattern})]';
 SET @authenticationMethod  = '[(${rule.profile.authenticationMethod })]';
-SET @isCallbackCompatible  = [(${rule.profile.isCallbackCompatible })];
 SET @authentMeansId = (SELECT id FROM `AuthentMeans` WHERE `name` = '[(${rule.profile.authentMeans})]');
 
-INSERT INTO `Profile` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `maxAttempts`,`dataEntryFormat`, `dataEntryAllowedPattern`, `authenticationMethod`, `isCallbackCompatible`,
+INSERT INTO `Profile` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `maxAttempts`,`dataEntryFormat`, `dataEntryAllowedPattern`, `authenticationMethod`,
 						`fk_id_authentMeans`, `fk_id_customItemSetCurrent`, `fk_id_customItemSetOld`, `fk_id_customItemSetNew`, `fk_id_subIssuer`) VALUES
-(@createdBy, NOW(), NULL, NULL, NULL, @profileName, @updateState, @maxAttempts, @dataEntryFormat, @dataEntryAllowedPattern, @authenticationMethod, @isCallbackCompatible,
+(@createdBy, NOW(), NULL, NULL, NULL, @profileName, @updateState, @maxAttempts, @dataEntryFormat, @dataEntryAllowedPattern, @authenticationMethod,
 @authentMeansId, @customItemSetId, NULL, NULL, @subIssuerId);
 
 SET @profileId = (SELECT id FROM `Profile` WHERE `name` = @profileName);
@@ -57,7 +56,6 @@ INSERT INTO `ProfileSet_Rule` (`id_profileSet`, `id_rule`) VALUES
 /* ---------------------------------------------------- Rule Condition - C[(${conditionStat.count})] - [(${rule.ruleName})] --------------------------------------------- */
 INSERT INTO `RuleCondition` (`createdBy`, `creationDate`, `description`, `lastUpdateBy`, `lastUpdateDate`, `name`, `updateState`, `fk_id_rule`) VALUES
 (@createdBy, NOW(), NULL, NULL, NULL, CONCAT('C[(${conditionStat.count})]_P_', @bankNameShort, '_', @ruleName), @updateState,  @ruleId);
-
 [# th:each="transactionStatuse : ${condition.transactionStatuses}"]
 /* ---------------------------------- Condition_TransactionStatuses - [(${transactionStatuse.transactionStatusType})] ----------------------- */
 SET @transactionStatusType = '[(${transactionStatuse.transactionStatusType})]';
@@ -83,6 +81,7 @@ AND mps.`fk_id_authentMean` = @authentMeansId AND mps.`meansProcessStatusType` =
 [/][/]
 /* ------------------------------------------------ CustomItem -------------------------------------------------- */
 [# th:each="customItem : ${rule.profile.customItems}"]
+[# th:if="${customItem.updateMode} == 'insert'"]
 SET @dType = '[(${customItem.DType})]';
 SET @name = '[(${customItem.name})]';
 SET @ordinal = [(${customItem.ordinal})];
@@ -105,6 +104,7 @@ INSERT INTO `CustomItem` (`DTYPE`, `createdBy`, `creationDate`, `description`, `
 (@dType, @createdBy, NOW(), NULL, NULL, NULL, CONCAT(@authentMeans,'_',@pageType,'_',@ordinal), @updateState,
  @locale, @ordinal, @pageType, @value, NULL, NULL, @customItemSetId );
 
+[/]
 [/]
 [/]
 [/]
